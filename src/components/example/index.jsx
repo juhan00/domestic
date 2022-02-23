@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { ExampleWrapper } from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { increaseCount } from "@reducers/counter/actionType";
+import dummy from "@images/dummy.png";
 const Example = ({ exampleMessage }) => {
   const count = useSelector((state) => state.counter.count);
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const Example = ({ exampleMessage }) => {
       <div>
         <button onClick={onClickButton}>누르면 카운트가 증가해요</button>
       </div>
+      <img src={dummy} />
       <div>{exampleMessage}</div>
     </ExampleWrapper>
   );
