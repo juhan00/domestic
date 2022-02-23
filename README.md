@@ -1,6 +1,6 @@
 ## 주제
 
-`내 책상 위의 애널리스트, MoYa for Desktop📈`의 협업을 위한 boiler-plate 입니다.
+`내 책상 위의 애널리스트, MoYa for Desktop📈`의 협업을 위한 레포지토리입니다.
 
 ## 실행방법
 
