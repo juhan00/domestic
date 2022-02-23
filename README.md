@@ -16,6 +16,7 @@ npm run dev
 2. prettier , eslint를 이용하여 코드 컨벤션을 설정하였습니다.
 3. redux, redux-saga를 위한 코드 패턴과 예시를 작성하였습니다.
 4. @redux-devtools/extension을 적용하였습니다.
+5. gitflow를 적용하였습니다.
 
    [redux devtools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)크롬 익스텐션을 설치하여야 합니다.
 
