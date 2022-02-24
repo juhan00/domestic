@@ -15,6 +15,7 @@ module.exports = {
     //경로
     filename: "bundle.js",
     //결과물의 이름
+    publicPath: "/",
   },
   resolve: {
     extensions: [".js", ".jsx", "json"],
@@ -65,6 +66,7 @@ module.exports = {
     },
     port: 3000,
     hot: true,
+    historyApiFallback: true,
     proxy: {
       "/api": {
         target: "https://opendart.fss.or.kr",
