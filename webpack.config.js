@@ -65,6 +65,12 @@ module.exports = {
     },
     port: 3000,
     hot: true,
+    proxy: {
+      "/api": {
+        target: "https://opendart.fss.or.kr",
+        changeOrigin: true,
+      },
+    },
   },
   //   https://webpack.js.org/configuration/dev-server/
 };
