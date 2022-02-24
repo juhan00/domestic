@@ -11,7 +11,7 @@ assignees: GyoHeonLee
 설명을 작성하세요.
 
 # Tasks
-- [] 할 일
+- [ ] 할 일
 
 # ETC
 기타 사항
