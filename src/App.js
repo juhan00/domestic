@@ -4,6 +4,7 @@ import React from "react";
 import Home from "./routes/Home";
 import Domestic from "./routes/Domestic";
 import Global from "./routes/Global";
+import DoFinancial from "./routes/DoFinancial";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="domestic" element={<Domestic />} />
+        <Route path="domestic/dofinancial" element={<DoFinancial />} />
         <Route path="global" element={<Global />} />
 
         <Route

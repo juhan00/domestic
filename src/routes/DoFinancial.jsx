@@ -1,0 +1,47 @@
+import React from "react";
+import Table from "../components/Domestice/Financial/Table";
+import DoFinancialHeader from "../components/Domestice/Financial/DoFinancialHeader";
+import DoFinancialGraph from "../components/Domestice/Financial/DoFinancialGraph";
+import DoFinancialDailyPrice from "../components/Domestice/Financial/DoFinancialDailyPrice";
+import axios from "redaxios";
+import { useEffect } from "react";
+
+const DoFinancial = () => {
+  const BASE_URL =
+    "http://apis.data.go.kr/1160100/service/GetFinaStatInfoService/getIncoStat";
+  const ENKEY =
+    "cu0lcgBuH%2FrN634Xo5zS%2FItAfe5NoB0Q0q8t%2B9nYUT5PCyzjdFM%2BOyYSTQ2Isq699SntDlAXR7raszep80BWkw%3D%3D";
+  const DEKEY =
+    "cu0lcgBuH/rN634Xo5zS/ItAfe5NoB0Q0q8t+9nYUT5PCyzjdFM+OyYSTQ2Isq699SntDlAXR7raszep80BWkw==";
+  // useEffect(() => {
+  //   axios({
+  //     method: "get",
+  //     url: BASE_URL,
+  //     params: {
+  //       serviceKey: DEKEY,
+  //       numOfRows: 1,
+  //       pageNo: 1,
+  //       resultType: "json",
+  //       crno: 1101111848914,
+  //       bizYear: 2018,
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((x) => console.log(x));
+  // }, []);
+
+  return (
+    <>
+      <DoFinancialHeader />
+      <section style={{ display: "flex" }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <DoFinancialGraph />
+          <DoFinancialDailyPrice />
+        </div>
+        <Table />
+      </section>
+    </>
+  );
+};
+
+export default DoFinancial;

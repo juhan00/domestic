@@ -69,7 +69,7 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       "/api": {
-        target: "https://opendart.fss.or.kr",
+        target: "",
         changeOrigin: true,
       },
     },
