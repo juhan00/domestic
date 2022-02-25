@@ -8,7 +8,6 @@ export const TableWrapper = styled.table`
   height: 100%;
 `;
 export const Row = styled.tr`
-  display: table-row;
   height: 36px;
   .table__header {
     height: 100px;
@@ -20,7 +19,6 @@ export const Row = styled.tr`
 `;
 export const Cell = styled.td`
   border: 1px solid blue;
-  display: table-cell;
   width: 60px;
   .header__menu {
     background-color: aqua;
