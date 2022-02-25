@@ -4,26 +4,33 @@ import React from "react";
 import Home from "./routes/Home";
 import Domestic from "./routes/Domestic";
 import Global from "./routes/Global";
+import DoComInfo from "./routes/DoComInfo";
+import DoStatement from "./routes/DoStatement";
+import { Layout } from "./components/Layout";
 
 const App = () => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <GlobalStyle />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="domestic" element={<Domestic />} />
-        <Route path="global" element={<Global />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/domestic" element={<Domestic />} />
+          <Route path="/domestic/cominfo" element={<DoComInfo />} />
+          <Route path="/domestic/statement" element={<DoStatement />} />
+          <Route path="/global" element={<Global />} />
 
-        <Route
-          path="*"
-          element={
-            <main>
-              <p>There's nothing here!</p>
-            </main>
-          }
-        />
+          <Route
+            path="*"
+            element={
+              <main>
+                <p>There's nothing here!</p>
+              </main>
+            }
+          />
+        </Route>
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 };
 
