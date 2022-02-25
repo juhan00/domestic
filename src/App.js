@@ -5,25 +5,28 @@ import Home from "./routes/Home";
 import Domestic from "./routes/Domestic";
 import Global from "./routes/Global";
 import DoFinancial from "./routes/DoFinancial";
+import { Layout } from "./components/Layout";
 
 const App = () => {
   return (
     <HashRouter>
       <GlobalStyle />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="domestic" element={<Domestic />} />
-        <Route path="domestic/dofinancial" element={<DoFinancial />} />
-        <Route path="global" element={<Global />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="domestic" element={<Domestic />} />
+          <Route path="domestic/dofinancial" element={<DoFinancial />} />
+          <Route path="global" element={<Global />} />
 
-        <Route
-          path="*"
-          element={
-            <main>
-              <p>There's nothing here!</p>
-            </main>
-          }
-        />
+          <Route
+            path="*"
+            element={
+              <main>
+                <p>There's nothing here!</p>
+              </main>
+            }
+          />
+        </Route>
       </Routes>
     </HashRouter>
   );
