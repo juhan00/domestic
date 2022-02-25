@@ -5,7 +5,7 @@ import Home from "./routes/Home";
 import Domestic from "./routes/Domestic";
 import Global from "./routes/Global";
 import DoComInfo from "./routes/DoComInfo";
-import DoStatement from "./routes/DoStatement";
+import DoStatistics from "./routes/DoStatistics";
 import { Layout } from "./components/Layout";
 
 const App = () => {
@@ -17,7 +17,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/domestic" element={<Domestic />} />
           <Route path="/domestic/cominfo" element={<DoComInfo />} />
-          <Route path="/domestic/statement" element={<DoStatement />} />
+          <Route path="/domestic/statistics" element={<DoStatistics />} />
           <Route path="/global" element={<Global />} />
 
           <Route

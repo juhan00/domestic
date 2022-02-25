@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 export const NavStyle = styled.nav`
   position: fixed;
   z-index: 999;
-  float:left
+  float: left;
   top: 0;
   left: 0;
   width: 248px;
