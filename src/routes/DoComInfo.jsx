@@ -1,12 +1,12 @@
 import React from "react";
-import Table from "../components/Domestice/Financial/Table";
-import DoFinancialHeader from "../components/Domestice/Financial/DoFinancialHeader";
-import DoFinancialGraph from "../components/Domestice/Financial/DoFinancialGraph";
-import DoFinancialDailyPrice from "../components/Domestice/Financial/DoFinancialDailyPrice";
+import Table from "../components/Domestic/ComInfo/Table";
+import ComInfoHeader from "../components/Domestic/ComInfo/ComInfoHeader";
+import ComInfoGraph from "../components/Domestic/ComInfo/ComInfoGraph";
+import ComInfoDailyPrice from "../components/Domestic/ComInfo/ComInfoDailyPrice";
 import axios from "redaxios";
 import { useEffect } from "react";
 
-const DoFinancial = () => {
+const DoComInfo = () => {
   const BASE_URL =
     "http://apis.data.go.kr/1160100/service/GetFinaStatInfoService/getIncoStat";
   const ENKEY =
@@ -32,11 +32,11 @@ const DoFinancial = () => {
 
   return (
     <>
-      <DoFinancialHeader />
+      <ComInfoHeader />
       <section style={{ display: "flex" }}>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <DoFinancialGraph />
-          <DoFinancialDailyPrice />
+          <ComInfoGraph />
+          <ComInfoDailyPrice />
         </div>
         <Table />
       </section>
@@ -44,4 +44,4 @@ const DoFinancial = () => {
   );
 };
 
-export default DoFinancial;
+export default DoComInfo;
