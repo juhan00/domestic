@@ -9,7 +9,6 @@ import Header from "../components/Domestic/Statistics/Header";
 const DoStatistics = () => {
   return (
     <>
-      <Header />
       <section style={{ display: "flex" }}>
         <StatisticsOptions />
         <StatisticsTable />
