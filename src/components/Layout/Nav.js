@@ -27,7 +27,7 @@ const Nav = () => {
               <NavLink to="/menu2">기업정보</NavLink>
             </li>
             <li>
-              <NavLink to="/menu3">재무데이터</NavLink>
+              <NavLink to="/domestic/statistics">재무데이터</NavLink>
             </li>
             <li>
               <NavLink to="/menu4">기업공시</NavLink>
