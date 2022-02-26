@@ -1,5 +1,11 @@
 import React from "react";
-import { TableWrapper, TableHeader, TableBody, Row, Cell } from "./style";
+import {
+  TableWrapper,
+  TableHeader,
+  TableBody,
+  Row,
+  Cell,
+} from "../../Main/statisticsTable/style";
 
 const StatisticsTable = () => {
   return (
