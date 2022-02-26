@@ -39,9 +39,11 @@ export const Row = styled.tr`
   .table__header {
     height: 100px;
   }
-  .header__menu {
+  .title {
     background-color: tomato;
-    width: 100px;
+  }
+  .sub__title {
+    background-color: blanchedalmond;
   }
 `;
 export const Cell = styled.td`
