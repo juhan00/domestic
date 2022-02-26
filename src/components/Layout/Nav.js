@@ -30,7 +30,7 @@ const Nav = () => {
               <NavLink to="/domestic/statistics">재무데이터</NavLink>
             </li>
             <li>
-              <NavLink to="/menu4">기업공시</NavLink>
+              <NavLink to="/domestic/disclosure">기업공시</NavLink>
             </li>
             <li>
               <NavLink to="/menu5">통계</NavLink>

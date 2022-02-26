@@ -47,13 +47,13 @@ const Disclosure = () => {
 }
 console.log(getToday(date[period]))
 
-  useEffect(() => {
-    const data = axios(url)
-      .then((res) => res.data)
-      .then((data) => {
-        // console.log(data)
-      });
-  }, []);
+  // useEffect(() => {
+  //   const data = axios(url)
+  //     .then((res) => res.data)
+  //     .then((data) => {
+  //       // console.log(data)
+  //     });
+  // }, []);
 
   function handleFormSubmit(event) {
     event.preventDefault()
