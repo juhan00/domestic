@@ -1,5 +1,11 @@
 import React from "react";
-import { OptionsWrapper, TableHeader, TableBody, Row, Cell } from "./style";
+import {
+  OptionsWrapper,
+  TableHeader,
+  TableBody,
+  Row,
+  Cell,
+} from "../../Main/statisticsOptions/style";
 
 const StatisticsOptions = (props) => {
   return (
@@ -29,7 +35,9 @@ const StatisticsOptions = (props) => {
         <TableBody>
           <tbody>
             <Row>
-              <Cell className="title">영업이익</Cell>
+              <Cell className="title">
+                <div>영업이익</div>
+              </Cell>
             </Row>
             <Row>
               <Cell className="sub__title">매출 총이익</Cell>
@@ -50,7 +58,9 @@ const StatisticsOptions = (props) => {
               <Cell>유형고정자산</Cell>
             </Row>
             <Row>
-              <Cell className="title">영업외 수익</Cell>
+              <Cell className="title">
+                <div>영업외 수익</div>
+              </Cell>
             </Row>
             <Row>
               <Cell>이자비용</Cell>
@@ -68,7 +78,9 @@ const StatisticsOptions = (props) => {
               <Cell>법인세, 이자, 감가상각비 차감전 이익</Cell>
             </Row>
             <Row>
-              <Cell className="title">통합소득</Cell>
+              <Cell className="title">
+                <div>통합소득</div>
+              </Cell>
             </Row>
             <Row>
               <Cell>당기순이익</Cell>
@@ -86,7 +98,9 @@ const StatisticsOptions = (props) => {
               <Cell>보통주순이익</Cell>
             </Row>
             <Row>
-              <Cell className="title">주당순이익</Cell>
+              <Cell className="title">
+                <div>주당순이익</div>
+              </Cell>
             </Row>
             <Row>
               <Cell>희당주석순이익</Cell>

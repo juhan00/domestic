@@ -1,5 +1,11 @@
 import React from "react";
-import { OptionsWrapper, TableHeader, TableBody, Row, Cell } from "./style";
+import {
+  OptionsWrapper,
+  TableHeader,
+  TableBody,
+  Row,
+  Cell,
+} from "../../Main/statisticsOptions/style";
 
 const StatisticsOptions = (props) => {
   return (

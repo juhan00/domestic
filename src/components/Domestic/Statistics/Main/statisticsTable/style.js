@@ -1,18 +1,14 @@
 import styled from "@emotion/styled";
 
 export const TableWrapper = styled.div`
-  border: 1px solid blue;
+  border: 3px solid brown;
 
   max-width: 1195px;
   width: 100%;
-  max-height: 991px;
-  height: 100%;
   margin: 0 10px 10px 10px;
 `;
 
 export const TableHeader = styled.table`
-  background-color: red;
-
   width: 100%;
   border-radius: 12px;
   td {
@@ -20,16 +16,21 @@ export const TableHeader = styled.table`
   }
   .table__header {
     background-color: #5fb6ad;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
   }
 `;
 
 export const TableBody = styled.table`
-  background-color: aqua;
-
   width: 100%;
   min-height: 598px;
   margin-top: 20px;
   border-radius: 12px;
+  td {
+    text-align: end;
+  }
 `;
 
 export const Row = styled.tr`
@@ -44,7 +45,10 @@ export const Row = styled.tr`
 `;
 export const Cell = styled.td`
   border: 1px solid blue;
+  vertical-align: middle;
   width: 60px;
+  font-size: 14px;
+  line-height: 22px;
   .header__menu {
     background-color: aqua;
     width: 50px;
