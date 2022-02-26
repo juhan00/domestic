@@ -1,10 +1,13 @@
 import React from "react";
-import Disclosure from "../components/disclosure"; // 공시 페이지 임시 랜더링
 
 const Home = () => {
-  return <body>test
-    <Disclosure /> {/* 공시 페이지 임시 랜더링 */}
-  </body>;
+  return (
+    <body style={{ display: "flex", flexDirection: "column" }}>
+      <a href="/domestic">domestic</a>
+      <a href="/domestic/cominfo">domestic-cominfo</a>
+      <a href="/domestic/statistics">domestic-statistics</a>
+    </body>
+  );
 };
 
 export default Home;
