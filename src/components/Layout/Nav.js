@@ -45,13 +45,13 @@ const Nav = () => {
           </div>
           <ul className="subMenu">
             <li>
-              <NavLink to="//">주식뉴스분석</NavLink>
+              <NavLink to="/domestic/dofinancial">주식뉴스분석</NavLink>
             </li>
             <li>
               <NavLink to="//">기업정보</NavLink>
             </li>
             <li>
-              <NavLink to="//">재무데이터</NavLink>
+              <NavLink to="/domestic/statistics">재무데이터</NavLink>
             </li>
             <li>
               <NavLink to="//">기업공시</NavLink>
