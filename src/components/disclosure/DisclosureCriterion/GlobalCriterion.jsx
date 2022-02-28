@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { DisclosureCriterionWrapper } from "./style";
 
-const DisclosureCriterion = () => {
+const GlobalCriterion = () => {
   const [period, setPeriod] = useState("oneY");
 
   const date = {
@@ -43,88 +43,88 @@ const DisclosureCriterion = () => {
             <input type="date" defaultValue={getToday(date.today)} min={date.oneM} max={date.oneM} />
             <div>                
               <input type="radio" id="oneM" name="period" onChange={handleRadioChange} checked={period === "oneM"} />
-              <label htmlFor="oneM">1개월</label>
+              <label htmlFor="oneM">1M</label>
             </div>
             <div>
               <input type="radio" id="sixM" name="period" onChange={handleRadioChange} checked={period === "sixM"} />
-              <label htmlFor="sixM">6개월</label>
+              <label htmlFor="sixM">6M</label>
             </div>
             <div>
               <input type="radio" id="oneY" name="period" onChange={handleRadioChange} checked={period === "oneY"} />
-              <label htmlFor="oneY">1년</label>
+              <label htmlFor="oneY">1Y</label>
             </div>
             <div>
               <input type="radio" id="threeY" name="period" onChange={handleRadioChange} checked={period === "threeY"} />
-              <label htmlFor="threeY">3년</label>
+              <label htmlFor="threeY">3Y</label>
             </div>
             <div>
               <input type="radio" id="fiveY" name="period" onChange={handleRadioChange} checked={period === "fiveY"} />
-              <label htmlFor="fiveY">5년</label>
+              <label htmlFor="fiveY">5Y</label>
             </div>
             <div>
               <input type="radio" id="tenY" name="period" onChange={handleRadioChange} checked={period === "tenY"} />
-              <label htmlFor="tenY">10년</label>
+              <label htmlFor="tenY">10Y</label>
             </div>
           </div>
           <div className="setType">
             <div>
               <label htmlFor="typeA">
                 <input type="checkbox" id="typeA" name="typeA" />
-                정기공시
+                All
               </label>
             </div>
             <div>
               <label htmlFor="typeB">
                 <input type="checkbox" id="typeB" name="typeB" />
-                주요사항보고
+                LSE
               </label>
             </div>
             <div>
               <label htmlFor="typeC">
                 <input type="checkbox" id="typeC" name="typeC" />
-                발행공시
+                SEC
               </label>
             </div>
             <div>
               <label htmlFor="typeD">
                 <input type="checkbox" id="typeD" name="typeD" />
-                지분공시
+                GB
               </label>
             </div>
             <div>
               <label htmlFor="typeE">
                 <input type="checkbox" id="typeE" name="typeE" />
-                기타공시
+                General
               </label>
             </div>
             <div>
               <label htmlFor="typeF">
                 <input type="checkbox" id="typeF" name="typeF" />
-                외부감사관련
+                Capital
               </label>
             </div>
             <div>
               <label htmlFor="typeG">
                 <input type="checkbox" id="typeG" name="typeG" />
-                펀드공시
+                Company Info
               </label>
             </div>
             <div>
               <label htmlFor="typeH">
                 <input type="checkbox" id="typeH" name="typeH" />
-                자산유동화
+                Type - A
               </label>
             </div>
             <div>
               <label htmlFor="typeI">
                 <input type="checkbox" id="typeI" name="typeI" />
-                거래소공시
+                Type - B
               </label>
             </div>
             <div>
               <label htmlFor="typeJ">
                 <input type="checkbox" id="typeJ" name="typeJ" />
-                공정위공시
+                Type - C
               </label>
             </div>
           </div>
@@ -135,4 +135,4 @@ const DisclosureCriterion = () => {
   )
 }
 
-export default DisclosureCriterion;
+export default GlobalCriterion;

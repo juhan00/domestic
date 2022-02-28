@@ -49,6 +49,7 @@ const App = () => {
             <Route path="Income" element={<GoIncome />} />
             <Route path="CashFlow" element={<GoCashFlow />} />
           </Route>
+          <Route path="/global/disclosure" element={<Disclosure />} />
 
           <Route
             path="*"

@@ -2,8 +2,10 @@ import React, {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import { DisclosureWrapper } from "./style";
 import axios from 'redaxios'
-import DisclosureCriterion from "./DisclosureCriterion"
-import DisclosureList from "./DisclosureList"
+import DomesticCriterion from "./DisclosureCriterion/DomesticCriterion"
+import GlobalCriterion from "./DisclosureCriterion/GlobalCriterion"
+import DomesticList from "./DisclosureList/DomesticList"
+import GlobalList from "./DisclosureList/GlobalList"
 
 const hardCode = {
   crtfc_key: '40529f7f2d13f0da1ede1202e7cac575cf0419be', // API 인증키	
@@ -29,7 +31,6 @@ const url = `https://opendart.fss.or.kr`
           + `page_count=${hardCode.page_count}`
 
 const Disclosure = () => {
-
   useEffect(() => {
     // const data = axios(url)
     //   .then((res) => res.data)
@@ -37,13 +38,19 @@ const Disclosure = () => {
     //     console.log(data)
     //   });
   }, []);
-
+  const isDomestic = window.location.pathname.substring(1,2) === 'd'
+  console.log(isDomestic)
 
   return (
     <DisclosureWrapper>
       <div className="disclosure">
-        <DisclosureCriterion />
-        <DisclosureList />
+        {isDomestic && <> 
+          <DomesticCriterion />
+          <DomesticList />
+        </> || <> 
+          <GlobalCriterion />
+          <GlobalList />
+        </>}
       </div>
     </DisclosureWrapper>
   );
