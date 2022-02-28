@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import MainStockIndex from "@components/Domestic/Main/MainStockIndex";
 import MainHeadeer from "@components/Domestic/Main/MainHeadeer";
 import MainTopStock from "@components/Domestic/Main/MainTopStock/index";
@@ -36,11 +36,22 @@ const initialInterestStocks = [
 ];
 
 const Domestic = () => {
+  const [recentStocks, setRecentStocks] = useState(initialRecentStocks);
+  const [interestStocks, setInterestStocks] = useState(initialInterestStocks);
+
   return (
     <>
       <div style={{ display: "flex", flexFlow: "row wrap" }}>
-        <MainHeadeer type="recent" stocks={initialRecentStocks} />
-        <MainHeadeer type="interest" stocks={initialInterestStocks} />
+        <MainHeadeer
+          type="recent"
+          stocks={recentStocks}
+          setStocks={setRecentStocks}
+        />
+        <MainHeadeer
+          type="interest"
+          stocks={interestStocks}
+          setStocks={setInterestStocks}
+        />
       </div>
       <div style={{ display: "flex" }}>
         <MainStockIndex />

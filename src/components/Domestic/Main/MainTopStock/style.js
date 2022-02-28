@@ -6,14 +6,21 @@ export const TopStock = styled.div`
   min-height: 300px;
   height: 100%;
   padding: 10px;
+  ul.filter{
+    display:flex;
+    margin-left:auto;
+    li{
+      padding:10px;
+      cursor:pointer;
+      &.active{
+        background-color:#5FB6AD;
+      }
+      
+    }
+  }
   & > table {
     width: 100%;
     margin-top: 20px;
-    text-align: center;
-    & > thead {
-    }
-    & > tbody {
-      margin-top: 10px;
-    }
+    text-align: center;}
   }
 `;

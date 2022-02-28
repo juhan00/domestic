@@ -16,7 +16,23 @@ export const Header = styled.div`
   & > .itemWrapper {
     display: flex;
     & > .item {
+      position: relative;
       margin-right: 20px;
+      padding: 10px;
+      border: 1px solid #000;
+      overflow: hidden;
+      & > .del {
+        position: absolute;
+        font-size: 12px;
+        top: 5px;
+        right: 5px;
+        cursor: pointer;
+        z-index: 1;
+      }
+      &.active > .inner {
+        filter: blur(10px);
+        -webkit-filter: blur(10px);
+      }
     }
   }
 `;
