@@ -1,6 +1,14 @@
 import React from "react";
 import { TopStock } from "./style";
 
+const initialUpperData = () => [
+  // {
+  //   name: "노루페인트1",
+  //   currentPrice: 25500,
+  //   Compare: 5150,
+  // },
+];
+
 function MainTopStock(props) {
   return (
     <TopStock>
@@ -19,12 +27,12 @@ function MainTopStock(props) {
       <table>
         <thead>
           <tr>
-            <th>순위</th>
-            <th>종목명</th>
-            <th>현재가</th>
-            <th>전일비</th>
-            <th>등락률</th>
-            <th>거래량</th>
+            <th style={{ width: "10%" }}>순위</th>
+            <th style={{ width: "30%" }}>종목명</th>
+            <th style={{ width: "15%" }}>현재가</th>
+            <th style={{ width: "15%" }}>전일비</th>
+            <th style={{ width: "15%" }}>등락률</th>
+            <th style={{ width: "15%" }}>거래량</th>
           </tr>
         </thead>
         <tbody>
