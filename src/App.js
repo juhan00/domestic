@@ -19,6 +19,7 @@ import GoComInfo from "./routes/Global/GoCominfo";
 import Disclosure from "./components/Disclosure";
 
 import { Layout } from "./components/Layout";
+import DomesticStock from "./routes/DomesticStock";
 
 const App = () => {
   return (
@@ -36,6 +37,8 @@ const App = () => {
             <Route path="Income" element={<DoIncome />} />
             <Route path="CashFlow" element={<DoCashFlow />} />
           </Route>
+
+          <Route path="/domestic/financial" element={<DomesticStock />} />
           <Route path="/domestic/disclosure" element={<Disclosure />} />
 
           <Route path="/global" element={<Global />} />
