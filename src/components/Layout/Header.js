@@ -1,14 +1,21 @@
 import React from "react";
+import Search from "./Search";
 import InfoTable from "./StockInfo";
-import { HeaderStyle } from "./style";
+import {
+  HeaderStyle,
+  HaederMenuWrapper,
+  SearchMenuStyleOnHeader,
+} from "./style";
 
 export const Header = () => {
   return (
     <>
       <HeaderStyle>
-        <div>
-          <input placeholder="종목명/지수명 검색" />
-        </div>
+        <HaederMenuWrapper>
+          <SearchMenuStyleOnHeader>
+            <Search />
+          </SearchMenuStyleOnHeader>
+        </HaederMenuWrapper>
       </HeaderStyle>
       <InfoTable />
     </>

@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 
+// 내비 스타일
 export const NavStyle = styled.nav`
   position: fixed;
   z-index: 999;
@@ -12,7 +13,6 @@ export const NavStyle = styled.nav`
   background-color: #fff;
   box-shadow: 5px 0 5px rgba(0, 0, 0, 0.1);
 
-  // 메인 메뉴 스타일
   .mainMenu {
     display: flex;
     align-items: center;
@@ -39,7 +39,6 @@ export const NavStyle = styled.nav`
     }
   }
 
-  // 서브 메뉴
   .subMenu {
     font-size: 14px;
     li {
@@ -72,20 +71,84 @@ export const MainSection = styled.div`
   margin: 0 auto;
 `;
 
+// 헤더 스타일
 export const HeaderStyle = styled.header`
-  display: flex;
-  align-items: center;
+  width: 100%
   height: 50px;
   background-color: #eee;
-  input {
-    margin-left: 30px;
+  `;
+export const HaederMenuWrapper = styled.ul`
+  display: flex;
+  align-items: center;
+`;
+export const SearchMenuStyleOnHeader = styled.li`
+  margin-left: 30px;
+  height: 40px;
+  .searchContainer {
     width: 790px;
-    height: 40px;
-    border: 0;
-    border-radius: 40px;
+    .searchFormWrapper {
+      form {
+        input {
+          width: 100%;
+          height: 30px;
+          border: 0;
+          border-radius: 15px;
+          padding: 0 10px;
+          :focus {
+            border: 1px solid #5fb6ad;
+            outline: none;
+            font-weight: 700;
+            box-sizing: border-box;
+          }
+        }
+      }
+    }
+    .seachResultWrapper {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      z-index: 9999999;
+      background-color: #fff;
+      width: 790px;
+      border-radius: 10px;
+      box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+      max-height: 300px;
+      overflow-y: scroll;
+      &.hide {
+        display: none;
+      }
+      .searchResultList {
+        .serachResultItem {
+          padding: 4px 10px;
+          font-size: 16px;
+          width: 100%;
+          height: 24px;
+          a {
+            text-decoration: none;
+            color: #5f5f5f;
+            font-size: 14px;
+            span {
+              color: #000;
+              font-size: 16px;
+            }
+          }
+          &:hover {
+            background-color: #5fb6ad;
+            a {
+              color: #fff;
+              span {
+                color: #fff;
+                font-weight: 700;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 `;
 
+// 주식 개요 스타일
 export const StockInfoStyle = styled.div`
   border: 1px solid red;
   height: 158px;

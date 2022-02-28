@@ -48,16 +48,16 @@ const Nav = () => {
               <NavLink to="/domestic/dofinancial">주식뉴스분석</NavLink>
             </li>
             <li>
-              <NavLink to="//">기업정보</NavLink>
+              <NavLink to="/menu7">기업정보</NavLink>
             </li>
             <li>
               <NavLink to="/domestic/statistics">재무데이터</NavLink>
             </li>
             <li>
-              <NavLink to="//">기업공시</NavLink>
+              <NavLink to="/menu9">기업공시</NavLink>
             </li>
             <li>
-              <NavLink to="//">통계</NavLink>
+              <NavLink to="/menu10">통계</NavLink>
             </li>
           </ul>
         </li>
