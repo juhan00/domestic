@@ -16,6 +16,8 @@ import GoCashFlow from "./routes/Global/GoStatistics/GoCashFlow";
 import GoIncome from "./routes/Global/GoStatistics/GoIncome";
 import GoComInfo from "./routes/Global/GoCominfo";
 
+import Disclosure from "./components/Disclosure";
+
 import { Layout } from "./components/Layout";
 
 const App = () => {
@@ -34,6 +36,7 @@ const App = () => {
             <Route path="Income" element={<DoIncome />} />
             <Route path="CashFlow" element={<DoCashFlow />} />
           </Route>
+          <Route path="/domestic/disclosure" element={<Disclosure />} />
 
           <Route path="/global" element={<Global />} />
           <Route path="/global/cominfo" element={<GoComInfo />} />

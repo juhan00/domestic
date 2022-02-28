@@ -1,7 +1,59 @@
 import React from "react";
+import MainStockIndex from "../components/Domestice/Main/MainStockIndex";
+import MainHeadeer from "../components/Domestice/Main/MainHeadeer";
+import MainTopStock from "../components/Domestice/Main/MainTopStock/index";
+import MainExchRate from "../components/Domestice/Main/MainExchRate";
+import MainMarketIndi from "../components/Domestice/Main/MainMarketIndi";
+
+const initialRecentStocks = [
+  {
+    name: "삼성전자",
+    stockIndex: "74,300",
+  },
+  {
+    name: "LG전자",
+    stockIndex: "124,000",
+  },
+  {
+    name: "현대차",
+    stockIndex: "174,000",
+  },
+];
+
+const initialInterestStocks = [
+  {
+    name: "현대차",
+    stockIndex: "174,000",
+  },
+  {
+    name: "삼성전자",
+    stockIndex: "74,300",
+  },
+  {
+    name: "LG전자",
+    stockIndex: "124,000",
+  },
+];
 
 const Domestic = () => {
-  return <div>domestic test</div>;
+  return (
+    <>
+      <div style={{ display: "flex", flexFlow: "row wrap" }}>
+        <MainHeadeer type="recent" stocks={initialRecentStocks} />
+        <MainHeadeer type="interest" stocks={initialInterestStocks} />
+      </div>
+      <div style={{ display: "flex" }}>
+        <MainStockIndex />
+        <MainStockIndex />
+        <MainStockIndex />
+      </div>
+      <div style={{ display: "flex" }}>
+        <MainTopStock style={{ flexGrow: "2" }} />
+        <MainExchRate style={{ flexGrow: "1" }} />
+        <MainMarketIndi style={{ flexGrow: "1" }} />
+      </div>
+    </>
+  );
 };
 
 export default Domestic;
