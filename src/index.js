@@ -1,22 +1,18 @@
 import React from "react";
-import reactDOM from "react-dom";
+import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import Example from "./components/example";
-import GlobalStyle from "./GlobalStyle";
 import configureStore from "./store/store";
+import App from "./App";
 
 const store = configureStore();
 
-const App = () => {
-  const exampleMessage = "Hello World";
-  return (
-    <React.StrictMode>
-      <Provider store={store}>
-        <GlobalStyle />
-        <Example exampleMessage={exampleMessage} />
-      </Provider>
-    </React.StrictMode>
-  );
-};
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById("root"),
+);
 
-reactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));

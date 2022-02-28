@@ -15,10 +15,12 @@ module.exports = {
     //경로
     filename: "bundle.js",
     //결과물의 이름
+    publicPath: "/",
   },
   resolve: {
     extensions: [".js", ".jsx", "json"],
     alias: {
+      "@images": path.resolve(__dirname, "public/images"),
       "@components": path.resolve(__dirname, "src/components"),
       "@reducers": path.resolve(__dirname, "src/reducers"),
       "@sagas": path.resolve(__dirname, "src/sagas"),
@@ -40,6 +42,10 @@ module.exports = {
         test: /\.sass$/,
         use: ["style-loader", "css-loader", "sass-loader"],
       },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: "file-loader",
+      },
     ],
   },
   plugins: [
@@ -60,6 +66,13 @@ module.exports = {
     },
     port: 3000,
     hot: true,
+    historyApiFallback: true,
+    proxy: {
+      "/api": {
+        target: "",
+        changeOrigin: true,
+      },
+    },
   },
   //   https://webpack.js.org/configuration/dev-server/
 };
