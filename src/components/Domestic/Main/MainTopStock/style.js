@@ -7,6 +7,7 @@ export const TopStock = styled.div`
   height: 100%;
   padding: 10px;
   & > table {
+    width: 100%;
     margin-top: 20px;
     text-align: center;
     & > thead {

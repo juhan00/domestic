@@ -1,9 +1,9 @@
 import React from "react";
-import MainStockIndex from "../components/Domestic/Main/MainStockIndex";
-import MainHeadeer from "../components/Domestic/Main/MainHeadeer";
-import MainTopStock from "../components/Domestic/Main/MainTopStock/index";
-import MainExchRate from "../components/Domestic/Main/MainExchRate";
-import MainMarketIndi from "../components/Domestic/Main/MainMarketIndi";
+import MainStockIndex from "@components/Domestic/Main/MainStockIndex";
+import MainHeadeer from "@components/Domestic/Main/MainHeadeer";
+import MainTopStock from "@components/Domestic/Main/MainTopStock/index";
+import MainExchRate from "@components/Domestic/Main/MainExchRate";
+import MainMarketIndi from "@components/Domestic/Main/MainMarketIndi";
 
 const initialRecentStocks = [
   {
