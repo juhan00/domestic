@@ -10,6 +10,7 @@ import DoBalance from "./routes/DoStatistics/DoBalance";
 import DoCashFlow from "./routes/DoStatistics/DoCashFlow";
 import DoIncome from "./routes/DoStatistics/DoIncome";
 import Header from "./components/Domestic/Statistics/Header";
+import Disclosure from "./components/Disclosure";
 
 import { Layout } from "./components/Layout";
 
@@ -28,6 +29,8 @@ const App = () => {
             <Route path="Income" element={<DoIncome />} />
             <Route path="CashFlow" element={<DoCashFlow />} />
           </Route>
+          <Route path="/domestic/disclosure" element={<Disclosure />} />
+
           <Route path="/global" element={<Global />} />
 
           <Route
