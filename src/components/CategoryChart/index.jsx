@@ -5,11 +5,8 @@ import isBright from "@utils/isBright";
 
 const CategoryChart = ({
   data,
-  font = "Impact",
   width = 500,
   height = 300,
-  rotate = 1,
-  interval = 3,
   darkTextColor = "black",
   brightTextColor = "white",
 }) => {
