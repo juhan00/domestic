@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav, Button } from "./style";
+import { Page, Button } from "./style";
 
 
 function Pagination({ total, limit, page, setPage }) {
@@ -7,7 +7,7 @@ function Pagination({ total, limit, page, setPage }) {
 
   return (
     <>
-      <Nav>
+      <Page>
         <Button onClick={() => setPage(page - 1)} disabled={page === 1}>
           &lt;
         </Button>
@@ -25,7 +25,7 @@ function Pagination({ total, limit, page, setPage }) {
         <Button onClick={() => setPage(page + 1)} disabled={page === numPages}>
           &gt;
         </Button>
-      </Nav>
+      </Page>
     </>
   );
 }

@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { DisclosureListWrapper } from "./style";
-import sampleList from "../DisclosureData/data"
+import domesticSample from "../DisclosureData/domesticData"
 import Pagination from "./Pagination/Pagination";
 
 
-const DisclosureList = () => {
-  const [posts, setPosts] = useState([]);
+const DomesticList = () => {
+  // const [posts, setPosts] = useState([]); // 공시 리스트
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
 
-
-
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
-      .then((res) => res.json())
-      .then((data) => setPosts(data));
+
   }, []);
 
-  const disclosureList = sampleList.list
-
-  console.log(posts)
-  console.log(disclosureList)
+  const disclosureList = domesticSample.list
 
   return (
     <DisclosureListWrapper>
@@ -48,40 +41,28 @@ const DisclosureList = () => {
             </tr>
           })}
         </tbody>
+
+        <label>
+          <select
+            type="number"
+            value={limit}
+            onChange={({ target: { value } }) => setLimit(Number(value))}
+          >
+            <option value="15">15</option>
+            <option value="30">30</option>
+            <option value="100">100</option>
+          </select>
+        </label>
+
+          <Pagination
+            total={disclosureList.length}
+            limit={limit}
+            page={page}
+            setPage={setPage}
+          />
       </table>
-
-      <label>
-        <select
-          type="number"
-          value={limit}
-          onChange={({ target: { value } }) => setLimit(Number(value))}
-        >
-          <option value="15">15</option>
-          <option value="30">30</option>
-          <option value="100">100</option>
-        </select>
-      </label>
-
-
-      {/* <main>
-        {disclosureList.slice(offset, offset + limit).map((li, index) => (
-          <article key={index}>
-            <h3>{li.corp_name}</h3>
-            <p>{li.flr_nm}</p>
-          </article>
-        ))}
-      </main> */}
-
-      <footer>
-        <Pagination
-          total={disclosureList.length}
-          limit={limit}
-          page={page}
-          setPage={setPage}
-        />
-      </footer>
     </DisclosureListWrapper>
   )
 }
 
-export default DisclosureList;
+export default DomesticList;
