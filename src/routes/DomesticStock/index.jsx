@@ -3,6 +3,8 @@ import { DomesticStockWrapper } from "./style";
 import randomColor from "randomcolor";
 import axios from "redaxios";
 import * as d3 from "d3";
+import cloud from "d3-cloud";
+import isBright from "../../utils/isBright";
 import KeywordChart from "../../components/KeywordChart";
 import CategoryChart from "../../components/CategoryChart";
 import PressChart from "../../components/pressChart";
@@ -37,6 +39,10 @@ const DomesticStock = () => {
       value: 838,
     },
     {
+      title: "팍스넷",
+      value: 838,
+    },
+    {
       title: "아이뉴스24",
       value: 261,
     },
@@ -54,112 +60,112 @@ const DomesticStock = () => {
     },
   ]);
 
-  useEffect(async () => {
-    async function requestData() {
-      const endpoint =
-        "http://apis.data.go.kr/1160100/service/GetStockSecuritiesInfoService";
-      const method = "getStockPriceInfo";
-      const itmsNm = "삼성전자";
-      const serviceKey =
-        "hQKKME4akBE9OmUjXJlrlUxwrGWTJopFgxOATt99kJMyESaNVkwYUsXHQaPRW5PmypTgQ5MmPL4p6of0bT9E%2Bw%3D%3D";
-      const resultType = "json";
-      const beginBasDt = "20220210";
-      const endBasDt = "20220224";
-      const data = await axios
-        .get(
-          `${endpoint}/${method}?itmsNm=${itmsNm}&serviceKey=${serviceKey}&resultType=${resultType}&beginBasDt=${beginBasDt}&endBasDt=${endBasDt}`,
-        )
-        .then((res) => res.data.response.body.items.item);
-      return data;
-    }
+  // useEffect(async () => {
+  //   async function requestData() {
+  //     const endpoint =
+  //       "http://apis.data.go.kr/1160100/service/GetStockSecuritiesInfoService";
+  //     const method = "getStockPriceInfo";
+  //     const itmsNm = "삼성전자";
+  //     const serviceKey =
+  //       "hQKKME4akBE9OmUjXJlrlUxwrGWTJopFgxOATt99kJMyESaNVkwYUsXHQaPRW5PmypTgQ5MmPL4p6of0bT9E%2Bw%3D%3D";
+  //     const resultType = "json";
+  //     const beginBasDt = "20220210";
+  //     const endBasDt = "20220224";
+  //     const data = await axios
+  //       .get(
+  //         `${endpoint}/${method}?itmsNm=${itmsNm}&serviceKey=${serviceKey}&resultType=${resultType}&beginBasDt=${beginBasDt}&endBasDt=${endBasDt}`,
+  //       )
+  //       .then((res) => res.data.response.body.items.item);
+  //     return data;
+  //   }
 
-    const WIDTH = 500;
-    const HEIGHT = 300;
-    const PADDING = 1;
-    const interval = 1;
+  //   const WIDTH = 500;
+  //   const HEIGHT = 300;
+  //   const PADDING = 1;
+  //   const interval = 1;
 
-    const data = await requestData();
-    const mainChartWrapper = d3.select(mainChartRef.current);
-    mainChartWrapper
-      .append("svg")
-      .style("overflow", "visible")
-      .attr("width", WIDTH - 100)
-      .attr("height", HEIGHT);
+  //   const data = await requestData();
+  //   const mainChartWrapper = d3.select(mainChartRef.current);
+  //   mainChartWrapper
+  //     .append("svg")
+  //     .style("overflow", "visible")
+  //     .attr("width", WIDTH - 100)
+  //     .attr("height", HEIGHT);
 
-    const startDate = data[data.length - 1].basDt;
-    const startYear = Number(startDate.substr(0, 4));
-    const startMonth = Number(startDate.substr(4, 2));
-    const startDay = Number(startDate.substr(6, 2));
-    const endDate = data[0].basDt;
-    const endYear = Number(endDate.substr(0, 4));
-    const endMonth = Number(endDate.substr(4, 2));
-    const endDay = Number(endDate.substr(6, 2));
+  //   const startDate = data[data.length - 1].basDt;
+  //   const startYear = Number(startDate.substr(0, 4));
+  //   const startMonth = Number(startDate.substr(4, 2));
+  //   const startDay = Number(startDate.substr(6, 2));
+  //   const endDate = data[0].basDt;
+  //   const endYear = Number(endDate.substr(0, 4));
+  //   const endMonth = Number(endDate.substr(4, 2));
+  //   const endDay = Number(endDate.substr(6, 2));
 
-    // month는 0(1월)부터 11(12월) 사이의 숫자여야 합니다.
-    const xScale = d3
-      .scaleTime()
-      .domain([
-        new Date(`${startYear}-${startMonth}-${startDay}`),
-        new Date(`${endYear}-${endMonth}-${endDay}`),
-      ])
-      .range([0, WIDTH - 100]);
+  //   // month는 0(1월)부터 11(12월) 사이의 숫자여야 합니다.
+  //   const xScale = d3
+  //     .scaleTime()
+  //     .domain([
+  //       new Date(`${startYear}-${startMonth}-${startDay}`),
+  //       new Date(`${endYear}-${endMonth}-${endDay}`),
+  //     ])
+  //     .range([0, WIDTH - 100]);
 
-    const xAxis = d3
-      .axisBottom(xScale)
-      .ticks(d3.timeDay.every(interval))
-      .tickFormat((d) => {
-        return d3.timeFormat("%Y %m %d")(new Date(d));
-      });
+  //   const xAxis = d3
+  //     .axisBottom(xScale)
+  //     .ticks(d3.timeDay.every(interval))
+  //     .tickFormat((d) => {
+  //       return d3.timeFormat("%Y %m %d")(new Date(d));
+  //     });
 
-    let maxValue = data.reduce((a, b) => {
-      return Math.max(a, Number(b.hipr));
-    }, Number.MIN_SAFE_INTEGER);
+  //   let maxValue = data.reduce((a, b) => {
+  //     return Math.max(a, Number(b.hipr));
+  //   }, Number.MIN_SAFE_INTEGER);
 
-    let minValue = data.reduce((a, b) => {
-      return Math.min(a, Number(b.lopr));
-    }, Number.MAX_SAFE_INTEGER);
+  //   let minValue = data.reduce((a, b) => {
+  //     return Math.min(a, Number(b.lopr));
+  //   }, Number.MAX_SAFE_INTEGER);
 
-    const yScale = d3
-      .scaleLinear()
-      .domain([minValue, maxValue])
-      .range([HEIGHT - 100, 0])
-      .nice();
+  //   const yScale = d3
+  //     .scaleLinear()
+  //     .domain([minValue, maxValue])
+  //     .range([HEIGHT - 100, 0])
+  //     .nice();
 
-    const yRightAxis = d3.axisRight(yScale).ticks(data.length);
-    const yLeftAxis = d3.axisLeft(yScale).ticks(data.length);
+  //   const yRightAxis = d3.axisRight(yScale).ticks(data.length);
+  //   const yLeftAxis = d3.axisLeft(yScale).ticks(data.length);
 
-    mainChartWrapper
-      .select("svg")
-      .append("g")
-      .style("transform", `translateY(${HEIGHT - 100}px)`)
-      .call(xAxis)
-      .selectAll("text")
-      .style("text-anchor", "end")
-      .attr("dx", "-.8em")
-      .attr("dy", ".15em")
-      .attr("transform", function (d) {
-        return "rotate(-90)";
-      });
+  //   mainChartWrapper
+  //     .select("svg")
+  //     .append("g")
+  //     .style("transform", `translateY(${HEIGHT - 100}px)`)
+  //     .call(xAxis)
+  //     .selectAll("text")
+  //     .style("text-anchor", "end")
+  //     .attr("dx", "-.8em")
+  //     .attr("dy", ".15em")
+  //     .attr("transform", function (d) {
+  //       return "rotate(-90)";
+  //     });
 
-    mainChartWrapper
-      .select("svg")
-      .append("g")
-      .style("transform", `translateX(${WIDTH - 100}px)`)
-      .call(yRightAxis);
+  //   mainChartWrapper
+  //     .select("svg")
+  //     .append("g")
+  //     .style("transform", `translateX(${WIDTH - 100}px)`)
+  //     .call(yRightAxis);
 
-    mainChartWrapper.select("svg").append("g").call(yLeftAxis);
+  //   mainChartWrapper.select("svg").append("g").call(yLeftAxis);
 
-    mainChartWrapper
-      .select("svg")
-      .selectAll(".bar")
-      .data(data)
-      .join("rect")
-      .attr("class", "bar")
-      .style("transform", "scale(1,-1)")
-      .attr("x", (value, index) => xScale(index))
-      .attr("y", -150)
-      .attr("width", "40px");
-  }, []);
+  //   mainChartWrapper
+  //     .select("svg")
+  //     .selectAll(".bar")
+  //     .data(data)
+  //     .join("rect")
+  //     .attr("class", "bar")
+  //     .style("transform", "scale(1,-1)")
+  //     .attr("x", (value, index) => xScale(index))
+  //     .attr("y", -150)
+  //     .attr("width", "40px");
+  // }, []);
 
   return (
     <DomesticStockWrapper>
