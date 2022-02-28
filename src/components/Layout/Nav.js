@@ -21,19 +21,19 @@ const Nav = () => {
           </div>
           <ul className="subMenu">
             <li>
-              <NavLink to="/domestic/dofinancial">주식뉴스분석</NavLink>
+              <NavLink to="/domestic/financial">주식뉴스분석</NavLink>
             </li>
             <li>
-              <NavLink to="/menu2">기업정보</NavLink>
+              <NavLink to="/domestic/cominfo">기업정보</NavLink>
             </li>
             <li>
               <NavLink to="/domestic/statistics">재무데이터</NavLink>
             </li>
             <li>
-              <NavLink to="/menu4">기업공시</NavLink>
+              <NavLink to="/domestic/disclosure">기업공시</NavLink>
             </li>
             <li>
-              <NavLink to="/menu5">통계</NavLink>
+              <NavLink to="/domestic/beta">통계</NavLink>
             </li>
           </ul>
         </li>
@@ -45,19 +45,19 @@ const Nav = () => {
           </div>
           <ul className="subMenu">
             <li>
-              <NavLink to="/domestic/dofinancial">주식뉴스분석</NavLink>
+              <NavLink to="/global/dofinancial">주식뉴스분석</NavLink>
             </li>
             <li>
-              <NavLink to="//">기업정보</NavLink>
+              <NavLink to="/global/cominfo">기업정보</NavLink>
             </li>
             <li>
-              <NavLink to="/domestic/statistics">재무데이터</NavLink>
+              <NavLink to="/global/statistics">재무데이터</NavLink>
             </li>
             <li>
-              <NavLink to="//">기업공시</NavLink>
+              <NavLink to="/global/disclosure">기업공시</NavLink>
             </li>
             <li>
-              <NavLink to="//">통계</NavLink>
+              <NavLink to="/global/beta">통계</NavLink>
             </li>
           </ul>
         </li>

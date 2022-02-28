@@ -1,5 +1,11 @@
 import React from "react";
-import { OptionsWrapper, TableHeader, TableBody, Row, Cell } from "./style";
+import {
+  OptionsWrapper,
+  TableHeader,
+  TableBody,
+  Row,
+  Cell,
+} from "../../Main/statisticsOptions/style";
 
 const StatisticsOptions = (props) => {
   return (
@@ -29,7 +35,9 @@ const StatisticsOptions = (props) => {
         <TableBody>
           <tbody>
             <Row>
-              <Cell className="title">총자산</Cell>
+              <Cell className="title">
+                <div>총자산</div>
+              </Cell>
             </Row>
             <Row>
               <Cell className="sub__title">유동자산</Cell>
@@ -62,7 +70,9 @@ const StatisticsOptions = (props) => {
               <Cell>법인세자산</Cell>
             </Row>
             <Row>
-              <Cell className="title">총부채</Cell>
+              <Cell className="title">
+                <div>총부채</div>
+              </Cell>
             </Row>
             <Row>
               <Cell className="sub__title">유동부채</Cell>
@@ -89,7 +99,9 @@ const StatisticsOptions = (props) => {
               <Cell>조세채무</Cell>
             </Row>
             <Row>
-              <Cell className="title">주지분</Cell>
+              <Cell className="title">
+                <div>주지분</div>
+              </Cell>
             </Row>
             <Row>
               <Cell className="sub__title">유동부채</Cell>
