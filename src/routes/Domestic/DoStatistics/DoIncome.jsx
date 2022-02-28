@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "redaxios";
 import { useEffect } from "react";
-import StatisticsOptions from "../../components/Domestic/Statistics/income/statisticsOptions";
-import StatisticsTable from "../../components/Domestic/Statistics/income/statisticsTable";
+import StatisticsOptions from "@components/Domestic/Statistics/income/statisticsOptions";
+import StatisticsTable from "@components/Domestic/Statistics/income/statisticsTable";
 import { useParams } from "react-router-dom";
 
 const DoIncome = () => {

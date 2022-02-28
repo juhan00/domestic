@@ -1,8 +1,8 @@
 import React from "react";
-import Table from "../components/Domestic/ComInfo/Table";
-import ComInfoHeader from "../components/Domestic/ComInfo/ComInfoHeader";
-import ComInfoGraph from "../components/Domestic/ComInfo/ComInfoGraph";
-import ComInfoDailyPrice from "../components/Domestic/ComInfo/ComInfoDailyPrice";
+import Table from "@components/Domestic/ComInfo/Table";
+import ComInfoHeader from "@components/Domestic/ComInfo/ComInfoHeader";
+import ComInfoGraph from "@components/Domestic/ComInfo/ComInfoGraph";
+import ComInfoDailyPrice from "@components/Domestic/ComInfo/ComInfoDailyPrice";
 import axios from "redaxios";
 import { useEffect } from "react";
 
