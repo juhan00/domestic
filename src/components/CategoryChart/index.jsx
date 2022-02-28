@@ -2,12 +2,14 @@ import React, { useRef, useEffect } from "react";
 import { select, sum, treemap, hierarchy } from "d3";
 import randomColor from "randomcolor";
 import isBright from "@utils/isBright";
+import { CategoryChartWrapper } from "./style";
+import useResizeObserver from "@utils/useResizeObserver";
 
 const CategoryChart = ({
   data,
+  darkTextColor = "black",
   width = 500,
   height = 300,
-  darkTextColor = "black",
   brightTextColor = "white",
 }) => {
   const categoryChartRef = useRef(null);
@@ -84,11 +86,11 @@ const CategoryChart = ({
         const parentData = select(this.parentNode).datum();
         return (parentData.y1 - parentData.y0) / 2 - 20;
       });
-  }, []);
+  }, [data]);
   return (
-    <div ref={categoryChartRef}>
+    <CategoryChartWrapper ref={categoryChartRef}>
       <svg ref={svgRef} />
-    </div>
+    </CategoryChartWrapper>
   );
 };
 

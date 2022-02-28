@@ -1,7 +1,12 @@
 import React from "react";
+import DomesticStock from "./DomesticStock";
 
 const Domestic = () => {
-  return <div>domestic test</div>;
+  return (
+    <div>
+      <DomesticStock />
+    </div>
+  );
 };
 
 export default Domestic;
