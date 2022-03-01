@@ -91,16 +91,23 @@ export const DisclosureCriterionWrapper = styled.div`
             }
           }
         } 
-        button {
-          border: 1px solid #F0F0F6;
+        .btn__form {
           border-radius: 16px;
           padding: 5px;
           height: 34px;
           width: 72px;
           box-sizing: border-box;
+          margin-top: 30px;
+        }
+        button {
+          border: 1px solid #F0F0F6;
           background-color: #5FB6AD;
           color: #FFFFFF;
-          margin-top: 30px;
+        }
+        > input {
+          border: 1px solid #5FB6AD;
+          background-color: #FFFFFF;
+          color: #5FB6AD;
         }
       }
     }

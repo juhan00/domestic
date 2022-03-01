@@ -22,7 +22,11 @@ const GlobalCriterion = () => {
   
   function handleFormSubmit(event) {
     event.preventDefault()
-    console.log("submitted")
+    console.log('begin-date : ' + form.date[0].value) // 시작일
+    console.log('end-date : ' + form.date[1].value) // 마감일
+    console.log('source : ' + form.source.value)
+    console.log('category : ' + form.category.value)
+    console.log('type : ' + form.type.value)
   }
   function handleRadioChange(event) {
     setPeriod(event.target.id)
@@ -37,10 +41,10 @@ const GlobalCriterion = () => {
         <div className="disclosure__criterion__header">
           <h4>기간 및 상세보기</h4>
         </div>
-        <form className="disclosure__criterion__body" onSubmit={handleFormSubmit}>
+        <form name="form" className="disclosure__criterion__body" onSubmit={handleFormSubmit}>
           <div className="setPeriod" key={period}>
-            <input type="date" defaultValue={getToday(date[period])} min={date.sixM} max={date.oneM} onChange={handleValueChange} />
-            <input type="date" defaultValue={getToday(date.today)} min={date.oneM} max={date.oneM} />
+            <input type="date" name="date" defaultValue={getToday(date[period])} min={date.sixM} max={date.oneM} onChange={handleValueChange} />
+            <input type="date" name="date" defaultValue={getToday(date.today)} min={date.oneM} max={date.oneM} />
             <div>                
               <input type="radio" id="oneM" name="period" onChange={handleRadioChange} checked={period === "oneM"} />
               <label htmlFor="oneM">1M</label>
@@ -67,68 +71,90 @@ const GlobalCriterion = () => {
             </div>
           </div>
           <div className="setType">
-            <div>
+            <select name="source">
+              <option value="">--Please choose an source--</option>
+              <option value="source a">a</option>
+              <option value="source b">b</option>
+              <option value="source c">c</option>
+              <option value="source d">d</option>
+            </select>
+            <select name="category">
+              <option value="">--Please choose an category--</option>
+              <option value="category a">a</option>
+              <option value="category b">b</option>
+              <option value="category c">c</option>
+              <option value="category d">d</option>
+            </select>
+            <select name="type">
+              <option value="">--Please choose an type--</option>
+              <option value="type a">a</option>
+              <option value="type b">b</option>
+              <option value="type c">c</option>
+              <option value="type d">d</option>
+            </select>
+            {/* <div>
               <label htmlFor="typeA">
-                <input type="checkbox" id="typeA" name="typeA" />
+                <input type="checkbox" id="typeA" name="type" />
                 All
               </label>
             </div>
             <div>
               <label htmlFor="typeB">
-                <input type="checkbox" id="typeB" name="typeB" />
+                <input type="checkbox" id="typeB" name="type" />
                 LSE
               </label>
             </div>
             <div>
               <label htmlFor="typeC">
-                <input type="checkbox" id="typeC" name="typeC" />
+                <input type="checkbox" id="typeC" name="type" />
                 SEC
               </label>
             </div>
             <div>
               <label htmlFor="typeD">
-                <input type="checkbox" id="typeD" name="typeD" />
+                <input type="checkbox" id="typeD" name="type" />
                 GB
               </label>
             </div>
             <div>
               <label htmlFor="typeE">
-                <input type="checkbox" id="typeE" name="typeE" />
+                <input type="checkbox" id="typeE" name="type" />
                 General
               </label>
             </div>
             <div>
               <label htmlFor="typeF">
-                <input type="checkbox" id="typeF" name="typeF" />
+                <input type="checkbox" id="typeF" name="type" />
                 Capital
               </label>
             </div>
             <div>
               <label htmlFor="typeG">
-                <input type="checkbox" id="typeG" name="typeG" />
+                <input type="checkbox" id="typeG" name="type" />
                 Company Info
               </label>
             </div>
             <div>
               <label htmlFor="typeH">
-                <input type="checkbox" id="typeH" name="typeH" />
+                <input type="checkbox" id="typeH" name="type" />
                 Type - A
               </label>
             </div>
             <div>
               <label htmlFor="typeI">
-                <input type="checkbox" id="typeI" name="typeI" />
+                <input type="checkbox" id="typeI" name="type" />
                 Type - B
               </label>
             </div>
             <div>
               <label htmlFor="typeJ">
-                <input type="checkbox" id="typeJ" name="typeJ" />
+                <input type="checkbox" id="typeJ" name="type" />
                 Type - C
               </label>
-            </div>
+            </div> */}
           </div>
-          <button>적용</button>
+          <button class="btn__form">적용</button>
+          <input class="btn__form" type="reset" value="초기화" onClick={() => setPeriod('oneY')} />
         </form>
       </div>
     </DisclosureCriterionWrapper>
