@@ -5,16 +5,16 @@ import {
   TableBody,
   Row,
   Cell,
-} from "../../Main/StatementTable/style";
+} from "@components/Domestic/StatisticsMain/StatisticsTable/style";
 
-const StatementTable = () => {
+const StatisticsTable = () => {
   return (
     <>
       <TableWrapper>
         <TableHeader>
           <thead>
             <Row className="table__header">
-              <Cell colSpan={10}>STATEMENT</Cell>
+              <Cell colSpan={10}>Balance</Cell>
             </Row>
           </thead>
           <tbody>
@@ -213,6 +213,13 @@ const StatementTable = () => {
               <Cell colSpan={2}>2304009억원</Cell>
               <Cell colSpan={2}>2304009억원</Cell>
             </Row>
+            <Row>
+              <Cell colSpan={2}>2304009억원</Cell>
+              <Cell colSpan={2}>2304009억원</Cell>
+              <Cell colSpan={2}>2304009억원</Cell>
+              <Cell colSpan={2}>2304009억원</Cell>
+              <Cell colSpan={2}>2304009억원</Cell>
+            </Row>
           </tbody>
         </TableBody>
       </TableWrapper>
@@ -220,4 +227,4 @@ const StatementTable = () => {
   );
 };
 
-export default StatementTable;
+export default StatisticsTable;

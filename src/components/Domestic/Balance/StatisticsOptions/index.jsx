@@ -5,9 +5,9 @@ import {
   TableBody,
   Row,
   Cell,
-} from "../../Main/StatementOptions/style";
+} from "@components/Domestic/StatisticsMain/StatisticsOptions/style";
 
-const StatementOptions = (props) => {
+const StatisticsOptions = (props) => {
   return (
     <>
       <OptionsWrapper>
@@ -119,4 +119,4 @@ const StatementOptions = (props) => {
   );
 };
 
-export default StatementOptions;
+export default StatisticsOptions;

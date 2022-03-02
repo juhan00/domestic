@@ -1,14 +1,20 @@
 import React from "react";
-import { OptionsWrapper, TableHeader, TableBody, Row, Cell } from "./style";
+import {
+  OptionsWrapper,
+  TableHeader,
+  TableBody,
+  Row,
+  Cell,
+} from "@components/Domestic/StatisticsMain/StatisticsOptions/style";
 
-const StatementOptions = (props) => {
+const StatisticsOptions = (props) => {
   return (
     <>
       <OptionsWrapper>
         <TableHeader>
           <thead>
             <Row className="table__header">
-              <Cell colSpan={2}>Options</Cell>
+              <Cell colSpan={2}>Options delete</Cell>
             </Row>
           </thead>
           <tbody>
@@ -29,7 +35,7 @@ const StatementOptions = (props) => {
         <TableBody>
           <tbody>
             <Row>
-              <Cell className="sub__title">Company</Cell>
+              <Cell>Company</Cell>
             </Row>
             <Row>
               <Cell>시가총액</Cell>
@@ -38,7 +44,7 @@ const StatementOptions = (props) => {
               <Cell>기업가치</Cell>
             </Row>
             <Row>
-              <Cell className="sub__title">Valuation</Cell>
+              <Cell>Valuation</Cell>
             </Row>
             <Row>
               <Cell>직전 분기 대비 주당순이익 증가율</Cell>
@@ -53,7 +59,7 @@ const StatementOptions = (props) => {
               <Cell>주가장부가치비율</Cell>
             </Row>
             <Row>
-              <Cell className="sub__title">Efficiency Ratios</Cell>
+              <Cell>Efficiency Ratios</Cell>
             </Row>
             <Row>
               <Cell>자산순이익률(ROA)</Cell>
@@ -62,7 +68,7 @@ const StatementOptions = (props) => {
               <Cell>자기자본순이익률(ROE)</Cell>
             </Row>
             <Row>
-              <Cell className="sub__title">Yield</Cell>
+              <Cell>Yield</Cell>
             </Row>
             <Row>
               <Cell>주당배당금</Cell>
@@ -77,4 +83,4 @@ const StatementOptions = (props) => {
   );
 };
 
-export default StatementOptions;
+export default StatisticsOptions;
