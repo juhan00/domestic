@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { select } from "d3";
 import cloud from "d3-cloud";
 import randomColor from "randomcolor";
+import { ChartWrapper } from "../../routes/DomesticStock/style";
 
 const KeywordChart = ({
   data,
@@ -57,9 +58,9 @@ const KeywordChart = ({
     }
   }, [data]);
   return (
-    <div ref={keywordChartRef}>
+    <ChartWrapper ref={keywordChartRef}>
       <svg ref={svgRef} />
-    </div>
+    </ChartWrapper>
   );
 };
 

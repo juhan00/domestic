@@ -1,5 +1,14 @@
-import { select, sum, scaleLinear, scaleBand, axisRight, axisBottom } from "d3";
+import {
+  select,
+  max,
+  scaleLinear,
+  scaleBand,
+  axisRight,
+  axisBottom,
+  reduce,
+} from "d3";
 import React, { useEffect, useRef } from "react";
+import { ChartWrapper } from "../../routes/DomesticStock/style";
 
 const PressChart = ({
   data,
@@ -16,22 +25,14 @@ const PressChart = ({
     const pressWrapper = select(pressChartRef.current);
     const svg = select(svgRef.current);
 
-    const entireValue = sum(data, (data) => data.value);
+    const entireValue = max(data, (data) => data.value);
 
-    const press = svg
-      .attr("width", width)
-      .attr("height", height)
-      .selectAll("rect");
+    svg.attr("width", width).attr("height", height);
 
     const xScale = scaleBand()
       .domain(data.map((value, idx) => idx))
       .range([0, width])
       .padding(0.5);
-
-    const yScale = scaleLinear()
-      .domain([0, entireValue])
-      .range([height, 0])
-      .clamp(true);
 
     const xAxis = axisBottom(xScale).tickFormat((node, i) => {
       return data[node].title;
@@ -42,16 +43,28 @@ const PressChart = ({
       .style("transform", `translateY(${height}px)`)
       .call(xAxis);
 
+    const yScale = scaleLinear()
+      .domain([0, entireValue])
+      .range([height, 0])
+      .clamp(true);
+
     const yAxis = axisRight(yScale);
 
     svg
       .select(".y-axis")
-      .style("transform", `translateX(${width}px)`)
-      .call(yAxis);
+      .call(yAxis)
+      .call((g) =>
+        g.selectAll("line").attr("x2", width).style("stroke", "#ddd"),
+      );
 
-    press
+    const press = svg
+      .selectAll(".bar")
       .data(data)
       .enter()
+      .append("g")
+      .classed("bar", true);
+
+    press
       .append("rect")
       .attr("height", (node) => (node.value / entireValue) * height)
       .attr("width", barWidth)
@@ -59,14 +72,20 @@ const PressChart = ({
       .attr("y", (node) => height - (node.value / entireValue) * height)
       .attr("width", xScale.bandwidth())
       .attr("fill", barColor);
+
+    press
+      .append("text")
+      .text((data) => data["value"])
+      .attr("x", (_, index) => xScale(index) + xScale.bandwidth() / 4)
+      .attr("y", (node) => height - (node.value / entireValue) * height - 10);
   }, [data]);
   return (
-    <div ref={pressChartRef}>
-      <svg ref={svgRef} style={{ overflow: "visible" }}>
+    <ChartWrapper ref={pressChartRef}>
+      <svg ref={svgRef}>
         <g className="x-axis" />
         <g className="y-axis" />
       </svg>
-    </div>
+    </ChartWrapper>
   );
 };
 
