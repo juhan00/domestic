@@ -7,6 +7,8 @@ import {
   select,
   line,
   axisRight,
+  area,
+  min,
 } from "d3";
 import React, { useEffect, useRef } from "react";
 import { ChartWrapper } from "../CategoryChart/style";
@@ -51,11 +53,10 @@ const BuzzChart = ({
       .call((g) => g.selectAll(".tick line").remove())
       .style("transform", `translateY(${height - marginBottom}px)`);
 
+    const maxValue = max(data, (data) => data.value);
+
     const yScale = scaleLinear()
-      .domain([
-        -max(data, (data) => data.value),
-        max(data, (data) => data.value),
-      ])
+      .domain([-maxValue, maxValue])
       .nice()
       .range([height - marginBottom, marginTop]);
 
@@ -79,6 +80,18 @@ const BuzzChart = ({
       .x((d) => xScale(d.date))
       .y((d) => yScale(d.value));
 
+    const chartArea = area()
+      .x((d) => xScale(d.date))
+      .y0(() => yScale(-maxValue))
+      .y1((d) => yScale(d.value));
+
+    svg
+      .append("path")
+      .datum(data)
+      .attr("fill", "#5fb6ad")
+      .attr("d", chartLine)
+      .attr("d", chartArea);
+
     svg
       .append("path")
       .datum(data)
@@ -87,7 +100,7 @@ const BuzzChart = ({
       .attr("stroke-width", 3)
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
-      .attr("d", chartLine);
+      .attr("d", line);
   }, []);
   return (
     <ChartWrapper ref={buzzChartRef}>
