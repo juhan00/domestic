@@ -4,19 +4,19 @@ import React from "react";
 import Home from "./routes/Home";
 import Domestic from "./routes/Domestic/Domestic";
 import DoComInfo from "./routes/Domestic/DoComInfo";
-import Header from "./components/Domestic/Statement/Header";
-import DoStatement from "./routes/Domestic/DoStatement/DoStatement";
-import DoBalance from "./routes/Domestic/DoStatement/DoBalance";
-import DoCashFlow from "./routes/Domestic/DoStatement/DoCashFlow";
-import DoIncome from "./routes/Domestic/DoStatement/DoIncome";
+import StatisticsHeader from "./components/Domestic/StatisticsHeader";
+import DoStatistics from "./routes/Domestic/DoStatistics";
+import DoBalance from "./routes/Domestic/DoBalance";
+import DoCashFlow from "./routes/Domestic/DoCashFlow";
+import DoIncome from "./routes/Domestic/DoIncome";
 import DoBeta from "./routes/Domestic/DoBeta";
 import DoCorrelation from "./routes/Domestic/DoCorrelation";
 
 import Global from "./routes/Global/Global";
-import GoStatement from "./routes/Global/GoStatement/GoStatement";
-import GoBalance from "./routes/Global/GoStatement/GoBalance";
-import GoCashFlow from "./routes/Global/GoStatement/GoCashFlow";
-import GoIncome from "./routes/Global/GoStatement/GoIncome";
+import GoStatistics from "./routes/Global/GoStatistics";
+import GoBalance from "./routes/Global/GoBalance";
+import GoCashFlow from "./routes/Global/GoCashFlow";
+import GoIncome from "./routes/Global/GoIncome";
 import GoComInfo from "./routes/Global/GoCominfo";
 import GoBeta from "./routes/Global/GoBeta";
 import GoCorrelation from "./routes/global/GoCorrelation";
@@ -36,8 +36,8 @@ const App = () => {
 
           <Route path="/domestic" element={<Domestic />} />
           <Route path="/domestic/cominfo" element={<DoComInfo />} />
-          <Route path="/domestic/Statement" element={<Header />}>
-            <Route index element={<DoStatement />} />
+          <Route path="/domestic/Statistics" element={<StatisticsHeader />}>
+            <Route index element={<DoStatistics />} />
             <Route path="Balance" element={<DoBalance />} />
             <Route path="Income" element={<DoIncome />} />
             <Route path="CashFlow" element={<DoCashFlow />} />
@@ -49,8 +49,8 @@ const App = () => {
 
           <Route path="/global" element={<Global />} />
           <Route path="/global/cominfo" element={<GoComInfo />} />
-          <Route path="/global/Statement" element={<Header />}>
-            <Route index element={<GoStatement />} />
+          <Route path="/global/Statistics" element={<StatisticsHeader />}>
+            <Route index element={<GoStatistics />} />
             <Route path="Balance" element={<GoBalance />} />
             <Route path="Income" element={<GoIncome />} />
             <Route path="CashFlow" element={<GoCashFlow />} />

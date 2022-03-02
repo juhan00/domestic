@@ -68,7 +68,7 @@ const InfoTable = () => {
       <nav>
         <NavLink to="/domestic/dofinancial">주식뉴스분석</NavLink>
         <NavLink to="/menu2">기업정보</NavLink>
-        <NavLink to="/domestic/statement">재무데이터</NavLink>
+        <NavLink to="/domestic/statistics">재무데이터</NavLink>
         <NavLink to="/domestic/disclosure">기업공시</NavLink>
         <NavLink to="/domestic/beta">통계</NavLink>
       </nav>

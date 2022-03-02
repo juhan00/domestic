@@ -1,7 +1,12 @@
 import React from "react";
+import BetaTable from "../../components/Domestic/BetaTable";
 
 const DoBeta = () => {
-  return <>DoBeta test</>;
+  return (
+    <>
+      <BetaTable />
+    </>
+  );
 };
 
 export default DoBeta;
