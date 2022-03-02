@@ -24,7 +24,7 @@ import GoCorrelation from "./routes/global/GoCorrelation";
 import Disclosure from "./components/Disclosure";
 
 import { Layout } from "./components/Layout";
-import DomesticStock from "./routes/DomesticStock";
+import DomesticStock from "./routes/Domestic/DomesticFinance";
 
 const App = () => {
   return (
