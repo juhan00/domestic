@@ -1,7 +1,7 @@
 import React from "react";
 import { ListWraper } from "./style";
 
-function TopStockList({ topData }) {
+const TopStockList = ({ topData }) => {
   return (
     <ListWraper>
       {topData.map((data, index) => (
@@ -16,6 +16,6 @@ function TopStockList({ topData }) {
       ))}
     </ListWraper>
   );
-}
+};
 
 export default TopStockList;

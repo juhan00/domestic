@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const TopStock = styled.div`
-  flex-grow: 2;
+  flex: 2 1 0;
   border: 1px solid black;
   min-height: 300px;
   height: 100%;

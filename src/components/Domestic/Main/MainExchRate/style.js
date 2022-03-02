@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const ExchRate = styled.div`
-  flex-grow: 1;
+  flex: 1 1 0;
   border: 1px solid black;
   min-height: 300px;
   height: 100%;

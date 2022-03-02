@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const StockIndex = styled.div`
   display: flex;
-  flex-grow: 1;
+  flex: 1 1 0;
   border: 1px solid black;
   max-height: 300px;
   height: 100%;
