@@ -17,6 +17,11 @@ const PressChart = ({
   width = 500,
   height = 300,
   barSpace = 50,
+  marginTop = 40,
+  marginBottom = 40,
+  marginLeft = 40,
+  marginRight = 40,
+  padding = 30,
 }) => {
   const pressChartRef = useRef(null);
   const svgRef = useRef(null);
@@ -31,7 +36,7 @@ const PressChart = ({
 
     const xScale = scaleBand()
       .domain(data.map((value, idx) => idx))
-      .range([0, width])
+      .range([marginLeft + padding, width])
       .padding(0.5);
 
     const xAxis = axisBottom(xScale).tickFormat((node, i) => {
@@ -40,14 +45,14 @@ const PressChart = ({
 
     svg
       .select(".x-axis")
-      .style("transform", `translateY(${height}px)`)
+      .style("transform", `translateY(${height - marginBottom}px)`)
       .call(xAxis)
       .call((g) => g.select(".domain").remove())
       .call((g) => g.selectAll(".tick line").remove());
 
     const yScale = scaleLinear()
       .domain([0, entireValue])
-      .range([height, 0])
+      .range([height - marginBottom, marginTop])
       .clamp(true);
 
     const yAxis = axisRight(yScale);
@@ -55,9 +60,14 @@ const PressChart = ({
     svg
       .select(".y-axis")
       .call(yAxis)
+      .style("transform", `translateX(${marginLeft}px)`)
       .call((g) => g.select(".domain").remove())
       .call((g) =>
-        g.selectAll("line").attr("x2", width).style("stroke", "#ddd"),
+        g
+          .selectAll("line")
+          .attr("x1", marginLeft)
+          .attr("x2", width - marginRight)
+          .style("stroke", "#ddd"),
       );
 
     const press = svg
@@ -69,10 +79,19 @@ const PressChart = ({
 
     press
       .append("rect")
-      .attr("height", (node) => (node.value / entireValue) * height)
+      .attr(
+        "height",
+        (node) => (node.value / entireValue) * (height - marginBottom),
+      )
       .attr("width", barWidth)
       .attr("x", (_, index) => xScale(index))
-      .attr("y", (node) => height - (node.value / entireValue) * height)
+      .attr(
+        "y",
+        (node) =>
+          height -
+          marginBottom -
+          (node.value / entireValue) * (height - marginBottom),
+      )
       .attr("width", xScale.bandwidth())
       .attr("fill", barColor);
 
@@ -80,7 +99,14 @@ const PressChart = ({
       .append("text")
       .text((data) => data["value"])
       .attr("x", (_, index) => xScale(index) + xScale.bandwidth() / 4)
-      .attr("y", (node) => height - (node.value / entireValue) * height - 10);
+      .attr(
+        "y",
+        (node) =>
+          height -
+          marginBottom -
+          (node.value / entireValue) * (height - marginBottom) -
+          10,
+      );
   }, [data]);
 
   return (

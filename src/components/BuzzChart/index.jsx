@@ -41,7 +41,8 @@ const BuzzChart = ({
       .domain(extent(data, (data) => data.date))
       .range([marginLeft + padding, width]);
 
-    const xAxis = axisBottom(xScale).ticks(data.length).tickSizeOuter(0);
+    const xAxis = axisBottom(xScale).ticks(data.length);
+    // .tickSizeOuter(0);
 
     svg
       .select(".x-axis")
