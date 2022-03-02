@@ -1,8 +1,8 @@
 import React from "react";
-import { Graph } from "./style";
+import { GraphWrapper } from "./style";
 
 const DoFinancialGraph = () => {
-  return <Graph>test</Graph>;
+  return <GraphWrapper>Graph</GraphWrapper>;
 };
 
 export default DoFinancialGraph;
