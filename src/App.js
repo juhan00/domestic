@@ -3,23 +3,28 @@ import GlobalStyle from "./GlobalStyle";
 import React from "react";
 import Home from "./routes/Home";
 import Domestic from "./routes/Domestic/Domestic";
-import Global from "./routes/Global/Global";
 import DoComInfo from "./routes/Domestic/DoComInfo";
-import Header from "./components/Domestic/Statistics/Header";
-import DoStatistics from "./routes/Domestic/DoStatistics/DoStatistics";
-import DoBalance from "./routes/Domestic/DoStatistics/DoBalance";
-import DoCashFlow from "./routes/Domestic/DoStatistics/DoCashFlow";
-import DoIncome from "./routes/Domestic/DoStatistics/DoIncome";
-import GoStatistics from "./routes/Global/GoStatistics/GoStatistics";
-import GoBalance from "./routes/Global/GoStatistics/GoBalance";
-import GoCashFlow from "./routes/Global/GoStatistics/GoCashFlow";
-import GoIncome from "./routes/Global/GoStatistics/GoIncome";
+import StatisticsHeader from "./components/Domestic/StatisticsHeader";
+import DoStatistics from "./routes/Domestic/DoStatistics";
+import DoBalance from "./routes/Domestic/DoBalance";
+import DoCashFlow from "./routes/Domestic/DoCashFlow";
+import DoIncome from "./routes/Domestic/DoIncome";
+import DoBeta from "./routes/Domestic/DoBeta";
+import DoCorrelation from "./routes/Domestic/DoCorrelation";
+
+import Global from "./routes/Global/Global";
+import GoStatistics from "./routes/Global/GoStatistics";
+import GoBalance from "./routes/Global/GoBalance";
+import GoCashFlow from "./routes/Global/GoCashFlow";
+import GoIncome from "./routes/Global/GoIncome";
 import GoComInfo from "./routes/Global/GoCominfo";
+import GoBeta from "./routes/Global/GoBeta";
+import GoCorrelation from "./routes/global/GoCorrelation";
 
 import Disclosure from "./components/Disclosure";
 
 import { Layout } from "./components/Layout";
-import DomesticStock from "./routes/DomesticStock";
+import DomesticStock from "./routes/Domestic/DomesticFinance";
 
 const App = () => {
   return (
@@ -31,24 +36,28 @@ const App = () => {
 
           <Route path="/domestic" element={<Domestic />} />
           <Route path="/domestic/cominfo" element={<DoComInfo />} />
-          <Route path="/domestic/statistics" element={<Header />}>
+          <Route path="/domestic/Statistics" element={<StatisticsHeader />}>
             <Route index element={<DoStatistics />} />
             <Route path="Balance" element={<DoBalance />} />
             <Route path="Income" element={<DoIncome />} />
             <Route path="CashFlow" element={<DoCashFlow />} />
           </Route>
-
           <Route path="/domestic/financial" element={<DomesticStock />} />
           <Route path="/domestic/disclosure" element={<Disclosure />} />
+          <Route path="/domestic/Beta" element={<DoBeta />} />
+          <Route path="/domestic/Correlation" element={<DoCorrelation />} />
 
           <Route path="/global" element={<Global />} />
           <Route path="/global/cominfo" element={<GoComInfo />} />
-          <Route path="/global/statistics" element={<Header />}>
+          <Route path="/global/Statistics" element={<StatisticsHeader />}>
             <Route index element={<GoStatistics />} />
             <Route path="Balance" element={<GoBalance />} />
             <Route path="Income" element={<GoIncome />} />
             <Route path="CashFlow" element={<GoCashFlow />} />
           </Route>
+          <Route path="/global/disclosure" element={<Disclosure />} />
+          <Route path="/global/Beta" element={<GoBeta />} />
+          <Route path="/global/Correlation" element={<GoCorrelation />} />
 
           <Route
             path="*"

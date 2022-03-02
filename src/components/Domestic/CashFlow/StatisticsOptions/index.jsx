@@ -1,0 +1,86 @@
+import React from "react";
+import {
+  OptionsWrapper,
+  TableHeader,
+  TableBody,
+  Row,
+  Cell,
+} from "@components/Domestic/StatisticsMain/StatisticsOptions/style";
+
+const StatisticsOptions = (props) => {
+  return (
+    <>
+      <OptionsWrapper>
+        <TableHeader>
+          <thead>
+            <Row className="table__header">
+              <Cell colSpan={2}>Options delete</Cell>
+            </Row>
+          </thead>
+          <tbody>
+            <Row>
+              <Cell>단위</Cell>
+              <Cell>K M B</Cell>
+            </Row>
+            <Row>
+              <Cell>소숫점표시</Cell>
+              <Cell>2 +/-</Cell>
+            </Row>
+            <Row>
+              <Cell>통화</Cell>
+              <Cell>KRW</Cell>
+            </Row>
+          </tbody>
+        </TableHeader>
+        <TableBody>
+          <tbody>
+            <Row>
+              <Cell>Company</Cell>
+            </Row>
+            <Row>
+              <Cell>시가총액</Cell>
+            </Row>
+            <Row>
+              <Cell>기업가치</Cell>
+            </Row>
+            <Row>
+              <Cell>Valuation</Cell>
+            </Row>
+            <Row>
+              <Cell>직전 분기 대비 주당순이익 증가율</Cell>
+            </Row>
+            <Row>
+              <Cell>주가수익률</Cell>
+            </Row>
+            <Row>
+              <Cell>주당순자산</Cell>
+            </Row>
+            <Row>
+              <Cell>주가장부가치비율</Cell>
+            </Row>
+            <Row>
+              <Cell>Efficiency Ratios</Cell>
+            </Row>
+            <Row>
+              <Cell>자산순이익률(ROA)</Cell>
+            </Row>
+            <Row>
+              <Cell>자기자본순이익률(ROE)</Cell>
+            </Row>
+            <Row>
+              <Cell>Yield</Cell>
+            </Row>
+            <Row>
+              <Cell>주당배당금</Cell>
+            </Row>
+            <Row>
+              <Cell>시가배당률</Cell>
+            </Row>
+          </tbody>
+        </TableBody>
+      </OptionsWrapper>
+    </>
+  );
+};
+
+export default StatisticsOptions;
