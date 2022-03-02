@@ -2,16 +2,17 @@ import styled from "@emotion/styled";
 import React from "react";
 import axios from "redaxios";
 import { useEffect } from "react";
-import StatisticsOptions from "@components/Domestic/balance/StatisticsOptions";
-import StatisticsTable from "@components/Domestic/balance/StatisticsTable";
+import StatisticsTable from "@components/Domestic/StatisticsBalanceTable";
+import StatisticsGraph from "@components/Domestic/StatisticsGraph";
 
 const DoBalance = () => {
   return (
     <>
       <section style={{ display: "flex" }}>
-        <StatisticsOptions />
-        <StatisticsTable />
+        <StatisticsGraph />
+        <StatisticsGraph />
       </section>
+      <StatisticsTable />
     </>
   );
 };
