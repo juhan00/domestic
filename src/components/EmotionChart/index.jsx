@@ -100,7 +100,7 @@ const EmotionChart = ({
       .attr("stroke-width", 3)
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
-      .attr("d", line);
+      .attr("d", chartLine);
   }, []);
   return (
     <ChartWrapper ref={buzzChartRef}>
