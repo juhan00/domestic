@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import { ChartWrapper } from "./style";
 import randomColor from "randomcolor";
 import axios from "redaxios";
 import * as d3 from "d3";
@@ -165,7 +164,7 @@ const DomesticStock = () => {
   // }, []);
 
   return (
-    <ChartWrapper>
+    <div>
       <header>
         <h1>삼성전자</h1>
       </header>
@@ -177,7 +176,7 @@ const DomesticStock = () => {
         <BuzzChart />
       </main>
       <footer></footer>
-    </ChartWrapper>
+    </div>
   );
 };
 
