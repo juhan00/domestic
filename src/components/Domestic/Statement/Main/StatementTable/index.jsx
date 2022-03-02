@@ -1,7 +1,7 @@
 import React from "react";
 import { TableWrapper, TableHeader, TableBody, Row, Cell } from "./style";
 
-const StatisticsTable = () => {
+const StatementTable = () => {
   return (
     <>
       <TableWrapper>
@@ -127,4 +127,4 @@ const StatisticsTable = () => {
   );
 };
 
-export default StatisticsTable;
+export default StatementTable;
