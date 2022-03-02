@@ -6,46 +6,49 @@ import {
   scaleTime,
   select,
   line,
-  axisLeft,
+  axisRight,
 } from "d3";
 import React, { useEffect, useRef } from "react";
-import { ChartWrapper } from "../../routes/DomesticStock/style";
+import { ChartWrapper } from "../CategoryChart/style";
 
-const width = 500;
-const height = 300;
-const marginTop = 40;
-const marginBottom = 40;
-const marginLeft = 40;
-const marginRight = 40;
-const padding = 30;
 const data = [
-  { date: new Date("2018-01-01"), value: 10 },
-  { date: new Date("2018-01-02"), value: 20 },
-  { date: new Date("2018-01-03"), value: 30 },
-  { date: new Date("2018-01-04"), value: 25 },
-  { date: new Date("2018-01-05"), value: 35 },
-  { date: new Date("2018-01-06"), value: 45 },
-  { date: new Date("2018-01-07"), value: 60 },
-  { date: new Date("2018-01-08"), value: 50 },
+  { date: new Date("2018-01-01"), value: 1 },
+  { date: new Date("2018-01-02"), value: 2 },
+  { date: new Date("2018-01-03"), value: 3 },
+  { date: new Date("2018-01-04"), value: 2 },
+  { date: new Date("2018-01-05"), value: 3 },
+  { date: new Date("2018-01-06"), value: 4 },
+  { date: new Date("2018-01-07"), value: 3 },
+  { date: new Date("2018-01-08"), value: 5 },
 ];
 
-const BuzzChart = () => {
+const BuzzChart = ({
+  width = 500,
+  height = 300,
+  marginTop = 40,
+  marginBottom = 40,
+  marginLeft = 40,
+  marginRight = 40,
+  padding = 30,
+}) => {
   const buzzChartRef = useRef();
   const svgRef = useRef(null);
   useEffect(() => {
     const buzzChartWrapper = select(buzzChartRef.current);
     const svg = select(svgRef.current);
+
     const xScale = scaleTime()
       .domain(extent(data, (data) => data.date))
-      .range([marginLeft + padding, width - padding]);
+      .range([marginLeft + padding, width]);
 
-    const xAxis = axisBottom(xScale).ticks(width / 90);
-    // .tickSizeOuter(0);
+    const xAxis = axisBottom(xScale).ticks(data.length).tickSizeOuter(0);
 
     svg
       .select(".x-axis")
       .call(xAxis)
-      .style("transform", `translateY(${height}px)`);
+      .call((g) => g.select(".domain").remove())
+      .call((g) => g.selectAll(".tick line").remove())
+      .style("transform", `translateY(${height - marginBottom}px)`);
 
     const yScale = scaleLinear()
       .domain([
@@ -55,7 +58,7 @@ const BuzzChart = () => {
       .nice()
       .range([height - marginBottom, marginTop]);
 
-    const yAxis = axisLeft(yScale);
+    const yAxis = axisRight(yScale);
 
     svg
       .select(".y-axis")
@@ -63,7 +66,11 @@ const BuzzChart = () => {
       .style("transform", `translateX(${marginLeft}px)`)
       .call((g) => g.select(".domain").remove())
       .call((g) =>
-        g.selectAll("line").attr("x2", width).style("stroke", "#ddd"),
+        g
+          .selectAll("line")
+          .attr("x1", marginLeft)
+          .attr("x2", width - marginRight)
+          .style("stroke", "#ddd"),
       );
 
     const chartLine = line()
@@ -75,8 +82,8 @@ const BuzzChart = () => {
       .append("path")
       .datum(data)
       .attr("fill", "none")
-      .attr("stroke", "#add7a8")
-      .attr("stroke-width", 6)
+      .attr("stroke", "#ee9696")
+      .attr("stroke-width", 3)
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
       .attr("d", chartLine);

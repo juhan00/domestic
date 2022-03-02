@@ -8,7 +8,7 @@ import {
   reduce,
 } from "d3";
 import React, { useEffect, useRef } from "react";
-import { ChartWrapper } from "../../routes/DomesticStock/style";
+import { ChartWrapper } from "../CategoryChart/style";
 
 const PressChart = ({
   data,
@@ -41,7 +41,9 @@ const PressChart = ({
     svg
       .select(".x-axis")
       .style("transform", `translateY(${height}px)`)
-      .call(xAxis);
+      .call(xAxis)
+      .call((g) => g.select(".domain").remove())
+      .call((g) => g.selectAll(".tick line").remove());
 
     const yScale = scaleLinear()
       .domain([0, entireValue])
@@ -53,6 +55,7 @@ const PressChart = ({
     svg
       .select(".y-axis")
       .call(yAxis)
+      .call((g) => g.select(".domain").remove())
       .call((g) =>
         g.selectAll("line").attr("x2", width).style("stroke", "#ddd"),
       );
@@ -79,6 +82,7 @@ const PressChart = ({
       .attr("x", (_, index) => xScale(index) + xScale.bandwidth() / 4)
       .attr("y", (node) => height - (node.value / entireValue) * height - 10);
   }, [data]);
+
   return (
     <ChartWrapper ref={pressChartRef}>
       <svg ref={svgRef}>

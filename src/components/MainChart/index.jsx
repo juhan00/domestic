@@ -1,5 +1,5 @@
 import React from "react";
-import { ChartWrapper } from "../../routes/DomesticStock/style";
+import { ChartWrapper } from "../CategoryChart/style";
 
 const MainChart = ({
   data,

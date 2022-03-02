@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { select, sum, treemap, hierarchy } from "d3";
 import randomColor from "randomcolor";
 import isBright from "@utils/isBright";
-import { CategoryChartWrapper } from "./style";
+import { ChartWrapper } from "./style";
 import useResizeObserver from "@utils/useResizeObserver";
 
 const CategoryChart = ({
@@ -88,9 +88,9 @@ const CategoryChart = ({
       });
   }, [data]);
   return (
-    <CategoryChartWrapper ref={categoryChartRef}>
+    <ChartWrapper ref={categoryChartRef}>
       <svg ref={svgRef} />
-    </CategoryChartWrapper>
+    </ChartWrapper>
   );
 };
 
