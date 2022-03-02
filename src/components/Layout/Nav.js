@@ -27,7 +27,7 @@ const Nav = () => {
               <NavLink to="/domestic/cominfo">기업정보</NavLink>
             </li>
             <li>
-              <NavLink to="/domestic/statement">재무데이터</NavLink>
+              <NavLink to="/domestic/statistics">재무데이터</NavLink>
             </li>
             <li>
               <NavLink to="/domestic/disclosure">기업공시</NavLink>
@@ -51,7 +51,7 @@ const Nav = () => {
               <NavLink to="/global/cominfo">기업정보</NavLink>
             </li>
             <li>
-              <NavLink to="/global/statement">재무데이터</NavLink>
+              <NavLink to="/global/statistics">재무데이터</NavLink>
             </li>
             <li>
               <NavLink to="/global/disclosure">기업공시</NavLink>

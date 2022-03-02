@@ -5,16 +5,16 @@ import {
   TableBody,
   Row,
   Cell,
-} from "../../Main/StatementOptions/style";
+} from "@components/Domestic/StatisticsMain/StatisticsOptions/style";
 
-const StatementOptions = (props) => {
+const StatisticsOptions = (props) => {
   return (
     <>
       <OptionsWrapper>
         <TableHeader>
           <thead>
             <Row className="table__header">
-              <Cell colSpan={2}>Options</Cell>
+              <Cell colSpan={2}>Options de</Cell>
             </Row>
           </thead>
           <tbody>
@@ -118,4 +118,4 @@ const StatementOptions = (props) => {
   );
 };
 
-export default StatementOptions;
+export default StatisticsOptions;

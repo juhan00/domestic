@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { HeaderWrapper, NavLink } from "./style";
 
-const Header = () => {
+const StatisticsHeader = () => {
   return (
     <>
       <HeaderWrapper>
@@ -16,4 +16,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default StatisticsHeader;

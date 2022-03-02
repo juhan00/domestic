@@ -1,20 +1,14 @@
 import React from "react";
-import {
-  TableWrapper,
-  TableHeader,
-  TableBody,
-  Row,
-  Cell,
-} from "../../Main/StatementTable/style";
+import { TableWrapper, TableHeader, TableBody, Row, Cell } from "./style";
 
-const StatementTable = () => {
+const StatisticsTable = () => {
   return (
     <>
       <TableWrapper>
         <TableHeader>
           <thead>
             <Row className="table__header">
-              <Cell colSpan={10}>STATEMENT</Cell>
+              <Cell colSpan={10}>Main</Cell>
             </Row>
           </thead>
           <tbody>
@@ -133,4 +127,4 @@ const StatementTable = () => {
   );
 };
 
-export default StatementTable;
+export default StatisticsTable;
