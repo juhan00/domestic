@@ -1,7 +1,7 @@
 import React from "react";
 import { OptionsWrapper, TableHeader, TableBody, Row, Cell } from "./style";
 
-const StatisticsOptions = (props) => {
+const StatementOptions = (props) => {
   return (
     <>
       <OptionsWrapper>
@@ -77,4 +77,4 @@ const StatisticsOptions = (props) => {
   );
 };
 
-export default StatisticsOptions;
+export default StatementOptions;

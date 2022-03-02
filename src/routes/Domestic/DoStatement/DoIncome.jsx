@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "redaxios";
 import { useEffect } from "react";
-import StatisticsOptions from "@components/Domestic/Statistics/income/statisticsOptions";
-import StatisticsTable from "@components/Domestic/Statistics/income/statisticsTable";
+import StatementOptions from "@components/Domestic/Statement/income/StatementOptions";
+import StatementTable from "@components/Domestic/Statement/income/StatementTable";
 import { useParams } from "react-router-dom";
 
 const DoIncome = () => {
@@ -14,8 +14,8 @@ const DoIncome = () => {
   return (
     <>
       <section style={{ display: "flex" }}>
-        <StatisticsOptions />
-        <StatisticsTable />
+        <StatementOptions />
+        <StatementTable />
       </section>
     </>
   );

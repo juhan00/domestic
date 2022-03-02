@@ -5,9 +5,9 @@ import {
   TableBody,
   Row,
   Cell,
-} from "../../Main/statisticsTable/style";
+} from "../../Main/StatementTable/style";
 
-const StatisticsTable = () => {
+const StatementTable = () => {
   return (
     <>
       <TableWrapper>
@@ -213,13 +213,6 @@ const StatisticsTable = () => {
               <Cell colSpan={2}>2304009억원</Cell>
               <Cell colSpan={2}>2304009억원</Cell>
             </Row>
-            <Row>
-              <Cell colSpan={2}>2304009억원</Cell>
-              <Cell colSpan={2}>2304009억원</Cell>
-              <Cell colSpan={2}>2304009억원</Cell>
-              <Cell colSpan={2}>2304009억원</Cell>
-              <Cell colSpan={2}>2304009억원</Cell>
-            </Row>
           </tbody>
         </TableBody>
       </TableWrapper>
@@ -227,4 +220,4 @@ const StatisticsTable = () => {
   );
 };
 
-export default StatisticsTable;
+export default StatementTable;
