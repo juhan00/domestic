@@ -1,4 +1,5 @@
 import React from "react";
+import { ChartWrapper } from "../../routes/DomesticStock/style";
 
 const MainChart = ({
   data,
@@ -11,8 +12,8 @@ const MainChart = ({
   const mainChartRef = useRef(null);
   const svgRef = useRef(null);
   return (
-    <div ref={mainChartRef}>
+    <ChartWrapper ref={mainChartRef}>
       <svg ref={svgRef} />
-    </div>
+    </ChartWrapper>
   );
 };

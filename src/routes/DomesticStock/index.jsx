@@ -1,13 +1,14 @@
 import React, { useEffect, useRef } from "react";
-import { DomesticStockWrapper } from "./style";
+import { ChartWrapper } from "./style";
 import randomColor from "randomcolor";
 import axios from "redaxios";
 import * as d3 from "d3";
 import cloud from "d3-cloud";
-import isBright from "../../utils/isBright";
-import KeywordChart from "../../components/KeywordChart";
-import CategoryChart from "../../components/CategoryChart";
-import PressChart from "../../components/pressChart";
+import isBright from "@utils/isBright";
+import KeywordChart from "@components/KeywordChart";
+import CategoryChart from "@components/CategoryChart";
+import PressChart from "@components/pressChart";
+import BuzzChart from "@components/BuzzChart";
 
 const DomesticStock = () => {
   const mainChartRef = useRef(null);
@@ -34,10 +35,6 @@ const DomesticStock = () => {
   ]);
 
   const pressData = useRef([
-    {
-      title: "팍스넷",
-      value: 838,
-    },
     {
       title: "팍스넷",
       value: 838,
@@ -168,7 +165,7 @@ const DomesticStock = () => {
   // }, []);
 
   return (
-    <DomesticStockWrapper>
+    <ChartWrapper>
       <header>
         <h1>삼성전자</h1>
       </header>
@@ -177,9 +174,10 @@ const DomesticStock = () => {
         <div ref={mainChartRef} />
         <CategoryChart data={categoryData.current} />
         <PressChart data={pressData.current} />
+        <BuzzChart />
       </main>
       <footer></footer>
-    </DomesticStockWrapper>
+    </ChartWrapper>
   );
 };
 
