@@ -2,14 +2,20 @@ import React, { useRef, useEffect } from "react";
 import { select } from "d3";
 import cloud from "d3-cloud";
 import randomColor from "randomcolor";
+import { ChartWrapper } from "../CategoryChart/style";
 
 const KeywordChart = ({
   data,
   font = "Impact",
-  padding = 1,
+  keyWordPadding = 1,
   rotate = 90,
   width = 500,
   height = 300,
+  marginTop = 40,
+  marginBottom = 40,
+  marginLeft = 40,
+  marginRight = 40,
+  padding = 30,
 }) => {
   const keywordChartRef = useRef(null);
   const svgRef = useRef(null);
@@ -25,7 +31,7 @@ const KeywordChart = ({
     cloud()
       .size([width, height])
       .words(wordData)
-      .padding(padding)
+      .padding(keyWordPadding)
       .font(font)
       .fontSize((d) => d.size)
       .rotate((_, i) => i * rotate)
@@ -57,9 +63,9 @@ const KeywordChart = ({
     }
   }, [data]);
   return (
-    <div ref={keywordChartRef}>
+    <ChartWrapper ref={keywordChartRef}>
       <svg ref={svgRef} />
-    </div>
+    </ChartWrapper>
   );
 };
 

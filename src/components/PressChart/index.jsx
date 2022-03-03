@@ -1,5 +1,14 @@
-import { select, sum, scaleLinear, scaleBand, axisRight, axisBottom } from "d3";
+import {
+  select,
+  max,
+  scaleLinear,
+  scaleBand,
+  axisRight,
+  axisBottom,
+  reduce,
+} from "d3";
 import React, { useEffect, useRef } from "react";
+import { ChartWrapper } from "../CategoryChart/style";
 
 const PressChart = ({
   data,
@@ -8,6 +17,11 @@ const PressChart = ({
   width = 500,
   height = 300,
   barSpace = 50,
+  marginTop = 40,
+  marginBottom = 40,
+  marginLeft = 40,
+  marginRight = 40,
+  padding = 30,
 }) => {
   const pressChartRef = useRef(null);
   const svgRef = useRef(null);
@@ -16,22 +30,14 @@ const PressChart = ({
     const pressWrapper = select(pressChartRef.current);
     const svg = select(svgRef.current);
 
-    const entireValue = sum(data, (data) => data.value);
+    const entireValue = max(data, (data) => data.value);
 
-    const press = svg
-      .attr("width", width)
-      .attr("height", height)
-      .selectAll("rect");
+    svg.attr("width", width).attr("height", height);
 
     const xScale = scaleBand()
       .domain(data.map((value, idx) => idx))
-      .range([0, width])
+      .range([marginLeft + padding, width])
       .padding(0.5);
-
-    const yScale = scaleLinear()
-      .domain([0, entireValue])
-      .range([height, 0])
-      .clamp(true);
 
     const xAxis = axisBottom(xScale).tickFormat((node, i) => {
       return data[node].title;
@@ -39,34 +45,77 @@ const PressChart = ({
 
     svg
       .select(".x-axis")
-      .style("transform", `translateY(${height}px)`)
-      .call(xAxis);
+      .style("transform", `translateY(${height - marginBottom}px)`)
+      .call(xAxis)
+      .call((g) => g.select(".domain").remove())
+      .call((g) => g.selectAll(".tick line").remove());
+
+    const yScale = scaleLinear()
+      .domain([0, entireValue])
+      .range([height - marginBottom, marginTop])
+      .clamp(true);
 
     const yAxis = axisRight(yScale);
 
     svg
       .select(".y-axis")
-      .style("transform", `translateX(${width}px)`)
-      .call(yAxis);
+      .call(yAxis)
+      .style("transform", `translateX(${marginLeft}px)`)
+      .call((g) => g.select(".domain").remove())
+      .call((g) =>
+        g
+          .selectAll("line")
+          .attr("x1", marginLeft)
+          .attr("x2", width - marginRight)
+          .style("stroke", "#ddd"),
+      );
 
-    press
+    const press = svg
+      .selectAll(".bar")
       .data(data)
       .enter()
+      .append("g")
+      .classed("bar", true);
+
+    press
       .append("rect")
-      .attr("height", (node) => (node.value / entireValue) * height)
+      .attr(
+        "height",
+        (node) => (node.value / entireValue) * (height - marginBottom),
+      )
       .attr("width", barWidth)
       .attr("x", (_, index) => xScale(index))
-      .attr("y", (node) => height - (node.value / entireValue) * height)
+      .attr(
+        "y",
+        (node) =>
+          height -
+          marginBottom -
+          (node.value / entireValue) * (height - marginBottom),
+      )
       .attr("width", xScale.bandwidth())
       .attr("fill", barColor);
+
+    press
+      .append("text")
+      .text((data) => data["value"])
+      .attr("x", (_, index) => xScale(index) + xScale.bandwidth() / 4)
+      .attr(
+        "y",
+        (node) =>
+          height -
+          marginBottom -
+          (node.value / entireValue) * (height - marginBottom) -
+          10,
+      );
   }, [data]);
+
   return (
-    <div ref={pressChartRef}>
-      <svg ref={svgRef} style={{ overflow: "visible" }}>
+    <ChartWrapper ref={pressChartRef}>
+      <svg ref={svgRef}>
         <g className="x-axis" />
         <g className="y-axis" />
       </svg>
-    </div>
+    </ChartWrapper>
   );
 };
 

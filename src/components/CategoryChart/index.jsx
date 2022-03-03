@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { select, sum, treemap, hierarchy } from "d3";
 import randomColor from "randomcolor";
 import isBright from "@utils/isBright";
-import { CategoryChartWrapper } from "./style";
+import { ChartWrapper } from "./style";
 import useResizeObserver from "@utils/useResizeObserver";
 
 const CategoryChart = ({
@@ -10,6 +10,11 @@ const CategoryChart = ({
   darkTextColor = "black",
   width = 500,
   height = 300,
+  marginTop = 40,
+  marginBottom = 40,
+  marginLeft = 40,
+  marginRight = 40,
+  padding = 30,
   brightTextColor = "white",
 }) => {
   const categoryChartRef = useRef(null);
@@ -26,15 +31,16 @@ const CategoryChart = ({
       ele.color = randomColor();
     });
 
-    const createTree = treemap().size([width, height]);
+    const createTree = treemap().size([
+      width - marginLeft - marginRight,
+      height - marginTop - marginBottom,
+    ]);
 
     const mapData = hierarchy(data, (node) => node).sum((node) => node.value);
 
     const tree = createTree(mapData);
 
-    const chart = svg.attr("width", width).attr("height", height);
-
-    const block = chart
+    const block = svg
       .selectAll("g")
       .data(tree.leaves())
       .enter()
@@ -88,9 +94,9 @@ const CategoryChart = ({
       });
   }, [data]);
   return (
-    <CategoryChartWrapper ref={categoryChartRef}>
+    <ChartWrapper ref={categoryChartRef}>
       <svg ref={svgRef} />
-    </CategoryChartWrapper>
+    </ChartWrapper>
   );
 };
 
