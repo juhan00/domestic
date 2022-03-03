@@ -41,8 +41,8 @@ const DomesticList = () => {
             </tr>
           })}
         </tbody>
-
-        <label>
+      </table>
+      <label>
           <select
             type="number"
             value={limit}
@@ -54,13 +54,12 @@ const DomesticList = () => {
           </select>
         </label>
 
-          <Pagination
-            total={disclosureList.length}
-            limit={limit}
-            page={page}
-            setPage={setPage}
-          />
-      </table>
+        <Pagination
+          total={disclosureList.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        />
     </DisclosureListWrapper>
   )
 }

@@ -41,8 +41,8 @@ const GlobalList = () => {
             </tr>
           })}
         </tbody>
-
-        <label>
+      </table>
+      <label>
           <select
             type="number"
             value={limit}
@@ -54,15 +54,12 @@ const GlobalList = () => {
           </select>
         </label>
 
-          <Pagination
-            total={disclosureList.length}
-            limit={limit}
-            page={page}
-            setPage={setPage}
-          />
-      </table>
-
-
+        <Pagination
+          total={disclosureList.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        />
     </DisclosureListWrapper>
   )
 }

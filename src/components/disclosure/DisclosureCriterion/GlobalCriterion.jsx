@@ -153,8 +153,8 @@ const GlobalCriterion = () => {
               </label>
             </div> */}
           </div>
-          <button class="btn__form">적용</button>
-          <input class="btn__form" type="reset" value="초기화" onClick={() => setPeriod('oneY')} />
+          <button className="btn__form">적용</button>
+          <input className="btn__form" type="reset" value="초기화" onClick={() => setPeriod('oneY')} />
         </form>
       </div>
     </DisclosureCriterionWrapper>
