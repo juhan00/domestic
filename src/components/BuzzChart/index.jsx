@@ -7,6 +7,7 @@ import {
   select,
   line,
   axisRight,
+  format,
 } from "d3";
 import React, { useEffect, useRef } from "react";
 import { ChartWrapper } from "../CategoryChart/style";
@@ -51,15 +52,16 @@ const BuzzChart = ({
       .call((g) => g.selectAll(".tick line").remove())
       .style("transform", `translateY(${height - marginBottom}px)`);
 
+    const maxValue = max(data, (data) => data.value);
+
     const yScale = scaleLinear()
-      .domain([
-        -max(data, (data) => data.value),
-        max(data, (data) => data.value),
-      ])
+      .domain([-maxValue, maxValue])
       .nice()
       .range([height - marginBottom, marginTop]);
 
-    const yAxis = axisRight(yScale);
+    const yAxis = axisRight(yScale)
+      .tickValues([-maxValue, 0, maxValue])
+      .tickFormat(format("d"));
 
     svg
       .select(".y-axis")

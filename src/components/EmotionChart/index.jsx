@@ -8,7 +8,7 @@ import {
   line,
   axisRight,
   area,
-  min,
+  format,
 } from "d3";
 import React, { useEffect, useRef } from "react";
 import { ChartWrapper } from "../CategoryChart/style";
@@ -60,7 +60,9 @@ const EmotionChart = ({
       .nice()
       .range([height - marginBottom, marginTop]);
 
-    const yAxis = axisRight(yScale);
+    const yAxis = axisRight(yScale)
+      .tickValues([0, maxValue / 2, maxValue])
+      .tickFormat(format("d"));
 
     svg
       .select(".y-axis")
