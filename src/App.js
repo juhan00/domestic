@@ -11,6 +11,7 @@ import DoCashFlow from "./routes/Domestic/DoCashFlow";
 import DoIncome from "./routes/Domestic/DoIncome";
 import DoBeta from "./routes/Domestic/DoBeta";
 import DoCorrelation from "./routes/Domestic/DoCorrelation";
+import DoDisclosure from "./routes/Domestic/DoDisclosure";
 
 import Global from "./routes/Global/Global";
 import GoStatistics from "./routes/Global/GoStatistics";
@@ -20,8 +21,7 @@ import GoIncome from "./routes/Global/GoIncome";
 import GoComInfo from "./routes/Global/GoCominfo";
 import GoBeta from "./routes/Global/GoBeta";
 import GoCorrelation from "./routes/global/GoCorrelation";
-
-import Disclosure from "./components/Disclosure";
+import GoDisclosure from "./routes/Global/GoDisclosure";
 
 import { Layout } from "./components/Layout";
 import DomesticStock from "./routes/Domestic/DomesticFinance";
@@ -43,7 +43,7 @@ const App = () => {
             <Route path="CashFlow" element={<DoCashFlow />} />
           </Route>
           <Route path="/domestic/financial" element={<DomesticStock />} />
-          <Route path="/domestic/disclosure" element={<Disclosure />} />
+          <Route path="/domestic/disclosure" element={<DoDisclosure />} />
           <Route path="/domestic/Beta" element={<DoBeta />} />
           <Route path="/domestic/Correlation" element={<DoCorrelation />} />
 
@@ -55,7 +55,7 @@ const App = () => {
             <Route path="Income" element={<GoIncome />} />
             <Route path="CashFlow" element={<GoCashFlow />} />
           </Route>
-          <Route path="/global/disclosure" element={<Disclosure />} />
+          <Route path="/global/disclosure" element={<GoDisclosure />} />
           <Route path="/global/Beta" element={<GoBeta />} />
           <Route path="/global/Correlation" element={<GoCorrelation />} />
 
