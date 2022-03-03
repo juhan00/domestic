@@ -1,77 +1,80 @@
 import React from "react";
 import { StockInfoStyle } from "./style";
-import { NavLink } from "react-router-dom";
+import MenuIconToggle from "@images/menuicon_toggle.svg";
 
 const InfoTable = () => {
   return (
     <StockInfoStyle>
-      <section>
-        <div className="stock">
-          <div className="category">
-            <div>
-              <h1>삼성전자</h1>
-              <span>005930</span>
-            </div>
-            <div>
-              <h2>73100</h2>
+      <div className="stockInfoContainer">
+        <div className="stockInfoWrapper">
+          <ul>
+            <li>
               <div>
-                {/* 음수, 양수에 따라 2가지 전환 */}
-                <svg
-                  width="11"
-                  height="8"
-                  viewBox="0 0 11 8"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M10.631 0H0.368959C0.061159 0 -0.110709 0.392476 0.0799082 0.660416L5.21095 7.84575C5.35782 8.05142 5.64062 8.05142 5.78905 7.84575L10.9201 0.660416C11.1107 0.392476 10.9388 0 10.631 0Z"
-                    fill="#1B61D1"
-                  />
-                </svg>
-                <span>300</span>
+                <h3>삼성전자</h3>
+                <img src={MenuIconToggle} />
+                <sapn>005930</sapn>
               </div>
-              <span>-0.41%</span>
-            </div>
-          </div>
-          <div>time</div>
+              <div>
+                전일가<span className="price">74300</span>
+                <sapn className="date">2022.2.28기준</sapn>
+              </div>
+            </li>
+            <li>
+              <div className="provider"></div>
+            </li>
+            <li>
+              <div className="infoTItle">상장주식수</div>
+              <div className="infoValue">5969782550</div>
+            </li>
+            <li>
+              <div className="infoTItle">거래소</div>
+              <div className="infoValue">KOSPI</div>
+            </li>
+            <li>
+              <div className="infoTItle">시가총액</div>
+              <div className="infoValue">2516263</div>
+            </li>
+            <li>
+              <div className="provider"></div>
+            </li>
+            <li>
+              <div className="infoTItle">52주 최저</div>
+              <div className="infoValue">36850</div>
+            </li>
+            <li>
+              <div className="infoTItle">52주 최고</div>
+              <div className="infoValue">54140</div>
+            </li>
+            <li>
+              <div className="provider"></div>
+            </li>
+            <li>
+              <div className="infoTItle">PER</div>
+              <div className="infoValue">7.78</div>
+            </li>
+            <li>
+              <div className="infoTItle">EPS(FNGUIDE)</div>
+              <div className="infoValue">5,421</div>
+            </li>
+            <li>
+              <div className="infoTItle">PER</div>
+              <div className="infoValue">7.03</div>
+            </li>
+            <li>
+              <div className="infoTItle">EPS(KRX)</div>
+              <div className="infoValue">5,667</div>
+            </li>
+            <li>
+              <div className="infoTItle">추정PER</div>
+              <div className="infoValue">9</div>
+            </li>
+            <li>
+              <div className="infoTItle">추정EPS</div>
+              <div className="infoValue">4,858</div>
+            </li>
+          </ul>
         </div>
-        <div className="closingPrice price">
-          <div>
-            <span>전일</span>
-            <h2>73400</h2>
-          </div>
-          <div>
-            <span>시가</span>
-            <h2>73400</h2>
-          </div>
-        </div>
-        <div className="nowPrice price">
-          <div>
-            <span>고가</span>
-            <h2>73800</h2>
-          </div>
-          <div>
-            <span>저가</span>
-            <h2>72800</h2>
-          </div>
-        </div>
-        <div className="tradingVolume">
-          <div>
-            <span>거래량</span>
-            <strong>865344(74%)</strong>
-          </div>
-          <div>
-            <span>거래대금</span>
-            <strong>632563백만</strong>
-          </div>
-        </div>
-      </section>
-      <nav>
-        <NavLink to="/domestic/dofinancial">주식뉴스분석</NavLink>
-        <NavLink to="/menu2">기업정보</NavLink>
-        <NavLink to="/domestic/statistics">재무데이터</NavLink>
-        <NavLink to="/domestic/disclosure">기업공시</NavLink>
-        <NavLink to="/menu5">통계</NavLink>
-      </nav>
+      </div>
     </StockInfoStyle>
   );
 };

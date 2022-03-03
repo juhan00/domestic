@@ -1,23 +1,26 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import { Logo } from "./style";
 import Search from "./Search";
-import InfoTable from "./StockInfo";
 import {
   HeaderStyle,
   HaederMenuWrapper,
   SearchMenuStyleOnHeader,
 } from "./style";
 
-export const Header = () => {
+export const Header = (props) => {
   return (
-    <>
-      <HeaderStyle>
-        <HaederMenuWrapper>
-          <SearchMenuStyleOnHeader>
-            <Search />
-          </SearchMenuStyleOnHeader>
-        </HaederMenuWrapper>
-      </HeaderStyle>
-      <InfoTable />
-    </>
+    <HeaderStyle>
+      <HaederMenuWrapper>
+        <NavLink to="/">
+          <Logo />
+        </NavLink>
+        <SearchMenuStyleOnHeader>
+          <Search />
+        </SearchMenuStyleOnHeader>
+      </HaederMenuWrapper>
+    </HeaderStyle>
   );
 };
+
+export default Header;
