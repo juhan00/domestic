@@ -85,10 +85,32 @@ const EmotionChart = ({
       .y0(() => yScale(0))
       .y1((d) => yScale(d.value));
 
+    const gradient = svg
+      .append("linearGradient")
+      .attr("id", "chartGradient")
+      .attr("x1", "100%")
+      .attr("x2", "100%")
+      .attr("y1", "100%")
+      .attr("y2", "0%");
+
+    gradient
+      .append("stop")
+      .attr("class", "start")
+      .attr("offset", "0%")
+      .attr("stop-color", "#5fb6ad")
+      .attr("stop-opacity", 0.5);
+
+    gradient
+      .append("stop")
+      .attr("class", "end")
+      .attr("offset", "100%")
+      .attr("stop-color", "#5fb6ad")
+      .attr("stop-opacity", 1);
+
     svg
       .append("path")
       .datum(data)
-      .attr("fill", "#5fb6ad")
+      .attr("fill", "url(#chartGradient)")
       .attr("d", chartLine)
       .attr("d", chartArea);
 
@@ -96,8 +118,8 @@ const EmotionChart = ({
       .append("path")
       .datum(data)
       .attr("fill", "none")
-      .attr("stroke", "#ee9696")
-      .attr("stroke-width", 3)
+      .attr("stroke", "#5fb6ad")
+      .attr("stroke-width", 1)
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
       .attr("d", chartLine);
