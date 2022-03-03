@@ -8,6 +8,7 @@ import KeywordChart from "@components/KeywordChart";
 import CategoryChart from "@components/CategoryChart";
 import PressChart from "@components/pressChart";
 import BuzzChart from "@components/BuzzChart";
+import EmotionChart from "@components/EmotionChart";
 
 const DomesticStock = () => {
   const mainChartRef = useRef(null);
@@ -174,6 +175,7 @@ const DomesticStock = () => {
         <CategoryChart data={categoryData.current} />
         <PressChart data={pressData.current} />
         <BuzzChart />
+        <EmotionChart />
       </main>
       <footer></footer>
     </div>

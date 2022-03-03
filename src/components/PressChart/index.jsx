@@ -81,7 +81,8 @@ const PressChart = ({
       .append("rect")
       .attr(
         "height",
-        (node) => (node.value / entireValue) * (height - marginBottom),
+        (node) =>
+          (node.value / entireValue) * (height - marginBottom - marginTop),
       )
       .attr("width", barWidth)
       .attr("x", (_, index) => xScale(index))
@@ -90,7 +91,7 @@ const PressChart = ({
         (node) =>
           height -
           marginBottom -
-          (node.value / entireValue) * (height - marginBottom),
+          (node.value / entireValue) * (height - marginBottom - marginTop),
       )
       .attr("width", xScale.bandwidth())
       .attr("fill", barColor);
