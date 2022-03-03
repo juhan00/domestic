@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { clickOutside } from "../../utils/clickOutside";
 
 const stockListSample = [
   { symbol: "A", companyName: "AAA INC", HQnation: "US" },
@@ -37,32 +38,30 @@ const stockListSample = [
 ];
 
 export const Search = () => {
-  // const searchRef = useRef(null);
+  const ref = useRef();
   const [searchItem, setSearchItem] = useState("");
-  const [focused, setFocused] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const handleItem = (e) => {
     setSearchItem(e.target.value);
   };
 
+  clickOutside(ref, isOpen, setIsOpen);
+
   return (
     <>
-      <div className="searchContainer">
+      <div className="searchContainer" ref={ref}>
         <div className="searchFormWrapper">
           <form>
             <input
               placeholder="종목명/지수명 검색"
               onChange={handleItem}
               value={searchItem}
-              onFocus={() => setFocused(true)}
-              // onBlur={() => setFocused(false)}
-              // 리스트 클릭하는 순간 블러 처리가 되는 것인지, link 이동이 안됨.  다른 방식으로 포커스 아웃 방법 찾을 것
+              onFocus={() => setIsOpen(true)}
             />
           </form>
         </div>
         <div
-          className={
-            focused ? "seachResultWrapper" : "seachResultWrapper hide"
-          }>
+          className={isOpen ? "seachResultWrapper" : "seachResultWrapper hide"}>
           <ul className="searchResultList">
             {stockListSample
               .filter((list) => {
@@ -80,8 +79,8 @@ export const Search = () => {
                 }
               })
               .map((list) => (
-                <li className="serachResultItem">
-                  <NavLink to={`${list.symbol}/domestic`}>
+                <li className="serachResultItem" key={list.symbol}>
+                  <NavLink to={`${list.symbol}`}>
                     <span>{list.symbol}</span> | {list.companyName} |{" "}
                     {list.HQnation}{" "}
                   </NavLink>
