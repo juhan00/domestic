@@ -17,31 +17,41 @@ const GlobalList = () => {
 
   return (
     <DisclosureListWrapper>
-      <table className="disclosure__list">
-        <thead className="disclosure__list__header">
-          <tr>
-            <th>번호</th>
-            <th>공시대상회사</th>
-            <th>보고서명</th>
-            <th>제출인</th>
-            <th>접수일자</th>
-            <th>비고</th>
-          </tr>
-        </thead>
-        <tbody className="disclosure__list__body">
-          {disclosureList.slice(offset, offset + limit).map((li, index) => {
-            return <tr key={index}>
-              <td>{index + 1}</td>
-              <td>{li.corp_name}</td>
-              <td>{li.report_nm}</td>
-              <td>{li.source}</td>
-              <td>{li.flng_dt}</td>
-              <td>{li.rm}</td>
+      <div className="disclosure__list">
+        <h4>공시 목록</h4>
+        <table>
+
+          <thead className="disclosure__list__header">
+            <tr>
+              <th>번호</th>
+              <th>공시대상회사</th>
+              <th>보고서명</th>
+              <th>제출인</th>
+              <th>접수일자</th>
+              <th>비고</th>
             </tr>
-          })}
-        </tbody>
-      </table>
-      <label>
+          </thead>
+          <tbody className="disclosure__list__body">
+            {disclosureList.slice(offset, offset + limit).map((li, index) => {
+              return <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{li.corp_name}</td>
+                <td>{li.report_nm}</td>
+                <td>{li.source}</td>
+                <td>{li.flng_dt}</td>
+                <td>{li.rm}</td>
+              </tr>
+            })}
+          </tbody>
+        </table>
+        <Pagination
+          total={disclosureList.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        />
+      </div>
+      {/* <label>
           <select
             type="number"
             value={limit}
@@ -51,14 +61,7 @@ const GlobalList = () => {
             <option value="30">30</option>
             <option value="100">100</option>
           </select>
-        </label>
-
-        <Pagination
-          total={disclosureList.length}
-          limit={limit}
-          page={page}
-          setPage={setPage}
-        />
+        </label> */}
     </DisclosureListWrapper>
   )
 }

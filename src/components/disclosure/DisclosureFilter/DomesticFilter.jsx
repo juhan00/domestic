@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { DisclosureCriterionWrapper } from "./style";
+import { DisclosureFilterWrapper } from "./style";
 
 const DomesticFilter = () => {
   const [period, setPeriod] = useState("oneY");
@@ -35,41 +35,45 @@ const DomesticFilter = () => {
   }
 
   return (
-    <DisclosureCriterionWrapper>
-      <div className="disclosure__criterion">
-        <div className="disclosure__criterion__header">
-          <h4>기간 및 상세보기</h4>
-        </div>
-        <form name="form" className="disclosure__criterion__body" onSubmit={handleFormSubmit}>
-          <div className="setPeriod" key={period}>
-            <input type="date" name="date" defaultValue={getToday(date[period])} min={date.sixM} max={date.oneM} onChange={handleValueChange} />
-            <input type="date" name="date" defaultValue={getToday(date.today)} min={date.oneM} max={date.oneM} />
-            <div>                
-              <input type="radio" id="oneM" name="period" onChange={handleRadioChange} checked={period === "oneM"} />
-              <label htmlFor="oneM">1개월</label>
+    <DisclosureFilterWrapper>
+      <div className="disclosure__filter">
+        <form name="form" onSubmit={handleFormSubmit}>
+          <fieldset className="setPeriod" key={period}>
+            <h4>기간 선택</h4>
+            <div>
+              <input className="begin" type="date" name="date" defaultValue={getToday(date[period])} min={date.sixM} max={date.oneM} onChange={handleValueChange} />
+              ~
+              <input type="date" name="date" defaultValue={getToday(date.today)} min={date.oneM} max={date.oneM} />
             </div>
             <div>
-              <input type="radio" id="sixM" name="period" onChange={handleRadioChange} checked={period === "sixM"} />
-              <label htmlFor="sixM">6개월</label>
+              <div>                
+                <input type="radio" id="oneM" name="period" onChange={handleRadioChange} checked={period === "oneM"} />
+                <label htmlFor="oneM">1개월</label>
+              </div>
+              <div>
+                <input type="radio" id="sixM" name="period" onChange={handleRadioChange} checked={period === "sixM"} />
+                <label htmlFor="sixM">6개월</label>
+              </div>
+              <div>
+                <input type="radio" id="oneY" name="period" onChange={handleRadioChange} checked={period === "oneY"} />
+                <label htmlFor="oneY">1년</label>
+              </div>
+              <div>
+                <input type="radio" id="threeY" name="period" onChange={handleRadioChange} checked={period === "threeY"} />
+                <label htmlFor="threeY">3년</label>
+              </div>
+              <div>
+                <input type="radio" id="fiveY" name="period" onChange={handleRadioChange} checked={period === "fiveY"} />
+                <label htmlFor="fiveY">5년</label>
+              </div>
+              <div>
+                <input type="radio" id="tenY" name="period" onChange={handleRadioChange} checked={period === "tenY"} />
+                <label htmlFor="tenY">10년</label>
+              </div>
             </div>
-            <div>
-              <input type="radio" id="oneY" name="period" onChange={handleRadioChange} checked={period === "oneY"} />
-              <label htmlFor="oneY">1년</label>
-            </div>
-            <div>
-              <input type="radio" id="threeY" name="period" onChange={handleRadioChange} checked={period === "threeY"} />
-              <label htmlFor="threeY">3년</label>
-            </div>
-            <div>
-              <input type="radio" id="fiveY" name="period" onChange={handleRadioChange} checked={period === "fiveY"} />
-              <label htmlFor="fiveY">5년</label>
-            </div>
-            <div>
-              <input type="radio" id="tenY" name="period" onChange={handleRadioChange} checked={period === "tenY"} />
-              <label htmlFor="tenY">10년</label>
-            </div>
-          </div>
-          <div className="setType">
+          </fieldset >
+          <fieldset className="setType">
+            <h4>공시유형 선택</h4>
             <div>
               <label htmlFor="typeA">
                 <input type="checkbox" id="typeA" name="type" />
@@ -130,12 +134,12 @@ const DomesticFilter = () => {
                 공정위공시
               </label>
             </div>
-          </div>
-          <button className="btn__form">적용</button>
+          </fieldset>
           <input className="btn__form" type="reset" value="초기화" onClick={() => setPeriod('oneY')} />
+          <button className="btn__form">적용</button>
         </form>
       </div>
-    </DisclosureCriterionWrapper>
+    </DisclosureFilterWrapper>
   )
 }
 

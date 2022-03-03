@@ -6,33 +6,53 @@ import styled from "@emotion/styled";
 export const DisclosureListWrapper = styled.div`
   .disclosure {
     &__list {
-      border-collapse: separate;
-      width: 1200px;
-      /* height: 790px; */
-      border: 1px solid #5FB6AD;
+      margin-top: 20px;
+      /* border-collapse: separate; */
+      width: calc(100% - 300px); /* 원래는 - 35px */  
+      height: calc(100vh - 400px);
+      /* border: 1px solid #5FB6AD; */
+      background-color: #FFFFFF;
       border-radius: 12px;
-      text-align: center;
       /* vertical-align: middle; */
-      overflow: hidden;
-      &__header {
+      /* overflow: hidden; */
+      padding-bottom: 30px;
+      h4 {
+        border-radius: 12px 12px 0 0;
+        text-align: center;
         height: 56px;
-        background-color: #5FB6AD;
+        line-height: 56px;
+        background-color: #5FB6AD;       
+        color: #FFFFFF;
+        font-size: 18px;
+        font-weight: 700;
+      }
+      table {
+        width: 100%;
+        border-collapse: separate;
+        padding: 0 50px;
+      }
+
+      &__header {
+        background-color: #F7F7FB;
+        color: #111111;
+        font-weight: 500;
         tr {
-          color: #FFFFFF;
+          width: 100%;
           th {
-            line-height: 56px;
+            text-align: left;
+            height: 40px;
+            line-height: 40px;
           }
         }
       }
       &__body {
         tr {
           td {
-            /* border: 1px solid black; */
-            padding: 29px 0;
-
-            div {
-              border: 1px solid red;
-            } 
+            padding: 26px 0;
+            line-height: 13px;
+          }
+          &:nth-of-type(even) {
+            background-color: #FAFAFE;
           }
         }
       }
