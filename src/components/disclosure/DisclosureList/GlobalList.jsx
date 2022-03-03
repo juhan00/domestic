@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DisclosureListWrapper } from "./style";
-import globalSample from "../DisclosureData/globalData"
-import Pagination from "./Pagination/Pagination";
-
+import globalSample from "@utils/goDisclosureData"
+import Pagination from "../Pagination/Pagination";
 
 const GlobalList = () => {
   // const [posts, setPosts] = useState([]); // 공시 리스트

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DisclosureListWrapper } from "./style";
-import domesticSample from "../DisclosureData/domesticData"
-import Pagination from "./Pagination/Pagination";
-
+import domesticSample from "@utils/doDisclosureData"
+import Pagination from "../Pagination/Pagination";
 
 const DomesticList = () => {
   // const [posts, setPosts] = useState([]); // 공시 리스트
