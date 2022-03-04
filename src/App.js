@@ -31,9 +31,8 @@ const App = () => {
     <BrowserRouter>
       <GlobalStyle />
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-
           <Route path="/domestic" element={<Domestic />} />
           <Route path="/domestic/cominfo" element={<DoComInfo />} />
           <Route path="/domestic/Statistics" element={<StatisticsHeader />}>

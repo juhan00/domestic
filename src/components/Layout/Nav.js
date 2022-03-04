@@ -9,14 +9,11 @@ import MenuIconToggle from "@images/menuicon_toggle.svg";
 const Nav = () => {
   return (
     <NavStyle>
-      <NavLink to="/">
-        <Logo />
-      </NavLink>
       <ul className="menuWrapper">
         <li>
           <div className="mainMenu">
             <img src={MenuIconKor} className="menuIcon" />
-            <NavLink to="domestic">국내주식</NavLink>
+            <NavLink to="/domestic">국내주식</NavLink>
             <img src={MenuIconToggle} className="toggleBtn" />
           </div>
           <ul className="subMenu">
@@ -40,12 +37,12 @@ const Nav = () => {
         <li>
           <div className="mainMenu">
             <img src={MenuIconGlobal} className="menuIcon" />
-            해외주식
+            <NavLink to="/global">해외주식</NavLink>
             <img src={MenuIconToggle} className="toggleBtn" />
           </div>
           <ul className="subMenu">
             <li>
-              <NavLink to="/global/dofinancial">주식뉴스분석</NavLink>
+              <NavLink to="/global/financial">주식뉴스분석</NavLink>
             </li>
             <li>
               <NavLink to="/global/cominfo">기업정보</NavLink>
