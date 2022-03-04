@@ -10,7 +10,7 @@ export const DisclosureFilterWrapper = styled.div`
         cursor: pointer; 
       }
       background-color: #FFFFFF;
-      width: calc(100% - 70px); 
+      width: 100%; 
       border-radius: 12px;
       > form {
         text-align: center;

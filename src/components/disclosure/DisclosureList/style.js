@@ -8,7 +8,7 @@ export const DisclosureListWrapper = styled.div`
     &__list {
       margin-top: 20px;
       /* border-collapse: separate; */
-      width: calc(100% - 70px); 
+      width: 100%; 
       /* height: calc(100vh); */
       /* border: 1px solid #5FB6AD; */
       background-color: #FFFFFF;
