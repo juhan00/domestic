@@ -85,7 +85,6 @@ const PressChart = ({
         (node) =>
           (node.value / entireValue) * (height - marginBottom - marginTop),
       )
-      .attr("width", barWidth)
       .attr("x", (_, index) => xScale(index))
       .attr(
         "y",
