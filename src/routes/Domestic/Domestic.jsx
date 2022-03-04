@@ -5,34 +5,24 @@ import MainTopStock from "@components/Domestic/Main/MainTopStock/index";
 import MainExchRate from "@components/Domestic/Main/MainExchRate";
 import MainMarketIndi from "@components/Domestic/Main/MainMarketIndi";
 import StorageInput from "@components/Domestic/Main/StorageInput";
+import { DomesticWrapper } from "./style";
 
 const Domestic = () => {
   return (
-    <>
-      <div style={{ display: "flex", flexFlow: "row wrap" }}>
-        <MainHeadeer
-          type="recent"
-          // stocks={recentStocks}
-          // setStocks={setRecentStocks}
-        />
-        <MainHeadeer
-          type="interest"
-          // stocks={interestStocks}
-          // setStocks={setInterestStocks}
-        />
+    <DomesticWrapper>
+      <MainHeadeer />
+      <div className="row">
+        <MainStockIndex name="코스피 지수" />
+        <MainStockIndex name="코스닥 지수" />
+        <MainStockIndex name="코스피 200 지수" />
       </div>
-      <div style={{ display: "flex" }}>
-        <MainStockIndex />
-        <MainStockIndex />
-        <MainStockIndex />
-      </div>
-      <div style={{ display: "flex" }}>
+      <div className="row">
         <MainTopStock />
         <MainExchRate />
         <MainMarketIndi />
       </div>
       <StorageInput type="recent" />
-    </>
+    </DomesticWrapper>
   );
 };
 

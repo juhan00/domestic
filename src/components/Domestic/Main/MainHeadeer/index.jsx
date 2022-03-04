@@ -1,36 +1,59 @@
 import React, { useState, useEffect } from "react";
 import { Header } from "./style";
 
-const MainHeadeer = ({ type }) => {
+const initialStocks = [
+  {
+    name: "삼성전자",
+    stockIndex: "74,300",
+  },
+  {
+    name: "엘지전자",
+    stockIndex: "74,300",
+  },
+  {
+    name: "현대차",
+    stockIndex: "74,300",
+  },
+  {
+    name: "카카오",
+    stockIndex: "74,300",
+  },
+  {
+    name: "네이버",
+    stockIndex: "74,300",
+  },
+];
+
+const MainHeadeer = () => {
   const [isActive, setIsActive] = useState(null);
   const [stocks, setStocks] = useState(null);
 
   const itemActiveHandler = (index) => {
     setIsActive(index);
   };
-  const deleteStock = (index, type) => {
+  const deleteStock = (index) => {
     const filterStocks = stocks.filter((stock, idx) => index !== idx);
     setStocks(filterStocks);
-    if (type === "recent") {
-      localStorage.setItem("recentStocks", JSON.stringify(filterStocks));
-    } else {
-      localStorage.setItem("interestStocks", JSON.stringify(filterStocks));
-    }
+    localStorage.setItem("recentStocks", JSON.stringify(filterStocks));
   };
 
   useEffect(() => {
-    if (type === "recent") {
-      const recentStocks = JSON.parse(localStorage.getItem("recentStocks"));
-      setStocks(recentStocks);
-    } else {
-      const interestStocks = JSON.parse(localStorage.getItem("interestStocks"));
-      setStocks(interestStocks);
-    }
+    const recentStocks = JSON.parse(localStorage.getItem("recentStocks"));
+    setStocks(recentStocks);
+  }, []);
+
+  //초기 데이터 데이터 넣기
+  useEffect(() => {
+    localStorage.setItem("recentStocks", JSON.stringify(initialStocks));
   }, []);
 
   return (
     <Header>
-      <h2>{type === "recent" ? `최근 본 종목` : `관심 종목`}</h2>
+      <h2>
+        최근
+        <br />
+        조회
+      </h2>
       <div className="itemWrapper">
         {stocks &&
           stocks.map((stock, index) => (
@@ -40,13 +63,13 @@ const MainHeadeer = ({ type }) => {
               onMouseEnter={() => itemActiveHandler(index)}
               onMouseLeave={() => setIsActive(null)}>
               {isActive === index && (
-                <span className="del" onClick={() => deleteStock(index, type)}>
-                  삭제
+                <span className="del" onClick={() => deleteStock(index)}>
+                  X
                 </span>
               )}
               <div className="inner">
                 <h3>{stock.name}</h3>
-                <p>
+                <p className="red">
                   {stock.stockIndex}
                   <span>▲0.54%</span>
                 </p>

@@ -41,7 +41,7 @@ const StorageInput = ({ type }) => {
       <br />
       <br />
       <br />
-      로컬스토리지 저장
+      로컬스토리지 저장 테스트
       <form onSubmit={(event) => onRecentStorage(event)}>
         <input
           type="text"
