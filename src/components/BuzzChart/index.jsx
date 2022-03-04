@@ -3,6 +3,7 @@ import {
   extent,
   max,
   scaleLinear,
+  timeFormat,
   scaleTime,
   select,
   line,
@@ -42,7 +43,9 @@ const BuzzChart = ({
       .domain(extent(data, (data) => data.date))
       .range([marginLeft + padding, width]);
 
-    const xAxis = axisBottom(xScale).ticks(data.length);
+    const xAxis = axisBottom(xScale)
+      .ticks(data.length)
+      .tickFormat(timeFormat("%m-%d"));
     // .tickSizeOuter(0);
 
     svg

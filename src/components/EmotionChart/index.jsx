@@ -4,6 +4,7 @@ import {
   max,
   scaleLinear,
   scaleTime,
+  timeFormat,
   select,
   line,
   axisRight,
@@ -43,7 +44,9 @@ const EmotionChart = ({
       .domain(extent(data, (data) => data.date))
       .range([marginLeft + padding, width]);
 
-    const xAxis = axisBottom(xScale).ticks(data.length);
+    const xAxis = axisBottom(xScale)
+      .ticks(data.length)
+      .tickFormat(timeFormat("%m-%d"));
     // .tickSizeOuter(0);
 
     svg
@@ -100,14 +103,14 @@ const EmotionChart = ({
       .attr("class", "start")
       .attr("offset", "0%")
       .attr("stop-color", "#5fb6ad")
-      .attr("stop-opacity", 0.5);
+      .attr("stop-opacity", 0.3);
 
     gradient
       .append("stop")
       .attr("class", "end")
       .attr("offset", "100%")
       .attr("stop-color", "#5fb6ad")
-      .attr("stop-opacity", 1);
+      .attr("stop-opacity", 0.7);
 
     svg
       .append("path")
@@ -121,7 +124,7 @@ const EmotionChart = ({
       .datum(data)
       .attr("fill", "none")
       .attr("stroke", "#5fb6ad")
-      .attr("stroke-width", 1)
+      .attr("stroke-width", 3)
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
       .attr("d", chartLine);
