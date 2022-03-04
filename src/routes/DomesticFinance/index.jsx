@@ -8,9 +8,9 @@ import MainChart from "@components/MainChart";
 import {
   reducer,
   initialState,
-  getPreviousDate,
   setPeriod,
 } from "@reducers/domesticfinance/domesticfinance";
+
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {
@@ -20,6 +20,7 @@ import {
   DatePickerWrapper,
   HeaderWrapper,
 } from "./style";
+import { getPreviousDate } from "@utils/getPreviousDate";
 
 const DomesticStock = () => {
   const [domesticState, dispatch] = useReducer(reducer, initialState);
