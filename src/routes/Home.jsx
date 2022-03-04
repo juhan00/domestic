@@ -4,13 +4,11 @@ import Search from "@components/Layout/Search"
 import Dropdown from "@components/Layout/Dropdown";
 import { Logo } from "@components/Layout/style";
 import { Link } from "react-router-dom";
-import { backgroundPattern } from "../components/Layout/style";
 
 const Home = () => {
   return (
     <HomeStyle>
         <Logo />
-      <div className="innerContainer">
         <ul>
           <li><Link to="/domestic">국내주식</Link></li>
           <li><Link to="/global">해외주식</Link></li>
@@ -20,7 +18,6 @@ const Home = () => {
           당신을 위한 뉴스<span>n개</span>가 준비되어 있습니다
           <div>지금 바로 검색해 보세요!</div>
         </div>
-      </div>
         <SearchMenuStyleAtHome>
           <Dropdown />
           <Search />

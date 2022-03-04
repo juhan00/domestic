@@ -233,29 +233,31 @@ export const HomeStyle = styled.div`
   background-color: #f2f2f8;
   background-image: url("images/background_pattern.png");
   background-repeat: no-repeat;
-  background-position-y: bottom;
-  background-size: contain;
+  background-position: center bottom -20%;
   overflow: hidden;
-  .innerContainer {
-    ul {
-      display: flex;
-      justify-content: center;
-      li {
-        padding: 5px 10px;
-        margin: 0 40px;
-        font-weight: 700;
-        a {
-          text-decoration: none;
-          color: #000;
-        }
+  ul {
+    width: 348px;
+    position: fixed;
+    top: 65px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-between;
+    li {
+      font-weight: 700;
+      a {
+        text-decoration: none;
+        color: #000;
       }
     }
   }
   .slogan {
-    margin-top: 148px;
+    width: 100vw;
+    position: fixed;
+    top: 21%;
     text-align: center;
     font-size: 40px;
-    line-height: 80px;
+    line-height: 70px;
     span {
       color: #5fb6ad;
       font-weight: 700;
@@ -267,7 +269,7 @@ export const HomeStyle = styled.div`
 `;
 
 export const SearchMenuStyleAtHome = styled.div`
-  position: absolute;
+  position: fixed;
   width: 913px;
   height: 80px;
   display: flex;
@@ -276,8 +278,8 @@ export const SearchMenuStyleAtHome = styled.div`
   border: 0;
   padding: 30px;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -21px);
+  top: 48%;
+  transform: translateX(-50%);
   box-shadow: 0 50px 30px -30px rgba(0, 0, 0, 0.5);
   .searchContainer {
     width: 80%;
