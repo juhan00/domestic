@@ -9,7 +9,7 @@ export const BaseStyle = styled.div`
 // 내비 스타일
 export const NavStyle = styled.nav`
   position: fixed;
-  z-index: 2;
+  z-index: 999;
   top: 76px;
   left: 0;
   width: 248px;
@@ -62,9 +62,10 @@ export const NavStyle = styled.nav`
 `;
 
 export const Logo = styled.div`
+  margin: 17px 0 0 36px;
   width: 100px;
   height: 39px;
-  background-image: url("/images/moyaLogo.jpg");
+  background-image: url("images/moyaLogo.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -75,11 +76,16 @@ export const MainSection = styled.div`
   padding-top: 76px;
   padding-left: 248px;
   width: 100%;
+  overflow: hidden;
+  .mainContainer {
+    padding: 0 30px 30px 30px;
+  }
 `;
 
 // 헤더 스타일
 export const HeaderStyle = styled.header`
   position: fixed;
+  background-color: #e5e5e5;
   z-index: 999;
   width: 100vw;
   height: 76px;
@@ -89,10 +95,13 @@ export const HaederMenuWrapper = styled.ul`
   align-items: center;
 `;
 export const SearchMenuStyleOnHeader = styled.li`
-  padding-left: 30px;
-  height: 40px;
+  position: absolute;
+  left: 284px;
+  top: 20px;
   .searchContainer {
+    height: 40px;
     width: 790px;
+    box-shadow: 0 50px 30px -30px rgba(0, 0, 0, 0.5);
     .searchFormWrapper {
       form {
         input {
@@ -156,17 +165,13 @@ export const SearchMenuStyleOnHeader = styled.li`
 // 주식 개요 스타일
 export const StockInfoStyle = styled.div`
   width: 100%;
-  padding-bottom: 20px;
-  padding-left: 20px;
-  width: 1600px;
-
+  margin-bottom: 30px;
   .stockInfoContainer {
     width: 100%;
     height: 110px;
     background: #fff;
     border-radius: 12px;
     display: flex;
-    padding: 30px;
     white-space: nowrap;
     overflow-x: auto;
     ::-webkit-scrollbar {
@@ -174,11 +179,13 @@ export const StockInfoStyle = styled.div`
     }
   }
   .stockInfoWrapper {
-    align-items: center;
     font-size: 14px;
-    margin-right: 100px;
     ul {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
       display: flex;
+      padding: 0 30px;
       li {
         width: 100%;
         margin-right: 60px;
@@ -186,10 +193,10 @@ export const StockInfoStyle = styled.div`
           width: 1px;
           height: 32px;
           background: #eee;
-          .infoValue {
-            font-size: 16px;
-            font-weight: 700;
-          }
+        }
+        .infoValue {
+          font-size: 16px;
+          font-weight: 700;
         }
       }
     }
@@ -220,11 +227,16 @@ export const StockInfoStyle = styled.div`
 
 // 홈 화면
 export const HomeStyle = styled.div`
+  position: relative;
   min-height: 100vh;
   height: 100%;
   background-color: #e5e5e5;
+  background-image: url("images/background_pattern.png");
+  background-repeat: no-repeat;
+  background-position-y: bottom;
+  background-size: contain;
   overflow: hidden;
-  .header {
+  .innerContainer {
     ul {
       display: flex;
       justify-content: center;
@@ -239,8 +251,23 @@ export const HomeStyle = styled.div`
       }
     }
   }
+  .slogan {
+    margin-top: 148px;
+    text-align: center;
+    font-size: 40px;
+    line-height: 80px;
+    span {
+      color: #5fb6ad;
+      font-weight: 700;
+    }
+    div {
+      font-size: 60px;
+    }
+  }
 `;
+
 export const SearchMenuStyleAtHome = styled.div`
+  position: absolute;
   width: 913px;
   height: 80px;
   display: flex;
@@ -248,17 +275,18 @@ export const SearchMenuStyleAtHome = styled.div`
   border-radius: 45px;
   border: 0;
   padding: 30px;
-  position: relative;
-  left: 50vw;
-  top: 35vh;
-  transform: translateX(-50%);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -21px);
+  box-shadow: 0 50px 30px -30px rgba(0, 0, 0, 0.5);
   .searchContainer {
     width: 80%;
     .searchFormWrapper {
       form {
         input {
           width: 100%;
-          height: 30px;
+          height: 50px;
+          transform: translateY(-25%);
           border: 0;
           border-radius: 15px;
           padding: 0 10px;
@@ -323,7 +351,8 @@ export const SearchMenuStyleAtHome = styled.div`
         padding: 4px 10px;
         font-size: 16px;
         width: 100%;
-        height: 24px;
+        margin-top: 10px;
+        padding: 4px 10px;
         a {
           text-decoration: none;
           color: #5f5f5f;
