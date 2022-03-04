@@ -15,7 +15,7 @@ export const DisclosureListWrapper = styled.div`
       border-radius: 12px;
       /* vertical-align: middle; */
       overflow: hidden;
-      padding-bottom: 30px;
+      padding-bottom: 70px;
       h4 {
         border-radius: 12px 12px 0 0;
         text-align: center;
@@ -50,7 +50,7 @@ export const DisclosureListWrapper = styled.div`
         tr {
           td {
             padding: 28px 0;
-            line-height: 10px;
+            line-height: 14px;
           }
           &:nth-of-type(even) {
             background-color: #FAFAFE;

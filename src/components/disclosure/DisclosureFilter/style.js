@@ -17,7 +17,7 @@ export const DisclosureFilterWrapper = styled.div`
         padding: 20px 28px;
         display: flex;
         .setPeriod {
-          width: calc(30% - 30px);
+          width: 30%;
           padding-right: 36px;
           > h4 {
             line-height: 22px;

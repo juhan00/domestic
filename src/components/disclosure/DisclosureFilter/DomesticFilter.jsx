@@ -5,7 +5,8 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const DomesticFilter = () => {
   const [period, setPeriod] = useState("oneY");
-  const [startDate, setStartDate] = useState(new Date())
+  const [startDate, setStartDate] = useState(new Date(new Date().setFullYear(new Date().getFullYear() - 1)))
+  const [endDate, setEndDate] = useState(new Date())
 
   const date = {
     today: new Date(),
@@ -31,6 +32,7 @@ const DomesticFilter = () => {
     console.log(checkedType) // 체크된 타입
   }
   function handleRadioChange(event) {
+    console.log(event.target.id)
     setPeriod(event.target.id)
   }
   function handleValueChange(event) {
@@ -43,11 +45,11 @@ const DomesticFilter = () => {
         <form name="form" onSubmit={handleFormSubmit}>
           <fieldset className="setPeriod" key={period}>
             <h4>기간 선택</h4>
-            {/* <DatePicker 
-              selected={startDate} 
-              onChange={(date) => setStartDate(date)}
-            /> */}
+
             <div>
+              {/* <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}className="begin"/>
+              ~
+              <DatePicker selected={endDate} onChange={(date) => setEndDate(date)}/> */}
               <input className="begin" type="date" name="date" defaultValue={getToday(date[period])} min={date.sixM} max={date.oneM} onChange={handleValueChange} />
               ~
               <input type="date" name="date" defaultValue={getToday(date.today)} min={date.oneM} max={date.oneM} />
