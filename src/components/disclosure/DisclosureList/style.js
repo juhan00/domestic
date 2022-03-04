@@ -8,13 +8,13 @@ export const DisclosureListWrapper = styled.div`
     &__list {
       margin-top: 20px;
       /* border-collapse: separate; */
-      width: calc(100% - 300px); /* 원래는 - 35px */  
-      height: calc(100vh - 400px);
+      width: calc(100% - 70px); 
+      /* height: calc(100vh); */
       /* border: 1px solid #5FB6AD; */
       background-color: #FFFFFF;
       border-radius: 12px;
       /* vertical-align: middle; */
-      /* overflow: hidden; */
+      overflow: hidden;
       padding-bottom: 30px;
       h4 {
         border-radius: 12px 12px 0 0;
@@ -36,6 +36,7 @@ export const DisclosureListWrapper = styled.div`
         background-color: #F7F7FB;
         color: #111111;
         font-weight: 500;
+
         tr {
           width: 100%;
           th {
@@ -48,8 +49,8 @@ export const DisclosureListWrapper = styled.div`
       &__body {
         tr {
           td {
-            padding: 26px 0;
-            line-height: 13px;
+            padding: 28px 0;
+            line-height: 10px;
           }
           &:nth-of-type(even) {
             background-color: #FAFAFE;

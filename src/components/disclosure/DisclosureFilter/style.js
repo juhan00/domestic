@@ -10,7 +10,7 @@ export const DisclosureFilterWrapper = styled.div`
         cursor: pointer; 
       }
       background-color: #FFFFFF;
-      width: calc(100% - 300px); /* 원래는 -35px */
+      width: calc(100% - 70px); 
       border-radius: 12px;
       > form {
         text-align: center;
@@ -29,7 +29,7 @@ export const DisclosureFilterWrapper = styled.div`
             border: none;
             border-bottom: 1px solid #E5E5EC;
             color: #999999;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             /* width: 45%;  */
           }
           > div {
@@ -74,8 +74,8 @@ export const DisclosureFilterWrapper = styled.div`
           }
         }
         .setType {
-          padding-left: 36px;
-          width: calc(70% - 30px);
+          /* padding-left: 36px; */
+          /* width: calc(70% - 30px); */
           display: flex;
           flex-wrap: wrap;
           text-align: left;
@@ -88,17 +88,17 @@ export const DisclosureFilterWrapper = styled.div`
             clip-path: polygon(0 0, 0 0, 0 0);
           }
           > div {
-            width: 18%;
-            max-width: 200px;
+            min-width: 17.5%;
+            /* max-width: 200px; */
             height: 34px;
             border: 1px solid #F0F0F6;
             box-sizing: border-box;
-            margin: 0 15px 15px 0;
+            margin: 0 15px 0 0;
             > label {
               padding-left: 4px;
               line-height: 34px;
               display: block;
-              font-size: 16px;
+              font-size: 14px;
               > input {
                 margin: auto 10px auto 3px;
                 -webkit-appearance: none; 

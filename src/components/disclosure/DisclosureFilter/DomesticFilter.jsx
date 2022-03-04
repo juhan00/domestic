@@ -1,8 +1,11 @@
 import React, {useState} from "react";
 import { DisclosureFilterWrapper } from "./style";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const DomesticFilter = () => {
   const [period, setPeriod] = useState("oneY");
+  const [startDate, setStartDate] = useState(new Date())
 
   const date = {
     today: new Date(),
@@ -40,6 +43,10 @@ const DomesticFilter = () => {
         <form name="form" onSubmit={handleFormSubmit}>
           <fieldset className="setPeriod" key={period}>
             <h4>기간 선택</h4>
+            {/* <DatePicker 
+              selected={startDate} 
+              onChange={(date) => setStartDate(date)}
+            /> */}
             <div>
               <input className="begin" type="date" name="date" defaultValue={getToday(date[period])} min={date.sixM} max={date.oneM} onChange={handleValueChange} />
               ~
