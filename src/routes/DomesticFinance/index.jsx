@@ -76,7 +76,7 @@ const DomesticStock = () => {
   ]);
 
   return (
-    <main style={{ margin: "30px" }}>
+    <main>
       <HeaderWrapper>
         <div className="header-left">
           <DatePickerWrapper>
