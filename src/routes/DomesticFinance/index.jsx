@@ -10,6 +10,7 @@ import {
   initialState,
   setPeriod,
 } from "@reducers/domesticfinance/domesticfinance";
+
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {
@@ -19,6 +20,7 @@ import {
   DatePickerWrapper,
   HeaderWrapper,
 } from "./style";
+import { getPreviousDate } from "@utils/getPreviousDate";
 
 const DomesticStock = () => {
   const [domesticState, dispatch] = useReducer(reducer, initialState);
@@ -29,6 +31,11 @@ const DomesticStock = () => {
   const onChangeDate = (dates) => {
     const [start, end] = dates;
     dispatch(setPeriod(start, end));
+  };
+
+  const onClickPeriodButton = (numOfDates) => {
+    const newStartDate = getPreviousDate(endDate, numOfDates);
+    dispatch(setPeriod(newStartDate, endDate));
   };
 
   const keywordData = useRef([
@@ -98,12 +105,12 @@ const DomesticStock = () => {
             />
           </DatePickerWrapper>
           <PeriodButtonsWrapper>
-            <button>1개월</button>
-            <button>6개월</button>
-            <button>1년</button>
-            <button>3년</button>
-            <button>5년</button>
-            <button>10년</button>
+            <button onClick={() => onClickPeriodButton(30)}>1개월</button>
+            <button onClick={() => onClickPeriodButton(180)}>6개월</button>
+            <button onClick={() => onClickPeriodButton(365)}>1년</button>
+            <button onClick={() => onClickPeriodButton(1095)}>3년</button>
+            <button onClick={() => onClickPeriodButton(1825)}>5년</button>
+            <button onClick={() => onClickPeriodButton(3650)}>10년</button>
           </PeriodButtonsWrapper>
         </div>
         <button className="header-right-apply">적용</button>
