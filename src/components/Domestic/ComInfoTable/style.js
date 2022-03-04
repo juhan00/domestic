@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
 
 export const TableWrapper = styled.div`
-  border: 1px solid red;
-
   background-color: #ffffff;
   margin: 10px;
   max-width: 790px;
@@ -10,6 +8,7 @@ export const TableWrapper = styled.div`
   max-height: 782px;
   height: 100%;
   border-radius: 12px;
+  padding: 20px 32px 32px;
   h1 {
     font-size: 18px;
     font-weight: 500;
@@ -18,9 +17,6 @@ export const TableWrapper = styled.div`
   }
 `;
 export const Table = styled.table`
-  border: 1px solid blue;
-
-  margin: 20px 32px 32px;
   max-width: 726px;
   width: 100%;
 `;

@@ -8,6 +8,6 @@ export const GraphWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   border-radius: 12px;
-  margin: 20px 10px 0 36px;
+  margin: 20px 0;
   padding: 0 30px;
 `;
