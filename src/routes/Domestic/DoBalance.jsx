@@ -3,15 +3,13 @@ import React from "react";
 import axios from "redaxios";
 import { useEffect } from "react";
 import StatisticsTable from "@components/Domestic/StatisticsBalanceTable";
-import StatisticsGraph from "@components/Domestic/StatisticsGraph";
+import StatisticsBarPathGraph from "@components/Domestic/StatisticsBarPathGraph";
+import StatisticsPathGraph from "@components/Domestic/StatisticsPathGraph";
 
 const DoBalance = () => {
   return (
     <>
-      <section style={{ display: "flex" }}>
-        <StatisticsGraph />
-        <StatisticsGraph />
-      </section>
+      <StatisticsGraph />
       <StatisticsTable />
     </>
   );

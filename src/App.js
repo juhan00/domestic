@@ -5,7 +5,7 @@ import Home from "./routes/Home";
 import Domestic from "./routes/Domestic/Domestic";
 import DoComInfo from "./routes/Domestic/DoComInfo";
 import StatisticsHeader from "./components/Domestic/StatisticsHeader";
-import DoStatistics from "./routes/Domestic/DoStatistics";
+import DoStatistics from "./routes/DoStatistics/DoStatistics";
 import DoBalance from "./routes/Domestic/DoBalance";
 import DoCashFlow from "./routes/Domestic/DoCashFlow";
 import DoIncome from "./routes/Domestic/DoIncome";
