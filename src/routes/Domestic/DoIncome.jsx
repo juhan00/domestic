@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "redaxios";
 import { useEffect } from "react";
-import StatisticsOptions from "@components/Domestic/Income/StatisticsOptions";
-import StatisticsTable from "@components/Domestic/Income/StatisticsTable";
 import { useParams } from "react-router-dom";
+import StatisticsTable from "@components/Domestic/StatisticsIncomeTable";
+import StatisticsGraph from "@components/Domestic/StatisticsGraph";
 
 const DoIncome = () => {
   const params = useParams();
@@ -14,9 +14,10 @@ const DoIncome = () => {
   return (
     <>
       <section style={{ display: "flex" }}>
-        <StatisticsOptions />
-        <StatisticsTable />
+        <StatisticsGraph />
+        <StatisticsGraph />
       </section>
+      <StatisticsTable />
     </>
   );
 };

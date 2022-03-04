@@ -1,8 +1,8 @@
 import React from "react";
-import Table from "@components/Domestic/ComInfo/Table";
-import ComInfoHeader from "@components/Domestic/ComInfo/ComInfoHeader";
-import ComInfoGraph from "@components/Domestic/ComInfo/ComInfoGraph";
-import ComInfoDailyPrice from "@components/Domestic/ComInfo/ComInfoDailyPrice";
+import styled from "@emotion/styled";
+import ComInfoTable from "@components/Domestic/ComInfoTable";
+import ComInfoGraph from "@components/Domestic/ComInfoGraph";
+import ComInfoDailyPrice from "@components/Domestic/ComInfoDailyPrice";
 import axios from "redaxios";
 import { useEffect } from "react";
 
@@ -31,17 +31,24 @@ const DoComInfo = () => {
   // }, []);
 
   return (
-    <>
-      <ComInfoHeader />
-      <section style={{ display: "flex" }}>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <ComInfoGraph />
-          <ComInfoDailyPrice />
-        </div>
-        <Table />
-      </section>
-    </>
+    <PageWrapper>
+      <PriceWrapper>
+        <ComInfoGraph />
+        <ComInfoDailyPrice />
+      </PriceWrapper>
+      <ComInfoTable />
+    </PageWrapper>
   );
 };
+
+const PageWrapper = styled.div`
+  display: flex;
+  margin-left: 26px;
+  min-height: 900px;
+`;
+const PriceWrapper = styled.div`
+  max-width: 810px;
+  width: 100%;
+`;
 
 export default DoComInfo;

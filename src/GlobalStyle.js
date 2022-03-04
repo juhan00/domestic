@@ -13,6 +13,9 @@ const GlobalStyle = () => {
           -webkit-font-smoothing: antialiased;
           font-smoothing: antialiased;
         }
+        body {
+          background-color: #f7f7fb;
+        }
       `}
     />
   );
