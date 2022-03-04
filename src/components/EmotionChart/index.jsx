@@ -4,6 +4,7 @@ import {
   max,
   scaleLinear,
   scaleTime,
+  timeFormat,
   select,
   line,
   axisRight,
@@ -43,7 +44,9 @@ const EmotionChart = ({
       .domain(extent(data, (data) => data.date))
       .range([marginLeft + padding, width]);
 
-    const xAxis = axisBottom(xScale).ticks(data.length);
+    const xAxis = axisBottom(xScale)
+      .ticks(data.length)
+      .tickFormat(timeFormat("%m-%d"));
     // .tickSizeOuter(0);
 
     svg
