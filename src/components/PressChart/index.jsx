@@ -85,15 +85,8 @@ const PressChart = ({
         (node) =>
           (node.value / entireValue) * (height - marginBottom - marginTop),
       )
-      .attr("width", barWidth)
       .attr("x", (_, index) => xScale(index))
-      .attr(
-        "y",
-        (node) =>
-          height -
-          marginBottom -
-          (node.value / entireValue) * (height - marginBottom - marginTop),
-      )
+      .attr("y", (node) => yScale(node.value))
       .attr("width", xScale.bandwidth())
       .attr("fill", barColor);
 
@@ -101,14 +94,7 @@ const PressChart = ({
       .append("text")
       .text((data) => data["value"])
       .attr("x", (_, index) => xScale(index) + xScale.bandwidth() / 4)
-      .attr(
-        "y",
-        (node) =>
-          height -
-          marginBottom -
-          (node.value / entireValue) * (height - marginBottom) -
-          10,
-      );
+      .attr("y", (node) => yScale(node.value) - 10);
   }, [data]);
 
   return (

@@ -25,6 +25,7 @@ module.exports = {
       "@reducers": path.resolve(__dirname, "src/reducers"),
       "@sagas": path.resolve(__dirname, "src/sagas"),
       "@utils": path.resolve(__dirname, "src/utils"),
+      "@routes": path.resolve(__dirname, "src/routes"),
     },
   },
   module: {
