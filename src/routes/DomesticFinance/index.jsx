@@ -34,7 +34,6 @@ const DomesticStock = () => {
 
   const onClickPeriodButton = (numOfDates) => {
     const newStartDate = getPreviousDate(endDate, numOfDates);
-    console.log(setPeriod(newStartDate, endDate));
     dispatch(setPeriod(newStartDate, endDate));
   };
 
