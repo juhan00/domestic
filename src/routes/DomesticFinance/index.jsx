@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef } from "react";
+import React, { useReducer, useRef } from "react";
 import KeywordChart from "@components/KeywordChart";
 import CategoryChart from "@components/CategoryChart";
 import PressChart from "@components/pressChart";
@@ -12,7 +12,13 @@ import {
 } from "@reducers/domesticfinance/domesticfinance";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import styled from "@emotion/styled";
+import {
+  PeriodButtonsWrapper,
+  CardsWrapper,
+  ContentsWrapper,
+  DatePickerWrapper,
+  HeaderWrapper,
+} from "./style";
 
 const DomesticStock = () => {
   const [domesticState, dispatch] = useReducer(reducer, initialState);
@@ -24,6 +30,7 @@ const DomesticStock = () => {
     const [start, end] = dates;
     dispatch(setPeriod(start, end));
   };
+
   const keywordData = useRef([
     { title: "제품", value: 500 },
     { title: "삼성", value: 700 },
@@ -69,11 +76,12 @@ const DomesticStock = () => {
   ]);
 
   return (
-    <>
-      <main>
-        <div>
+    <main style={{ margin: "30px" }}>
+      <HeaderWrapper>
+        <div className="header-left">
           <DatePickerWrapper>
             <ReactDatePicker
+              dateFormat="yyyy.MM.dd"
               selected={startDate}
               startDate={startDate}
               endDate={endDate}
@@ -81,6 +89,7 @@ const DomesticStock = () => {
             />
             <span>~</span>
             <ReactDatePicker
+              dateFormat="yyyy.MM.dd"
               selected={endDate}
               selectsEnd
               startDate={startDate}
@@ -88,17 +97,88 @@ const DomesticStock = () => {
               minDate={startDate}
             />
           </DatePickerWrapper>
-          <ButtonWrapper></ButtonWrapper>
+          <PeriodButtonsWrapper>
+            <button>1개월</button>
+            <button>6개월</button>
+            <button>1년</button>
+            <button>3년</button>
+            <button>5년</button>
+            <button>10년</button>
+          </PeriodButtonsWrapper>
         </div>
+        <button className="header-right-apply">적용</button>
+      </HeaderWrapper>
+      <ContentsWrapper>
+        <CardsWrapper>
+          <div className="content-card">
+            <div className="content-card-content">
+              <div className="content-card-content-title">
+                Apple Inc 관련 뉴스 수집량
+              </div>
+              <div className="content-card-content-description">
+                2022.02.01-2022.03.01 기준
+              </div>
+              <div className="content-card-content-value">
+                <span className="content-card-value-number">538</span>
+                <span className="content-card-value-unit">개</span>
+              </div>
+            </div>
+            <div className="content-card-content-emoji">B</div>
+          </div>
+          <div className="content-card">
+            <div className="content-card-content">
+              <div className="content-card-content-title">
+                Apple Inc 관련 뉴스 수집량
+              </div>
+              <div className="content-card-content-description">
+                2022.02.01-2022.03.01 기준
+              </div>
+              <div className="content-card-content-value">
+                <span className="content-card-value-number">538</span>
+                <span className="content-card-value-unit">개</span>
+              </div>
+            </div>
+            <div className="content-card-content-emoji">B</div>
+          </div>
+          <div className="content-card">
+            <div className="content-card-content">
+              <div className="content-card-content-title">
+                Apple Inc 관련 뉴스 수집량
+              </div>
+              <div className="content-card-content-description">
+                2022.02.01-2022.03.01 기준
+              </div>
+              <div className="content-card-content-value">
+                <span className="content-card-value-number">538</span>
+                <span className="content-card-value-unit">개</span>
+              </div>
+            </div>
+            <div className="content-card-content-emoji">B</div>
+          </div>
+          <div className="content-card">
+            <div className="content-card-content">
+              <div className="content-card-content-title">
+                Apple Inc 관련 뉴스 수집량
+              </div>
+              <div className="content-card-content-description">
+                2022.02.01-2022.03.01 기준
+              </div>
+              <div className="content-card-content-value">
+                <span className="content-card-value-number">538</span>
+                <span className="content-card-value-unit">개</span>
+              </div>
+            </div>
+            <div className="content-card-content-emoji">B</div>
+          </div>
+        </CardsWrapper>
         <KeywordChart data={keywordData.current} />
         <CategoryChart data={categoryData.current} />
         <PressChart data={pressData.current} />
         <BuzzChart />
         <EmotionChart />
         <MainChart />
-      </main>
-      <footer></footer>
-    </>
+      </ContentsWrapper>
+    </main>
   );
 };
 
@@ -151,18 +231,3 @@ export default DomesticStock;
 // 종가 * 상장주식수
 
 // https://stackoverflow.com/questions/22972669/nvd3-d3-js-date-format-returns-incorrect-month
-
-const DatePickerWrapper = styled.div`
-  display: flex;
-  max-width: 400px;
-  justify-content: space-between;
-  & > .react-datepicker-wrapper {
-    width: auto;
-  }
-
-  & > .react-datepicker-wrapper > .react-datepicker__input-container > input {
-    border: none;
-    padding: 5px;
-    border-radius: 30px;
-  }
-`;
