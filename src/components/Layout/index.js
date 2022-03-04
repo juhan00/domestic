@@ -11,8 +11,10 @@ export const Layout = () => {
       <Header />
       <Nav />
       <MainSection>
-        <InfoTable />
-        <Outlet />
+        <div className="mainContainer">
+          <InfoTable />
+          <Outlet />
+        </div>
       </MainSection>
     </BaseStyle>
   );

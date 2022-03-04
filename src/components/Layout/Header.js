@@ -8,7 +8,7 @@ import {
   SearchMenuStyleOnHeader,
 } from "./style";
 
-export const Header = (props) => {
+export const Header = () => {
   return (
     <HeaderStyle>
       <HaederMenuWrapper>

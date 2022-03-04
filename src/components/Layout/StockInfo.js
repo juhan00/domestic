@@ -12,7 +12,7 @@ const InfoTable = () => {
               <div>
                 <h3>삼성전자</h3>
                 <img src={MenuIconToggle} />
-                <sapn>005930</sapn>
+                <span>005930</span>
               </div>
               <div>
                 전일가<span className="price">74300</span>
