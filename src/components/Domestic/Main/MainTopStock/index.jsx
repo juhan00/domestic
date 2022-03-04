@@ -1,27 +1,222 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { TopStock } from "./style";
+import TopStockList from "./TopStockList";
 
-const initialUpperData = () => [
-  // {
-  //   name: "노루페인트1",
-  //   currentPrice: 25500,
-  //   Compare: 5150,
-  // },
+const upperData = () => [
+  {
+    name: "노루페인트1",
+    currentPrice: "25,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "노루페인트1",
+    currentPrice: "25,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "노루페인트1",
+    currentPrice: "25,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "노루페인트1",
+    currentPrice: "25,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "노루페인트1",
+    currentPrice: "25,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "노루페인트1",
+    currentPrice: "25,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "노루페인트1",
+    currentPrice: "25,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "노루페인트1",
+    currentPrice: "25,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "노루페인트1",
+    currentPrice: "25,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "노루페인트1",
+    currentPrice: "25,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+];
+
+const lowerData = () => [
+  {
+    name: "페인트1",
+    currentPrice: "15,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "페인트1",
+    currentPrice: "15,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "페인트1",
+    currentPrice: "15,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "페인트1",
+    currentPrice: "15,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "페인트1",
+    currentPrice: "15,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "페인트1",
+    currentPrice: "15,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "페인트1",
+    currentPrice: "15,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "페인트1",
+    currentPrice: "15,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "페인트1",
+    currentPrice: "15,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
+  {
+    name: "페인트1",
+    currentPrice: "15,500",
+    compare: "5,150",
+    rate: "+25.31%",
+    trading: "68,090",
+  },
 ];
 
 function MainTopStock(props) {
+  const [topData, setTopData] = useState(upperData);
+  const [filterIsActive, setFilterIsActive] = useState("upper");
+
+  const topDataHandler = useCallback((type) => {
+    if (type === "upper") {
+      setTopData(upperData);
+      setFilterIsActive("upper");
+    } else if (type === "lower") {
+      setTopData(lowerData);
+      setFilterIsActive("lower");
+    } else if (type === "increase") {
+      setTopData(upperData);
+      setFilterIsActive("increase");
+    } else if (type === "holding") {
+      setTopData(lowerData);
+      setFilterIsActive("holding");
+    } else if (type === "degradation") {
+      setTopData(upperData);
+      setFilterIsActive("degradation");
+    } else if (type === "trading") {
+      setTopData(lowerData);
+      setFilterIsActive("trading");
+    } else if (type === "marketCap") {
+      setTopData(upperData);
+      setFilterIsActive("marketCap");
+    }
+  }, []);
+
   return (
     <TopStock>
-      <div style={{ display: "flex" }}>
+      <div className="top" style={{ display: "flex" }}>
         <h2>Top종목</h2>
-        <ul style={{ display: "flex", marginLeft: "auto" }}>
-          <li>상한가</li>
-          <li>하한가</li>
-          <li>상승</li>
-          <li>보합</li>
-          <li>하락</li>
-          <li>거래량상위</li>
-          <li>시가총액상위</li>
+        <ul className="filter">
+          <li
+            onClick={(e) => topDataHandler("upper")}
+            className={filterIsActive === "upper" ? "active" : undefined}>
+            상한가
+          </li>
+          <li
+            onClick={() => topDataHandler("lower")}
+            className={filterIsActive === "lower" ? "active" : undefined}>
+            하한가
+          </li>
+          <li
+            onClick={() => topDataHandler("increase")}
+            className={filterIsActive === "increase" ? "active" : undefined}>
+            상승
+          </li>
+          <li
+            onClick={() => topDataHandler("holding")}
+            className={filterIsActive === "holding" ? "active" : undefined}>
+            보합
+          </li>
+          <li
+            onClick={() => topDataHandler("degradation")}
+            className={filterIsActive === "degradation" ? "active" : undefined}>
+            하락
+          </li>
+          <li
+            onClick={() => topDataHandler("trading")}
+            className={filterIsActive === "trading" ? "active" : undefined}>
+            거래량상위
+          </li>
+          <li
+            onClick={() => topDataHandler("marketCap")}
+            className={filterIsActive === "marketCap" ? "active" : undefined}>
+            시가총액상위
+          </li>
         </ul>
       </div>
       <table>
@@ -35,88 +230,7 @@ function MainTopStock(props) {
             <th style={{ width: "15%" }}>거래량</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>노루페인트우</td>
-            <td>25,500</td>
-            <td>5,150</td>
-            <td>+25.31%</td>
-            <td>68,090</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>노루페인트우</td>
-            <td>25,500</td>
-            <td>5,150</td>
-            <td>+25.31%</td>
-            <td>68,090</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>노루페인트우</td>
-            <td>25,500</td>
-            <td>5,150</td>
-            <td>+25.31%</td>
-            <td>68,090</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>노루페인트우</td>
-            <td>25,500</td>
-            <td>5,150</td>
-            <td>+25.31%</td>
-            <td>68,090</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>노루페인트우</td>
-            <td>25,500</td>
-            <td>5,150</td>
-            <td>+25.31%</td>
-            <td>68,090</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>노루페인트우</td>
-            <td>25,500</td>
-            <td>5,150</td>
-            <td>+25.31%</td>
-            <td>68,090</td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>노루페인트우</td>
-            <td>25,500</td>
-            <td>5,150</td>
-            <td>+25.31%</td>
-            <td>68,090</td>
-          </tr>
-          <tr>
-            <td>8</td>
-            <td>노루페인트우</td>
-            <td>25,500</td>
-            <td>5,150</td>
-            <td>+25.31%</td>
-            <td>68,090</td>
-          </tr>
-          <tr>
-            <td>9</td>
-            <td>노루페인트우</td>
-            <td>25,500</td>
-            <td>5,150</td>
-            <td>+25.31%</td>
-            <td>68,090</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>노루페인트우</td>
-            <td>25,500</td>
-            <td>5,150</td>
-            <td>+25.31%</td>
-            <td>68,090</td>
-          </tr>
-        </tbody>
+        <TopStockList topData={topData} />
       </table>
     </TopStock>
   );
