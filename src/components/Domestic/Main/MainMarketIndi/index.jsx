@@ -1,8 +1,12 @@
 import React from "react";
 import { MarketIndi } from "./style";
 
-function MainMarketIndi(props) {
-  return <MarketIndi>시장지표</MarketIndi>;
-}
+const MainMarketIndi = () => {
+  return (
+    <MarketIndi>
+      <h2>시장지표</h2>
+    </MarketIndi>
+  );
+};
 
 export default MainMarketIndi;

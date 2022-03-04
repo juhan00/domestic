@@ -1,69 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import MainStockIndex from "@components/Domestic/Main/MainStockIndex";
 import MainHeadeer from "@components/Domestic/Main/MainHeadeer";
 import MainTopStock from "@components/Domestic/Main/MainTopStock/index";
 import MainExchRate from "@components/Domestic/Main/MainExchRate";
 import MainMarketIndi from "@components/Domestic/Main/MainMarketIndi";
-
-const initialRecentStocks = [
-  {
-    name: "삼성전자",
-    stockIndex: "74,300",
-  },
-  {
-    name: "LG전자",
-    stockIndex: "124,000",
-  },
-  {
-    name: "현대차",
-    stockIndex: "174,000",
-  },
-];
-
-const initialInterestStocks = [
-  {
-    name: "현대차",
-    stockIndex: "174,000",
-  },
-  {
-    name: "삼성전자",
-    stockIndex: "74,300",
-  },
-  {
-    name: "LG전자",
-    stockIndex: "124,000",
-  },
-];
+import StorageInput from "@components/Domestic/Main/StorageInput";
+import { DomesticWrapper } from "./style";
 
 const Domestic = () => {
-  const [recentStocks, setRecentStocks] = useState(initialRecentStocks);
-  const [interestStocks, setInterestStocks] = useState(initialInterestStocks);
-
   return (
-    <>
-      <div style={{ display: "flex", flexFlow: "row wrap" }}>
-        <MainHeadeer
-          type="recent"
-          stocks={recentStocks}
-          setStocks={setRecentStocks}
-        />
-        <MainHeadeer
-          type="interest"
-          stocks={interestStocks}
-          setStocks={setInterestStocks}
-        />
+    <DomesticWrapper>
+      <MainHeadeer />
+      <div className="row">
+        <MainStockIndex name="코스피 지수" />
+        <MainStockIndex name="코스닥 지수" />
+        <MainStockIndex name="코스피 200 지수" />
       </div>
-      <div style={{ display: "flex" }}>
-        <MainStockIndex />
-        <MainStockIndex />
-        <MainStockIndex />
+      <div className="row">
+        <MainTopStock />
+        <MainExchRate />
+        <MainMarketIndi />
       </div>
-      <div style={{ display: "flex" }}>
-        <MainTopStock style={{ flexGrow: "2" }} />
-        <MainExchRate style={{ flexGrow: "1" }} />
-        <MainMarketIndi style={{ flexGrow: "1" }} />
-      </div>
-    </>
+      <StorageInput type="recent" />
+    </DomesticWrapper>
   );
 };
 
