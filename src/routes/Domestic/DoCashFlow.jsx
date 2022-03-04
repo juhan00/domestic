@@ -1,15 +1,13 @@
 import React from "react";
 import axios from "redaxios";
 import StatisticsTable from "@components/Domestic/StatisticsCashFlowTable";
-import StatisticsGraph from "@components/Domestic/StatisticsGraph";
+import StatisticsBarPathGraph from "@components/Domestic/StatisticsBarPathGraph";
+import StatisticsPathGraph from "@components/Domestic/StatisticsPathGraph";
 
 const DoCashFlow = () => {
   return (
     <>
-      <section style={{ display: "flex" }}>
-        <StatisticsGraph />
-        <StatisticsGraph />
-      </section>
+      <StatisticsGraph />
       <StatisticsTable />
     </>
   );

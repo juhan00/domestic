@@ -3,7 +3,8 @@ import axios from "redaxios";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import StatisticsTable from "@components/Domestic/StatisticsIncomeTable";
-import StatisticsGraph from "@components/Domestic/StatisticsGraph";
+import StatisticsBarPathGraph from "@components/Domestic/StatisticsBarPathGraph";
+import StatisticsPathGraph from "@components/Domestic/StatisticsPathGraph";
 
 const DoIncome = () => {
   const params = useParams();
@@ -13,10 +14,7 @@ const DoIncome = () => {
 
   return (
     <>
-      <section style={{ display: "flex" }}>
-        <StatisticsGraph />
-        <StatisticsGraph />
-      </section>
+      <StatisticsGraph />
       <StatisticsTable />
     </>
   );
