@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export const BaseStyle = styled.div`
   min-height: 100vh;
   height: 100%;
-  background-color: #e5e5e5;
+  background-color: #f2f2f8;
 `;
 
 // 내비 스타일
@@ -85,7 +85,7 @@ export const MainSection = styled.div`
 // 헤더 스타일
 export const HeaderStyle = styled.header`
   position: fixed;
-  background-color: #e5e5e5;
+  background-color: #f2f2f8;
   z-index: 999;
   width: 100vw;
   height: 76px;
@@ -230,7 +230,7 @@ export const HomeStyle = styled.div`
   position: relative;
   min-height: 100vh;
   height: 100%;
-  background-color: #e5e5e5;
+  background-color: #f2f2f8;
   background-image: url("images/background_pattern.png");
   background-repeat: no-repeat;
   background-position-y: bottom;
