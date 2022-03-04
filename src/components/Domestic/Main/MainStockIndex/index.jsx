@@ -1,49 +1,51 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { StockIndex } from "./style";
 import * as d3 from "d3";
-import { StockIndexWrapper } from "./style";
+import useResizeObserver from "@utils/useResizeObserver";
 
-function MainStockIndex(props) {
-  const data = [
-    { stock: 2900, date: "10:00" },
-    { stock: 2520, date: "10:10" },
-    { stock: 2530, date: "10:20" },
-    { stock: 2400, date: "10:30" },
-    { stock: 2500, date: "10:40" },
-    { stock: 2650, date: "10:50" },
-    { stock: 2700, date: "11:00" },
-    { stock: 2500, date: "11:10" },
-    { stock: 2403, date: "11:20" },
-    { stock: 2300, date: "11:30" },
-    { stock: 2230, date: "11:40" },
-    { stock: 2330, date: "11:50" },
-    { stock: 2400, date: "12:00" },
-    { stock: 2100, date: "12:10" },
-    { stock: 2540, date: "12:20" },
-    { stock: 2400, date: "12:30" },
-    { stock: 2600, date: "12:40" },
-    { stock: 2400, date: "12:50" },
-    { stock: 2300, date: "10:00" },
-    { stock: 2405, date: "10:10" },
-    { stock: 2500, date: "10:20" },
-    { stock: 2400, date: "10:30" },
-    { stock: 2500, date: "10:40" },
-    { stock: 2650, date: "10:50" },
-    { stock: 2700, date: "11:00" },
-    { stock: 2500, date: "11:10" },
-    { stock: 2400, date: "11:20" },
-    { stock: 2300, date: "11:30" },
-    { stock: 2200, date: "11:40" },
-    { stock: 2340, date: "11:50" },
-    { stock: 2400, date: "12:00" },
-    { stock: 2340, date: "12:10" },
-    { stock: 2500, date: "12:20" },
-    { stock: 2480, date: "12:30" },
-    { stock: 2600, date: "12:40" },
-    { stock: 2900, date: "12:50" },
-  ];
+const data = [
+  { stock: 2900, date: "10:00" },
+  { stock: 2520, date: "10:10" },
+  { stock: 2530, date: "10:20" },
+  { stock: 2400, date: "10:30" },
+  { stock: 2500, date: "10:40" },
+  { stock: 2650, date: "10:50" },
+  { stock: 2700, date: "11:00" },
+  { stock: 2500, date: "11:10" },
+  { stock: 2403, date: "11:20" },
+  { stock: 2300, date: "11:30" },
+  { stock: 2230, date: "11:40" },
+  { stock: 2330, date: "11:50" },
+  { stock: 2400, date: "12:00" },
+  { stock: 2100, date: "12:10" },
+  { stock: 2540, date: "12:20" },
+  { stock: 2400, date: "12:30" },
+  { stock: 2600, date: "12:40" },
+  { stock: 2400, date: "12:50" },
+  { stock: 2300, date: "10:00" },
+  { stock: 2405, date: "10:10" },
+  { stock: 2500, date: "10:20" },
+  { stock: 2400, date: "10:30" },
+  { stock: 2500, date: "10:40" },
+  { stock: 2650, date: "10:50" },
+  { stock: 2700, date: "11:00" },
+  { stock: 2500, date: "11:10" },
+  { stock: 2400, date: "11:20" },
+  { stock: 2300, date: "11:30" },
+  { stock: 2200, date: "11:40" },
+  { stock: 2340, date: "11:50" },
+  { stock: 2400, date: "12:00" },
+  { stock: 2340, date: "12:10" },
+  { stock: 2500, date: "12:20" },
+  { stock: 2480, date: "12:30" },
+  { stock: 2600, date: "12:40" },
+  { stock: 2900, date: "12:50" },
+];
 
+const MainStockIndex = ({ name }) => {
   const svgRef = useRef(null);
+  const stockIndexRef = useRef(null);
+  // const [count, setCount] = useState(0);
 
   //tick 분할 함수
   const setTickCount = useCallback((min, max, count, type) => {
@@ -70,7 +72,13 @@ function MainStockIndex(props) {
     }
   }, []);
 
+  const dimensions = useResizeObserver(stockIndexRef);
+
   useEffect(() => {
+    // if (!dimensions) return;
+    // setCount(count + 1);
+    // console.log(count);
+
     //초기 셋팅
     const width = 250;
     const height = 100;
@@ -208,30 +216,29 @@ function MainStockIndex(props) {
       .attr("fill", "none");
   }, [data]);
 
+  // console.log(count);
+
   return (
-    <StockIndex>
-      <ul>
-        <li>
-          <div>코스피 지수</div>
-          <div style={{ display: "flex" }}>
-            <div>
-              2,718.74 <span>11.95</span>
-              <span>+0.44%</span>
-            </div>
-            <div style={{ marginLeft: "auto" }}>2022.02.23 14:15 장중</div>
+    <StockIndex ref={stockIndexRef}>
+      <div className="topInfo">
+        <h2>{name}</h2>
+        <div className="info">
+          <div className="index">
+            2,718.74 <span className="vs">▲11.95</span>
+            <span className="rate">+0.44%</span>
           </div>
-        </li>
-        <li>
-          <svg ref={svgRef}>
-            <g className="x-axis" />
-            <g className="y-axis" />
-            <g className="y-axis-right" />
-            <g className="x-axis-line" />
-          </svg>
-        </li>
-      </ul>
+          <div className="date">2022.02.23 14:15 장중</div>
+        </div>
+      </div>
+
+      <svg ref={svgRef}>
+        <g className="x-axis" />
+        <g className="y-axis" />
+        <g className="y-axis-right" />
+        <g className="x-axis-line" />
+      </svg>
     </StockIndex>
   );
-}
+};
 
 export default MainStockIndex;

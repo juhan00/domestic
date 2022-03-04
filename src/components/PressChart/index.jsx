@@ -1,12 +1,4 @@
-import {
-  select,
-  max,
-  scaleLinear,
-  scaleBand,
-  axisRight,
-  axisBottom,
-  reduce,
-} from "d3";
+import { select, max, scaleLinear, scaleBand, axisRight, axisBottom } from "d3";
 import React, { useEffect, useRef } from "react";
 import { ChartWrapper } from "../CategoryChart/style";
 
@@ -50,12 +42,21 @@ const PressChart = ({
       .call((g) => g.select(".domain").remove())
       .call((g) => g.selectAll(".tick line").remove());
 
+    const maxValue = max(data, (data) => data.value);
+    const maxValueLength = maxValue.toString().length;
+    const maxValueDigits = Math.pow(10, maxValueLength - 1);
+    const maxTickValue = Math.floor(maxValue / maxValueDigits) * maxValueDigits;
+
     const yScale = scaleLinear()
       .domain([0, entireValue])
       .range([height - marginBottom, marginTop])
       .clamp(true);
 
-    const yAxis = axisRight(yScale);
+    const yAxis = axisRight(yScale).tickValues([
+      0,
+      maxTickValue / 2,
+      maxTickValue,
+    ]);
 
     svg
       .select(".y-axis")
@@ -81,17 +82,11 @@ const PressChart = ({
       .append("rect")
       .attr(
         "height",
-        (node) => (node.value / entireValue) * (height - marginBottom),
-      )
-      .attr("width", barWidth)
-      .attr("x", (_, index) => xScale(index))
-      .attr(
-        "y",
         (node) =>
-          height -
-          marginBottom -
-          (node.value / entireValue) * (height - marginBottom),
+          (node.value / entireValue) * (height - marginBottom - marginTop),
       )
+      .attr("x", (_, index) => xScale(index))
+      .attr("y", (node) => yScale(node.value))
       .attr("width", xScale.bandwidth())
       .attr("fill", barColor);
 
@@ -99,14 +94,7 @@ const PressChart = ({
       .append("text")
       .text((data) => data["value"])
       .attr("x", (_, index) => xScale(index) + xScale.bandwidth() / 4)
-      .attr(
-        "y",
-        (node) =>
-          height -
-          marginBottom -
-          (node.value / entireValue) * (height - marginBottom) -
-          10,
-      );
+      .attr("y", (node) => yScale(node.value) - 10);
   }, [data]);
 
   return (

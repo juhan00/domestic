@@ -7,6 +7,5 @@ export const ChartWrapper = styled.div`
     display: block;
     width: 100%;
     height: 300px;
-    overflow: visible;
   }
 `;
