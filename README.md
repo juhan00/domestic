@@ -65,6 +65,10 @@ npm run dev
 - css-in-js를 작성하는데에 `@emotion/styled`를 이용합니다.
 - 상태관리에 `redux`와 `redux-saga`를 이용합니다.
 - js로 작업할 때는 `prop-types`를 이용하여 component의 props타입을 지정합니다.
+- graph plot에는 `D3`를 이용합니다.
+- fetch에는 `redaxios`를 이용합니다.
+- error message에 `react-toastify`를 이용합니다.
+- html의 header관리와 SEO향상을 위해 `react-helmet`를 이용합니다.
 
 ## 추가 예정인 항목들
 
