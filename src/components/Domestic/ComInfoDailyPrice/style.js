@@ -8,23 +8,33 @@ export const TableWrapper = styled.div`
   height: 100%;
   border-radius: 12px;
   margin: 0 20px 0 0;
-  padding: 10px;
+  padding: 28px;
   h1 {
     color: #111111;
     font-size: 18px;
     font-weight: 500;
     line-height: 26px;
-    margin: 28px 28px 0;
+    margin-bottom: 10px;
   }
 `;
 export const Table = styled.table`
   max-width: 726px;
   width: 100%;
+  text-align: end;
 `;
 export const Row = styled.tr`
   height: 42px;
+  &.title {
+    color: #767676;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 20px;
+  }
 `;
 export const Cell = styled.td`
-  display: table-cell;
   width: 60px;
+  vertical-align: middle;
+  &.date {
+    text-align: start;
+  }
 `;

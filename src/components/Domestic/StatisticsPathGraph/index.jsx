@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import { GraphWrapper } from "./style";
 import {
   axisBottom,
   extent,
@@ -31,7 +30,7 @@ const StatisticsGraph = ({
     svg.attr("width", 700).attr("height", 170);
 
     const xScale = scaleTime()
-      .domain(extent(data, (data) => data.date))
+      .domain(extent(data, (data) => data.basDt))
       .range([marginLeft, width - marginRight]);
 
     const xAxis = axisBottom(xScale).ticks(data.length);
@@ -67,17 +66,17 @@ const StatisticsGraph = ({
 
     const chartLine1 = line()
       .defined((d) => !isNaN(d.부채비율))
-      .x((d) => xScale(d.date))
+      .x((d) => xScale(d.basDt))
       .y((d) => yScale(d.부채비율));
 
     const chartLine2 = line()
       .defined((d) => !isNaN(d.유동부채비율))
-      .x((d) => xScale(d.date))
+      .x((d) => xScale(d.basDt))
       .y((d) => yScale(d.유동부채비율));
 
     const chartLine3 = line()
       .defined((d) => !isNaN(d.비유동부채비율))
-      .x((d) => xScale(d.date))
+      .x((d) => xScale(d.basDt))
       .y((d) => yScale(d.비유동부채비율));
 
     svg
@@ -94,10 +93,11 @@ const StatisticsGraph = ({
       .selectAll("dot")
       .data(data)
       .join("circle")
-      .attr("cx", (d) => xScale(d.date))
+      .attr("cx", (d) => xScale(d.basDt))
       .attr("cy", (d) => yScale(d.부채비율))
       .attr("r", 4)
-      .attr("fill", "#5fb6ad");
+      .attr("fill", "#5fb6ad")
+      .attr("stroke", "white");
 
     svg
       .append("path")
@@ -113,10 +113,11 @@ const StatisticsGraph = ({
       .selectAll("dot")
       .data(data)
       .join("circle")
-      .attr("cx", (d) => xScale(d.date))
+      .attr("cx", (d) => xScale(d.basDt))
       .attr("cy", (d) => yScale(d.유동부채비율))
       .attr("r", 4)
-      .attr("fill", "#5fc8e9");
+      .attr("fill", "#5fc8e9")
+      .attr("stroke", "white");
 
     svg
       .append("path")
@@ -132,10 +133,11 @@ const StatisticsGraph = ({
       .selectAll("dot")
       .data(data)
       .join("circle")
-      .attr("cx", (d) => xScale(d.date))
+      .attr("cx", (d) => xScale(d.basDt))
       .attr("cy", (d) => yScale(d.비유동부채비율))
       .attr("r", 4)
-      .attr("fill", "#366d8c");
+      .attr("fill", "#366d8c")
+      .attr("stroke", "white");
   }, []);
   return (
     <svg ref={svgRef}>

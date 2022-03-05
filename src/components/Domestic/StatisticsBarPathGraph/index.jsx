@@ -153,23 +153,6 @@ const StatisticsGraph = ({
       )
       .attr("fill", "#5fb6ad");
 
-    // press
-    //   .append("rect")
-    //   .attr(
-    //     "height",
-    //     (node) => (node.당기순이익 / entireValue) * (height - marginBottom),
-    //   )
-    //   .attr("width", barWidth)
-    //   .attr("x", (_, index) => xBandScale(index))
-    //   .attr(
-    //     "y",
-    //     (node) =>
-    //       height -
-    //       marginBottom -
-    //       (node.당기순이익 / entireValue) * (height - marginBottom),
-    //   )
-    //   .attr("fill", barColor);
-
     const chartLine1 = line()
       .defined((d) => !isNaN(d.ROE))
       .x((d) => xScale(d.date))
@@ -189,7 +172,7 @@ const StatisticsGraph = ({
       .append("path")
       .datum(data)
       .attr("fill", "none")
-      .attr("stroke", "#5fb6ad")
+      .attr("stroke", "#EE9696")
       .attr("stroke-width", 2)
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
@@ -202,13 +185,14 @@ const StatisticsGraph = ({
       .attr("cx", (d) => xScale(d.date))
       .attr("cy", (d) => yRightScale(d.ROE))
       .attr("r", 4)
-      .attr("fill", "#5fb6ad");
+      .attr("fill", "#EE9696")
+      .attr("stroke", "white");
 
     svg
       .append("path")
       .datum(data)
       .attr("fill", "none")
-      .attr("stroke", "#5fc8e9")
+      .attr("stroke", "#FACDCD")
       .attr("stroke-width", 2)
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
@@ -221,13 +205,14 @@ const StatisticsGraph = ({
       .attr("cx", (d) => xScale(d.date))
       .attr("cy", (d) => yRightScale(d.ROA))
       .attr("r", 4)
-      .attr("fill", "#5fc8e9");
+      .attr("fill", "#FACDCD")
+      .attr("stroke", "white");
 
     svg
       .append("path")
       .datum(data)
       .attr("fill", "none")
-      .attr("stroke", "#366d8c")
+      .attr("stroke", "#A61515")
       .attr("stroke-width", 2)
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
@@ -240,7 +225,8 @@ const StatisticsGraph = ({
       .attr("cx", (d) => xScale(d.date))
       .attr("cy", (d) => yRightScale(d.ROIC))
       .attr("r", 4)
-      .attr("fill", "#366d8c");
+      .attr("fill", "#A61515")
+      .attr("stroke", "white");
   }, []);
   return (
     <svg ref={svgRef}>

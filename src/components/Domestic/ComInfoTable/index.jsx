@@ -8,79 +8,84 @@ const ComInfoTable = () => {
       <h1>기업실적분석</h1>
       <Table>
         <thead>
-          <Row>
-            <Cell className="type" rowSpan={3}>
+          <Row className="title">
+            <Cell rowSpan={3}>
               주요
               <br />
               재무정보
             </Cell>
-            <Cell colSpan={4}>최근 연간 실적</Cell>
-            <Cell colSpan={6}>최근 분기 실적</Cell>
-          </Row>
-          <Row>
-            <Cell>Date</Cell>
-            <Cell>Date</Cell>
-            <Cell>Date</Cell>
-            <Cell>Date</Cell>
-            <Cell>Date</Cell>
-            <Cell>Date</Cell>
-            <Cell>Date</Cell>
-            <Cell>Date</Cell>
-            <Cell>Date</Cell>
-            <Cell>Date</Cell>
-          </Row>
-          <Row>
-            <Cell>
-              IFRS
-              <br />
-              연결
+            <Cell className="title__sub" colSpan={4}>
+              최근 연간 실적
             </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
+            <Cell className="title__sub" colSpan={6}>
+              최근 분기 실적
             </Cell>
           </Row>
+          <Row className="date">
+            <Cell>Date</Cell>
+            <Cell>Date</Cell>
+            <Cell>Date</Cell>
+            <Cell>Date</Cell>
+            <Cell>Date</Cell>
+            <Cell>Date</Cell>
+            <Cell>Date</Cell>
+            <Cell>Date</Cell>
+            <Cell>Date</Cell>
+            <Cell>Date</Cell>
+          </Row>
+          <Row className="ifrs">
+            <Cell>
+              IFRS
+              <br />
+              연결
+            </Cell>
+            <Cell>
+              IFRS
+              <br />
+              연결
+            </Cell>
+            <Cell>
+              IFRS
+              <br />
+              연결
+            </Cell>
+            <Cell>
+              IFRS
+              <br />
+              연결
+            </Cell>
+            <Cell>
+              IFRS
+              <br />
+              연결
+            </Cell>
+            <Cell>
+              IFRS
+              <br />
+              연결
+            </Cell>
+            <Cell>
+              IFRS
+              <br />
+              연결
+            </Cell>
+            <Cell>
+              IFRS
+              <br />
+              연결
+            </Cell>
+            <Cell>
+              IFRS
+              <br />
+              연결
+            </Cell>
+            <Cell>
+              IFRS
+              <br />
+              연결
+            </Cell>
+          </Row>
+          <Row />
         </thead>
         <tbody>
           <Row>
