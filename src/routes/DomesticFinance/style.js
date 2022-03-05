@@ -48,9 +48,30 @@ export const PeriodButtonsWrapper = styled.div`
     border-radius: 10px;
     margin: 3px;
   }
+  .active {
+    background: #5fb6ad;
+  }
 `;
 
-export const ContentsWrapper = styled.div``;
+export const ContentsWrapper = styled.div`
+  & > .main-chart-wrapper {
+    max-width: 790px;
+    min-height: 389px;
+    background: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 64px 28px;
+  }
+
+  & > .main-chart-wrapper > .main-chart-title {
+    font-weight: 500;
+    font-size: 18px;
+    margin-left: 40px;
+    line-height: 26px;
+  }
+`;
 
 export const CardsWrapper = styled.div`
   display: flex;
@@ -63,14 +84,19 @@ export const CardsWrapper = styled.div`
   }
 
   & > .content-card {
+    min-width: 385px;
+    min-height: 102px;
     padding: 30px 50px;
     display: flex;
-    border-radius: 20px;
+    justify-content: space-between;
+    background: #ffffff;
+    border-radius: 12px;
     align-items: center;
-    background: white;
   }
 
   & > .content-card > .content-card-content > .content-card-content-title {
+    font-size: 12px;
+    line-height: 16px;
     color: #505050;
   }
 
@@ -78,8 +104,18 @@ export const CardsWrapper = styled.div`
     > .content-card
     > .content-card-content
     > .content-card-content-description {
+    font-size: 11px;
+    line-height: 16px;
     color: #999999;
-    font-size: 12px;
+  }
+
+  &
+    > .content-card
+    > .content-card-content
+    > .content-card-content-value
+    > .content-card-value-number {
+    font-size: 22px;
+    line-height: 26px;
   }
 
   & > .content-card > .content-card-content-emoji {

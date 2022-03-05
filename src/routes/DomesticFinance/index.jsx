@@ -22,11 +22,19 @@ import {
 } from "./style";
 import { getPreviousDate } from "@utils/getPreviousDate";
 
+const publicDate = new Date("2021-08-01");
+
 const DomesticStock = () => {
-  const [domesticState, dispatch] = useReducer(reducer, initialState);
+  const [domesticState, dispatch] = useReducer(
+    reducer,
+    initialState(publicDate),
+  );
+
+  console.log(initialState(publicDate));
 
   const { period } = domesticState;
-  const { startDate, endDate } = period;
+  const { startDate, endDate, diff } = period;
+  console.log(diff);
 
   const onChangeDate = (dates) => {
     const [start, end] = dates;
@@ -35,7 +43,8 @@ const DomesticStock = () => {
 
   const onClickPeriodButton = (numOfDates) => {
     const newStartDate = getPreviousDate(endDate, numOfDates);
-    dispatch(setPeriod(newStartDate, endDate));
+    const targetDate = newStartDate > publicDate ? newStartDate : publicDate;
+    dispatch(setPeriod(targetDate, endDate));
   };
 
   const keywordData = useRef([
@@ -105,12 +114,41 @@ const DomesticStock = () => {
             />
           </DatePickerWrapper>
           <PeriodButtonsWrapper>
-            <button onClick={() => onClickPeriodButton(30)}>1개월</button>
-            <button onClick={() => onClickPeriodButton(180)}>6개월</button>
-            <button onClick={() => onClickPeriodButton(365)}>1년</button>
-            <button onClick={() => onClickPeriodButton(1095)}>3년</button>
-            <button onClick={() => onClickPeriodButton(1825)}>5년</button>
-            <button onClick={() => onClickPeriodButton(3650)}>10년</button>
+            <button
+              onClick={() => onClickPeriodButton(30)}
+              className={diff === 30 ? "active" : null}>
+              1개월
+            </button>
+            <button
+              onClick={() => onClickPeriodButton(90)}
+              className={diff === 90 ? "active" : null}>
+              3개월
+            </button>
+            <button
+              onClick={() => onClickPeriodButton(180)}
+              className={diff === 180 ? "active" : null}>
+              6개월
+            </button>
+            <button
+              onClick={() => onClickPeriodButton(365)}
+              className={diff === 365 ? "active" : null}>
+              1년
+            </button>
+            <button
+              onClick={() => onClickPeriodButton(1095)}
+              className={diff === 1095 ? "active" : null}>
+              3년
+            </button>
+            <button
+              onClick={() => onClickPeriodButton(1825)}
+              className={diff === 1825 ? "active" : null}>
+              5년
+            </button>
+            <button
+              onClick={() => onClickPeriodButton(3650)}
+              className={diff === 3650 ? "active" : null}>
+              10년
+            </button>
           </PeriodButtonsWrapper>
         </div>
         <button className="header-right-apply">적용</button>
@@ -178,12 +216,17 @@ const DomesticStock = () => {
             <div className="content-card-content-emoji">B</div>
           </div>
         </CardsWrapper>
+        <div className="main-chart-wrapper">
+          <div className="main-chart-title">주식 차트</div>
+          <MainChart />
+        </div>
+        <div className="news-list-wrapper">뉴스 리스트</div>
+
         <KeywordChart data={keywordData.current} />
         <CategoryChart data={categoryData.current} />
         <PressChart data={pressData.current} />
         <BuzzChart />
         <EmotionChart />
-        <MainChart />
       </ContentsWrapper>
     </main>
   );
