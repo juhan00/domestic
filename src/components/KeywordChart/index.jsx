@@ -37,7 +37,6 @@ const KeywordChart = ({
       .start()
       .words();
 
-    console.log(words);
     const cloudWrapper = svg
       .select(".cloudWrapper")
       .attr("transform", `translate(${width / 2},${height / 2})`);
