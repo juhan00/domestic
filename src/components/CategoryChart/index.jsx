@@ -41,10 +41,10 @@ const CategoryChart = ({
     const tree = createTree(mapData);
 
     const block = svg
-      .selectAll("g")
+      .selectAll(".block")
       .data(tree.leaves())
-      .enter()
-      .append("g")
+      .join("g")
+      .classed("block", true)
       .attr("transform", (node) => `translate(${node["x0"]},${node["y0"]})`);
 
     block
