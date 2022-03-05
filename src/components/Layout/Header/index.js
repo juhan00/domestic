@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Logo } from "./style";
-import Search from "./Search";
+import { Logo } from "../style";
+import Search from "../Search";
 import {
   HeaderStyle,
   HaederMenuWrapper,

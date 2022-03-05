@@ -1,8 +1,8 @@
 import React from "react";
-import { HomeStyle, SearchMenuStyleAtHome  } from "@components/Layout/style";
+import { Logo  } from "@components/Layout/style";
 import Search from "@components/Layout/Search"
 import Dropdown from "@components/Layout/Dropdown";
-import { Logo } from "@components/Layout/style";
+import { HomeStyle, SearchMenuStyleAtHome } from "@routes/style";
 import { Link } from "react-router-dom";
 
 const Home = () => {
