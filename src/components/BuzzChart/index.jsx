@@ -12,6 +12,7 @@ import {
 } from "d3";
 import React, { useEffect, useRef } from "react";
 import { ChartWrapper } from "../CategoryChart/style";
+import useResizeObserver from "@utils/useResizeObserver";
 
 const data = [
   { date: new Date("2018-01-01"), value: 1 },
@@ -27,17 +28,23 @@ const data = [
 const BuzzChart = ({
   width = 500,
   height = 300,
-  marginTop = 40,
-  marginBottom = 40,
-  marginLeft = 40,
-  marginRight = 40,
-  padding = 30,
+  marginTop = 0,
+  marginBottom = 0,
+  marginLeft = 0,
+  marginRight = 0,
+  padding = 0,
 }) => {
   const buzzChartRef = useRef();
-  const svgRef = useRef(null);
+  const svgRef = useRef();
+  const dimensions = useResizeObserver(buzzChartRef);
+
   useEffect(() => {
-    const buzzChartWrapper = select(buzzChartRef.current);
     const svg = select(svgRef.current);
+
+    if (!dimensions) return;
+
+    const { width, height } = dimensions;
+    svg.attr("width", width).attr("height", height);
 
     const xScale = scaleTime()
       .domain(extent(data, (data) => data.date))
@@ -85,15 +92,17 @@ const BuzzChart = ({
       .y((d) => yScale(d.value));
 
     svg
-      .append("path")
-      .datum(data)
+      .selectAll("buzzpath")
+      .data([data])
+      .join("path")
+      .classed(".buzzpath", true)
       .attr("fill", "none")
       .attr("stroke", "#ee9696")
       .attr("stroke-width", 3)
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
       .attr("d", chartLine);
-  }, []);
+  }, [data, dimensions]);
   return (
     <ChartWrapper ref={buzzChartRef}>
       <svg ref={svgRef}>
