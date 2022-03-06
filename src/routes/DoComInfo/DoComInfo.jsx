@@ -5,6 +5,7 @@ import ComInfoGraph from "@components/Domestic/ComInfoGraph";
 import ComInfoDailyPrice from "@components/Domestic/ComInfoDailyPrice";
 import axios from "redaxios";
 import { useEffect } from "react";
+import { PageWrapper, PriceWrapper } from "./style";
 
 const DoComInfo = () => {
   const BASE_URL =
@@ -40,15 +41,5 @@ const DoComInfo = () => {
     </PageWrapper>
   );
 };
-
-const PageWrapper = styled.div`
-  display: flex;
-  margin-left: 26px;
-  min-height: 900px;
-`;
-const PriceWrapper = styled.div`
-  max-width: 810px;
-  width: 100%;
-`;
 
 export default DoComInfo;

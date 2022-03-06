@@ -7,8 +7,9 @@ export const Page = styled.nav`
   gap: 12px;
   margin: 16px;
   position: absolute;
-  bottom: 0;
-  right: 50%;
+  bottom: 30px;
+  left: 50%;
+  transform: translate(-50%);
 `;
 
 export const Button = styled.button`
