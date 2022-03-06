@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 // 주식 개요 스타일
 export const StockInfoStyle = styled.div`
   width: 100%;
+  margin-top: 16px;
   margin-bottom: 30px;
   .stockInfoContainer {
     width: 100%;

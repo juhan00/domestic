@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export const HeaderStyle = styled.header`
   position: fixed;
   background-color: #f2f2f8;
-  z-index: 999;
+  z-index: 997;
   width: 100vw;
   height: 76px;
 `;

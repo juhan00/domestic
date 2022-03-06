@@ -1,5 +1,14 @@
 import styled from "@emotion/styled";
 
+export const Dark = styled.div`
+  position: fixed;
+  z-index: 998;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  opacity: 0.6;
+`;
+
 export const NavStyle = styled.nav`
   position: fixed;
   z-index: 999;
@@ -63,6 +72,78 @@ export const NavStyle = styled.nav`
       &.active {
         color: #5fb6ad;
         font-weight: 700;
+      }
+    }
+  }
+
+  .toggleIcon {
+    display: none;
+  }
+
+  /* 1600 이하 */
+  @media (max-width: 1600px) {
+    width: 212px;
+    background: #fff;
+    transition: 0.2s;
+    .toggleIcon {
+      display: flex;
+      align-items: center;
+      width: 60px;
+      height: 56px;
+      margin-top: 12px;
+      transition: 0.2s;
+      cursor: pointer;
+      svg {
+        margin-left: 26px;
+      }
+    }
+    &.close {
+      transform: translateX(-167px);
+      transition: 0.2s;
+      .toggleIcon {
+        transition: 0.2s;
+        transform: translateX(152px);
+        width: 60px;
+      }
+      .mainMenu {
+        margin-top: 0;
+        transition: 0.2s;
+        cursor: pointer;
+        svg {
+          position: absolute;
+          margin-left: 179px;
+        }
+        .mainMenuTilte {
+          position: absolute;
+          margin-left: 215px;
+          padding: 5px;
+          width: 80px;
+          text-align: center;
+          background: #5fb6ad;
+          font-weight: 500;
+          color: #fff;
+          border-radius: 5px;
+          opacity: 0;
+          &:after {
+            content: "";
+            position: absolute;
+            top: 8px;
+            left: -7px;
+            border-right: 7px solid #5fb6ad;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+          }
+        }
+        &:hover {
+          background: #eee;
+          .mainMenuTilte {
+            opacity: 1;
+            transition: 0.3s;
+          }
+        }
+      }
+      .subMenu {
+        display: none;
       }
     }
   }

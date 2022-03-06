@@ -22,4 +22,8 @@ export const MainSection = styled.div`
   padding: 76px 36px 30px 36px;
   float: right;
   overflow: hidden;
+
+  @media (max-width: 1600px) {
+    width: calc(100% - 45px);
+  } ;
 `;

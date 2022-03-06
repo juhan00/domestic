@@ -35,7 +35,7 @@ const InfoTable = () => {
               </div> */}
               <div className="stockPrice">
                 전일가<span className="price">{numberWithCommas(74300)}</span>
-                <sapn className="date">2022.2.28기준</sapn>
+                <span className="date">2022.2.28기준</span>
               </div>
             </li>
             <li>
