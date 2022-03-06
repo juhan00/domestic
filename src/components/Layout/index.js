@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { Header } from "./Header";
+import Header from "./Header";
 import Nav from "./Nav";
 import InfoTable from "./StockInfo";
 import { BaseStyle, MainSection } from "./style";
@@ -11,10 +11,8 @@ export const Layout = () => {
       <Header />
       <Nav />
       <MainSection>
-        <div className="mainContainer">
-          <InfoTable />
-          <Outlet />
-        </div>
+        <InfoTable />
+        <Outlet />
       </MainSection>
     </BaseStyle>
   );
