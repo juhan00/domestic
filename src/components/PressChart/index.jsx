@@ -1,6 +1,7 @@
 import { select, max, scaleLinear, scaleBand, axisRight, axisBottom } from "d3";
 import React, { useEffect, useRef } from "react";
 import { ChartWrapper } from "../CategoryChart/style";
+import useResizeObserver from "@utils/useResizeObserver";
 
 const PressChart = ({
   data,
@@ -9,22 +10,25 @@ const PressChart = ({
   width = 500,
   height = 300,
   barSpace = 50,
-  marginTop = 40,
-  marginBottom = 40,
-  marginLeft = 40,
-  marginRight = 40,
-  padding = 30,
+  marginTop = 0,
+  marginBottom = 0,
+  marginLeft = 0,
+  marginRight = 0,
+  padding = 0,
 }) => {
   const pressChartRef = useRef(null);
   const svgRef = useRef(null);
+  const dimensions = useResizeObserver(pressChartRef);
 
   useEffect(() => {
-    const pressWrapper = select(pressChartRef.current);
     const svg = select(svgRef.current);
 
-    const entireValue = max(data, (data) => data.value);
+    if (!dimensions) return;
 
+    const { width, height } = dimensions;
     svg.attr("width", width).attr("height", height);
+
+    const entireValue = max(data, (data) => data.value);
 
     const xScale = scaleBand()
       .domain(data.map((value, idx) => idx))
@@ -95,7 +99,7 @@ const PressChart = ({
       .text((data) => data["value"])
       .attr("x", (_, index) => xScale(index) + xScale.bandwidth() / 4)
       .attr("y", (node) => yScale(node.value) - 10);
-  }, [data]);
+  }, [data, dimensions]);
 
   return (
     <ChartWrapper ref={pressChartRef}>

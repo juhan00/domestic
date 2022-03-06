@@ -13,6 +13,7 @@ import {
 } from "d3";
 import React, { useEffect, useRef, useState } from "react";
 import { ChartWrapper } from "../CategoryChart/style";
+import useResizeObserver from "@utils/useResizeObserver";
 
 const data = [
   {
@@ -79,19 +80,24 @@ const MainChart = ({
   width = 500,
   height = 300,
   barColor = "#5FB6AD",
-  marginTop = 40,
-  marginBottom = 40,
-  marginLeft = 40,
-  marginRight = 40,
-  padding = 30,
+  marginTop = 0,
+  marginBottom = 0,
+  marginLeft = 0,
+  marginRight = 0,
+  padding = 0,
 }) => {
   const mainChartRef = useRef(null);
   const svgRef = useRef(null);
   const [currentZoomState, setCurrentZoomState] = useState();
+  const dimensions = useResizeObserver(mainChartRef);
 
   useEffect(() => {
-    const mainChartWrapper = select(mainChartRef.current);
     const svg = select(svgRef.current);
+
+    if (!dimensions) return;
+
+    const { width, height } = dimensions;
+    svg.attr("width", width).attr("height", height);
 
     const maxValue = max(data, (data) => data.high);
     const minValue = min(data, (data) => data.low);
@@ -174,7 +180,7 @@ const MainChart = ({
     //   )
     //   .attr("width", 20)
     //   .attr("fill", "black");
-  }, [currentZoomState, data]);
+  }, [data, dimensions, currentZoomState]);
 
   return (
     <ChartWrapper ref={mainChartRef}>

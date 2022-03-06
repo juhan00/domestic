@@ -3,6 +3,7 @@ import { select } from "d3";
 import cloud from "d3-cloud";
 import randomColor from "randomcolor";
 import { ChartWrapper } from "../CategoryChart/style";
+import useResizeObserver from "@utils/useResizeObserver";
 
 const KeywordChart = ({
   data,
@@ -11,17 +12,23 @@ const KeywordChart = ({
   rotate = 90,
   width = 500,
   height = 300,
-  marginTop = 40,
-  marginBottom = 40,
-  marginLeft = 40,
-  marginRight = 40,
-  padding = 30,
+  marginTop = 0,
+  marginBottom = 0,
+  marginLeft = 0,
+  marginRight = 0,
+  padding = 0,
 }) => {
   const keywordChartRef = useRef(null);
   const svgRef = useRef(null);
+  const dimensions = useResizeObserver(keywordChartRef);
+
   useEffect(() => {
-    const wrapper = select(keywordChartRef.current);
     const svg = select(svgRef.current);
+
+    if (!dimensions) return;
+
+    const { width, height } = dimensions;
+    svg.attr("width", width).attr("height", height);
 
     const wordData = data.map((ele) => {
       return { text: ele.title, size: 10 + ele.value / 20, test: ele.title };
@@ -57,7 +64,7 @@ const KeywordChart = ({
       .text(function (d) {
         return d.text;
       });
-  }, [data]);
+  }, [data, dimensions]);
   return (
     <ChartWrapper ref={keywordChartRef}>
       <svg ref={svgRef}>

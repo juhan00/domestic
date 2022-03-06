@@ -10,19 +10,24 @@ const CategoryChart = ({
   darkTextColor = "black",
   width = 500,
   height = 300,
-  marginTop = 40,
-  marginBottom = 40,
-  marginLeft = 40,
-  marginRight = 40,
-  padding = 30,
+  marginTop = 0,
+  marginBottom = 0,
+  marginLeft = 0,
+  marginRight = 0,
+  padding = 0,
   brightTextColor = "white",
 }) => {
-  const categoryChartRef = useRef(null);
   const svgRef = useRef(null);
+  const categoryChartRef = useRef();
+  const dimensions = useResizeObserver(categoryChartRef);
 
   useEffect(() => {
-    const wrapper = select(categoryChartRef.current);
     const svg = select(svgRef.current);
+
+    if (!dimensions) return;
+
+    const { width, height } = dimensions;
+    svg.attr("width", width).attr("height", height);
 
     const entireValue = sum(data, (data) => data.value);
 
@@ -92,7 +97,7 @@ const CategoryChart = ({
         const parentData = select(this.parentNode).datum();
         return (parentData.y1 - parentData.y0) / 2 - 20;
       });
-  }, [data]);
+  }, [data, dimensions]);
   return (
     <ChartWrapper ref={categoryChartRef}>
       <svg ref={svgRef} />
