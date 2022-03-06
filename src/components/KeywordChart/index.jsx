@@ -30,8 +30,19 @@ const KeywordChart = ({
     const { width, height } = dimensions;
     svg.attr("width", width).attr("height", height);
 
+    if (!data[0].color) {
+      data.map((ele) => {
+        ele.color = randomColor();
+      });
+    }
+
     const wordData = data.map((ele) => {
-      return { text: ele.title, size: 10 + ele.value / 20, test: ele.title };
+      return {
+        ...ele,
+        text: ele.title,
+        size: 10 + ele.value / 20,
+        test: ele.title,
+      };
     });
 
     const words = cloud()
@@ -56,7 +67,7 @@ const KeywordChart = ({
       .style("font-size", (d) => {
         return `${d.size}px`;
       })
-      .attr("fill", () => randomColor())
+      .attr("fill", (d) => d.color)
       .attr("text-anchor", "middle")
       .attr("transform", (d) => {
         return `translate(${d.x}, ${d.y}) rotate(${d.rotate})`;
