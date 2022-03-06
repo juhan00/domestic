@@ -76,14 +76,16 @@ const PressChart = ({
       );
 
     const press = svg
-      .selectAll(".bar")
+      .selectAll(".pressg")
       .data(data)
-      .enter()
-      .append("g")
-      .classed("bar", true);
+      .join("g")
+      .classed("pressg", true);
 
     press
-      .append("rect")
+      .selectAll(".pressbar")
+      .data(data)
+      .join("rect")
+      .classed("pressbar", true)
       .attr(
         "height",
         (node) =>
@@ -95,7 +97,10 @@ const PressChart = ({
       .attr("fill", barColor);
 
     press
-      .append("text")
+      .selectAll(".presstext")
+      .data(data)
+      .join("text")
+      .classed("presstext", true)
       .text((data) => data["value"])
       .attr("x", (_, index) => xScale(index) + xScale.bandwidth() / 4)
       .attr("y", (node) => yScale(node.value) - 10);
