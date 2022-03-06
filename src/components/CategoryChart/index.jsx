@@ -30,11 +30,12 @@ const CategoryChart = ({
     svg.attr("width", width).attr("height", height);
 
     const entireValue = sum(data, (data) => data.value);
-
-    data.map((ele) => {
-      ele.percentage = ((ele.value * 100) / entireValue).toFixed(2);
-      ele.color = randomColor();
-    });
+    if (!data[0].color) {
+      data.map((ele) => {
+        ele.percentage = ((ele.value * 100) / entireValue).toFixed(2);
+        ele.color = randomColor();
+      });
+    }
 
     const createTree = treemap().size([
       width - marginLeft - marginRight,
