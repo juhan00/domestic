@@ -92,16 +92,16 @@ const BuzzChart = ({
       .y((d) => yScale(d.value));
 
     svg
-      .selectAll("buzzpath")
+      .selectAll(".buzzpath")
       .data([data])
       .join("path")
-      .classed(".buzzpath", true)
+      .classed("buzzpath", true)
       .attr("fill", "none")
       .attr("stroke", "#ee9696")
       .attr("stroke-width", 3)
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
-      .attr("d", chartLine);
+      .attr("d", (data) => chartLine(data));
   }, [data, dimensions]);
   return (
     <ChartWrapper ref={buzzChartRef}>
