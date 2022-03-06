@@ -8,6 +8,8 @@ export const StockIndex = styled.div`
   background: #ffffff;
   border-radius: 12px;
   padding: 28px;
+  overflow: hidden;
+
   & + div {
     margin-left: 20px;
   }
@@ -49,28 +51,31 @@ export const StockIndex = styled.div`
     }
   }
 
-  //d3 chart
-  .tick {
-    line {
+  & > .stockIndexRef {
+    width: 100%;
+    //d3 chart
+    .tick {
+      line {
+        stroke: #f0f0f6;
+      }
+      text {
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 1.2;
+        color: #999;
+      }
+    }
+    .dataLine {
+      stroke: #5fb6ad;
+    }
+    .dataLineBlur {
+      stroke: #5fb6ad;
+      filter: blur(4px);
+    }
+    .todayLine {
+      stroke-width: 1;
       stroke: #f0f0f6;
+      stroke-dasharray: 3, 3;
     }
-    text {
-      font-size: 11px;
-      font-weight: 400;
-      line-height: 1.2;
-      color: #999;
-    }
-  }
-  .dataLine {
-    stroke: #5fb6ad;
-  }
-  .dataLineBlur {
-    stroke: #5fb6ad;
-    filter: blur(4px);
-  }
-  .todayLine {
-    stroke-width: 1;
-    stroke: #f0f0f6;
-    stroke-dasharray: 3, 3;
   }
 `;
