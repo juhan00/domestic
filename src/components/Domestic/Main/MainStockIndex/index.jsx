@@ -2,47 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { StockIndex } from "./style";
 import * as d3 from "d3";
 import useResizeObserver from "@utils/useResizeObserver";
-
-// function useSvgResize(ref, padding) {
-//   const [state, setState] = useState();
-//   useEffect(() => {
-//     const getSize = debounce(() => {
-//       if (!ref || !ref.current) {
-//         return;
-//       }
-
-//       const width = ref.current.offsetWidth - padding;
-//       const height = ref.current.offsetHeight;
-//       setState({
-//         width,
-//         height,
-//       });
-//     }, 0);
-
-//     window.addEventListener("resize", getSize);
-//     getSize();
-//     return () => window.removeEventListener("resize", getSize);
-//   }, [ref]);
-
-//   return state;
-// }
-
-// export const useResizeObserver = (ref) => {
-//   const [dimensions, setDimensions] = useState(null);
-//   useEffect(() => {
-//     const observeTarget = ref.current;
-//     const resizeObserver = new ResizeObserver((entries) => {
-//       entries.forEach((entry) => {
-//         setDimensions(entry.contentRect);
-//       });
-//     });
-//     resizeObserver.observe(observeTarget);
-//     return () => {
-//       resizeObserver.unobserve(observeTarget);
-//     };
-//   }, [ref]);
-//   return dimensions;
-// };
+import useDebounce from "@utils/useDebounce";
 
 const data = [
   { stock: 2900, date: "10:00" },
@@ -86,6 +46,8 @@ const data = [
 const MainStockIndex = ({ name }) => {
   const svgRef = useRef(null);
   const stockIndexRef = useRef(null);
+  const size = useResizeObserver(stockIndexRef);
+  const resize = useDebounce(size, 200);
 
   //tick 분할 함수
   const setTickCount = useCallback((min, max, count, type) => {
@@ -111,9 +73,6 @@ const MainStockIndex = ({ name }) => {
       return tick;
     }
   }, []);
-
-  // const resize = useSvgResize(stockIndexRef, 156);
-  const resize = useResizeObserver(stockIndexRef);
 
   useEffect(() => {
     if (!resize || !data) {
@@ -256,8 +215,6 @@ const MainStockIndex = ({ name }) => {
       .attr("d", dataLine)
       .attr("fill", "none");
   }, [data, resize]);
-
-  console.log(resize && resize.width);
 
   return (
     <StockIndex>
