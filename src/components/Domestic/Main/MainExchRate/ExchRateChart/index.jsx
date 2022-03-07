@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { ExchRateChartWrapper } from "./style";
+import useResizeObserver from "@utils/useResizeObserver";
 
 const ExchRateChart = () => {
   const data = [
@@ -42,6 +43,7 @@ const ExchRateChart = () => {
     { stock: 2900, date: "12:50" },
   ];
 
+  const exchRateChartRef = useRef(null);
   const svgRef = useRef(null);
 
   //tick 분할 함수
@@ -69,11 +71,17 @@ const ExchRateChart = () => {
     }
   }, []);
 
+  const resize = useResizeObserver(exchRateChartRef);
+
   useEffect(() => {
+    if (!resize || !data) {
+      return;
+    }
+
     //초기 셋팅
-    const width = 300;
-    const height = 150;
     const margin = { top: 30, right: 50, bottom: 30, left: 0 };
+    const width = resize.width - (margin.left + margin.right);
+    const height = 150;
     const xTickCount = 6;
     const yTickCount = 5;
     const xTickBlankCount = 0;
@@ -100,19 +108,30 @@ const ExchRateChart = () => {
       .tickSize(10);
 
     svg
-      .select(".x-axis")
+      .selectAll(".x-axis")
       .style(
         "transform",
         `translate(${margin.left}px, ${height + margin.top}px)`,
       )
       .style("stroke-opacity", 0)
       .call(xAxis)
-      .append("text")
-      .attr("class", "x-label")
-      .attr("text-anchor", "start")
-      .attr("fill", "black")
-      .attr("transform", `translate(${width + 13}, 20)`)
-      .text(xLabel);
+      // .append("text")
+      // .attr("class", "x-label")
+      // .attr("text-anchor", "start")
+      // .attr("fill", "black")
+      // .attr("transform", `translate(${width + 13}, 20)`)
+      // .text(xLabel);
+      .call((g) =>
+        g
+          // .selectAll(".x-label > *")
+          .selectAll(".x-label")
+          .append("text")
+          .attr("class", "x-label")
+          .attr("text-anchor", "start")
+          .attr("fill", "black")
+          .attr("transform", `translate(${width + 13}, 20)`)
+          .text(xLabel),
+      );
 
     //x축 line
     const xScaleLine = d3
@@ -125,7 +144,7 @@ const ExchRateChart = () => {
       .tickSize(0)
       .tickFormat("");
     svg
-      .select(".x-axis-line")
+      .selectAll(".x-axis-line")
       .style(
         "transform",
         `translate(${margin.left}px, ${height + margin.top}px)`,
@@ -150,7 +169,7 @@ const ExchRateChart = () => {
       .tickValues(setTickCount(minStock, maxStock, yTickCount))
       .tickSize(10);
     svg
-      .select(".y-axis")
+      .selectAll(".y-axis")
       .call(yAxis)
       .style(
         "transform",
@@ -160,17 +179,21 @@ const ExchRateChart = () => {
       .call((g) =>
         g
           .selectAll(".tick line")
-          .clone()
           .style("transform", "translateX(0px)")
           .attr("x2", -width)
           .style("stroke-opacity", 1),
       )
-      .append("text")
-      .attr("class", "y-label")
-      .attr("text-anchor", "start")
-      .attr("fill", "black")
-      .attr("transform", `translate(13, -15)`)
-      .text(yLabel);
+      .call((g) =>
+        g
+          // .selectAll(".x-label > *")
+          .selectAll(".y-label")
+          .append("text")
+          .attr("class", "y-label")
+          .attr("text-anchor", "start")
+          .attr("fill", "black")
+          .attr("transform", `translate(13, -15)`)
+          .text(yLabel),
+      );
 
     //data line
     const dataLine = d3
@@ -186,13 +209,22 @@ const ExchRateChart = () => {
       .attr("class", "dataLine")
       .attr("d", dataLine)
       .attr("fill", "none");
-  }, [data]);
+
+    return () => {
+      d3.selectAll(".x-label > *").remove();
+      d3.selectAll(".y-label > *").remove();
+    };
+  }, [data, resize]);
 
   return (
-    <ExchRateChartWrapper>
+    <ExchRateChartWrapper ref={exchRateChartRef}>
       <svg ref={svgRef}>
-        <g className="x-axis" />
-        <g className="y-axis" />
+        <g className="x-axis">
+          <g className="x-label" />
+        </g>
+        <g className="y-axis">
+          <g className="y-label" />
+        </g>
         <g className="x-axis-line" />
       </svg>
     </ExchRateChartWrapper>
