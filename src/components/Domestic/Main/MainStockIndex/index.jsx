@@ -3,6 +3,9 @@ import { StockIndex } from "./style";
 import * as d3 from "d3";
 import useResizeObserver from "@utils/useResizeObserver";
 import useDebounce from "@utils/useDebounce";
+import stock_up from "@images/stock_up.svg";
+import stock_down from "@images/stock_down.svg";
+import stock_none from "@images/stock_none.svg";
 
 const data = [
   { stock: 2900, date: "10:00" },
@@ -222,7 +225,11 @@ const MainStockIndex = ({ name }) => {
         <h2>{name}</h2>
         <div className="info">
           <div className="index">
-            2,718.74 <span className="vs">▲11.95</span>
+            2,718.74
+            <span className="vs">
+              <img src={stock_up} alt="stock up" />
+              11.95
+            </span>
             <span className="rate">+0.44%</span>
           </div>
           <div className="date">2022.02.23 14:15 장중</div>

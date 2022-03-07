@@ -29,6 +29,8 @@ export const ExchRate = styled.div`
         color: #111;
       }
       .info {
+        display: flex;
+        align-items: center;
         margin-left: auto;
         color: #111;
         &.red {
@@ -43,6 +45,11 @@ export const ExchRate = styled.div`
           line-height: 1.5;
         }
         .vs {
+          & > img {
+            margin-right: 4px;
+          }
+          display: flex;
+          align-items: center;
           font-size: 13px;
           font-weight: 400;
           line-height: 1.5;

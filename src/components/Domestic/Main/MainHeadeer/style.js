@@ -1,8 +1,11 @@
 import styled from "@emotion/styled";
+import MenuIconToggle from "@images/notice_icon.svg";
+import recent_close_icon from "@images/recent_close_icon.svg";
 
 export const Header = styled.div`
   display: flex;
   flex: 1 1 0;
+  align-items: center;
   background: #ffffff;
   border-radius: 12px;
   padding: 28px;
@@ -21,6 +24,27 @@ export const Header = styled.div`
 
   & > .itemWrapper {
     display: flex;
+    flex: 1 1 100%;
+
+    & > .default {
+      display: flex;
+      flex: 1 1 100%;
+      justify-content: center;
+      align-items: center;
+      &::before {
+        content: "";
+        width: 20px;
+        height: 20px;
+        background-color: red;
+        background: url(${MenuIconToggle});
+        background-size: 20px 20px;
+        margin-right: 7px;
+      }
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: #505050;
+    }
     & > .item {
       display: flex;
       align-items: center;
@@ -41,6 +65,7 @@ export const Header = styled.div`
           color: #111111;
         }
         & > p {
+          display: flex;
           font-size: 14px;
           font-weight: 400;
           line-height: 1.5;
@@ -51,17 +76,25 @@ export const Header = styled.div`
           &.blue {
             color: #1b61d1;
           }
-          & > span {
+          & > .rate {
+            display: flex;
             margin-left: 12px;
+            & > img {
+              margin-right: 4px;
+            }
           }
         }
       }
       & > .del {
         position: absolute;
+        width: 12px;
+        height: 12px;
         font-size: 12px;
         top: 50%;
         transform: translateY(-50%);
         right: 24px;
+        background: url(${recent_close_icon});
+        background-size: 12px 12px;
         cursor: pointer;
         z-index: 1;
       }

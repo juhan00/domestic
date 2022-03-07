@@ -32,12 +32,17 @@ export const StockIndex = styled.div`
         line-height: 1;
         color: #e00400;
         & > .vs {
+          margin-left: 12px;
+          & > img {
+            margin-right: 6px;
+          }
           font-size: 14px;
           line-height: 1.5;
         }
         & > .rate {
           font-size: 14px;
           line-height: 1.5;
+          margin-left: 12px;
         }
       }
       & > .date {

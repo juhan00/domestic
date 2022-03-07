@@ -1,28 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { Header } from "./style";
+import stock_up from "@images/stock_up.svg";
+import stock_down from "@images/stock_down.svg";
+import stock_none from "@images/stock_none.svg";
 
-const initialStocks = [
-  {
-    name: "삼성전자",
-    stockIndex: "74,300",
-  },
-  {
-    name: "엘지전자",
-    stockIndex: "74,300",
-  },
-  {
-    name: "현대차",
-    stockIndex: "74,300",
-  },
-  {
-    name: "카카오",
-    stockIndex: "74,300",
-  },
-  {
-    name: "네이버",
-    stockIndex: "74,300",
-  },
-];
+// const initialStocks = [
+//   {
+//     name: "삼성전자",
+//     stockIndex: "74,300",
+//   },
+//   {
+//     name: "엘지전자",
+//     stockIndex: "74,300",
+//   },
+//   {
+//     name: "현대차",
+//     stockIndex: "74,300",
+//   },
+//   {
+//     name: "카카오",
+//     stockIndex: "74,300",
+//   },
+//   {
+//     name: "네이버",
+//     stockIndex: "74,300",
+//   },
+// ];
 
 const MainHeadeer = () => {
   const [isActive, setIsActive] = useState(null);
@@ -42,10 +45,10 @@ const MainHeadeer = () => {
     setStocks(recentStocks);
   }, []);
 
-  //초기 데이터 데이터 넣기
-  useEffect(() => {
-    localStorage.setItem("recentStocks", JSON.stringify(initialStocks));
-  }, []);
+  // //초기 데이터 데이터 넣기
+  // useEffect(() => {
+  //   localStorage.setItem("recentStocks", JSON.stringify(initialStocks));
+  // }, []);
 
   return (
     <Header>
@@ -55,7 +58,9 @@ const MainHeadeer = () => {
         조회
       </h2>
       <div className="itemWrapper">
-        {stocks &&
+        {!stocks || stocks.length === 0 ? (
+          <div className="default">최근 조회종목이 없습니다.</div>
+        ) : (
           stocks.map((stock, index) => (
             <div
               className={`item ${isActive === index && "active"}`}
@@ -63,19 +68,21 @@ const MainHeadeer = () => {
               onMouseEnter={() => itemActiveHandler(index)}
               onMouseLeave={() => setIsActive(null)}>
               {isActive === index && (
-                <span className="del" onClick={() => deleteStock(index)}>
-                  X
-                </span>
+                <span className="del" onClick={() => deleteStock(index)}></span>
               )}
               <div className="inner">
                 <h3>{stock.name}</h3>
                 <p className="red">
                   {stock.stockIndex}
-                  <span>▲0.54%</span>
+                  <div className="rate">
+                    <img src={stock_up} alt="stock up" />
+                    0.54%
+                  </div>
                 </p>
               </div>
             </div>
-          ))}
+          ))
+        )}
       </div>
     </Header>
   );
