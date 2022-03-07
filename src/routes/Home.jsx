@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <HomeStyle>
         <Logo />
-        <ul>
+        <ul className="menuWrapper">
           <li><Link to="/domestic">국내주식</Link></li>
           <li><Link to="/global">해외주식</Link></li>
           <li>뉴스</li>

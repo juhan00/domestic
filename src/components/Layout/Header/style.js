@@ -19,24 +19,20 @@ export const SearchMenuStyleOnHeader = styled.li`
     height: 40px;
     width: 790px;
     box-shadow: 0 50px 30px -30px rgba(0, 0, 0, 0.5);
-    .searchFormWrapper {
-      form {
-        input {
-          width: 100%;
-          height: 30px;
-          border: 0;
-          border-radius: 15px;
-          padding: 0 10px;
-          :focus {
-            border: 1px solid #5fb6ad;
-            outline: none;
-            font-weight: 700;
-            box-sizing: border-box;
-          }
-        }
+    input {
+      width: 100%;
+      height: 30px;
+      border: 0;
+      border-radius: 15px;
+      padding: 0 10px;
+      :focus {
+        border: 1px solid #5fb6ad;
+        outline: none;
+        font-weight: 700;
+        box-sizing: border-box;
       }
     }
-    .seachResultWrapper {
+    .searchResultWrapper {
       top: 30px;
       left: 30px;
       background-color: #fff;
@@ -49,7 +45,7 @@ export const SearchMenuStyleOnHeader = styled.li`
         display: none;
       }
       .searchResultList {
-        .serachResultItem {
+        .searchResultItem {
           padding: 4px 10px;
           font-size: 16px;
           width: 100%;

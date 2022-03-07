@@ -9,7 +9,7 @@ export const HomeStyle = styled.div`
   background-repeat: no-repeat;
   background-position: center bottom -20%;
   overflow: hidden;
-  ul {
+  .menuWrapper {
     width: 348px;
     position: fixed;
     top: 65px;
@@ -57,25 +57,21 @@ export const SearchMenuStyleAtHome = styled.div`
   box-shadow: 0 50px 30px -30px rgba(0, 0, 0, 0.5);
   .searchContainer {
     width: 80%;
-    .searchFormWrapper {
-      form {
-        input {
-          width: 100%;
-          height: 50px;
-          transform: translateY(-25%);
-          border: 0;
-          border-radius: 15px;
-          padding: 0 10px;
-          :focus {
-            border: 1px solid #5fb6ad;
-            outline: none;
-            font-weight: 700;
-            box-sizing: border-box;
-          }
-        }
+    input {
+      width: 100%;
+      height: 50px;
+      transform: translateY(-25%);
+      border: 0;
+      border-radius: 15px;
+      padding: 0 10px;
+      :focus {
+        border: 1px solid #5fb6ad;
+        outline: none;
+        font-weight: 700;
+        box-sizing: border-box;
       }
     }
-    .seachResultWrapper {
+    .searchResultWrapper {
       background-color: #fff;
       width: 100%;
       border-radius: 10px;
@@ -86,7 +82,7 @@ export const SearchMenuStyleAtHome = styled.div`
         display: none;
       }
       .searchResultList {
-        .serachResultItem {
+        .searchResultItem {
           margin-top: 10px;
           padding: 4px 10px;
           font-size: 16px;

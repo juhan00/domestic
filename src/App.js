@@ -39,7 +39,6 @@ const App = () => {
             <Route index element={<DoStatistics />} />
             <Route path="Balance" element={<DoBalance />} />
             <Route path="Income" element={<DoIncome />} />
-            <Route path="CashFlow" element={<DoCashFlow />} />
           </Route>
           <Route path="/domestic/financial" element={<DomesticStock />} />
           <Route path="/domestic/disclosure" element={<DoDisclosure />} />
@@ -52,7 +51,6 @@ const App = () => {
             <Route index element={<GoStatistics />} />
             <Route path="Balance" element={<GoBalance />} />
             <Route path="Income" element={<GoIncome />} />
-            <Route path="CashFlow" element={<GoCashFlow />} />
           </Route>
           <Route path="/global/disclosure" element={<GoDisclosure />} />
           <Route path="/global/Beta" element={<GoBeta />} />

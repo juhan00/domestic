@@ -1,95 +1,62 @@
-import React, { useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { clickOutside } from "../../../utils/clickOutside";
-
-const stockListSample = [
-  { symbol: "A", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "AA", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "AB", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "ABC", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "A2", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "B", companyName: "BBB INC", HQnation: "US" },
-  { symbol: "BA", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "BCSRAW", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "C", companyName: "CCC INC", HQnation: "US" },
-  { symbol: "D", companyName: "DDD INC", HQnation: "US" },
-  { symbol: "E", companyName: "EEE INC", HQnation: "US" },
-  { symbol: "F", companyName: "FFF INC", HQnation: "US" },
-  { symbol: "G", companyName: "GGG INC", HQnation: "US" },
-  { symbol: "H", companyName: "HHH INC", HQnation: "US" },
-  { symbol: "I", companyName: "III INC", HQnation: "US" },
-  { symbol: "J", companyName: "JJJ INC", HQnation: "US" },
-  { symbol: "K", companyName: "KKK INC", HQnation: "US" },
-  { symbol: "L", companyName: "LLL INC", HQnation: "US" },
-  { symbol: "M", companyName: "MMM INC", HQnation: "US" },
-  { symbol: "N", companyName: "NNN INC", HQnation: "US" },
-  { symbol: "O", companyName: "OOO INC", HQnation: "US" },
-  { symbol: "P", companyName: "PPP INC", HQnation: "US" },
-  { symbol: "Q", companyName: "QAQ INC", HQnation: "US" },
-  { symbol: "R", companyName: "RRR INC", HQnation: "US" },
-  { symbol: "S", companyName: "SSS INC", HQnation: "US" },
-  { symbol: "T", companyName: "TAT INC", HQnation: "US" },
-  { symbol: "U", companyName: "UUU INC", HQnation: "US" },
-  { symbol: "V", companyName: "VVV INC", HQnation: "US" },
-  { symbol: "W", companyName: "WWW INC", HQnation: "US" },
-  { symbol: "X", companyName: "XXX INC", HQnation: "US" },
-  { symbol: "Y", companyName: "YYY INC", HQnation: "US" },
-  { symbol: "Z", companyName: "ZAZ INC", HQnation: "US" },
-];
+import React, { useEffect, useRef, useState } from "react";
+import SearchBar from "./SearchBar";
+import SearchResult from "./SearchResult";
 
 export const Search = () => {
   const ref = useRef();
-  const [searchItem, setSearchItem] = useState("");
+
   const [isOpen, setIsOpen] = useState(false);
-  const handleItem = (e) => {
-    setSearchItem(e.target.value);
+  const [keyword, setKeyworld] = useState("");
+
+  //바깥을 클릭하면 isOpen가 false로 바뀜
+  useEffect(() => {
+    const checkOutside = (e) => {
+      if (isOpen && ref.current && !ref.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", checkOutside);
+    return () => {
+      document.removeEventListener("mousedown", checkOutside);
+    };
+  }, [isOpen]);
+
+  // 인풋이 포커스되면 isOpen 스테이트를 변경하는 함수
+  const handleFocused = () => {
+    setIsOpen(true);
   };
 
-  clickOutside(ref, isOpen, setIsOpen);
+  // 입력된 값의 변화를 감지하고 변경하는 함수
+  const handleChangeKeyworld = (e) => {
+    setKeyworld(e.target.value);
+  };
+
+  // 현재 입력하고 있는 검색어를 지우는 함수
+  const handleDeleteKeyword = () => {
+    setKeyworld("");
+  };
+
+  // 엔터하면 keyworld를 히스토리에 추가하고 검색창 비움
+  // const handleEnter = (e) => {
+  //   if (keyword && e.key === "Enter") {
+  //     handleAddHistory(keyword);
+  //     setKeyworld("");
+  //   }
+  // };
 
   return (
-    <>
-      <div className="searchContainer" ref={ref}>
-        <div className="searchFormWrapper">
-          <form>
-            <input
-              placeholder="종목명/지수명 검색"
-              onChange={handleItem}
-              value={searchItem}
-              onFocus={() => setIsOpen(true)}
-            />
-          </form>
-        </div>
-        <div
-          className={isOpen ? "seachResultWrapper" : "seachResultWrapper hide"}>
-          <ul className="searchResultList">
-            {stockListSample
-              .filter((list) => {
-                if (searchItem == "") {
-                  return list;
-                } else if (
-                  list.symbol
-                    .toLowerCase()
-                    .includes(searchItem.toLowerCase()) ||
-                  list.companyName
-                    .toLowerCase()
-                    .includes(searchItem.toLowerCase())
-                ) {
-                  return list;
-                }
-              })
-              .map((list) => (
-                <li className="serachResultItem" key={list.symbol}>
-                  <NavLink to={`${list.symbol}`}>
-                    <span>{list.symbol}</span> | {list.companyName} |{" "}
-                    {list.HQnation}{" "}
-                  </NavLink>
-                </li>
-              ))}
-          </ul>
-        </div>
+    <div className="searchContainer" ref={ref}>
+      <SearchBar
+        onFocus={handleFocused}
+        onChangeKeyword={handleChangeKeyworld}
+        onDeleteKeyword={handleDeleteKeyword}
+        keyword={keyword}
+      />
+      <div
+        className={isOpen ? "searchResultWrapper" : "searchResultWrapper hide"}>
+        <SearchResult />
       </div>
-    </>
+    </div>
   );
 };
 

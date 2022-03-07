@@ -80,6 +80,10 @@ export const NavStyle = styled.nav`
     display: none;
   }
 
+  .hide {
+    display: none;
+  }
+
   /* 1600 이하 */
   @media (max-width: 1600px) {
     width: 212px;
@@ -99,7 +103,6 @@ export const NavStyle = styled.nav`
     }
     &.close {
       transform: translateX(-167px);
-      transition: 0.2s;
       .toggleIcon {
         transition: 0.2s;
         transform: translateX(152px);
