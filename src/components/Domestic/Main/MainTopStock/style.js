@@ -75,7 +75,7 @@ export const TopStock = styled.div`
           }
         }
       }
-      tr:nth-child(2n + 1) {
+      tr:nth-of-type(2n + 1) {
         background: #fcfcff;
       }
     }
