@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "redaxios";
-import { useEffect } from "react";
 import { GraphWrapper } from "../DoStatistics/style";
 import StatisticsTable from "@components/Domestic/StatisticsTable";
 import StatisticsBarPathGraph from "@components/Domestic/StatisticsBarPathGraph";
@@ -46,31 +45,31 @@ const testBarData = [
 ];
 const testPathData = [
   {
-    date: new Date("2022-03-31"),
+    basDt: new Date("2022-03-31"),
     부채비율: 25,
     유동부채비율: 5,
     비유동부채비율: 15,
   },
   {
-    date: new Date("2021.03.31"),
+    basDt: new Date("2021.03.31"),
     부채비율: 25,
     유동부채비율: 15,
     비유동부채비율: 10,
   },
   {
-    date: new Date("2020.03.31"),
+    basDt: new Date("2020.03.31"),
     부채비율: 30,
     유동부채비율: 5,
     비유동부채비율: 25,
   },
   {
-    date: new Date("2019.03.31"),
+    basDt: new Date("2019.03.31"),
     부채비율: 30,
     유동부채비율: 15,
     비유동부채비율: 15,
   },
   {
-    date: new Date("2018.03.31"),
+    basDt: new Date("2018.03.31"),
     부채비율: 40,
     유동부채비율: 35,
     비유동부채비율: 5,
@@ -78,13 +77,27 @@ const testPathData = [
 ];
 
 const DoStatistics = () => {
+  const [data, setData] = useState();
+
+  const fetch = async () => {
+    await axios
+      .get("https://gyoheonlee.github.io/mobile-bank/data/api/statistics.json")
+      .then((response) => response.data)
+      .then((data) => setData(data))
+      .catch(() => console.error());
+  };
+
+  useEffect(() => {
+    fetch();
+    console.log(data);
+  }, []);
   return (
     <>
       <GraphWrapper>
         <StatisticsBarPathGraph data={testBarData} />
         <StatisticsPathGraph data={testPathData} />
       </GraphWrapper>
-      <StatisticsTable />
+      <StatisticsTable data={data} />
     </>
   );
 };

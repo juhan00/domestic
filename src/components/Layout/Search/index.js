@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { clickOutside } from "../../utils/clickOutside";
+import { clickOutside } from "../../../utils/clickOutside";
 
 const stockListSample = [
   { symbol: "A", companyName: "AAA INC", HQnation: "US" },
