@@ -9,7 +9,7 @@ import DoStatistics from "./routes/DoStatistics/DoStatistics";
 import DoBalance from "./routes/Domestic/DoBalance";
 import DoCashFlow from "./routes/Domestic/DoCashFlow";
 import DoIncome from "./routes/Domestic/DoIncome";
-import DoBeta from "./routes/Domestic/DoBeta";
+import DoBeta from "@routes/DoBeta";
 import DoCorrelation from "./routes/Domestic/DoCorrelation";
 import DoDisclosure from "./routes/Domestic/DoDisclosure";
 

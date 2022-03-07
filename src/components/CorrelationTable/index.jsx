@@ -1,10 +1,10 @@
 import React from "react";
-import { TableHeader, TableBody, Row, Cell } from "../BetaTable/style";
+import { CorrTableWrapper, TableHeader, TableBody, Row, Cell } from "../BetaTable/style";
 
 const CorrelationTable = ({ data }) => {
   return (
-    <>
-      <div>
+    <CorrTableWrapper>
+      <div className="corrTable">
         <TableHeader>
           <thead>
             <Row className="table__header">
@@ -37,7 +37,7 @@ const CorrelationTable = ({ data }) => {
           </tbody>
         </TableBody>
       </div>
-    </>
+    </CorrTableWrapper>
   );
 };
 
