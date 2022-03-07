@@ -1,7 +1,13 @@
 import React from "react";
+import CorrelationTable from "@components/CorrelationTable";
+import {domesticSample} from "@utils/statisticsData"
 
 const DoCorrelation = () => {
-  return <>DoCorrelation test</>;
+  return (
+    <>
+      <CorrelationTable data={domesticSample} />
+    </>
+  );
 };
 
 export default DoCorrelation;
