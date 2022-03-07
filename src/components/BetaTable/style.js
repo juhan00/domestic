@@ -61,15 +61,15 @@ export const TableBody = styled.table`
     tr:nth-of-type(even) {
       background-color: #FAFAFE;
     }
-    tr:last-child {
+    tr:last-of-type {
       td {
         height: 50px;
         padding-bottom: 14px;
       }
-      td:first-child {
+      td:first-of-type {
         border-radius: 0 0 0 12px;
       } 
-      td:last-child {
+      td:last-of-type {
         border-radius: 0 0 12px 0;
       } 
     }
