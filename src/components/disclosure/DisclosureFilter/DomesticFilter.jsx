@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { DisclosureFilterWrapper } from "./style";
+import { DisclosureFilterWrapper, SetPeriod, SetType, Button } from "./style";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -43,13 +43,20 @@ const DomesticFilter = () => {
     <DisclosureFilterWrapper>
       <div className="disclosure__filter">
         <form name="form" onSubmit={handleFormSubmit}>
-          <fieldset className="setPeriod" key={period}>
+          <SetPeriod key={period}>
             <h4>기간 선택</h4>
-
             <div>
-              {/* <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}className="begin"/>
+              {/* <DatePicker 
+                selected={startDate} 
+                onChange={(date) => setStartDate(date)}
+                className="datepicker"
+              />
               ~
-              <DatePicker selected={endDate} onChange={(date) => setEndDate(date)}/> */}
+              <DatePicker 
+                selected={endDate} 
+                onChange={(date) => setEndDate(date)}
+                className="datepicker"
+              /> */}
               <input className="begin" type="date" name="date" defaultValue={getToday(date[period])} min={date.sixM} max={date.oneM} onChange={handleValueChange} />
               ~
               <input type="date" name="date" defaultValue={getToday(date.today)} min={date.oneM} max={date.oneM} />
@@ -80,8 +87,8 @@ const DomesticFilter = () => {
                 <label htmlFor="tenY">10년</label>
               </div>
             </div>
-          </fieldset >
-          <fieldset className="setType">
+          </SetPeriod >
+          <SetType>
             <h4>공시유형 선택</h4>
             <div>
               <label htmlFor="typeA">
@@ -143,7 +150,7 @@ const DomesticFilter = () => {
                 공정위공시
               </label>
             </div>
-          </fieldset>
+          </SetType>
           <input className="btn__form" type="reset" value="초기화" onClick={() => setPeriod('oneY')} />
           <button className="btn__form">적용</button>
         </form>

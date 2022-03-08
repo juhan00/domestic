@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { DisclosureFilterWrapper } from "./style";
+import { DisclosureFilterWrapper, SetPeriod, SetType, GlobalType } from "./style";
 
 const GlobalFilter = () => {
   const [period, setPeriod] = useState("oneY");
@@ -39,7 +39,7 @@ const GlobalFilter = () => {
     <DisclosureFilterWrapper>
       <div className="disclosure__filter">
         <form name="form" onSubmit={handleFormSubmit}>
-          <fieldset className="setPeriod" key={period}>
+          <SetPeriod key={period}>
             <h4>기간 선택</h4>
             <div>
               <input type="date" name="date" defaultValue={getToday(date[period])} min={date.sixM} max={date.oneM} onChange={handleValueChange} />
@@ -72,9 +72,9 @@ const GlobalFilter = () => {
                 <label htmlFor="tenY">10Y</label>
               </div>
             </div>
-          </fieldset>
-          <fieldset className="setType">
-            <div className="globalType">
+          </SetPeriod>
+          <SetType>
+            <GlobalType className="globalType">
               <label htmlFor="source">Source</label>
               <select name="source">
                 <option value="">--Source--</option>
@@ -83,8 +83,8 @@ const GlobalFilter = () => {
                 <option value="source c">c</option>
                 <option value="source d">d</option>
               </select>
-            </div>
-            <div className="globalType">
+            </GlobalType>
+            <GlobalType className="globalType">
               <label htmlFor="category">Category</label>
               <select name="category">
                 <option value="">--Category--</option>
@@ -93,8 +93,8 @@ const GlobalFilter = () => {
                 <option value="category c">c</option>
                 <option value="category d">d</option>
               </select>
-            </div>
-            <div className="globalType">
+            </GlobalType>
+            <GlobalType className="globalType">
               <label htmlFor="type">Type</label>
               <select name="type">
                 <option value="">--Type--</option>
@@ -103,7 +103,7 @@ const GlobalFilter = () => {
                 <option value="type c">c</option>
                 <option value="type d">d</option>
               </select>
-            </div>
+            </GlobalType>
             {/* <div>
               <label htmlFor="typeA">
                 <input type="checkbox" id="typeA" name="type" />
@@ -164,7 +164,7 @@ const GlobalFilter = () => {
                 Type - C
               </label>
             </div> */}
-          </fieldset>
+          </SetType>
           <button className="btn__form">적용</button>
           <input className="btn__form" type="reset" value="초기화" onClick={() => setPeriod('oneY')} />
         </form>
