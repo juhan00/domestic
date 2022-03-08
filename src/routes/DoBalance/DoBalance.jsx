@@ -75,29 +75,16 @@ const testPathData = [
   },
 ];
 
-const DoStatistics = () => {
-  const [data, setData] = useState();
-
-  const fetch = async () => {
-    const res = await axios.get(
-      "https://gyoheonlee.github.io/mobile-bank/data/api/statistics.json",
-    );
-    setData(res.data);
-  };
-
-  useEffect(() => {
-    fetch();
-    console.log(data);
-  }, []);
+const DoBalance = () => {
   return (
     <RouteWrapper>
       <GraphWrapper>
         <StatisticsBarPathGraph data={testBarData} />
         <StatisticsPathGraph data={testPathData} />
       </GraphWrapper>
-      <StatisticsTable data={data} type={"statistics"} />
+      <StatisticsTable data={data} type={"balance"} />
     </RouteWrapper>
   );
 };
 
-export default DoStatistics;
+export default DoBalance;
