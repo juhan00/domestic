@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
-import ComInfoTable from "@components/Domestic/ComInfoTable";
-import ComInfoGraph from "@components/Domestic/ComInfoGraph";
-import ComInfoDailyPrice from "@components/Domestic/ComInfoDailyPrice";
+import ComInfoTable from "@components/ComInfoTable";
+import ComInfoGraph from "@components/ComInfoGraph";
+import ComInfoDailyPrice from "@components/DailyPrice";
 import axios from "redaxios";
 import { useEffect } from "react";
 import { PageWrapper, PriceWrapper } from "./style";

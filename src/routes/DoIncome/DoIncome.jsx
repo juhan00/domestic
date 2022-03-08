@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "redaxios";
+import { useParams } from "react-router-dom";
 import { RouteWrapper, GraphWrapper } from "../DoStatistics/style";
 import StatisticsTable from "@components/StatisticsTable";
 import StatisticsBarPathGraph from "@components/StatisticsBarPathGraph";
@@ -75,29 +76,21 @@ const testPathData = [
   },
 ];
 
-const DoStatistics = () => {
-  const [data, setData] = useState();
-
-  const fetch = async () => {
-    const res = await axios.get(
-      "https://gyoheonlee.github.io/mobile-bank/data/api/statistics.json",
-    );
-    setData(res.data);
-  };
-
+const DoIncome = () => {
+  const params = useParams();
   useEffect(() => {
-    fetch();
-    console.log(data);
+    console.log(params);
   }, []);
+
   return (
     <RouteWrapper>
       <GraphWrapper>
         <StatisticsBarPathGraph data={testBarData} />
         <StatisticsPathGraph data={testPathData} />
       </GraphWrapper>
-      <StatisticsTable data={data} type={"statistics"} />
+      <StatisticsTable data={data} type={"income"} />
     </RouteWrapper>
   );
 };
 
-export default DoStatistics;
+export default DoIncome;
