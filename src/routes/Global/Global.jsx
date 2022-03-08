@@ -1,37 +1,37 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { GlobalWrapper } from "./style";
-import MainStockIndex from "@components/Main/MainStockIndex";
-import MainHeadeer from "@components/Main/MainHeadeer";
-import MainMajorStock from "@components/Main/MainMajorStock";
-import MainExchRate from "@components/Main/MainExchRate";
-import MainStockSector from "@components/Main/MainStockSector";
-import MainStockNews from "@components/Main/MainStockNews";
+import StockIndex from "@components/Main/StockIndex";
+import RecentStock from "@components/Main/RecentStock";
+import MajorStock from "@components/Main/MajorStock";
+import ExchangeRate from "@components/Main/ExchangeRate";
+import StockSector from "@components/Main/StockSector";
+import StockNews from "@components/Main/StockNews";
 
 const Global = () => {
   return (
     <GlobalWrapper>
       <div className="row">
-        <MainHeadeer />
+        <RecentStock />
       </div>
       <div className="row">
-        <MainStockIndex name="코스피 지수" />
-        <MainStockIndex name="코스닥 지수" />
-        <MainStockIndex name="코스피 200 지수" />
+        <StockIndex name="코스피 지수" />
+        <StockIndex name="코스닥 지수" />
+        <StockIndex name="코스피 200 지수" />
       </div>
       <div className="row">
         <div className="col col2">
           <div className="row">
-            <MainMajorStock />
+            <MajorStock />
           </div>
           <div className="row">
-            <MainStockNews />
+            <StockNews />
           </div>
         </div>
         <div className="col">
-          <MainExchRate />
+          <ExchangeRate />
         </div>
         <div className="col">
-          <MainStockSector />
+          <StockSector />
         </div>
       </div>
     </GlobalWrapper>

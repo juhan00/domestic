@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { MainStockSectorWraper } from "./style";
+import { StockSectorWrapper } from "./style";
 const initialSectorData = () => [
   {
     name: "S&P 500",
@@ -55,11 +55,11 @@ const initialSectorData = () => [
   },
 ];
 
-const MainStockSector = () => {
+const StockSector = () => {
   const [sectorData, setSectorData] = useState(initialSectorData);
 
   return (
-    <MainStockSectorWraper>
+    <StockSectorWrapper>
       <div className="top" style={{ display: "flex" }}>
         <h2>분야</h2>
       </div>
@@ -83,8 +83,8 @@ const MainStockSector = () => {
           ))}
         </tbody>
       </table>
-    </MainStockSectorWraper>
+    </StockSectorWrapper>
   );
 };
 
-export default MainStockSector;
+export default StockSector;

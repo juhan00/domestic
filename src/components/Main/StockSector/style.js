@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { all } from "redux-saga/effects";
 
-export const MainStockSectorWraper = styled.div`
+export const StockSectorWrapper = styled.div`
   width: 100%;
   height: 100%;
   background: #fff;

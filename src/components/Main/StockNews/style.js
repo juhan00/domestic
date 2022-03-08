@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const MainStockNewsWrapper = styled.div`
+export const StockNewsWrapper = styled.div`
   width: 100%;
   height: 289px;
   background: #fff;

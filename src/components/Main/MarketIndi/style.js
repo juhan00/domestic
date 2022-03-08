@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const MarketIndi = styled.div`
+export const MarketIndiWrapper = styled.div`
   width: 100%;
   height: 544px;
   background: #fff;

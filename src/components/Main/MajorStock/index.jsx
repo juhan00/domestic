@@ -53,7 +53,7 @@ const initialData = () => [
   },
 ];
 
-const MainMajorStock = () => {
+const MajorStock = () => {
   const [majorData, setMajorData] = useState(initialData);
 
   return (
@@ -90,4 +90,4 @@ const MainMajorStock = () => {
   );
 };
 
-export default MainMajorStock;
+export default MajorStock;

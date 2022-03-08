@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import MenuIconToggle from "@images/notice_icon.svg";
 import recent_close_icon from "@images/recent_close_icon.svg";
 
-export const Header = styled.div`
+export const RecentStockWrapper = styled.div`
   display: flex;
   flex: 1 1 0;
   align-items: center;
@@ -64,7 +64,7 @@ export const Header = styled.div`
           line-height: 1.5;
           color: #111111;
         }
-        & > p {
+        & > .index {
           display: flex;
           font-size: 14px;
           font-weight: 400;

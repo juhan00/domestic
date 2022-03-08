@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { TopStock } from "./style";
+import { TopStockWrapper } from "./style";
 import question_mark_icon from "@images/question_mark_icon.svg";
 
 const upperData = () => [
@@ -148,7 +148,7 @@ const lowerData = () => [
   },
 ];
 
-const MainTopStock = () => {
+const TopStock = () => {
   const [topData, setTopData] = useState(upperData);
   const [filterIsActive, setFilterIsActive] = useState("upper");
 
@@ -178,7 +178,7 @@ const MainTopStock = () => {
   }, []);
 
   return (
-    <TopStock>
+    <TopStockWrapper>
       <div className="top" style={{ display: "flex" }}>
         <h2>
           Top종목
@@ -249,8 +249,8 @@ const MainTopStock = () => {
           ))}
         </tbody>
       </table>
-    </TopStock>
+    </TopStockWrapper>
   );
 };
 
-export default MainTopStock;
+export default TopStock;

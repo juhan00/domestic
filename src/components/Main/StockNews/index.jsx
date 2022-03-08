@@ -1,14 +1,14 @@
 import React from "react";
-import { MainStockNewsWrapper } from "./style";
+import { StockNewsWrapper } from "./style";
 
-const MainNews = () => {
+const StockNews = () => {
   return (
-    <MainStockNewsWrapper>
+    <StockNewsWrapper>
       <div className="top" style={{ display: "flex" }}>
         <h2>주요 종목 뉴스</h2>
       </div>
-    </MainStockNewsWrapper>
+    </StockNewsWrapper>
   );
 };
 
-export default MainNews;
+export default StockNews;

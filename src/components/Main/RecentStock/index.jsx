@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Header } from "./style";
+import { RecentStockWrapper } from "./style";
 import stock_up from "@images/stock_up.svg";
 import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
@@ -27,7 +27,7 @@ import stock_none from "@images/stock_none.svg";
 //   },
 // ];
 
-const MainHeadeer = () => {
+const RecentStock = () => {
   const [isActive, setIsActive] = useState(null);
   const [stocks, setStocks] = useState(null);
 
@@ -51,7 +51,7 @@ const MainHeadeer = () => {
   // }, []);
 
   return (
-    <Header>
+    <RecentStockWrapper>
       <h2>
         최근
         <br />
@@ -72,20 +72,20 @@ const MainHeadeer = () => {
               )}
               <div className="inner">
                 <h3>{stock.name}</h3>
-                <p className="red">
+                <div className="index red">
                   {stock.stockIndex}
                   <div className="rate">
                     <img src={stock_up} alt="stock up" />
-                    0.54%
+                    {stock.rate}
                   </div>
-                </p>
+                </div>
               </div>
             </div>
           ))
         )}
       </div>
-    </Header>
+    </RecentStockWrapper>
   );
 };
 
-export default MainHeadeer;
+export default RecentStock;

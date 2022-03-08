@@ -31,7 +31,7 @@ const StorageInput = ({ type }) => {
 
   function onRecentStorage(event) {
     // event.preventDefault();
-    const stockItem = { name: inputText, stockIndex: "add" };
+    const stockItem = { name: inputText, stockIndex: "74,300", rate: "0.54%" };
     setStorage(stockItem);
   }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { MarketIndi } from "./style";
+import { MarketIndiWrapper } from "./style";
 import market_interest_rate from "@images/market_interest_rate.svg";
 import market_oil_price from "@images/market_oil_price.svg";
 import market_gold from "@images/market_gold.svg";
@@ -7,9 +7,9 @@ import stock_up from "@images/stock_up.svg";
 import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
 
-const MainMarketIndi = () => {
+const MarketIndi = () => {
   return (
-    <MarketIndi>
+    <MarketIndiWrapper>
       <div className="top">
         <h2>시장지표</h2>
         <span>2022.02.28 기준</span>
@@ -68,8 +68,8 @@ const MainMarketIndi = () => {
           </div>
         </li>
       </ul>
-    </MarketIndi>
+    </MarketIndiWrapper>
   );
 };
 
-export default MainMarketIndi;
+export default MarketIndi;

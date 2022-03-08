@@ -1,11 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { StockIndex } from "./style";
 import * as d3 from "d3";
+import { ExchangeRateChartWrapper } from "./style";
 import useResizeObserver from "@utils/useResizeObserver";
 import useDebounce from "@utils/useDebounce";
-import stock_up from "@images/stock_up.svg";
-import stock_down from "@images/stock_down.svg";
-import stock_none from "@images/stock_none.svg";
 
 const data = [
   { stock: 2900, date: "10:00" },
@@ -46,10 +43,10 @@ const data = [
   { stock: 2900, date: "12:50" },
 ];
 
-const MainStockIndex = ({ name }) => {
+const ExchangeRateChart = () => {
+  const exchangeRateChartRef = useRef(null);
   const svgRef = useRef(null);
-  const stockIndexRef = useRef(null);
-  const size = useResizeObserver(stockIndexRef);
+  const size = useResizeObserver(exchangeRateChartRef);
   const resize = useDebounce(size, 200);
 
   //tick 분할 함수
@@ -83,19 +80,19 @@ const MainStockIndex = ({ name }) => {
     }
 
     //초기 셋팅
-    const margin = { top: 50, right: 50, bottom: 50, left: 50 };
+    const margin = { top: 30, right: 50, bottom: 30, left: 0 };
     const width = resize.width - (margin.left + margin.right);
-    const height = 100;
-    const xTickCount = 4;
-    const yTickCount = 4;
-    const xTickBlankCount = 2;
-    const eveStock = 2700;
+    const height = 150;
+    const xTickCount = 6;
+    const yTickCount = 5;
+    const xTickBlankCount = 0;
     const minStock = d3.min(data.map((d) => d.stock)) - 300;
     const maxStock = d3.max(data.map((d) => d.stock)) + 300;
+    const xLabel = "(회차)";
+    const yLabel = "(원)";
 
     //svg 셋팅
     const svg = d3.select(svgRef.current);
-
     svg
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom);
@@ -108,7 +105,9 @@ const MainStockIndex = ({ name }) => {
     const xAxis = d3
       .axisBottom(xScale)
       .tickValues(setTickCount(0, data.length, xTickCount, "center"))
-      .tickFormat((index) => data[index]["date"]);
+      .tickFormat((index) => data[index]["date"])
+      .tickSize(10);
+
     svg
       .selectAll(".x-axis")
       .style(
@@ -116,7 +115,17 @@ const MainStockIndex = ({ name }) => {
         `translate(${margin.left}px, ${height + margin.top}px)`,
       )
       .style("stroke-opacity", 0)
-      .call(xAxis);
+      .call(xAxis)
+      .call((g) =>
+        g
+          .selectAll(".x-label")
+          .append("text")
+          .attr("class", "x-label")
+          .attr("text-anchor", "start")
+          .attr("fill", "black")
+          .attr("transform", `translate(${width + 13}, 20)`)
+          .text(xLabel),
+      );
 
     //x축 line
     const xScaleLine = d3
@@ -126,6 +135,7 @@ const MainStockIndex = ({ name }) => {
     const xAxisLine = d3
       .axisBottom(xScaleLine)
       .tickValues(setTickCount(0, data.length, xTickCount * 2, "center"))
+      .tickSize(0)
       .tickFormat("");
     svg
       .selectAll(".x-axis-line")
@@ -133,7 +143,7 @@ const MainStockIndex = ({ name }) => {
         "transform",
         `translate(${margin.left}px, ${height + margin.top}px)`,
       )
-      .style("stroke-opacity", 0)
+      .style("stroke-opacity", 1)
       .call(xAxisLine)
       .call((g) =>
         g
@@ -143,57 +153,41 @@ const MainStockIndex = ({ name }) => {
           .style("stroke-opacity", 1),
       );
 
-    //y축 left + line
+    //y축 right + line
     const yScale = d3
       .scaleLinear()
       .domain([minStock, maxStock])
       .range([height, 0]);
     const yAxis = d3
-      .axisLeft(yScale)
-      .tickValues(setTickCount(minStock, maxStock, yTickCount));
+      .axisRight(yScale)
+      .tickValues(setTickCount(minStock, maxStock, yTickCount))
+      .tickSize(10);
     svg
       .selectAll(".y-axis")
       .call(yAxis)
-      .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
+      .style(
+        "transform",
+        `translate(${width + margin.left}px, ${margin.top}px)`,
+      )
       .style("stroke-opacity", 0)
       .call((g) =>
         g
           .selectAll(".tick line")
           .style("transform", "translateX(0px)")
-          .attr("x2", width)
+          .attr("x2", -width)
           .style("stroke-opacity", 1),
-      );
-
-    //y축 right
-    const yAxisRight = d3
-      .axisRight(yScale)
-      .tickValues(setTickCount(minStock, maxStock, yTickCount));
-    svg
-      .selectAll(".y-axis-right")
-      .call(yAxisRight)
-      .style(
-        "transform",
-        `translate(${width + margin.left}px, ${margin.top}px)`,
       )
-      .style("stroke-opacity", 0);
-
-    //x축 today line
-    const xScaleToday = d3
-      .scaleLinear()
-      .domain([0, data.length - 1])
-      .range([0, width]);
-    const todayLine = d3
-      .line()
-      .x((value, index) => xScaleToday(index))
-      .y((value) => yScale(value));
-    svg
-      .selectAll(".todayLine")
-      .data([data.map((data) => eveStock)])
-      .join("path")
-      .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
-      .attr("class", "todayLine")
-      .attr("d", todayLine)
-      .style("stroke-opacity", 1);
+      .call((g) =>
+        g
+          // .selectAll(".x-label > *")
+          .selectAll(".y-label")
+          .append("text")
+          .attr("class", "y-label")
+          .attr("text-anchor", "start")
+          .attr("fill", "black")
+          .attr("transform", `translate(13, -15)`)
+          .text(yLabel),
+      );
 
     //data line
     const dataLine = d3
@@ -209,42 +203,26 @@ const MainStockIndex = ({ name }) => {
       .attr("class", "dataLine")
       .attr("d", dataLine)
       .attr("fill", "none");
-    svg
-      .selectAll(".dataLineBlur")
-      .data([data.map((data) => data["stock"])])
-      .join("path")
-      .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
-      .attr("class", "dataLineBlur")
-      .attr("d", dataLine)
-      .attr("fill", "none");
+
+    return () => {
+      d3.selectAll(".x-label > *").remove();
+      d3.selectAll(".y-label > *").remove();
+    };
   }, [data, resize]);
 
   return (
-    <StockIndex>
-      <div className="topInfo">
-        <h2>{name}</h2>
-        <div className="info">
-          <div className="index">
-            2,718.74
-            <span className="vs">
-              <img src={stock_up} alt="stock up" />
-              11.95
-            </span>
-            <span className="rate">+0.44%</span>
-          </div>
-          <div className="date">2022.02.23 14:15 장중</div>
-        </div>
-      </div>
-      <div className="stockIndexRef" ref={stockIndexRef}>
-        <svg ref={svgRef}>
-          <g className="x-axis" />
-          <g className="y-axis" />
-          <g className="y-axis-right" />
-          <g className="x-axis-line" />
-        </svg>
-      </div>
-    </StockIndex>
+    <ExchangeRateChartWrapper ref={exchangeRateChartRef}>
+      <svg ref={svgRef}>
+        <g className="x-axis">
+          <g className="x-label" />
+        </g>
+        <g className="y-axis">
+          <g className="y-label" />
+        </g>
+        <g className="x-axis-line" />
+      </svg>
+    </ExchangeRateChartWrapper>
   );
 };
 
-export default MainStockIndex;
+export default ExchangeRateChart;

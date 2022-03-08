@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { all } from "redux-saga/effects";
 
-export const StockIndex = styled.div`
+export const StockIndexWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex: 1 1 0;

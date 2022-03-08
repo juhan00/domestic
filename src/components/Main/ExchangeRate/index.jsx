@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { ExchRate } from "./style";
-import ExchRateChart from "./ExchRateChart";
+import { ExchangeRateWrapper } from "./style";
+import ExchangeRateChart from "./ExchangeRateChart";
 import stock_up from "@images/stock_up.svg";
 import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
 import exch_rate_arrow_icon from "@images/exch_rate_arrow_icon.svg";
 
-const MainExchRate = () => {
+const ExchangeRate = () => {
   const [isActive, setIsActive] = useState("USD");
 
   const isActiveHandler = (country) => {
@@ -14,7 +14,7 @@ const MainExchRate = () => {
   };
 
   return (
-    <ExchRate>
+    <ExchangeRateWrapper>
       <h2>환율</h2>
       <div className="item">
         <div
@@ -35,7 +35,7 @@ const MainExchRate = () => {
             <img src={exch_rate_arrow_icon} alt="arrow" />
           </div>
         </div>
-        {isActive === "USD" && <ExchRateChart />}
+        {isActive === "USD" && <ExchangeRateChart />}
       </div>
 
       <div className="item">
@@ -57,7 +57,7 @@ const MainExchRate = () => {
             <img src={exch_rate_arrow_icon} alt="arrow" />
           </div>
         </div>
-        {isActive === "EUR" && <ExchRateChart />}
+        {isActive === "EUR" && <ExchangeRateChart />}
       </div>
 
       <div className="item">
@@ -79,7 +79,7 @@ const MainExchRate = () => {
             <img src={exch_rate_arrow_icon} alt="arrow" />
           </div>
         </div>
-        {isActive === "JPY" && <ExchRateChart />}
+        {isActive === "JPY" && <ExchangeRateChart />}
       </div>
 
       <div className="item">
@@ -101,7 +101,7 @@ const MainExchRate = () => {
             <img src={exch_rate_arrow_icon} alt="arrow" />
           </div>
         </div>
-        {isActive === "CNY" && <ExchRateChart />}
+        {isActive === "CNY" && <ExchangeRateChart />}
       </div>
 
       <div className="item">
@@ -123,10 +123,10 @@ const MainExchRate = () => {
             <img src={exch_rate_arrow_icon} alt="arrow" />
           </div>
         </div>
-        {isActive === "GBP" && <ExchRateChart />}
+        {isActive === "GBP" && <ExchangeRateChart />}
       </div>
-    </ExchRate>
+    </ExchangeRateWrapper>
   );
 };
 
-export default MainExchRate;
+export default ExchangeRate;
