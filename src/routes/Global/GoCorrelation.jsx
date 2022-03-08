@@ -3,7 +3,7 @@ import TableHeader from "@components/Table/TableHeader"
 import CorrelationTable from "@components/Table/CorrelationTable";
 import CorrelationChart from "@components/CorrelationChart"
 import {globalSample} from "@utils/statisticsData"
-import {CorrTableWrapper} from "../Domestic/style"
+import {CorrTableWrapper} from "../DoCorrelation/style"
 
 const GoCorrelation = () => {
   return (

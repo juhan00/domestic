@@ -9,7 +9,7 @@ import DoBalance from "@routes/DoBalance/DoBalance";
 import DoCashFlow from "@routes/DoCashFlow/DoCashFlow";
 import DoIncome from "@routes/DoIncome/DoIncome";
 import DoBeta from "@routes/DoBeta";
-import DoCorrelation from "./routes/Domestic/DoCorrelation";
+import DoCorrelation from "./routes/DoCorrelation";
 import DoDisclosure from "./routes/Domestic/DoDisclosure";
 
 import Global from "./routes/Global/Global";

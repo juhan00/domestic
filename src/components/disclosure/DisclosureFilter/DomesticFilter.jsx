@@ -1,12 +1,23 @@
 import React, {useState} from "react";
-import { DisclosureFilterWrapper } from "./style";
+import { DisclosureFilterWrapper, SetPeriod, SetTypeForDesktop, SetTypeForTablet } from "./style";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useMediaQuery } from 'react-responsive'
 
 const DomesticFilter = () => {
   const [period, setPeriod] = useState("oneY");
   const [startDate, setStartDate] = useState(new Date(new Date().setFullYear(new Date().getFullYear() - 1)))
   const [endDate, setEndDate] = useState(new Date())
+  // useMediaQuery TEST
+  const Desktop = ({ children }) => {
+    const isDesktop = useMediaQuery({ minWidth: 1201 })
+    return isDesktop ? children : null
+  }
+  const Tablet = ({ children }) => {
+    const isTablet = useMediaQuery({ maxWidth: 1200 })
+    return isTablet ? children : null
+  }
+  
 
   const date = {
     today: new Date(),
@@ -43,13 +54,20 @@ const DomesticFilter = () => {
     <DisclosureFilterWrapper>
       <div className="disclosure__filter">
         <form name="form" onSubmit={handleFormSubmit}>
-          <fieldset className="setPeriod" key={period}>
+          <SetPeriod key={period}>
             <h4>기간 선택</h4>
-
             <div>
-              {/* <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}className="begin"/>
+              {/* <DatePicker 
+                selected={startDate} 
+                onChange={(date) => setStartDate(date)}
+                className="datepicker"
+              />
               ~
-              <DatePicker selected={endDate} onChange={(date) => setEndDate(date)}/> */}
+              <DatePicker 
+                selected={endDate} 
+                onChange={(date) => setEndDate(date)}
+                className="datepicker"
+              /> */}
               <input className="begin" type="date" name="date" defaultValue={getToday(date[period])} min={date.sixM} max={date.oneM} onChange={handleValueChange} />
               ~
               <input type="date" name="date" defaultValue={getToday(date.today)} min={date.oneM} max={date.oneM} />
@@ -80,70 +98,90 @@ const DomesticFilter = () => {
                 <label htmlFor="tenY">10년</label>
               </div>
             </div>
-          </fieldset >
-          <fieldset className="setType">
-            <h4>공시유형 선택</h4>
-            <div>
-              <label htmlFor="typeA">
-                <input type="checkbox" id="typeA" name="type" />
-                정기공시
-              </label>
-            </div>
-            <div>
-              <label htmlFor="typeB">
-                <input type="checkbox" id="typeB" name="type" />
-                주요사항보고
-              </label>
-            </div>
-            <div>
-              <label htmlFor="typeC">
-                <input type="checkbox" id="typeC" name="type" />
-                발행공시
-              </label>
-            </div>
-            <div>
-              <label htmlFor="typeD">
-                <input type="checkbox" id="typeD" name="type" />
-                지분공시
-              </label>
-            </div>
-            <div>
-              <label htmlFor="typeE">
-                <input type="checkbox" id="typeE" name="type" />
-                기타공시
-              </label>
-            </div>
-            <div>
-              <label htmlFor="typeF">
-                <input type="checkbox" id="typeF" name="type" />
-                외부감사관련
-              </label>
-            </div>
-            <div>
-              <label htmlFor="typeG">
-                <input type="checkbox" id="typeG" name="type" />
-                펀드공시
-              </label>
-            </div>
-            <div>
-              <label htmlFor="typeH">
-                <input type="checkbox" id="typeH" name="type" />
-                자산유동화
-              </label>
-            </div>
-            <div>
-              <label htmlFor="typeI">
-                <input type="checkbox" id="typeI" name="type" />
-                거래소공시
-              </label>
-            </div>
-            <div>
-              <label htmlFor="typeJ">
-                <input type="checkbox" id="typeJ" name="type" />
-                공정위공시
-              </label>
-            </div>
-          </fieldset>
+          </SetPeriod >
+          <Desktop>
+            <SetTypeForDesktop>
+              <h4>공시유형 선택</h4>
+              <div>
+                <label htmlFor="typeA">
+                  <input type="checkbox" id="typeA" name="type" />
+                  정기공시
+                </label>
+              </div>
+              <div>
+                <label htmlFor="typeB">
+                  <input type="checkbox" id="typeB" name="type" />
+                  주요사항보고
+                </label>
+              </div>
+              <div>
+                <label htmlFor="typeC">
+                  <input type="checkbox" id="typeC" name="type" />
+                  발행공시
+                </label>
+              </div>
+              <div>
+                <label htmlFor="typeD">
+                  <input type="checkbox" id="typeD" name="type" />
+                  지분공시
+                </label>
+              </div>
+              <div>
+                <label htmlFor="typeE">
+                  <input type="checkbox" id="typeE" name="type" />
+                  기타공시
+                </label>
+              </div>
+              <div>
+                <label htmlFor="typeF">
+                  <input type="checkbox" id="typeF" name="type" />
+                  외부감사관련
+                </label>
+              </div>
+              <div>
+                <label htmlFor="typeG">
+                  <input type="checkbox" id="typeG" name="type" />
+                  펀드공시
+                </label>
+              </div>
+              <div>
+                <label htmlFor="typeH">
+                  <input type="checkbox" id="typeH" name="type" />
+                  자산유동화
+                </label>
+              </div>
+              <div>
+                <label htmlFor="typeI">
+                  <input type="checkbox" id="typeI" name="type" />
+                  거래소공시
+                </label>
+              </div>
+              <div>
+                <label htmlFor="typeJ">
+                  <input type="checkbox" id="typeJ" name="type" />
+                  공정위공시
+                </label>
+              </div>
+            </SetTypeForDesktop>
+          </Desktop>
+          <Tablet>
+            <SetTypeForTablet>
+              <label htmlFor="type"><h4>공시유형</h4></label>
+              <select name="type">
+                <option value="">--공시유형--</option>
+                <option value="type a">정기공시</option>
+                <option value="type b">주요사항보고</option>
+                <option value="type c">발행공시</option>
+                <option value="type d">지분공시</option>
+                <option value="type e">기타공시</option>
+                <option value="type f">외부감사관련</option>
+                <option value="type g">펀드공시</option>
+                <option value="type h">자산유동화</option>
+                <option value="type i">거래소공시</option>
+                <option value="type j">공정위공시</option>
+              </select>
+            </SetTypeForTablet>
+          </Tablet>
           <input className="btn__form" type="reset" value="초기화" onClick={() => setPeriod('oneY')} />
           <button className="btn__form">적용</button>
         </form>
