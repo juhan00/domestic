@@ -103,9 +103,13 @@ export const SetPeriod = styled.fieldset`
       }
     }
   }
+  @media only screen and (max-width: 1201px) {
+    width: 40%;
+
+  }
 `
 
-export const SetType = styled.fieldset`
+export const SetTypeForDesktop = styled.fieldset`
   padding-left: 36px;
   width: calc(70% - 36px);
   display: flex;
@@ -145,6 +149,20 @@ export const SetType = styled.fieldset`
       }
     }
   }
+`
+export const SetTypeForTablet = styled.fieldset`
+  /* border: 1px solid black; */
+  text-align: left;
+  width: 40%;
+  margin: 10px 0 33px;
+  padding-left: 30px;
+    select {
+      width: 40%;
+      margin-top: 10px;
+      height: 30px;
+      border: none;
+      border-bottom: 1px solid #E5E5E5;
+    }
 `
 
 export const GlobalType = styled.div`

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { DisclosureFilterWrapper, SetPeriod, SetType, GlobalType } from "./style";
+import { DisclosureFilterWrapper, SetPeriod, SetTypeForDesktop, GlobalType } from "./style";
 
 const GlobalFilter = () => {
   const [period, setPeriod] = useState("oneY");
@@ -73,7 +73,7 @@ const GlobalFilter = () => {
               </div>
             </div>
           </SetPeriod>
-          <SetType>
+          <SetTypeForDesktop>
             <GlobalType className="globalType">
               <label htmlFor="source">Source</label>
               <select name="source">
@@ -164,7 +164,7 @@ const GlobalFilter = () => {
                 Type - C
               </label>
             </div> */}
-          </SetType>
+          </SetTypeForDesktop>
           <button className="btn__form">적용</button>
           <input className="btn__form" type="reset" value="초기화" onClick={() => setPeriod('oneY')} />
         </form>
