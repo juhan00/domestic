@@ -5,7 +5,7 @@ import ComInfoGraph from "@components/ComInfoGraph";
 import ComInfoDailyPrice from "@components/DailyPrice";
 import axios from "redaxios";
 import { useEffect } from "react";
-import { PageWrapper, PriceWrapper } from "./style";
+import { RouteWrapper, PriceWrapper } from "./style";
 
 const DoComInfo = () => {
   const BASE_URL =
@@ -32,13 +32,13 @@ const DoComInfo = () => {
   // }, []);
 
   return (
-    <PageWrapper>
+    <RouteWrapper>
       <PriceWrapper>
         <ComInfoGraph />
         <ComInfoDailyPrice />
       </PriceWrapper>
       <ComInfoTable />
-    </PageWrapper>
+    </RouteWrapper>
   );
 };
 
