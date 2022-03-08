@@ -21,6 +21,7 @@ export const Row = styled.tr`
   }
 `;
 export const Cell = styled.td`
+  color: #111111;
   vertical-align: middle;
   width: 60px;
   font-size: 14px;
@@ -35,9 +36,11 @@ export const Cell = styled.td`
   }
   &.table__title {
     border-bottom: 1px solid #5fb6ad;
+    font-weight: 500;
   }
   &.table__category {
     text-align: start;
+    font-weight: 500;
   }
   h1 {
     color: #5fb6ad;
