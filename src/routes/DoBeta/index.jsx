@@ -1,5 +1,6 @@
 import React from "react";
-import BetaTable from "@components/BetaTable";
+import TableHeader from "@components/Table/TableHeader"
+import BetaTable from "@components/Table/BetaTable";
 import BetaChart from "@components/BetaChart";
 import { domesticSample } from "@utils/statisticsData";
 import { RouteWrapper, ChartWrapper } from "./style";
@@ -44,7 +45,10 @@ const data = {
 const DoBeta = () => {
   return (
     <RouteWrapper>
-      <BetaTable data={domesticSample} />
+      <div>
+        <TableHeader data={domesticSample.beta} title={domesticSample.title} /> 
+        <BetaTable data={domesticSample} />
+      </div>
       <ChartWrapper>
         <BetaChart data={data} />
       </ChartWrapper>
