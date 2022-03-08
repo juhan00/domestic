@@ -1,22 +1,11 @@
 import React from "react";
-import { TableHeader, TableBody, Row, Cell } from "./style";
+import { TableBody, Row, Cell } from "./style";
+import TableHeader from "@components/Table/TableHeader"
 
 const BetaTable = ({ data }) => {
   return (
     <>
       <div>
-        <TableHeader>
-          <thead>
-            <Row className="table__header">
-              <Cell colSpan={2}>BETA</Cell>
-            </Row>
-          </thead>
-          <tbody>
-            <Row className="table__body">
-              <Cell>{data.beta}</Cell>
-            </Row>
-          </tbody>
-        </TableHeader>
         <TableBody>
           <thead>
             <Row className="table__header">

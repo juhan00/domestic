@@ -1,39 +1,6 @@
 import styled from "@emotion/styled";
 
-export const CorrTableWrapper = styled.div`
-  float: left;
-  width: 23.913043%;
-  height: calc(100vh - 265px);
-  border-radius: 0 0 12px 12px;
-`;
 
-export const TableHeader = styled.table`
-  width: 100%;
-  td {
-    text-align: center;
-  }
-  .table__header {
-    background-color: #5fb6ad;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 700;
-    height: 43px;
-    td {
-      border-radius: 12px 12px 0 0;
-    }
-  }
-  .table__body {
-    td {
-      border-bottom-left-radius: 12px;
-      background-color: #ffffff;
-      color: #767676;
-      font-size: 36px;
-      font-weight: 500;
-      height: 87px;
-      /* border-radius: 0 0 12px 12px;  */
-    }
-  }
-`;
 export const TableBody = styled.table`
   /* min-height: 598px; */
   width: 100%;

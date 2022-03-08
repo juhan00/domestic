@@ -1,4 +1,5 @@
 const domesticSample = {
+  title: ["BETA", "CORRELATION"],
   beta: "[domestic-beta]",
   corr: "[domestic-corr]",
   axisX: "KOSPI",
@@ -57,6 +58,7 @@ const domesticSample = {
 };
 
 const globalSample = {
+  title: ["BETA", "CORRELATION"],
   beta: "[global-beta]",
   corr: "[global-corr]",
   axisX: "SPY",
