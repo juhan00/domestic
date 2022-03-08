@@ -1,44 +1,26 @@
 import styled from "@emotion/styled";
-import { hierarchy } from "d3";
 
-export const TopStock = styled.div`
-  flex: 2 1 0;
-  height: 544px;
+export const MajorStockWrapper = styled.div`
+  width: 100%;
+  height: 377px;
   background: #fff;
   border-radius: 12px;
   padding: 28px;
   & .top {
     & > h2 {
+      display: flex;
       font-size: 18px;
       font-weight: 500;
       line-height: 1.5;
       color: #111;
-      min-width: 69px;
+      min-width: 100px;
     }
-    & > ul.filter {
-      display: flex;
+    & > span {
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #505050;
       margin-left: auto;
-      min-width: 515px;
-      li {
-        height: 26px;
-        padding: 2px 12px;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 1.5;
-        color: #999;
-        border: 1px solid #e5e5ec;
-        box-sizing: border-box;
-        border-radius: 32px;
-        cursor: pointer;
-        &.active {
-          background-color: #5fb6ad;
-          border: 1px solid #5fb6ad;
-          color: #fff;
-        }
-      }
-      li + li {
-        margin-left: 8px;
-      }
     }
   }
 

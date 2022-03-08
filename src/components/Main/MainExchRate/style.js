@@ -2,12 +2,10 @@ import styled from "@emotion/styled";
 
 export const ExchRate = styled.div`
   width: 100%;
-  flex: 1 1 0;
-  height: 544px;
+  height: 100%;
   background: #fff;
   border-radius: 12px;
   padding: 28px;
-  margin-left: 20px;
   & > h2 {
     font-size: 18px;
     font-weight: 500;

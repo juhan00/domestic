@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { TopStock } from "./style";
-import TopStockList from "./TopStockList";
+import question_mark_icon from "@images/question_mark_icon.svg";
 
 const upperData = () => [
   {
@@ -148,7 +148,7 @@ const lowerData = () => [
   },
 ];
 
-function MainTopStock(props) {
+const MainTopStock = () => {
   const [topData, setTopData] = useState(upperData);
   const [filterIsActive, setFilterIsActive] = useState("upper");
 
@@ -180,7 +180,12 @@ function MainTopStock(props) {
   return (
     <TopStock>
       <div className="top" style={{ display: "flex" }}>
-        <h2>Top종목</h2>
+        <h2>
+          Top종목
+          <span>
+            <img src={question_mark_icon} alt="question mark" />
+          </span>
+        </h2>
         <ul className="filter">
           <li
             onClick={(e) => topDataHandler("upper")}
@@ -230,10 +235,22 @@ function MainTopStock(props) {
             <th style={{ width: "15%" }}>거래량</th>
           </tr>
         </thead>
-        <TopStockList topData={topData} />
+        {/* <TopStockList topData={topData} /> */}
+        <tbody>
+          {topData.map((data, index) => (
+            <tr key={index}>
+              <td className="primary">{index + 1}</td>
+              <td>{data.name}</td>
+              <td className="red">{data.currentPrice}</td>
+              <td className="red">{data.compare}</td>
+              <td>{data.rate}</td>
+              <td>{data.trading}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </TopStock>
   );
-}
+};
 
 export default MainTopStock;

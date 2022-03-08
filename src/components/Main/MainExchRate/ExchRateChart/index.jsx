@@ -2,49 +2,52 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { ExchRateChartWrapper } from "./style";
 import useResizeObserver from "@utils/useResizeObserver";
+import useDebounce from "@utils/useDebounce";
+
+const data = [
+  { stock: 2900, date: "10:00" },
+  { stock: 2520, date: "10:10" },
+  { stock: 2530, date: "10:20" },
+  { stock: 2400, date: "10:30" },
+  { stock: 2500, date: "10:40" },
+  { stock: 2650, date: "10:50" },
+  { stock: 2700, date: "11:00" },
+  { stock: 2500, date: "11:10" },
+  { stock: 2403, date: "11:20" },
+  { stock: 2300, date: "11:30" },
+  { stock: 2230, date: "11:40" },
+  { stock: 2330, date: "11:50" },
+  { stock: 2400, date: "12:00" },
+  { stock: 2100, date: "12:10" },
+  { stock: 2540, date: "12:20" },
+  { stock: 2400, date: "12:30" },
+  { stock: 2600, date: "12:40" },
+  { stock: 2400, date: "12:50" },
+  { stock: 2300, date: "10:00" },
+  { stock: 2405, date: "10:10" },
+  { stock: 2500, date: "10:20" },
+  { stock: 2400, date: "10:30" },
+  { stock: 2500, date: "10:40" },
+  { stock: 2650, date: "10:50" },
+  { stock: 2700, date: "11:00" },
+  { stock: 2500, date: "11:10" },
+  { stock: 2400, date: "11:20" },
+  { stock: 2300, date: "11:30" },
+  { stock: 2200, date: "11:40" },
+  { stock: 2340, date: "11:50" },
+  { stock: 2400, date: "12:00" },
+  { stock: 2340, date: "12:10" },
+  { stock: 2500, date: "12:20" },
+  { stock: 2480, date: "12:30" },
+  { stock: 2600, date: "12:40" },
+  { stock: 2900, date: "12:50" },
+];
 
 const ExchRateChart = () => {
-  const data = [
-    { stock: 2900, date: "10:00" },
-    { stock: 2520, date: "10:10" },
-    { stock: 2530, date: "10:20" },
-    { stock: 2400, date: "10:30" },
-    { stock: 2500, date: "10:40" },
-    { stock: 2650, date: "10:50" },
-    { stock: 2700, date: "11:00" },
-    { stock: 2500, date: "11:10" },
-    { stock: 2403, date: "11:20" },
-    { stock: 2300, date: "11:30" },
-    { stock: 2230, date: "11:40" },
-    { stock: 2330, date: "11:50" },
-    { stock: 2400, date: "12:00" },
-    { stock: 2100, date: "12:10" },
-    { stock: 2540, date: "12:20" },
-    { stock: 2400, date: "12:30" },
-    { stock: 2600, date: "12:40" },
-    { stock: 2400, date: "12:50" },
-    { stock: 2300, date: "10:00" },
-    { stock: 2405, date: "10:10" },
-    { stock: 2500, date: "10:20" },
-    { stock: 2400, date: "10:30" },
-    { stock: 2500, date: "10:40" },
-    { stock: 2650, date: "10:50" },
-    { stock: 2700, date: "11:00" },
-    { stock: 2500, date: "11:10" },
-    { stock: 2400, date: "11:20" },
-    { stock: 2300, date: "11:30" },
-    { stock: 2200, date: "11:40" },
-    { stock: 2340, date: "11:50" },
-    { stock: 2400, date: "12:00" },
-    { stock: 2340, date: "12:10" },
-    { stock: 2500, date: "12:20" },
-    { stock: 2480, date: "12:30" },
-    { stock: 2600, date: "12:40" },
-    { stock: 2900, date: "12:50" },
-  ];
-
   const exchRateChartRef = useRef(null);
   const svgRef = useRef(null);
+  const size = useResizeObserver(exchRateChartRef);
+  const resize = useDebounce(size, 200);
 
   //tick 분할 함수
   const setTickCount = useCallback((min, max, count, type) => {
@@ -70,8 +73,6 @@ const ExchRateChart = () => {
       return tick;
     }
   }, []);
-
-  const resize = useResizeObserver(exchRateChartRef);
 
   useEffect(() => {
     if (!resize || !data) {
@@ -115,15 +116,8 @@ const ExchRateChart = () => {
       )
       .style("stroke-opacity", 0)
       .call(xAxis)
-      // .append("text")
-      // .attr("class", "x-label")
-      // .attr("text-anchor", "start")
-      // .attr("fill", "black")
-      // .attr("transform", `translate(${width + 13}, 20)`)
-      // .text(xLabel);
       .call((g) =>
         g
-          // .selectAll(".x-label > *")
           .selectAll(".x-label")
           .append("text")
           .attr("class", "x-label")

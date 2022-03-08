@@ -1,25 +1,39 @@
 import React, { useState, useEffect, useCallback } from "react";
-import MainStockIndex from "@components/Domestic/Main/MainStockIndex";
-import MainHeadeer from "@components/Domestic/Main/MainHeadeer";
-import MainTopStock from "@components/Domestic/Main/MainTopStock/index";
-import MainExchRate from "@components/Domestic/Main/MainExchRate";
-import MainMarketIndi from "@components/Domestic/Main/MainMarketIndi";
-import StorageInput from "@components/Domestic/Main/StorageInput";
 import { DomesticWrapper } from "./style";
+import MainStockIndex from "@components/Main/MainStockIndex";
+import MainHeadeer from "@components/Main/MainHeadeer";
+import MainTopStock from "@components/Main/MainTopStock/index";
+import MainExchRate from "@components/Main/MainExchRate";
+import MainMarketIndi from "@components/Main/MainMarketIndi";
+import StorageInput from "@components/Main/StorageInput";
 
 const Domestic = () => {
   return (
     <DomesticWrapper>
-      <MainHeadeer />
       <div className="row">
-        <MainStockIndex name="코스피 지수" />
-        <MainStockIndex name="코스닥 지수" />
-        <MainStockIndex name="코스피 200 지수" />
+        <MainHeadeer />
       </div>
       <div className="row">
-        <MainTopStock />
-        <MainExchRate />
-        <MainMarketIndi />
+        <div className="col">
+          <MainStockIndex name="코스피 지수" />
+        </div>
+        <div className="col">
+          <MainStockIndex name="코스닥 지수" />
+        </div>
+        <div className="col">
+          <MainStockIndex name="코스피 200 지수" />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col col2">
+          <MainTopStock />
+        </div>
+        <div className="col">
+          <MainExchRate />
+        </div>
+        <div className="col">
+          <MainMarketIndi />
+        </div>
       </div>
       <StorageInput type="recent" />
     </DomesticWrapper>
