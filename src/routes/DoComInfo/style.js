@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
 
-export const PageWrapper = styled.div`
-  display: flex;
+export const RouteWrapper = styled.div`
+  max-width: 1600px;
   min-height: 900px;
+  margin: 0 auto;
+  display: flex;
   @media screen and (max-width: 1200px) {
     flex-direction: column;
   }
