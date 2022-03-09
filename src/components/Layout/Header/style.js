@@ -41,16 +41,14 @@ export const SearchMenuStyleOnHeader = styled.li`
       box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
       max-height: 300px;
       overflow-y: scroll;
-      &.hide {
-        display: none;
-      }
       .searchResultList {
         .searchResultItem {
-          padding: 4px 10px;
+          margin-top: 5px;
           font-size: 16px;
           width: 100%;
-          height: 24px;
           a {
+            padding: 4px 10px;
+            display: block;
             text-decoration: none;
             color: #5f5f5f;
             font-size: 14px;

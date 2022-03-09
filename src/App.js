@@ -7,7 +7,6 @@ import DoComInfo from "@routes/DoComInfo/DoComInfo";
 import StatisticsHeader from "./components/Domestic/StatisticsHeader";
 import DoStatistics from "./routes/DoStatistics/DoStatistics";
 import DoBalance from "./routes/Domestic/DoBalance";
-import DoCashFlow from "./routes/Domestic/DoCashFlow";
 import DoIncome from "./routes/Domestic/DoIncome";
 import DoBeta from "./routes/Domestic/DoBeta";
 import DoCorrelation from "./routes/Domestic/DoCorrelation";
@@ -16,7 +15,6 @@ import DoDisclosure from "./routes/Domestic/DoDisclosure";
 import Global from "./routes/Global/Global";
 import GoStatistics from "./routes/Global/GoStatistics";
 import GoBalance from "./routes/Global/GoBalance";
-import GoCashFlow from "./routes/Global/GoCashFlow";
 import GoIncome from "./routes/Global/GoIncome";
 import GoComInfo from "./routes/Global/GoCominfo";
 import GoBeta from "./routes/Global/GoBeta";
@@ -34,16 +32,27 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route element={<Layout />}>
           <Route path="/domestic" element={<Domestic />} />
-          <Route path="/domestic/cominfo" element={<DoComInfo />} />
-          <Route path="/domestic/Statistics" element={<StatisticsHeader />}>
+          <Route path="/domestic/cominfo/:stockId" element={<DoComInfo />} />
+          <Route
+            path="/domestic/Statistics/:stockId"
+            element={<StatisticsHeader />}>
             <Route index element={<DoStatistics />} />
             <Route path="Balance" element={<DoBalance />} />
             <Route path="Income" element={<DoIncome />} />
           </Route>
-          <Route path="/domestic/financial" element={<DomesticStock />} />
-          <Route path="/domestic/disclosure" element={<DoDisclosure />} />
-          <Route path="/domestic/Beta" element={<DoBeta />} />
-          <Route path="/domestic/Correlation" element={<DoCorrelation />} />
+          <Route
+            path="/domestic/financial/:stockId"
+            element={<DomesticStock />}
+          />
+          <Route
+            path="/domestic/disclosure/:stockId"
+            element={<DoDisclosure />}
+          />
+          <Route path="/domestic/Beta/:stockId" element={<DoBeta />} />
+          <Route
+            path="/domestic/Correlation/:stockId"
+            element={<DoCorrelation />}
+          />
 
           <Route path="/global" element={<Global />} />
           <Route path="/global/cominfo" element={<GoComInfo />} />

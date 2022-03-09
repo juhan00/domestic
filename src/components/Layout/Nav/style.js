@@ -61,26 +61,32 @@ export const NavStyle = styled.nav`
       }
     }
     .thirdmenuItem {
-      display: block;
-      width: 80px;
+      display: inline-block;
       height: 30px;
-      margin-left: 80px;
+      margin-left: 64px;
       color: #767676;
       text-decoration: none;
       line-height: 30px;
-      border-radius: 55px;
+      &::before {
+        display: inline-block;
+        content: "";
+        width: 4px;
+        height: 4px;
+        background: #e5e5ec;
+        border-radius: 4px;
+        margin: 0 12px 3px 0;
+      }
       &.active {
         color: #5fb6ad;
         font-weight: 700;
+        &::before {
+          background: #5fb6ad;
+        }
       }
     }
   }
 
   .toggleIcon {
-    display: none;
-  }
-
-  .hide {
     display: none;
   }
 

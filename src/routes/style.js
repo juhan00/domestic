@@ -84,11 +84,11 @@ export const SearchMenuStyleAtHome = styled.div`
       .searchResultList {
         .searchResultItem {
           margin-top: 10px;
-          padding: 4px 10px;
           font-size: 16px;
           width: 100%;
-          height: 24px;
           a {
+            padding: 4px 10px;
+            display: block;
             text-decoration: none;
             color: #5f5f5f;
             font-size: 14px;

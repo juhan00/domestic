@@ -4,6 +4,9 @@ export const BaseStyle = styled.div`
   min-height: 100vh;
   height: 100%;
   background-color: #f2f2f8;
+  .hide {
+    display: none;
+  }
 `;
 
 export const Logo = styled.div`

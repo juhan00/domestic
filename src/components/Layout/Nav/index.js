@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { NavStyle, Dark } from "./style";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { clickOutside } from "@utils/clickOutside";
 
 const Nav = () => {
@@ -10,6 +10,9 @@ const Nav = () => {
     setIsOpen((isOpen) => !isOpen);
   };
   const location = useLocation();
+
+  const profile = useParams();
+  const stockId = profile.stockId;
 
   const ToggleIcon = () => {
     return (
@@ -98,45 +101,53 @@ const Nav = () => {
             </div>
             <ul
               className={
-                location.pathname.includes("/domestic")
+                location.pathname.includes("/domestic") && stockId
                   ? "subMenu"
                   : "subMenu hide"
               }>
               <li>
-                <NavLink className={"submenuItem"} to="/domestic/financial">
+                <NavLink
+                  className={"submenuItem"}
+                  to={`/domestic/financial/${stockId}`}>
                   주식뉴스분석
                 </NavLink>
               </li>
               <li>
-                <NavLink className={"submenuItem"} to="/domestic/cominfo">
+                <NavLink
+                  className={"submenuItem"}
+                  to={`/domestic/cominfo/${stockId}`}>
                   기업정보
                 </NavLink>
               </li>
               <li>
-                <NavLink className={"submenuItem"} to="/domestic/statistics">
+                <NavLink
+                  className={"submenuItem"}
+                  to={`/domestic/statistics/${stockId}`}>
                   재무데이터
                 </NavLink>
                 <div>
                   <NavLink
                     className={"thirdmenuItem"}
                     end
-                    to="/domestic/statistics">
+                    to={`/domestic/statistics/${stockId}`}>
                     재무비율
                   </NavLink>
                   <NavLink
                     className={"thirdmenuItem"}
-                    to="/domestic/statistics/Balance">
+                    to={`/domestic/statistics/${stockId}/Balance`}>
                     재무상태표
                   </NavLink>
                   <NavLink
                     className={"thirdmenuItem"}
-                    to="/domestic/statistics/Income">
+                    to={`/domestic/statistics/${stockId}/income`}>
                     손익계산서
                   </NavLink>
                 </div>
               </li>
               <li>
-                <NavLink className={"submenuItem"} to="/domestic/disclosure">
+                <NavLink
+                  className={"submenuItem"}
+                  to={`/domestic/disclosure/${stockId}`}>
                   기업공시
                 </NavLink>
               </li>
@@ -147,16 +158,18 @@ const Nav = () => {
                       ? "submenuItem active"
                       : "submenuItem"
                   }
-                  to="/domestic/beta">
+                  to={`/domestic/beta/${stockId}`}>
                   통계
                 </NavLink>
                 <div>
-                  <NavLink className={"thirdmenuItem"} to="/domestic/beta">
+                  <NavLink
+                    className={"thirdmenuItem"}
+                    to={`/domestic/beta/${stockId}`}>
                     BETA
                   </NavLink>
                   <NavLink
                     className={"thirdmenuItem"}
-                    to="/domestic/correlation">
+                    to={`/domestic/correlation/${stockId}`}>
                     CORRELATION
                   </NavLink>
                 </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function SearchBar({ onFocus, onChangeKeyword, onDeleteKeyword, keyword }) {
+function SearchBar({ onFocus, onChangeKeyword, keyword }) {
   return (
     <>
       <input

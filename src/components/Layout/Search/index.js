@@ -21,8 +21,9 @@ export const Search = () => {
     };
   }, [isOpen]);
 
-  // 인풋이 포커스되면 isOpen 스테이트를 변경하는 함수
+  // 인풋이 포커스되면 기존의 검색어를 지우고, isOpen 스테이트를 변경하는 함수
   const handleFocused = () => {
+    setKeyworld("");
     setIsOpen(true);
   };
 
@@ -31,30 +32,16 @@ export const Search = () => {
     setKeyworld(e.target.value);
   };
 
-  // 현재 입력하고 있는 검색어를 지우는 함수
-  const handleDeleteKeyword = () => {
-    setKeyworld("");
-  };
-
-  // 엔터하면 keyworld를 히스토리에 추가하고 검색창 비움
-  // const handleEnter = (e) => {
-  //   if (keyword && e.key === "Enter") {
-  //     handleAddHistory(keyword);
-  //     setKeyworld("");
-  //   }
-  // };
-
   return (
     <div className="searchContainer" ref={ref}>
       <SearchBar
         onFocus={handleFocused}
         onChangeKeyword={handleChangeKeyworld}
-        onDeleteKeyword={handleDeleteKeyword}
         keyword={keyword}
       />
       <div
         className={isOpen ? "searchResultWrapper" : "searchResultWrapper hide"}>
-        <SearchResult />
+        <SearchResult keyword={keyword} />
       </div>
     </div>
   );
