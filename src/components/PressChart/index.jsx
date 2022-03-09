@@ -1,7 +1,7 @@
 import { select, max, scaleLinear, scaleBand, axisRight, axisBottom } from "d3";
 import React, { useEffect, useRef } from "react";
-import { ChartWrapper } from "../CategoryChart/style";
 import useResizeObserver from "@utils/useResizeObserver";
+import { PressChartWrapper } from "./style";
 
 const PressChart = ({
   data,
@@ -10,11 +10,11 @@ const PressChart = ({
   width = 500,
   height = 300,
   barSpace = 50,
-  marginTop = 0,
-  marginBottom = 0,
-  marginLeft = 0,
-  marginRight = 0,
-  padding = 0,
+  marginTop = 40,
+  marginBottom = 40,
+  marginLeft = 40,
+  marginRight = 40,
+  padding = 40,
 }) => {
   const pressChartRef = useRef(null);
   const svgRef = useRef(null);
@@ -25,6 +25,8 @@ const PressChart = ({
 
     if (!dimensions) return;
 
+    svg.selectAll(".pressg").remove();
+
     const { width, height } = dimensions;
     svg.attr("width", width).attr("height", height);
 
@@ -32,7 +34,7 @@ const PressChart = ({
 
     const xScale = scaleBand()
       .domain(data.map((value, idx) => idx))
-      .range([marginLeft + padding, width])
+      .range([marginLeft, width - marginLeft])
       .padding(0.5);
 
     const xAxis = axisBottom(xScale).tickFormat((node, i) => {
@@ -44,7 +46,15 @@ const PressChart = ({
       .style("transform", `translateY(${height - marginBottom}px)`)
       .call(xAxis)
       .call((g) => g.select(".domain").remove())
-      .call((g) => g.selectAll(".tick line").remove());
+      .call((g) => g.selectAll(".tick line").remove())
+      .call((g) =>
+        g
+          .selectAll(".tick text")
+          .style(
+            "transform",
+            (data, index) => `translateX(${xScale.bandwidth() / 2}px)`,
+          ),
+      );
 
     const maxValue = max(data, (data) => data.value);
     const maxValueLength = maxValue.toString().length;
@@ -53,7 +63,7 @@ const PressChart = ({
 
     const yScale = scaleLinear()
       .domain([0, entireValue])
-      .range([height - marginBottom, marginTop])
+      .range([height - marginBottom, marginBottom])
       .clamp(true);
 
     const yAxis = axisRight(yScale).tickValues([
@@ -71,48 +81,48 @@ const PressChart = ({
         g
           .selectAll("line")
           .attr("x1", marginLeft)
-          .attr("x2", width - marginRight)
+          .attr("x2", width - marginRight - marginLeft)
           .style("stroke", "#ddd"),
       );
 
-    const press = svg
+    svg
       .selectAll(".pressg")
       .data(data)
-      .join("g")
-      .classed("pressg", true);
+      .join((enter) => {
+        const pressg = enter.append("g").classed("pressg", true);
 
-    press
-      .selectAll(".pressbar")
-      .data(data)
-      .join("rect")
-      .classed("pressbar", true)
-      .attr(
-        "height",
-        (node) =>
-          (node.value / entireValue) * (height - marginBottom - marginTop),
-      )
-      .attr("x", (_, index) => xScale(index))
-      .attr("y", (node) => yScale(node.value))
-      .attr("width", xScale.bandwidth())
-      .attr("fill", barColor);
+        pressg
+          .append("rect")
+          .classed("pressrect", true)
+          .attr(
+            "height",
+            (node) =>
+              (node.value / entireValue) * (height - marginBottom - marginTop),
+          )
+          .attr("x", (_, index) => xScale(index) + xScale.bandwidth() / 2)
+          .attr("y", (node) => yScale(node.value))
+          .attr("width", xScale.bandwidth())
+          .attr("fill", barColor);
 
-    press
-      .selectAll(".presstext")
-      .data(data)
-      .join("text")
-      .classed("presstext", true)
-      .text((data) => data["value"])
-      .attr("x", (_, index) => xScale(index) + xScale.bandwidth() / 4)
-      .attr("y", (node) => yScale(node.value) - 10);
+        pressg
+          .append("text")
+          .classed("presstext", true)
+          .attr("text-anchor", "middle")
+          .text((data) => data["value"])
+          .attr("x", (data, index) => {
+            return xScale(index) + xScale.bandwidth();
+          })
+          .attr("y", (node) => yScale(node.value) - 10);
+      });
   }, [data, dimensions]);
 
   return (
-    <ChartWrapper ref={pressChartRef}>
+    <PressChartWrapper ref={pressChartRef}>
       <svg ref={svgRef}>
         <g className="x-axis" />
         <g className="y-axis" />
       </svg>
-    </ChartWrapper>
+    </PressChartWrapper>
   );
 };
 

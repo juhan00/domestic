@@ -12,8 +12,8 @@ import {
   format,
 } from "d3";
 import React, { useEffect, useRef } from "react";
-import { ChartWrapper } from "../CategoryChart/style";
 import useResizeObserver from "@utils/useResizeObserver";
+import { EmotionWrapper } from "./style";
 
 const data = [
   { date: new Date("2018-01-01"), value: 1 },
@@ -29,10 +29,10 @@ const data = [
 const EmotionChart = ({
   width = 500,
   height = 300,
-  marginTop = 0,
-  marginBottom = 0,
-  marginLeft = 0,
-  marginRight = 0,
+  marginTop = 40,
+  marginBottom = 40,
+  marginLeft = 40,
+  marginRight = 40,
   padding = 0,
 }) => {
   const emotionChartRef = useRef();
@@ -41,6 +41,7 @@ const EmotionChart = ({
 
   useEffect(() => {
     const svg = select(svgRef.current);
+    svg.selectAll(".emotiong").remove();
 
     if (!dimensions) return;
 
@@ -49,7 +50,7 @@ const EmotionChart = ({
 
     const xScale = scaleTime()
       .domain(extent(data, (data) => data.date))
-      .range([marginLeft + padding, width]);
+      .range([marginLeft, width - marginLeft]);
 
     const xAxis = axisBottom(xScale)
       .ticks(data.length)
@@ -82,10 +83,16 @@ const EmotionChart = ({
       .call((g) =>
         g
           .selectAll("line")
-          .attr("x1", marginLeft)
-          .attr("x2", width - marginRight)
+          .attr("x1", 0)
+          .attr("x2", width - marginRight - marginLeft)
           .style("stroke", "#ddd"),
-      );
+      )
+      .call((g) => {
+        g.selectAll(".tick text").style(
+          "transform",
+          `translateX(${width - marginLeft - marginRight}px)`,
+        );
+      });
 
     const chartLine = line()
       .defined((d) => !isNaN(d.value))
@@ -97,56 +104,65 @@ const EmotionChart = ({
       .y0(() => yScale(0))
       .y1((d) => yScale(d.value));
 
-    const gradient = svg
-      .append("linearGradient")
-      .attr("id", "chartGradient")
-      .attr("x1", "100%")
-      .attr("x2", "100%")
-      .attr("y1", "100%")
-      .attr("y2", "0%");
-
-    gradient
-      .append("stop")
-      .attr("class", "start")
-      .attr("offset", "0%")
-      .attr("stop-color", "#5fb6ad")
-      .attr("stop-opacity", 0.3);
-
-    gradient
-      .append("stop")
-      .attr("class", "end")
-      .attr("offset", "100%")
-      .attr("stop-color", "#5fb6ad")
-      .attr("stop-opacity", 0.7);
-
     svg
-      .selectAll(".emotionarea")
+      .selectAll(".emotiong")
       .data([data])
-      .join("path")
-      .classed("emotionarea", true)
-      .attr("fill", "url(#chartGradient)")
-      .attr("d", (data) => chartLine(data))
-      .attr("d", (data) => chartArea(data));
+      .join((enter) => {
+        const emotiong = enter
+          .append("g")
+          .classed("emotiong", true)
+          .attr("fill", "url(#chartGradient)")
+          .attr("d", (data) => chartLine(data))
+          .attr("d", (data) => chartArea(data));
 
-    svg
-      .selectAll(".emotionpath")
-      .data([data])
-      .join("path")
-      .classed("emotionpath", true)
-      .attr("fill", "none")
-      .attr("stroke", "#5fb6ad")
-      .attr("stroke-width", 3)
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("d", (data) => chartLine(data));
+        emotiong
+          .append("path")
+          .classed("emotionarea", true)
+          .attr("fill", "url(#chartGradient)")
+          .attr("d", (data) => chartLine(data))
+          .attr("d", (data) => chartArea(data));
+
+        emotiong
+          .append("path")
+          .classed("emotionpath", true)
+          .attr("fill", "none")
+          .attr("stroke", "#5fb6ad")
+          .attr("stroke-width", 3)
+          .attr("stroke-linejoin", "round")
+          .attr("stroke-linecap", "round")
+          .attr("d", (data) => chartLine(data));
+      });
   }, [data, dimensions]);
+
   return (
-    <ChartWrapper ref={emotionChartRef}>
+    <EmotionWrapper ref={emotionChartRef}>
       <svg ref={svgRef}>
+        <defs>
+          <linearGradient
+            id="chartGradient"
+            x1="100%"
+            x2="100%"
+            y1="100%"
+            y2="0%">
+            <stop
+              id="stop1"
+              offset="0%"
+              stopColor="#5fb6ad"
+              stopOpacity="0.3"
+            />
+            <stop
+              id="stop2"
+              offset="100%"
+              stopColor="#5fb6ad"
+              stopOpacity="0.7"
+            />
+          </linearGradient>
+        </defs>
+        <text className="title">버즈량</text>
         <g className="x-axis" />
         <g className="y-axis" />
       </svg>
-    </ChartWrapper>
+    </EmotionWrapper>
   );
 };
 
