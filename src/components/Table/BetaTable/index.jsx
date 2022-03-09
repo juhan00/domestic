@@ -18,15 +18,13 @@ const BetaTable = ({ data, names }) => {
             </Row>
           </thead>
           <tbody>
-            {data.map((item, index) => {
-              return (
-                <Row key={index}>
-                  <Cell>{item.basDt}</Cell>
-                  <Cell>{item.xPrice}%</Cell>
-                  <Cell>{item.yPrice}%</Cell>
-                </Row>
-              );
-            })}
+            {data.map((item, index) => (
+              <Row key={index}>
+                <Cell>{item.basDt}</Cell>
+                <Cell>{item.xPrice}%</Cell>
+                <Cell>{item.yPrice}%</Cell>
+              </Row>
+            ))}
           </tbody>
         </TableBody>
       </div>
