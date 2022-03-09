@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import BetaTable from "@components/BetaTable";
+import TableHeader from "@components/Table/TableHeader";
+import BetaTable from "@components/Table/BetaTable";
 import BetaChart from "@components/BetaChart";
-import { domesticSample } from "@utils/statisticsData";
 import { RouteWrapper, ChartWrapper } from "./style";
 import { sampleJson } from "@utils/api";
 
@@ -10,25 +10,7 @@ const DoBeta = () => {
   const [dataY, setDataY] = useState({});
   const [data, setData] = useState([]);
   const [names, setNames] = useState([]);
-
   const [loading, setLoading] = useState(true);
-  const [loading2, setLoading2] = useState(true);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const resX = await sampleJson("xData");
-  //     setDataX(resX.data);
-  //     setLoading1(false);
-  //   })();
-  // }, []);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const resY = await sampleJson("yData");
-  //     setDataY(resY.data);
-  //     setLoading2(false);
-  //   })();
-  // }, []);
 
   useEffect(() => {
     (async () => {
@@ -37,13 +19,12 @@ const DoBeta = () => {
         .then((data) => setDataX(data));
       sampleJson("yData")
         .then((res) => res.data)
-        .then((data) => setDataY(data))
-        .then(() => setLoading(false));
+        .then((data) => setDataY(data));
     })();
   }, []);
 
   useEffect(() => {
-    if (!loading) {
+    if (Object.keys(dataX).length && Object.keys(dataY).length) {
       const { itmsNm: xName, data: xData } = dataX;
       const { itmsNm: yName, data: yData } = dataY;
       setNames([xName, yName]);
@@ -58,16 +39,20 @@ const DoBeta = () => {
         [],
       );
       setData(mergedArray);
-      setLoading2(false);
+      setLoading(false);
     }
-  }, [dataX, loading]);
+  }, [dataX, dataY]);
 
   return (
     <RouteWrapper>
-      {!loading2 && <BetaTable data={data} names={names} />}
+      {/* {!loading && <BetaTable data={data} names={names} />} */}
+      <div>
+        <TableHeader data={100} title={"BETA"} />
+        <BetaTable data={data} names={names} />
+      </div>
       <ChartWrapper>
         <section>OPTIONS</section>
-        {!loading2 && <BetaChart data={data} names={names} />}
+        {!loading && <BetaChart data={data} names={names} />}
       </ChartWrapper>
     </RouteWrapper>
   );
