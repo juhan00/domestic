@@ -21,6 +21,7 @@ export const ExchRate = styled.div`
       display: flex;
       height: 40px;
       align-items: center;
+      cursor: pointer;
       h3 {
         font-size: 14px;
         font-weight: 400;

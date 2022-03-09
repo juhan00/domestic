@@ -19,6 +19,9 @@ export const ExchRateChartWrapper = styled.div`
   .x-label,
   .y-label {
     fill: #999;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.2;
   }
   .dataLine {
     stroke: #5fb6ad;

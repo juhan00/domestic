@@ -23,6 +23,7 @@ const StatisticsGraph = ({
 }) => {
   const graphRef = useRef();
   const svgRef = useRef(null);
+
   useEffect(() => {
     const graphWrapper = select(graphRef.current);
     const svg = select(svgRef.current);

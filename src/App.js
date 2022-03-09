@@ -4,12 +4,12 @@ import React from "react";
 import Home from "./routes/Home";
 import Domestic from "./routes/Domestic/Domestic";
 import DoComInfo from "@routes/DoComInfo/DoComInfo";
-import StatisticsHeader from "./components/Domestic/StatisticsHeader";
 import DoStatistics from "./routes/DoStatistics/DoStatistics";
-import DoBalance from "./routes/Domestic/DoBalance";
-import DoIncome from "./routes/Domestic/DoIncome";
-import DoBeta from "./routes/Domestic/DoBeta";
-import DoCorrelation from "./routes/Domestic/DoCorrelation";
+import DoBalance from "@routes/DoBalance/DoBalance";
+import DoCashFlow from "@routes/DoCashFlow/DoCashFlow";
+import DoIncome from "@routes/DoIncome/DoIncome";
+import DoBeta from "@routes/DoBeta";
+import DoCorrelation from "./routes/DoCorrelation";
 import DoDisclosure from "./routes/Domestic/DoDisclosure";
 
 import Global from "./routes/Global/Global";
@@ -56,8 +56,7 @@ const App = () => {
 
           <Route path="/global" element={<Global />} />
           <Route path="/global/cominfo" element={<GoComInfo />} />
-          <Route path="/global/Statistics" element={<StatisticsHeader />}>
-            <Route index element={<GoStatistics />} />
+          <Route path="/global/Statistics" element={<GoStatistics />}>
             <Route path="Balance" element={<GoBalance />} />
             <Route path="Income" element={<GoIncome />} />
           </Route>

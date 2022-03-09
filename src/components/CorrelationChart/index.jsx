@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
-import { ExchRateChartWrapper } from "./style";
+import { ExchRateChartWrapper, TableHeader, TableBody, Row, Cell } from "./style";
 import useResizeObserver from "@utils/useResizeObserver";
 
-const ExchRateChart = () => {
+const CorrelationChart = () => {
   const data = [
     { stock: 2900, date: "10:00" },
     { stock: 2520, date: "10:10" },
@@ -81,7 +81,7 @@ const ExchRateChart = () => {
     //초기 셋팅
     const margin = { top: 30, right: 50, bottom: 30, left: 0 };
     const width = resize.width - (margin.left + margin.right);
-    const height = 150;
+    const height = 570;
     const xTickCount = 6;
     const yTickCount = 5;
     const xTickBlankCount = 0;
@@ -216,19 +216,41 @@ const ExchRateChart = () => {
     };
   }, [data, resize]);
 
-  return (
+  return (<>
     <ExchRateChartWrapper ref={exchRateChartRef}>
-      <svg ref={svgRef}>
-        <g className="x-axis">
-          <g className="x-label" />
-        </g>
-        <g className="y-axis">
-          <g className="y-label" />
-        </g>
-        <g className="x-axis-line" />
-      </svg>
-    </ExchRateChartWrapper>
+      <>
+        <TableHeader>
+          <thead>
+            <Row className="table__header">
+              <Cell colSpan={3}>OPTIONS</Cell>
+            </Row>
+          </thead>
+          <tbody>
+            <Row className="table__body">
+              <Cell>1</Cell>
+              <Cell>2</Cell>
+              <Cell>3</Cell>
+            </Row>
+            <Row className="table__body">
+              <Cell colSpan={3}>
+                <svg ref={svgRef}>
+                  <g className="x-axis">
+                    <g className="x-label" />
+                  </g>
+                  <g className="y-axis">
+                    <g className="y-label" />
+                  </g>
+                  <g className="x-axis-line" />
+                </svg>
+              </Cell>
+            </Row>
+          </tbody>
+        </TableHeader>
+
+      </>
+     </ExchRateChartWrapper>
+    </>
   );
 };
 
-export default ExchRateChart;
+export default CorrelationChart;
