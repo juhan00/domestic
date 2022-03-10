@@ -11,7 +11,8 @@ import {
   format,
 } from "d3";
 import React, { useEffect, useRef } from "react";
-import { ChartWrapper } from "../CategoryChart/style";
+import useResizeObserver from "@utils/useResizeObserver";
+import { BuzzWrapper } from "./style";
 
 const data = [
   { date: new Date("2018-01-01"), value: 1 },
@@ -31,17 +32,24 @@ const BuzzChart = ({
   marginBottom = 40,
   marginLeft = 40,
   marginRight = 40,
-  padding = 30,
+  padding = 0,
 }) => {
   const buzzChartRef = useRef();
-  const svgRef = useRef(null);
+  const svgRef = useRef();
+  const dimensions = useResizeObserver(buzzChartRef);
+
   useEffect(() => {
-    const buzzChartWrapper = select(buzzChartRef.current);
     const svg = select(svgRef.current);
+    svg.selectAll(".buzzpath").remove();
+
+    if (!dimensions) return;
+
+    const { width, height } = dimensions;
+    svg.attr("width", width).attr("height", height);
 
     const xScale = scaleTime()
       .domain(extent(data, (data) => data.date))
-      .range([marginLeft + padding, width]);
+      .range([marginLeft, width - marginLeft]);
 
     const xAxis = axisBottom(xScale)
       .ticks(data.length)
@@ -74,10 +82,16 @@ const BuzzChart = ({
       .call((g) =>
         g
           .selectAll("line")
-          .attr("x1", marginLeft)
-          .attr("x2", width - marginRight)
+          .attr("x1", 0)
+          .attr("x2", width - marginRight - marginLeft)
           .style("stroke", "#ddd"),
-      );
+      )
+      .call((g) => {
+        g.selectAll(".tick text").style(
+          "transform",
+          `translateX(${width - marginLeft - marginRight}px)`,
+        );
+      });
 
     const chartLine = line()
       .defined((d) => !isNaN(d.value))
@@ -85,22 +99,21 @@ const BuzzChart = ({
       .y((d) => yScale(d.value));
 
     svg
-      .append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", "#ee9696")
-      .attr("stroke-width", 3)
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("d", chartLine);
-  }, []);
+      .selectAll(".buzzpath")
+      .data([data])
+      .join("path")
+      .classed("buzzpath", true)
+
+      .attr("d", (data) => chartLine(data));
+  }, [data, dimensions]);
   return (
-    <ChartWrapper ref={buzzChartRef}>
+    <BuzzWrapper ref={buzzChartRef}>
       <svg ref={svgRef}>
         <g className="x-axis" />
         <g className="y-axis" />
+        <text className="title">버즈량</text>
       </svg>
-    </ChartWrapper>
+    </BuzzWrapper>
   );
 };
 

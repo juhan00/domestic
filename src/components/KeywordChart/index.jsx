@@ -2,40 +2,55 @@ import React, { useRef, useEffect } from "react";
 import { select } from "d3";
 import cloud from "d3-cloud";
 import randomColor from "randomcolor";
-import { ChartWrapper } from "../CategoryChart/style";
+import { KeywordChartWrapper } from "./style";
 
+let words;
 const KeywordChart = ({
   data,
   font = "Impact",
-  keyWordPadding = 1,
+  keyWordPadding = 0,
   rotate = 90,
   width = 500,
   height = 300,
-  marginTop = 40,
-  marginBottom = 40,
-  marginLeft = 40,
-  marginRight = 40,
-  padding = 30,
+  marginTop = 0,
+  marginBottom = 0,
+  marginLeft = 0,
+  marginRight = 0,
+  padding = 0.3,
 }) => {
-  const keywordChartRef = useRef(null);
+  const keywordChartRef = useRef();
   const svgRef = useRef(null);
+
   useEffect(() => {
-    const wrapper = select(keywordChartRef.current);
     const svg = select(svgRef.current);
 
-    const wordData = data.map((ele) => {
-      return { text: ele.title, size: 10 + ele.value / 20, test: ele.title };
-    });
+    const { width, height } = keywordChartRef.current.getBoundingClientRect();
+    svg.attr("width", width).attr("height", height);
 
-    const words = cloud()
-      .size([width, height])
-      .words(wordData)
-      .padding(keyWordPadding)
-      .font(font)
-      .fontSize((d) => d.size)
-      .rotate((_, i) => i * rotate)
-      .start()
-      .words();
+    if (!data[0].color) {
+      data.map((ele) => {
+        ele.color = randomColor();
+      });
+    }
+
+    const wordData = data.map((ele) => ({
+      ...ele,
+      text: ele.title,
+      size: 10 + ele.value / 20,
+      test: ele.title,
+    }));
+
+    if (!words) {
+      words = cloud()
+        .size([width, height])
+        .words(wordData)
+        .padding(keyWordPadding)
+        .font(font)
+        .fontSize((d) => d.size)
+        .rotate((_, i) => i * rotate)
+        .start()
+        .words();
+    }
 
     const cloudWrapper = svg
       .select(".cloudWrapper")
@@ -49,8 +64,7 @@ const KeywordChart = ({
       .style("font-size", (d) => {
         return `${d.size}px`;
       })
-      .attr("fill", () => randomColor())
-      .attr("text-anchor", "middle")
+      .attr("fill", (d) => d.color)
       .attr("transform", (d) => {
         return `translate(${d.x}, ${d.y}) rotate(${d.rotate})`;
       })
@@ -59,11 +73,11 @@ const KeywordChart = ({
       });
   }, [data]);
   return (
-    <ChartWrapper ref={keywordChartRef}>
+    <KeywordChartWrapper ref={keywordChartRef}>
       <svg ref={svgRef}>
         <g className="cloudWrapper" />
       </svg>
-    </ChartWrapper>
+    </KeywordChartWrapper>
   );
 };
 

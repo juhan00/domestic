@@ -23,6 +23,18 @@ export const setPeriod = (start, end) => ({
   diff: getDateDiff(end, start),
 });
 
+const SET_STARTDATE_ACTION = "SET_STARTDATE_ACTION";
+export const setStartDate = (date) => ({
+  actionType: SET_STARTDATE_ACTION,
+  startDate: date,
+});
+
+const SET_ENDDATE_ACTION = "SET_ENDDATE_ACTION";
+export const setEndDate = (date) => ({
+  actionType: SET_STARTDATE_ACTION,
+  endDate: date,
+});
+
 export const reducer = (state, action) => {
   const { actionType } = action;
 
@@ -34,6 +46,22 @@ export const reducer = (state, action) => {
           startDate: action.startDate,
           endDate: action.endDate,
           diff: action.diff,
+        },
+      };
+    case SET_STARTDATE_ACTION:
+      return {
+        ...state,
+        period: {
+          ...state.period,
+          startDate: action.startDate,
+        },
+      };
+    case SET_ENDDATE_ACTION:
+      return {
+        ...state,
+        period: {
+          ...state.period,
+          endDate: action.endDate,
         },
       };
     default:
