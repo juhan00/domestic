@@ -1,43 +1,13 @@
-import React, { useMemo, useRef, useState } from "react";
-import { NavLink, useLocation, useParams } from "react-router-dom";
+import React, { useMemo, useRef, useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import { clickOutside } from "../../../utils/clickOutside";
 
-const stockListSample = [
-  { symbol: "A", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "AA", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "AB", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "ABC", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "A2", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "B", companyName: "BBB INC", HQnation: "US" },
-  { symbol: "BA", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "BCSRAW", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "C", companyName: "CCC INC", HQnation: "US" },
-  { symbol: "D", companyName: "DDD INC", HQnation: "US" },
-  { symbol: "E", companyName: "EEE INC", HQnation: "US" },
-  { symbol: "F", companyName: "FFF INC", HQnation: "US" },
-  { symbol: "G", companyName: "GGG INC", HQnation: "US" },
-  { symbol: "H", companyName: "HHH INC", HQnation: "US" },
-  { symbol: "I", companyName: "III INC", HQnation: "US" },
-  { symbol: "J", companyName: "JJJ INC", HQnation: "US" },
-  { symbol: "K", companyName: "KKK INC", HQnation: "US" },
-  { symbol: "L", companyName: "LLL INC", HQnation: "US" },
-  { symbol: "M", companyName: "MMM INC", HQnation: "US" },
-  { symbol: "N", companyName: "NNN INC", HQnation: "US" },
-  { symbol: "O", companyName: "OOO INC", HQnation: "US" },
-  { symbol: "P", companyName: "PPP INC", HQnation: "US" },
-  { symbol: "Q", companyName: "QAQ INC", HQnation: "US" },
-  { symbol: "R", companyName: "RRR INC", HQnation: "US" },
-  { symbol: "S", companyName: "SSS INC", HQnation: "US" },
-  { symbol: "T", companyName: "TAT INC", HQnation: "US" },
-  { symbol: "U", companyName: "UUU INC", HQnation: "US" },
-  { symbol: "V", companyName: "VVV INC", HQnation: "US" },
-  { symbol: "W", companyName: "WWW INC", HQnation: "US" },
-  { symbol: "X", companyName: "XXX INC", HQnation: "US" },
-  { symbol: "Y", companyName: "YYY INC", HQnation: "US" },
-  { symbol: "Z", companyName: "ZAZ INC", HQnation: "US" },
-];
-
-export const SearchResult = ({ keyword }) => {
+export const SearchResult = ({
+  keyword,
+  domesticList,
+  globalList,
+  onClick,
+}) => {
   const ref = useRef();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -52,6 +22,7 @@ export const SearchResult = ({ keyword }) => {
     }
     return target;
   }, [location]);
+  // home에서는 드롭다운 옵션 선택값에 따라 주소를 넣어줘야 하는데...?  어떻게?
 
   const secondTarget = useMemo(() => {
     let target = "";
@@ -75,28 +46,60 @@ export const SearchResult = ({ keyword }) => {
 
   clickOutside(ref, isOpen, setIsOpen);
 
-  return (
-    <ul className="searchResultList">
-      {stockListSample
-        .filter((list) => {
-          if (keyword == "") {
-            return list;
-          } else if (
-            list.symbol.toLowerCase().includes(keyword.toLowerCase()) ||
-            list.companyName.toLowerCase().includes(keyword.toLowerCase())
-          ) {
-            return list;
-          }
-        })
-        .map((list) => (
-          <li className="searchResultItem" key={list.symbol}>
-            <NavLink to={`${firstTarget}/${secondTarget}/${list.symbol}`}>
-              <span>{list.symbol}</span> | {list.companyName} | {list.HQnation}{" "}
-            </NavLink>
-          </li>
-        ))}
-    </ul>
-  );
+  if (location.pathname.includes("domestic")) {
+    return (
+      <ul className="searchResultList">
+        {domesticList
+          .filter((list) => {
+            if (keyword == "") {
+              return list;
+            } else if (
+              list.crno.includes(keyword) ||
+              list.itmsNm.includes(keyword)
+            ) {
+              return list;
+            }
+          })
+          .map((list) => (
+            <li className="searchResultItem" key={list.crno}>
+              <NavLink
+                to={`${firstTarget}/${secondTarget}/${list.crno}`}
+                onClick={onClick}>
+                <span>{list.itmsNm}</span> | {list.crno}
+              </NavLink>
+            </li>
+          ))}
+      </ul>
+    );
+  } else if (location.pathname.includes("global")) {
+    return (
+      <ul className="searchResultList">
+        {globalList
+          .filter((list) => {
+            if (keyword == "") {
+              return list;
+            } else if (
+              list.symbol.toLowerCase().includes(keyword.toLowerCase()) ||
+              list.companyName.toLowerCase().includes(keyword.toLowerCase())
+            ) {
+              return list;
+            }
+          })
+          .map((list) => (
+            <li className="searchResultItem" key={list.symbol}>
+              <NavLink
+                to={`${firstTarget}/${secondTarget}/${list.symbol}`}
+                onClick={onClick}>
+                <span>{list.symbol}</span> | {list.companyName} |{" "}
+                {list.HQnation}
+              </NavLink>
+            </li>
+          ))}
+      </ul>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default SearchResult;

@@ -15,6 +15,7 @@ import DoDisclosure from "./routes/Domestic/DoDisclosure";
 import Global from "./routes/Global/Global";
 import GoStatistics from "./routes/Global/GoStatistics";
 import GoBalance from "./routes/Global/GoBalance";
+import GoCashFlow from "./routes/Global/GoCashFlow";
 import GoIncome from "./routes/Global/GoIncome";
 import GoComInfo from "./routes/Global/GoCominfo";
 import GoBeta from "./routes/Global/GoBeta";
@@ -35,10 +36,10 @@ const App = () => {
           <Route path="/domestic/cominfo/:stockId" element={<DoComInfo />} />
           <Route
             path="/domestic/Statistics/:stockId"
-            element={<StatisticsHeader />}>
-            <Route index element={<DoStatistics />} />
+            element={<DoStatistics />}>
             <Route path="Balance" element={<DoBalance />} />
             <Route path="Income" element={<DoIncome />} />
+            <Route path="CashFlow" element={<DoCashFlow />} />
           </Route>
           <Route
             path="/domestic/financial/:stockId"
@@ -59,6 +60,7 @@ const App = () => {
           <Route path="/global/Statistics" element={<GoStatistics />}>
             <Route path="Balance" element={<GoBalance />} />
             <Route path="Income" element={<GoIncome />} />
+            <Route path="CashFlow" element={<GoCashFlow />} />
           </Route>
           <Route path="/global/disclosure" element={<GoDisclosure />} />
           <Route path="/global/Beta" element={<GoBeta />} />
