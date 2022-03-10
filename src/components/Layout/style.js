@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import moyaLogo from "@images/moyaLogo.png";
 
 export const BaseStyle = styled.div`
   min-height: 100vh;
@@ -13,7 +14,7 @@ export const Logo = styled.div`
   margin: 17px 0 0 36px;
   width: 100px;
   height: 39px;
-  background-image: url("images/moyaLogo.png");
+  background-image: url("/images/moyaLogo.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

@@ -1,7 +1,7 @@
-import React, { useCallback, useRef } from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 import { clickOutside } from "../../utils/clickOutside";
-import MenuIconToggle from "@images/menuicon_toggle.svg";
+import Toggle from "@images/icon_toggle.svg";
 
 const stockNations = ["국내주식", "해외주식"];
 
@@ -21,8 +21,7 @@ const Dropdown = () => {
   return (
     <div className="dropdownWrapper" ref={ref}>
       <div onClick={toggle}>
-        {selectOption || "국내주식"}{" "}
-        <img className="btnToggle" src={MenuIconToggle} />
+        {selectOption || "국내주식"} <img className="btnToggle" src={Toggle} />
       </div>
       {isOpen ? (
         <ul className="optionList">

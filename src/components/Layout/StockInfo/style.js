@@ -11,14 +11,43 @@ export const StockInfoStyle = styled.div`
     background: #fff;
     border-radius: 12px;
     display: flex;
-    white-space: nowrap;
-    overflow-x: auto;
+    overflow-x: scroll;
     ::-webkit-scrollbar {
-      display: none;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #e0e0e0;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      margin: 0 12px;
+      border-radius: 10px;
+    }
+    .stockRecap {
+      position: absolute;
+      z-index: 10;
+      width: 70%;
+      padding: 30px;
+      border-radius: 12px;
+      background-color: #fff;
+      border: 1px solid #5fb6ad;
+      text-align: justify;
+      margin: 55px 0 0 100px;
+      .title {
+        display: block;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+      .source {
+        display: block;
+        margin-top: 15px;
+        font-size: 12px;
+      }
     }
   }
   .stockInfoWrapper {
     font-size: 14px;
+    white-space: nowrap;
     ul {
       position: relative;
       top: 50%;
@@ -36,13 +65,6 @@ export const StockInfoStyle = styled.div`
             cursor: pointer;
           }
         }
-        /* .stockRecap {
-          position: absolute;
-          z-index: 10;
-          width: 300px;
-          height: 300px;
-          background-color: #eee;
-        } */
         .stockPrice {
           padding-top: 10px;
         }
@@ -67,7 +89,6 @@ export const StockInfoStyle = styled.div`
     img {
       width: 10px;
       height: 5px;
-      transform: rotate(180deg);
       margin-right: 10px;
     }
     .price {

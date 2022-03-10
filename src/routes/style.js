@@ -137,7 +137,6 @@ export const SearchMenuStyleAtHome = styled.div`
       }
     }
     .btnToggle {
-      transform: rotate(180deg);
       width: 9px;
       height: 4.5px;
       margin: 0 30px;
