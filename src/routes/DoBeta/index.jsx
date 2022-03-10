@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import TableHeader from "@components/Table/TableHeader";
 import BetaTable from "@components/Table/BetaTable";
 import BetaChart from "@components/BetaChart";
-import { RouteWrapper, ChartWrapper } from "./style";
+import { RouteWrapper, TableWrapper, ChartWrapper } from "./style";
 import { sampleJson } from "@utils/api";
 
 const DoBeta = () => {
@@ -46,10 +46,10 @@ const DoBeta = () => {
   return (
     <RouteWrapper>
       {/* {!loading && <BetaTable data={data} names={names} />} */}
-      <div>
+      <TableWrapper>
         <TableHeader data={100} title={"BETA"} />
         <BetaTable data={data} names={names} />
-      </div>
+      </TableWrapper>
       <ChartWrapper>
         <section>OPTIONS</section>
         {!loading && <BetaChart data={data} names={names} />}
