@@ -1,9 +1,8 @@
 import styled from "@emotion/styled";
 
-export const ExchRateChartWrapper = styled.div`
+export const CorrChartWrapper = styled.div`
   float: right;
   width: 74.740061%;
-  border: 1px solid red;
   height: calc(100vh - 265px);
   /* padding: 10px; */
   .tick {
@@ -45,6 +44,30 @@ export const TableHeader = styled.table`
       border-radius: 12px 12px 0 0; 
     }
   }
+  .table__header__sub {
+    background-color: #FFFFFF;
+    td {
+      background-clip: content-box;
+      background-color: #FAFAFE;
+      width: 33%;
+      padding: 20px;
+      input[type="date"] {
+        background-color: transparent;
+        width: 40%;
+        border: none;
+        border-bottom: 1px solid #E5E5EC;
+        color: #111111;
+        padding-bottom: 5px;
+        margin: 0 5px;
+      }
+      input[type="date"]::-webkit-calendar-picker-indicator {
+        width: 15px;
+        padding: 0px;
+        margin: 0px;
+        color: #767676;
+      }
+    }
+  }
   .table__body {
     td {
       background-color: #FFFFFF;
@@ -52,6 +75,11 @@ export const TableHeader = styled.table`
       font-size: 36px;
       font-weight: 500;
       /* height: 87px; */
+      border-radius: 0 0 12px 12px;
+      h5 {
+        font-size: 14px;
+        margin-top: 5px;
+      }
     }
   }
 `;
