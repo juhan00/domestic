@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
-import { ExchRateChartWrapper, TableHeader, TableBody, Row, Cell } from "./style";
+import { CorrChartWrapper, TableHeader, Row, Cell } from "./style";
 import useResizeObserver from "@utils/useResizeObserver";
+import Search from "@components/Search"
 
 const CorrelationChart = () => {
   const data = [
@@ -43,7 +44,7 @@ const CorrelationChart = () => {
     { stock: 2900, date: "12:50" },
   ];
 
-  const exchRateChartRef = useRef(null);
+  const corrChartRef = useRef(null);
   const svgRef = useRef(null);
 
   //tick 분할 함수
@@ -71,19 +72,22 @@ const CorrelationChart = () => {
     }
   }, []);
 
-  const resize = useResizeObserver(exchRateChartRef);
+  const resizeWidth = useResizeObserver(corrChartRef);
+  const resizeHeight = useResizeObserver(corrChartRef);
 
   useEffect(() => {
-    if (!resize || !data) {
+    if (!resizeWidth || !data) {
       return;
     }
-
+    if (!resizeHeight || !data) {
+      return;
+    }
     //초기 셋팅
-    const margin = { top: 30, right: 50, bottom: 30, left: 0 };
-    const width = resize.width - (margin.left + margin.right);
-    const height = 570;
-    const xTickCount = 6;
-    const yTickCount = 5;
+    const margin = { top: 20, right: 30, bottom: 30, left: 60 };
+    const width = resizeWidth.width - (margin.left + margin.right);
+    const height = resizeHeight.height - (margin.top + margin.bottom + 165);
+    const xTickCount = 12;
+    const yTickCount = 7;
     const xTickBlankCount = 0;
     const minStock = d3.min(data.map((d) => d.stock)) - 300;
     const maxStock = d3.max(data.map((d) => d.stock)) + 300;
@@ -130,7 +134,7 @@ const CorrelationChart = () => {
           .attr("text-anchor", "start")
           .attr("fill", "black")
           .attr("transform", `translate(${width + 13}, 20)`)
-          .text(xLabel),
+          // .text(xLabel),
       );
 
     //x축 line
@@ -165,7 +169,7 @@ const CorrelationChart = () => {
       .domain([minStock, maxStock])
       .range([height, 0]);
     const yAxis = d3
-      .axisRight(yScale)
+      .axisLeft(yScale)
       .tickValues(setTickCount(minStock, maxStock, yTickCount))
       .tickSize(10);
     svg
@@ -173,14 +177,14 @@ const CorrelationChart = () => {
       .call(yAxis)
       .style(
         "transform",
-        `translate(${width + margin.left}px, ${margin.top}px)`,
+        `translate(${margin.left}px, ${margin.top}px)`,
       )
       .style("stroke-opacity", 0)
       .call((g) =>
         g
           .selectAll(".tick line")
           .style("transform", "translateX(0px)")
-          .attr("x2", -width)
+          .attr("x2", width)
           .style("stroke-opacity", 1),
       )
       .call((g) =>
@@ -192,15 +196,14 @@ const CorrelationChart = () => {
           .attr("text-anchor", "start")
           .attr("fill", "black")
           .attr("transform", `translate(13, -15)`)
-          .text(yLabel),
+          // .text(yLabel),
       );
-
     //data line
     const dataLine = d3
       .line()
       .x((value, index) => xScale(index))
       .y((value) => yScale(value))
-      .curve(d3.curveCardinal);
+      // .curve(d3.curveCardinal);
     svg
       .selectAll(".dataLine")
       .data([data.map((data) => data["stock"])])
@@ -208,16 +211,17 @@ const CorrelationChart = () => {
       .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
       .attr("class", "dataLine")
       .attr("d", dataLine)
-      .attr("fill", "none");
+      .attr("fill", "none")
+      .attr("stroke-width", "4px"); // 선 두께 설정
 
     return () => {
       d3.selectAll(".x-label > *").remove();
       d3.selectAll(".y-label > *").remove();
     };
-  }, [data, resize]);
+  }, [data, resizeWidth, resizeHeight]);
 
   return (<>
-    <ExchRateChartWrapper ref={exchRateChartRef}>
+    <CorrChartWrapper ref={corrChartRef}>
       <>
         <TableHeader>
           <thead>
@@ -226,13 +230,22 @@ const CorrelationChart = () => {
             </Row>
           </thead>
           <tbody>
-            <Row className="table__body">
-              <Cell>1</Cell>
-              <Cell>2</Cell>
-              <Cell>3</Cell>
+            <Row className="table__header__sub">
+              <Cell>
+                <input type="date" name="date" />
+                ~
+                <input type="date" name="date" />
+              </Cell>
+              <Cell>
+                <Search />
+              </Cell>
+              <Cell>  
+                <Search />
+              </Cell>
             </Row>
             <Row className="table__body">
               <Cell colSpan={3}>
+                <h5>{"SPY"} (X) vs {"AAPL"} (Y)</h5>
                 <svg ref={svgRef}>
                   <g className="x-axis">
                     <g className="x-label" />
@@ -246,9 +259,8 @@ const CorrelationChart = () => {
             </Row>
           </tbody>
         </TableHeader>
-
       </>
-     </ExchRateChartWrapper>
+     </CorrChartWrapper>
     </>
   );
 };

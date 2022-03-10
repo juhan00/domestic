@@ -14,6 +14,7 @@ const GlobalStyle = () => {
           font-smoothing: antialiased;
         }
         body {
+          font-size: 14px;
           background-color: #f7f7fb;
         }
       `}

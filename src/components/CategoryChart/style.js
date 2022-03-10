@@ -1,11 +1,17 @@
 import styled from "@emotion/styled";
 
 export const ChartWrapper = styled.div`
-  width: 500px;
-  height: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   & > svg {
     display: block;
+    margin: auto;
     width: 100%;
-    height: 300px;
+  }
+
+  & text {
+    text-anchor: middle;
+    dominant-baseline: middle;
   }
 `;
