@@ -1,8 +1,8 @@
 import React from "react";
 import { TableBody, Row, Cell } from "./style";
-import TableHeader from "@components/Table/TableHeader"
+import TableHeader from "@components/Table/TableHeader";
 
-const BetaTable = ({ data }) => {
+const BetaTable = ({ data, names }) => {
   return (
     <>
       <div>
@@ -13,18 +13,18 @@ const BetaTable = ({ data }) => {
             </Row>
             <Row className="table__header__sub">
               <Cell>Dates</Cell>
-              <Cell>{data.axisX}</Cell>
-              <Cell>{data.axisY}</Cell>
+              <Cell>{names[0]}</Cell>
+              <Cell>{names[1]}</Cell>
             </Row>
           </thead>
           <tbody>
-            {data.date.map((item, index) => {
-              return <Row key={index}>
-                <Cell>{item}</Cell>
-                <Cell>{data.listX[item]}</Cell>
-                <Cell>{data.listY[item]}</Cell>
+            {data.map((item, index) => (
+              <Row key={index}>
+                <Cell>{item.basDt}</Cell>
+                <Cell>{item.xPrice}%</Cell>
+                <Cell>{item.yPrice}%</Cell>
               </Row>
-            })}
+            ))}
           </tbody>
         </TableBody>
       </div>
