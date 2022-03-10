@@ -38,7 +38,7 @@ const Domestic = () => {
       </div>
       <StorageInput type="recent" />
 
-      <FinanceNews />
+      <FinanceNews type="kr" />
     </DomesticWrapper>
   );
 };

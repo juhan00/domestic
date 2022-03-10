@@ -40,7 +40,7 @@ export const FinanceNewsWrapper = styled.div`
               bottom: 0;
               width: 100%;
               height: 2px;
-              background-color: #5fb6ad;
+              background-color: #286f6c;
               border-radius: 4px 4px 0px 0px;
             }
           }
@@ -119,7 +119,7 @@ export const FinanceNewsWrapper = styled.div`
         }
       }
       .contents {
-        margin-left: 20px;
+        padding: 0 20px;
         .info {
           display: flex;
           span {
@@ -160,12 +160,11 @@ export const FinanceNewsWrapper = styled.div`
           font-weight: 400;
           color: #505050;
           margin: 10px 0;
-          padding-right: 40px;
-          box-sizing: border-box;
           display: none;
         }
         .tagWrapper {
           display: flex;
+          align-items: center;
           margin-top: 10px;
           .tag {
             display: flex;
@@ -176,24 +175,62 @@ export const FinanceNewsWrapper = styled.div`
             font-size: 12px;
             line-height: 21px;
             font-weight: 400;
-            color: #505050;
+
             &.related {
-              background-color: #ffb82f;
+              color: #286f6c;
+              background-color: #e8f1ee;
             }
             &.category {
-              background-color: #facdcd;
+              color: #286f6c;
+              background-color: #fff;
+              border: 1px solid #e8f1ee;
+              box-sizing: border-box;
             }
             &.keyword {
-              background-color: #5fb6ad;
+              color: #505050;
+              background-color: #f7f7fb;
             }
           }
         }
         .tag + .tag {
           margin-left: 8px;
         }
+        .buttonWrapper {
+          display: flex;
+          margin-left: auto;
+          .button {
+            margin-left: auto;
+            display: none;
+            min-width: 65px;
+            height: 30px;
+            padding: 0 10px;
+            font-size: 12px;
+            line-height: 30px;
+            font-weight: 700;
+            box-sizing: border-box;
+            border-radius: 30px;
+            cursor: pointer;
+            &.origin {
+              color: #5fb6ad;
+              border: 1px solid #5fb6ad;
+            }
+            &.auto {
+              color: #5fb6ad;
+              border: 1px solid #5fb6ad;
+            }
+            &.expert {
+              color: #fff;
+              background-color: #48c0b7;
+            }
+          }
+          .button + .button {
+            margin-left: 10px;
+          }
+        }
       }
       .arrow {
         margin-left: auto;
+        min-width: 16px;
         width: 16px;
         height: 16px;
         background: url(${finance_news_arrow_icon}) 50% 50% no-repeat;
@@ -203,11 +240,24 @@ export const FinanceNewsWrapper = styled.div`
     }
     & > li.active {
       align-items: start;
-      .preview {
-        display: block;
-      }
-      .arrow {
-        transform: rotate(180deg);
+      .contents {
+        .preview {
+          display: block;
+        }
+        .arrow {
+          transform: rotate(180deg);
+        }
+        .tagWrapper {
+          .origin {
+            display: block;
+          }
+          .auto {
+            display: block;
+          }
+          .expert {
+            display: block;
+          }
+        }
       }
     }
     & > li + li {

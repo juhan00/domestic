@@ -6,6 +6,7 @@ import MajorStock from "@components/Main/MajorStock";
 import ExchangeRate from "@components/Main/ExchangeRate";
 import StockSector from "@components/Main/StockSector";
 import StockNews from "@components/Main/StockNews";
+import FinanceNews from "@components/Main/FinanceNews";
 
 const Global = () => {
   return (
@@ -34,6 +35,7 @@ const Global = () => {
           <StockSector />
         </div>
       </div>
+      <FinanceNews type="en" />
     </GlobalWrapper>
   );
 };

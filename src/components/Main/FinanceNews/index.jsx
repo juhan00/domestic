@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { FinanceNewsWrapper } from "./style";
+import { Link } from "react-router-dom";
 import Pagination from "@components/Disclosure/Pagination/Pagination";
 
 const initialRealTimeNewsData = [
@@ -13,7 +14,10 @@ const initialRealTimeNewsData = [
     title: "카카오게임즈 '이터널 리턴' 48번째 신규 캐릭터 '띠아' 출시",
     preview:
       "이밖에 '이터널 리턴' 굿즈 상점에서 게임 내 각종 마스코트 캐릭터로 제작된 인형, 머그컵 등을 31일까지 사전 주문할 수 있다. '이터널 리턴'은 최대 18명의 플레이어가 각종 전략 전투를 활용해 최후의 1인 혹은 1팀을 가려내는 게임이다.",
-    link: "reuters.com",
+    link: "http://reuters.com",
+    enTagRelated: "TM",
+    enTagcategory: "Business & IndustrialEnergy & Utilities",
+    enTagkeyword: "urges, russia, products",
     enTitle:
       "Ukraine Vice PM urges Apple to cut products, services supply in Russia",
     enPreview:
@@ -29,7 +33,10 @@ const initialRealTimeNewsData = [
     title: "카카오게임즈 '이터널 리턴' 48번째 신규 캐릭터 '띠아' 출시",
     preview:
       "이밖에 '이터널 리턴' 굿즈 상점에서 게임 내 각종 마스코트 캐릭터로 제작된 인형, 머그컵 등을 31일까지 사전 주문할 수 있다. '이터널 리턴'은 최대 18명의 플레이어가 각종 전략 전투를 활용해 최후의 1인 혹은 1팀을 가려내는 게임이다.",
-    link: "reuters.com",
+    link: "http://reuters.com",
+    enTagRelated: "TM",
+    enTagcategory: "Business & IndustrialEnergy & Utilities",
+    enTagkeyword: "urges, russia, products",
     enTitle:
       "Ukraine Vice PM urges Apple to cut products, services supply in Russia",
     enPreview:
@@ -45,7 +52,10 @@ const initialRealTimeNewsData = [
     title: "카카오게임즈 '이터널 리턴' 48번째 신규 캐릭터 '띠아' 출시",
     preview:
       "이밖에 '이터널 리턴' 굿즈 상점에서 게임 내 각종 마스코트 캐릭터로 제작된 인형, 머그컵 등을 31일까지 사전 주문할 수 있다. '이터널 리턴'은 최대 18명의 플레이어가 각종 전략 전투를 활용해 최후의 1인 혹은 1팀을 가려내는 게임이다.",
-    link: "reuters.com",
+    link: "http://reuters.com",
+    enTagRelated: "TM",
+    enTagcategory: "Business & IndustrialEnergy & Utilities",
+    enTagkeyword: "urges, russia, products",
     enTitle:
       "Ukraine Vice PM urges Apple to cut products, services supply in Russia",
     enPreview:
@@ -61,7 +71,10 @@ const initialRealTimeNewsData = [
     title: "카카오게임즈 '이터널 리턴' 48번째 신규 캐릭터 '띠아' 출시",
     preview:
       "이밖에 '이터널 리턴' 굿즈 상점에서 게임 내 각종 마스코트 캐릭터로 제작된 인형, 머그컵 등을 31일까지 사전 주문할 수 있다. '이터널 리턴'은 최대 18명의 플레이어가 각종 전략 전투를 활용해 최후의 1인 혹은 1팀을 가려내는 게임이다.",
-    link: "reuters.com",
+    link: "http://reuters.com",
+    enTagRelated: "TM",
+    enTagcategory: "Business & IndustrialEnergy & Utilities",
+    enTagkeyword: "urges, russia, products",
     enTitle:
       "Ukraine Vice PM urges Apple to cut products, services supply in Russia",
     enPreview:
@@ -77,7 +90,10 @@ const initialRealTimeNewsData = [
     title: "카카오게임즈 '이터널 리턴' 48번째 신규 캐릭터 '띠아' 출시",
     preview:
       "이밖에 '이터널 리턴' 굿즈 상점에서 게임 내 각종 마스코트 캐릭터로 제작된 인형, 머그컵 등을 31일까지 사전 주문할 수 있다. '이터널 리턴'은 최대 18명의 플레이어가 각종 전략 전투를 활용해 최후의 1인 혹은 1팀을 가려내는 게임이다.",
-    link: "reuters.com",
+    link: "http://reuters.com",
+    enTagRelated: "TM",
+    enTagcategory: "Business & IndustrialEnergy & Utilities",
+    enTagkeyword: "urges, russia, products",
     enTitle:
       "Ukraine Vice PM urges Apple to cut products, services supply in Russia",
     enPreview:
@@ -94,7 +110,10 @@ const initialRealTimeNewsData = [
     title: "카카오게임즈 '이터널 리턴' 48번째 신규 캐릭터 '띠아' 출시",
     preview:
       "이밖에 '이터널 리턴' 굿즈 상점에서 게임 내 각종 마스코트 캐릭터로 제작된 인형, 머그컵 등을 31일까지 사전 주문할 수 있다. '이터널 리턴'은 최대 18명의 플레이어가 각종 전략 전투를 활용해 최후의 1인 혹은 1팀을 가려내는 게임이다.",
-    link: "reuters.com",
+    link: "http://reuters.com",
+    enTagRelated: "TM",
+    enTagcategory: "Business & IndustrialEnergy & Utilities",
+    enTagkeyword: "urges, russia, products",
     enTitle:
       "Ukraine Vice PM urges Apple to cut products, services supply in Russia",
     enPreview:
@@ -110,7 +129,10 @@ const initialRealTimeNewsData = [
     title: "카카오게임즈 '이터널 리턴' 48번째 신규 캐릭터 '띠아' 출시",
     preview:
       "이밖에 '이터널 리턴' 굿즈 상점에서 게임 내 각종 마스코트 캐릭터로 제작된 인형, 머그컵 등을 31일까지 사전 주문할 수 있다. '이터널 리턴'은 최대 18명의 플레이어가 각종 전략 전투를 활용해 최후의 1인 혹은 1팀을 가려내는 게임이다.",
-    link: "reuters.com",
+    link: "http://reuters.com",
+    enTagRelated: "TM",
+    enTagcategory: "Business & IndustrialEnergy & Utilities",
+    enTagkeyword: "urges, russia, products",
     enTitle:
       "Ukraine Vice PM urges Apple to cut products, services supply in Russia",
     enPreview:
@@ -126,7 +148,10 @@ const initialRealTimeNewsData = [
     title: "카카오게임즈 '이터널 리턴' 48번째 신규 캐릭터 '띠아' 출시",
     preview:
       "이밖에 '이터널 리턴' 굿즈 상점에서 게임 내 각종 마스코트 캐릭터로 제작된 인형, 머그컵 등을 31일까지 사전 주문할 수 있다. '이터널 리턴'은 최대 18명의 플레이어가 각종 전략 전투를 활용해 최후의 1인 혹은 1팀을 가려내는 게임이다.",
-    link: "reuters.com",
+    link: "http://reuters.com",
+    enTagRelated: "TM",
+    enTagcategory: "Business & IndustrialEnergy & Utilities",
+    enTagkeyword: "urges, russia, products",
     enTitle:
       "Ukraine Vice PM urges Apple to cut products, services supply in Russia",
     enPreview:
@@ -142,7 +167,10 @@ const initialRealTimeNewsData = [
     title: "카카오게임즈 '이터널 리턴' 48번째 신규 캐릭터 '띠아' 출시",
     preview:
       "이밖에 '이터널 리턴' 굿즈 상점에서 게임 내 각종 마스코트 캐릭터로 제작된 인형, 머그컵 등을 31일까지 사전 주문할 수 있다. '이터널 리턴'은 최대 18명의 플레이어가 각종 전략 전투를 활용해 최후의 1인 혹은 1팀을 가려내는 게임이다.",
-    link: "reuters.com",
+    link: "http://reuters.com",
+    enTagRelated: "TM",
+    enTagcategory: "Business & IndustrialEnergy & Utilities",
+    enTagkeyword: "urges, russia, products",
     enTitle:
       "Ukraine Vice PM urges Apple to cut products, services supply in Russia",
     enPreview:
@@ -158,7 +186,10 @@ const initialRealTimeNewsData = [
     title: "카카오게임즈 '이터널 리턴' 48번째 신규 캐릭터 '띠아' 출시",
     preview:
       "이밖에 '이터널 리턴' 굿즈 상점에서 게임 내 각종 마스코트 캐릭터로 제작된 인형, 머그컵 등을 31일까지 사전 주문할 수 있다. '이터널 리턴'은 최대 18명의 플레이어가 각종 전략 전투를 활용해 최후의 1인 혹은 1팀을 가려내는 게임이다.",
-    link: "reuters.com",
+    link: "http://reuters.com",
+    enTagRelated: "TM",
+    enTagcategory: "Business & IndustrialEnergy & Utilities",
+    enTagkeyword: "urges, russia, products",
     enTitle:
       "Ukraine Vice PM urges Apple to cut products, services supply in Russia",
     enPreview:
@@ -174,7 +205,10 @@ const initialRealTimeNewsData = [
     title: "카카오게임즈 '이터널 리턴' 48번째 신규 캐릭터 '띠아' 출시",
     preview:
       "이밖에 '이터널 리턴' 굿즈 상점에서 게임 내 각종 마스코트 캐릭터로 제작된 인형, 머그컵 등을 31일까지 사전 주문할 수 있다. '이터널 리턴'은 최대 18명의 플레이어가 각종 전략 전투를 활용해 최후의 1인 혹은 1팀을 가려내는 게임이다.",
-    link: "reuters.com",
+    link: "http://reuters.com",
+    enTagRelated: "TM",
+    enTagcategory: "Business & IndustrialEnergy & Utilities",
+    enTagkeyword: "urges, russia, products",
     enTitle:
       "Ukraine Vice PM urges Apple to cut products, services supply in Russia",
     enPreview:
@@ -193,7 +227,10 @@ const initialNewsListData = [
     title: "카카오게임즈 '이터널 리턴' 48번째 신규 캐릭터 '띠아' 출시",
     preview:
       "이밖에 '이터널 리턴' 굿즈 상점에서 게임 내 각종 마스코트 캐릭터로 제작된 인형, 머그컵 등을 31일까지 사전 주문할 수 있다. '이터널 리턴'은 최대 18명의 플레이어가 각종 전략 전투를 활용해 최후의 1인 혹은 1팀을 가려내는 게임이다.",
-    link: "reuters.com",
+    link: "http://reuters.com",
+    enTagRelated: "TM",
+    enTagcategory: "Business & IndustrialEnergy & Utilities",
+    enTagkeyword: "urges, russia, products",
     enTitle:
       "Ukraine Vice PM urges Apple to cut products, services supply in Russia",
     enPreview:
@@ -209,7 +246,10 @@ const initialNewsListData = [
     title: "카카오게임즈 '이터널 리턴' 48번째 신규 캐릭터 '띠아' 출시",
     preview:
       "이밖에 '이터널 리턴' 굿즈 상점에서 게임 내 각종 마스코트 캐릭터로 제작된 인형, 머그컵 등을 31일까지 사전 주문할 수 있다. '이터널 리턴'은 최대 18명의 플레이어가 각종 전략 전투를 활용해 최후의 1인 혹은 1팀을 가려내는 게임이다.",
-    link: "reuters.com",
+    link: "http://reuters.com",
+    enTagRelated: "TM",
+    enTagcategory: "Business & IndustrialEnergy & Utilities",
+    enTagkeyword: "urges, russia, products",
     enTitle:
       "Ukraine Vice PM urges Apple to cut products, services supply in Russia",
     enPreview:
@@ -226,7 +266,10 @@ const initialNewsListData = [
     title: "카카오게임즈 '이터널 리턴' 48번째 신규 캐릭터 '띠아' 출시",
     preview:
       "이밖에 '이터널 리턴' 굿즈 상점에서 게임 내 각종 마스코트 캐릭터로 제작된 인형, 머그컵 등을 31일까지 사전 주문할 수 있다. '이터널 리턴'은 최대 18명의 플레이어가 각종 전략 전투를 활용해 최후의 1인 혹은 1팀을 가려내는 게임이다.",
-    link: "reuters.com",
+    link: "http://reuters.com",
+    enTagRelated: "TM",
+    enTagcategory: "Business & IndustrialEnergy & Utilities",
+    enTagkeyword: "urges, russia, products",
     enTitle:
       "Ukraine Vice PM urges Apple to cut products, services supply in Russia",
     enPreview:
@@ -246,10 +289,16 @@ const initialListData = {
   sliceList: [],
 };
 
-const FinanceNews = () => {
+const initialIsActiveExpert = {
+  index: null,
+  active: false,
+};
+
+const FinanceNews = ({ type }) => {
   const [isActiveTab, setIsActiveTab] = useState("realTime");
   const [isActiveFilter, setIsActiveFilter] = useState(initialIsActiveFilter);
   const [isActiveList, setIsActiveList] = useState(null);
+  const [isActiveExpert, setIsActiveExpert] = useState(null);
   const [listData, setListData] = useState(initialListData);
 
   //pagination set
@@ -313,6 +362,17 @@ const FinanceNews = () => {
       }
     },
     [isActiveList],
+  );
+
+  const isActiveExpertHandler = useCallback(
+    (index) => {
+      if (isActiveExpert === index) {
+        setIsActiveExpert(null);
+      } else {
+        setIsActiveExpert(index);
+      }
+    },
+    [isActiveExpert],
   );
 
   useEffect(() => {
@@ -379,13 +439,47 @@ const FinanceNews = () => {
                 <span className="date">{data.date}</span>
               </div>
               <div className="title" onClick={() => isActiveListHandler(index)}>
-                {data.title}
+                {type === "kr"
+                  ? data.title
+                  : isActiveExpert !== index
+                  ? data.enTitle
+                  : data.title}
               </div>
-              <div className="preview">{data.preview}</div>
+              <div className="preview">
+                {type === "kr"
+                  ? data.preview
+                  : isActiveExpert !== index
+                  ? data.enPreview
+                  : data.preview}
+              </div>
               <div className="tagWrapper">
-                <span className="tag related">{data.tagRelated}</span>
-                <span className="tag category">{data.tagcategory}</span>
-                <span className="tag keyword">{data.tagkeyword}</span>
+                <span className="tag related">
+                  {type === "kr" ? data.tagRelated : data.enTagRelated}
+                </span>
+                <span className="tag category">
+                  {type === "kr" ? data.tagcategory : data.enTagcategory}
+                </span>
+                <span className="tag keyword">
+                  {type === "kr" ? data.tagkeyword : data.enTagkeyword}
+                </span>
+
+                <div className="buttonWrapper">
+                  <div
+                    className="button origin"
+                    onClick={() => window.open(data.link)}>
+                    원문보기
+                  </div>
+                  {type === "en" && (
+                    <>
+                      <div
+                        className="button auto"
+                        onClick={() => isActiveExpertHandler(index)}>
+                        자동번역
+                      </div>
+                      <div className="button expert">전문가번역</div>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
             <div
