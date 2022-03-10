@@ -7,14 +7,23 @@ const useLocalStorage = (key) => {
       return value;
     }
   });
+  const maxStorageCount = 8;
 
   const setStorage = (value) => {
     if (storageValue) {
       const overlap = storageValue.filter((item) => item.name === value.name);
-      console.log(overlap);
+
       if (overlap.length === 0) {
-        localStorage.setItem(key, JSON.stringify([...storageValue, value]));
-        setStorageValue([...storageValue, value]);
+        if (storageValue.length === maxStorageCount) {
+          localStorage.setItem(
+            key,
+            JSON.stringify([...storageValue.slice(1), value]),
+          );
+          setStorageValue([...storageValue.slice(1), value]);
+        } else {
+          localStorage.setItem(key, JSON.stringify([...storageValue, value]));
+          setStorageValue([...storageValue, value]);
+        }
       }
     } else {
       localStorage.setItem(key, JSON.stringify([value]));

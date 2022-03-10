@@ -6,6 +6,7 @@ import TopStock from "@components/Main/TopStock/index";
 import ExchangeRate from "@components/Main/ExchangeRate";
 import MarketIndi from "@components/Main/MarketIndi";
 import StorageInput from "@components/Main/StorageInput";
+import FinanceNews from "@components/Main/FinanceNews";
 
 const Domestic = () => {
   return (
@@ -36,6 +37,8 @@ const Domestic = () => {
         </div>
       </div>
       <StorageInput type="recent" />
+
+      <FinanceNews />
     </DomesticWrapper>
   );
 };

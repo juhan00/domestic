@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { MarketIndiWrapper } from "./style";
 import market_interest_rate from "@images/market_interest_rate.svg";
 import market_oil_price from "@images/market_oil_price.svg";
@@ -7,15 +7,51 @@ import stock_up from "@images/stock_up.svg";
 import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
 
+const initialMarketIndi = {
+  indiData: [
+    { type: "금리", descript: "CD(91일)", index: 1.5, vs: 0 },
+    { type: "유가", descript: "WTI", index: 91.59, vs: 8.76 },
+    { type: "금", descript: "국제금", index: 91.59, vs: 8.76 },
+    { type: "금", descript: "국내금", index: 91.59, vs: 8.76 },
+  ],
+  date: "2022.02.28",
+};
+
 const MarketIndi = () => {
+  const [marketIndi, setMarketIndi] = useState(initialMarketIndi);
+
   return (
     <MarketIndiWrapper>
       <div className="top">
         <h2>시장지표</h2>
-        <span>2022.02.28 기준</span>
+        <span>{marketIndi.date} 기준</span>
       </div>
       <ul>
-        <li>
+        {marketIndi.indiData.map((data, index) => (
+          <li key={index}>
+            <img
+              src={
+                data.type === "금리"
+                  ? market_interest_rate
+                  : data.type === "유가"
+                  ? market_oil_price
+                  : market_gold
+              }
+              alt="interest rate"
+            />
+            <div className="title">
+              <h3>{data.type}</h3>
+              <p>{data.descript}</p>
+            </div>
+            <div className="index">
+              <div className="point">{data.index}</div>
+              <div className="vs">
+                <img src={stock_none} alt="stock none" /> {data.vs}
+              </div>
+            </div>
+          </li>
+        ))}
+        {/* <li>
           <img src={market_interest_rate} alt="interest rate" />
           <div className="title">
             <h3>금리</h3>
@@ -27,8 +63,8 @@ const MarketIndi = () => {
               <img src={stock_none} alt="stock none" /> 0.00
             </div>
           </div>
-        </li>
-        <li>
+        </li> */}
+        {/* <li>
           <img src={market_oil_price} alt="interest rate" />
           <div className="title">
             <h3>유가</h3>
@@ -66,7 +102,7 @@ const MarketIndi = () => {
               <img src={stock_down} alt="stock down" /> 8.76
             </div>
           </div>
-        </li>
+        </li> */}
       </ul>
     </MarketIndiWrapper>
   );

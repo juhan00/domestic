@@ -58,7 +58,7 @@ const MajorStock = () => {
 
   return (
     <MajorStockWrapper>
-      <div className="top" style={{ display: "flex" }}>
+      <div className="top">
         <h2>해외주요지수</h2>
         <span>현지시간 기준</span>
       </div>
