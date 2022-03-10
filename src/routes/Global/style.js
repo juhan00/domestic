@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-export const DomesticWrapper = styled.div`
+export const GlobalWrapper = styled.div`
   /* min-width: 1280px; */
   .row {
     width: 100%;

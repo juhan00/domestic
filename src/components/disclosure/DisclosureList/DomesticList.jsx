@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { DisclosureListWrapper } from "./style";
-import domesticSample from "@utils/doDisclosureData"
+import domesticSample from "@utils/doDisclosureData";
 import Pagination from "../Pagination/Pagination";
 
 const DomesticList = () => {
@@ -9,11 +9,9 @@ const DomesticList = () => {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
 
-  useEffect(() => {
+  useEffect(() => {}, []);
 
-  }, []);
-
-  const disclosureList = domesticSample.list
+  const disclosureList = domesticSample.list;
 
   return (
     <DisclosureListWrapper>
@@ -32,14 +30,16 @@ const DomesticList = () => {
           </thead>
           <tbody className="disclosure__list__body">
             {disclosureList.slice(offset, offset + limit).map((li, index) => {
-              return <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{li.corp_name}</td>
-                <td>{li.report_nm}</td>
-                <td>{li.flr_nm}</td>
-                <td>{li.rcept_dt}</td>
-                <td>{li.rm}</td>
-              </tr>
+              return (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{li.corp_name}</td>
+                  <td>{li.report_nm}</td>
+                  <td>{li.flr_nm}</td>
+                  <td>{li.rcept_dt}</td>
+                  <td>{li.rm}</td>
+                </tr>
+              );
             })}
           </tbody>
         </table>
@@ -62,7 +62,7 @@ const DomesticList = () => {
         />
       </div>
     </DisclosureListWrapper>
-  )
-}
+  );
+};
 
 export default DomesticList;
