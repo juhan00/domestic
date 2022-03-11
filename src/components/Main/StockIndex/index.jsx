@@ -7,46 +7,47 @@ import stock_up from "@images/stock_up.svg";
 import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
 
-const data = [
-  { stock: 2900, date: "10:00" },
-  { stock: 2520, date: "10:10" },
-  { stock: 2530, date: "10:20" },
-  { stock: 2400, date: "10:30" },
-  { stock: 2500, date: "10:40" },
-  { stock: 2650, date: "10:50" },
-  { stock: 2700, date: "11:00" },
-  { stock: 2500, date: "11:10" },
-  { stock: 2403, date: "11:20" },
-  { stock: 2300, date: "11:30" },
-  { stock: 2230, date: "11:40" },
-  { stock: 2330, date: "11:50" },
-  { stock: 2400, date: "12:00" },
-  { stock: 2100, date: "12:10" },
-  { stock: 2540, date: "12:20" },
-  { stock: 2400, date: "12:30" },
-  { stock: 2600, date: "12:40" },
-  { stock: 2400, date: "12:50" },
-  { stock: 2300, date: "10:00" },
-  { stock: 2405, date: "10:10" },
-  { stock: 2500, date: "10:20" },
-  { stock: 2400, date: "10:30" },
-  { stock: 2500, date: "10:40" },
-  { stock: 2650, date: "10:50" },
-  { stock: 2700, date: "11:00" },
-  { stock: 2500, date: "11:10" },
-  { stock: 2400, date: "11:20" },
-  { stock: 2300, date: "11:30" },
-  { stock: 2200, date: "11:40" },
-  { stock: 2340, date: "11:50" },
-  { stock: 2400, date: "12:00" },
-  { stock: 2340, date: "12:10" },
-  { stock: 2500, date: "12:20" },
-  { stock: 2480, date: "12:30" },
-  { stock: 2600, date: "12:40" },
-  { stock: 2900, date: "12:50" },
-];
+// const data = [
+//   { stock: 2900, date: "10:00" },
+//   { stock: 2520, date: "10:10" },
+//   { stock: 2530, date: "10:20" },
+//   { stock: 2400, date: "10:30" },
+//   { stock: 2500, date: "10:40" },
+//   { stock: 2650, date: "10:50" },
+//   { stock: 2700, date: "11:00" },
+//   { stock: 2500, date: "11:10" },
+//   { stock: 2403, date: "11:20" },
+//   { stock: 2300, date: "11:30" },
+//   { stock: 2230, date: "11:40" },
+//   { stock: 2330, date: "11:50" },
+//   { stock: 2400, date: "12:00" },
+//   { stock: 2100, date: "12:10" },
+//   { stock: 2540, date: "12:20" },
+//   { stock: 2400, date: "12:30" },
+//   { stock: 2600, date: "12:40" },
+//   { stock: 2400, date: "12:50" },
+//   { stock: 2300, date: "10:00" },
+//   { stock: 2405, date: "10:10" },
+//   { stock: 2500, date: "10:20" },
+//   { stock: 2400, date: "10:30" },
+//   { stock: 2500, date: "10:40" },
+//   { stock: 2650, date: "10:50" },
+//   { stock: 2700, date: "11:00" },
+//   { stock: 2500, date: "11:10" },
+//   { stock: 2400, date: "11:20" },
+//   { stock: 2300, date: "11:30" },
+//   { stock: 2200, date: "11:40" },
+//   { stock: 2340, date: "11:50" },
+//   { stock: 2400, date: "12:00" },
+//   { stock: 2340, date: "12:10" },
+//   { stock: 2500, date: "12:20" },
+//   { stock: 2480, date: "12:30" },
+//   { stock: 2600, date: "12:40" },
+//   { stock: 2900, date: "12:50" },
+// ];
 
-const StockIndex = ({ name }) => {
+const StockIndex = ({ type, data }) => {
+  const chartData = data.chart;
   const svgRef = useRef(null);
   const stockIndexRef = useRef(null);
   const size = useResizeObserver(stockIndexRef);
@@ -78,7 +79,7 @@ const StockIndex = ({ name }) => {
   }, []);
 
   useEffect(() => {
-    if (!resize || !data) {
+    if (!resize || !chartData) {
       return;
     }
 
@@ -90,8 +91,8 @@ const StockIndex = ({ name }) => {
     const yTickCount = 4;
     const xTickBlankCount = 2;
     const eveStock = 2700;
-    const minStock = d3.min(data.map((d) => d.stock)) - 300;
-    const maxStock = d3.max(data.map((d) => d.stock)) + 300;
+    const minStock = d3.min(chartData.map((d) => d.stock)) - 300;
+    const maxStock = d3.max(chartData.map((d) => d.stock)) + 300;
 
     //svg 셋팅
     const svg = d3.select(svgRef.current);
@@ -103,12 +104,12 @@ const StockIndex = ({ name }) => {
     //x축
     const xScale = d3
       .scaleLinear()
-      .domain([0, data.length + xTickBlankCount])
+      .domain([0, chartData.length + xTickBlankCount])
       .range([0, width]);
     const xAxis = d3
       .axisBottom(xScale)
-      .tickValues(setTickCount(0, data.length, xTickCount, "center"))
-      .tickFormat((index) => data[index]["date"]);
+      .tickValues(setTickCount(0, chartData.length, xTickCount, "center"))
+      .tickFormat((index) => chartData[index]["date"]);
     svg
       .selectAll(".x-axis")
       .style(
@@ -121,11 +122,11 @@ const StockIndex = ({ name }) => {
     //x축 line
     const xScaleLine = d3
       .scaleLinear()
-      .domain([0, data.length + xTickBlankCount])
+      .domain([0, chartData.length + xTickBlankCount])
       .range([0, width]);
     const xAxisLine = d3
       .axisBottom(xScaleLine)
-      .tickValues(setTickCount(0, data.length, xTickCount * 2, "center"))
+      .tickValues(setTickCount(0, chartData.length, xTickCount * 2, "center"))
       .tickFormat("");
     svg
       .selectAll(".x-axis-line")
@@ -180,7 +181,7 @@ const StockIndex = ({ name }) => {
     //x축 today line
     const xScaleToday = d3
       .scaleLinear()
-      .domain([0, data.length - 1])
+      .domain([0, chartData.length - 1])
       .range([0, width]);
     const todayLine = d3
       .line()
@@ -188,7 +189,7 @@ const StockIndex = ({ name }) => {
       .y((value) => yScale(value));
     svg
       .selectAll(".todayLine")
-      .data([data.map((data) => eveStock)])
+      .data([chartData.map((value) => eveStock)])
       .join("path")
       .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
       .attr("class", "todayLine")
@@ -203,7 +204,7 @@ const StockIndex = ({ name }) => {
       .curve(d3.curveCardinal);
     svg
       .selectAll(".dataLine")
-      .data([data.map((data) => data["stock"])])
+      .data([chartData.map((value) => value["stock"])])
       .join("path")
       .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
       .attr("class", "dataLine")
@@ -211,18 +212,30 @@ const StockIndex = ({ name }) => {
       .attr("fill", "none");
     svg
       .selectAll(".dataLineBlur")
-      .data([data.map((data) => data["stock"])])
+      .data([chartData.map((vlaue) => vlaue["stock"])])
       .join("path")
       .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
       .attr("class", "dataLineBlur")
       .attr("d", dataLine)
       .attr("fill", "none");
-  }, [data, resize]);
+  }, [chartData, resize]);
 
   return (
     <StockIndexWrapper>
       <div className="topInfo">
-        <h2>{name}</h2>
+        <h2>
+          {type === "domestic"
+            ? data.id === "kospi"
+              ? "코스피 지수"
+              : data.id === "kosdaq"
+              ? "코스닥 지수"
+              : data.id === "kospi200" && "코스피200"
+            : type === "global" && data.id === "dow"
+            ? "다우산업 지수"
+            : data.id === "nasdaq"
+            ? "나스닥 지수"
+            : data.id === "s&p500" && "S&P500"}
+        </h2>
         <div className="info">
           <div className="index">
             2,718.74
