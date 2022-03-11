@@ -128,9 +128,7 @@ const FinanceChart = ({
           .attr("y", (value, index, nodes) => {
             const length = nodes.length - 1;
             return yScale(length - index) + yScale.bandwidth() / 2;
-          })
-          .attr("dominant-baseline", "middle")
-          .attr("text-anchor", "middle");
+          });
       });
   }, [data, dimensions]);
 

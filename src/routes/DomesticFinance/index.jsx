@@ -89,6 +89,33 @@ const DomesticStock = () => {
     },
   ]);
 
+  const finance1 = useRef({
+    date: "2021-12",
+    values: [
+      { type: "take", value: -42500 },
+      { type: "profit", value: 91200 },
+      { type: "netprofit", value: 31200 },
+    ],
+  });
+
+  const finance2 = useRef({
+    date: "2021-12",
+    values: [
+      { type: "assets", value: -42500 },
+      { type: "dept", value: 91200 },
+      { type: "capital", value: 31200 },
+    ],
+  });
+
+  const finance3 = useRef({
+    date: "2021-12",
+    values: [
+      { type: "sales", value: -42500 },
+      { type: "investment", value: 91200 },
+      { type: "finance", value: 31200 },
+    ],
+  });
+
   return (
     <main>
       <HeaderWrapper>
@@ -232,8 +259,40 @@ const DomesticStock = () => {
             <CategoryChart data={categoryData.current} />
           </div>
         </div>
-        <div className="chart-wrapper">
-          <FinanceChart />
+        <div className="finances-wrapper">
+          <div className="finances-ele">
+            <div className="chart-wrapper">
+              <FinanceChart data={finance1.current} />
+            </div>
+            <div className="chart-wrapper">
+              <FinanceChart data={finance2.current} />
+            </div>
+            <div className="chart-wrapper">
+              <FinanceChart data={finance3.current} />
+            </div>
+          </div>
+          <div className="finances-ele">
+            <div className="chart-wrapper">
+              <FinanceChart data={finance1.current} />
+            </div>
+            <div className="chart-wrapper">
+              <FinanceChart data={finance2.current} />
+            </div>
+            <div className="chart-wrapper">
+              <FinanceChart data={finance3.current} />
+            </div>
+          </div>
+          <div className="finances-ele">
+            <div className="chart-wrapper">
+              <FinanceChart data={finance1.current} />
+            </div>
+            <div className="chart-wrapper">
+              <FinanceChart data={finance2.current} />
+            </div>
+            <div className="chart-wrapper">
+              <FinanceChart data={finance3.current} />
+            </div>
+          </div>
         </div>
       </ContentsWrapper>
       <FooterWrapper>

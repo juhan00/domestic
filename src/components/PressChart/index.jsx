@@ -5,7 +5,7 @@ import { PressChartWrapper } from "./style";
 
 const PressChart = ({
   data,
-  barColor = "#5FB6AD",
+  barColor = "#CBEBDB",
   barWidth = 20,
   width = 500,
   height = 300,

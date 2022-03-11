@@ -3,6 +3,7 @@ import { select } from "d3";
 import cloud from "d3-cloud";
 import randomColor from "randomcolor";
 import { KeywordChartWrapper } from "./style";
+import { useResizeObserver } from "@utils/useResizeObserver";
 
 let words;
 const KeywordChart = ({
@@ -20,11 +21,14 @@ const KeywordChart = ({
 }) => {
   const keywordChartRef = useRef();
   const svgRef = useRef(null);
+  const dimensions = useResizeObserver(keywordChartRef);
 
   useEffect(() => {
     const svg = select(svgRef.current);
 
-    const { width, height } = keywordChartRef.current.getBoundingClientRect();
+    if (!dimensions) return;
+
+    const { width, height } = dimensions;
     svg.attr("width", width).attr("height", height);
 
     if (!data[0].color) {
@@ -40,17 +44,15 @@ const KeywordChart = ({
       test: ele.title,
     }));
 
-    if (!words) {
-      words = cloud()
-        .size([width, height])
-        .words(wordData)
-        .padding(keyWordPadding)
-        .font(font)
-        .fontSize((d) => d.size)
-        .rotate((_, i) => i * rotate)
-        .start()
-        .words();
-    }
+    words = cloud()
+      .size([width, height])
+      .words(wordData)
+      .padding(keyWordPadding)
+      .font(font)
+      .fontSize((d) => d.size)
+      .rotate((_, i) => i * rotate)
+      .start()
+      .words();
 
     const cloudWrapper = svg
       .select(".cloudWrapper")
@@ -71,7 +73,7 @@ const KeywordChart = ({
       .text(function (d) {
         return d.text;
       });
-  }, [data]);
+  }, [data, dimensions]);
   return (
     <KeywordChartWrapper ref={keywordChartRef}>
       <svg ref={svgRef}>

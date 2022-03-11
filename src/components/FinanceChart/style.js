@@ -2,12 +2,17 @@ import styled from "@emotion/styled";
 
 export const FinanceChartWrapper = styled.div`
   width: 100%;
+  min-height: 101.33px;
   & > svg {
     display: block;
     margin: auto;
     width: 100%;
   }
   & > svg {
+    & text {
+      dominant-baseline: middle;
+      text-anchor: middle;
+    }
     & .take,
     .profit,
     .netprofit {

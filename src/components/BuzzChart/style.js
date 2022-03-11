@@ -2,6 +2,9 @@ import styled from "@emotion/styled";
 
 export const BuzzWrapper = styled.div`
   width: 100%;
+  min-height: 166.33px;
+  padding: 20px 32px;
+  box-sizing: border-box;
   & > svg {
     display: block;
     margin: auto;

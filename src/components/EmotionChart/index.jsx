@@ -84,8 +84,7 @@ const EmotionChart = ({
         g
           .selectAll("line")
           .attr("x1", 0)
-          .attr("x2", width - marginRight - marginLeft)
-          .style("stroke", "#ddd"),
+          .attr("x2", width - marginRight - marginLeft),
       )
       .call((g) => {
         g.selectAll(".tick text").style(
@@ -111,25 +110,18 @@ const EmotionChart = ({
         const emotiong = enter
           .append("g")
           .classed("emotiong", true)
-          .attr("fill", "url(#chartGradient)")
           .attr("d", (data) => chartLine(data))
           .attr("d", (data) => chartArea(data));
 
         emotiong
           .append("path")
           .classed("emotionarea", true)
-          .attr("fill", "url(#chartGradient)")
           .attr("d", (data) => chartLine(data))
           .attr("d", (data) => chartArea(data));
 
         emotiong
           .append("path")
           .classed("emotionpath", true)
-          .attr("fill", "none")
-          .attr("stroke", "#5fb6ad")
-          .attr("stroke-width", 3)
-          .attr("stroke-linejoin", "round")
-          .attr("stroke-linecap", "round")
           .attr("d", (data) => chartLine(data));
       });
   }, [data, dimensions]);
@@ -138,12 +130,7 @@ const EmotionChart = ({
     <EmotionWrapper ref={emotionChartRef}>
       <svg ref={svgRef}>
         <defs>
-          <linearGradient
-            id="chartGradient"
-            x1="100%"
-            x2="100%"
-            y1="100%"
-            y2="0%">
+          <linearGradient id="chartGradient">
             <stop
               id="stop1"
               offset="0%"

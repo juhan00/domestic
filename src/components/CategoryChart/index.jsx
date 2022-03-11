@@ -3,6 +3,7 @@ import { select, sum, treemap, hierarchy } from "d3";
 import randomColor from "randomcolor";
 import isBright from "@utils/isBright";
 import { ChartWrapper } from "./style";
+import getTextWidth from "@utils/getTextWidth";
 import useResizeObserver from "@utils/useResizeObserver";
 
 const CategoryChart = ({
@@ -21,7 +22,6 @@ const CategoryChart = ({
   const svgRef = useRef(null);
   const categoryChartRef = useRef();
   const dimensions = useResizeObserver(categoryChartRef);
-
   useEffect(() => {
     const svg = select(svgRef.current);
 
@@ -34,9 +34,16 @@ const CategoryChart = ({
 
     const entireValue = sum(data, (data) => data.value);
     if (!data[0].color) {
-      data.map((ele) => {
+      const colorArray = randomColor({
+        hue: "green",
+        luminosity: "light",
+        alpha: 0.1,
+        count: data.length,
+      });
+
+      data.map((ele, idx) => {
         ele.percentage = ((ele.value * 100) / entireValue).toFixed(2);
-        ele.color = randomColor();
+        ele.color = colorArray[idx];
       });
     }
 
@@ -60,6 +67,7 @@ const CategoryChart = ({
 
         block
           .append("rect")
+          .classed("blockrect", true)
           .attr("width", (node) => {
             return node["x1"] - node["x0"];
           })
@@ -80,7 +88,7 @@ const CategoryChart = ({
           })
           .attr("y", function () {
             const parentData = select(this.parentNode).datum();
-            return (parentData.y1 - parentData.y0) / 2;
+            return (parentData.y1 - parentData.y0) / 2 + 7;
           });
 
         block
@@ -90,14 +98,23 @@ const CategoryChart = ({
               ? darkTextColor
               : brightTextColor;
           })
-          .text((node) => node["data"]["title"])
+          .text(function (node) {
+            const parentData = select(this.parentNode).datum();
+            const parentWidth = parentData.x1 - parentData.x0;
+            const textWidth = getTextWidth(node["data"]["title"]);
+            const textLength = node["data"]["title"].length;
+            console.log(parentWidth, textWidth);
+            if (parentWidth < textWidth) {
+            }
+            return node["data"]["title"];
+          })
           .attr("x", function () {
             const parentData = select(this.parentNode).datum();
             return (parentData.x1 - parentData.x0) / 2;
           })
           .attr("y", function () {
             const parentData = select(this.parentNode).datum();
-            return (parentData.y1 - parentData.y0) / 2 - 20;
+            return (parentData.y1 - parentData.y0) / 2 - 7;
           });
       });
   }, [data, dimensions]);
