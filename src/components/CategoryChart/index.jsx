@@ -105,12 +105,18 @@ const CategoryChart = ({
               : brightTextColor;
           })
           .text(function (node) {
-            const parentData = select(this.parentNode).datum();
-            const parentWidth = parentData.x1 - parentData.x0;
             const textWidth = getTextWidth(node["data"]["title"]);
             const textLength = node["data"]["title"].length;
-            console.log(parentWidth, textWidth);
-            if (parentWidth < textWidth) {
+            const rectWidth = (node["x1"] - node["x0"]) / 2;
+
+            console.log(rectWidth, textWidth);
+            if (rectWidth < textWidth) {
+              for (let i = textLength - 1; i > 0; i--) {
+                const target = node["data"]["title"].substring(0, i) + "...";
+                if (getTextWidth(target) < rectWidth) {
+                  return target;
+                }
+              }
             }
             return node["data"]["title"];
           })
