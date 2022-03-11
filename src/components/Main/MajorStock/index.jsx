@@ -2,59 +2,59 @@ import React, { useCallback, useState } from "react";
 import { MajorStockWrapper } from "./style";
 import question_mark_icon from "@images/question_mark_icon.svg";
 
-const initialData = () => [
-  {
-    nation: "미국",
-    indexName: "다우산업",
-    currentPrice: "34,058.75",
-    vs: "57.63",
-    rate: "+25.31%",
-    time: "02.25 13:33",
-  },
-  {
-    nation: "미국",
-    indexName: "다우산업",
-    currentPrice: "34,058.75",
-    vs: "57.63",
-    rate: "+25.31%",
-    time: "02.25 13:33",
-  },
-  {
-    nation: "미국",
-    indexName: "다우산업",
-    currentPrice: "34,058.75",
-    vs: "57.63",
-    rate: "+25.31%",
-    time: "02.25 13:33",
-  },
-  {
-    nation: "미국",
-    indexName: "다우산업",
-    currentPrice: "34,058.75",
-    vs: "57.63",
-    rate: "+25.31%",
-    time: "02.25 13:33",
-  },
-  {
-    nation: "미국",
-    indexName: "다우산업",
-    currentPrice: "34,058.75",
-    vs: "57.63",
-    rate: "+25.31%",
-    time: "02.25 13:33",
-  },
-  {
-    nation: "미국",
-    indexName: "다우산업",
-    currentPrice: "34,058.75",
-    vs: "57.63",
-    rate: "+25.31%",
-    time: "02.25 13:33",
-  },
-];
+// const initialData = () => [
+//   {
+//     nation: "미국",
+//     indexName: "다우산업",
+//     currentPrice: "34,058.75",
+//     vs: "57.63",
+//     rate: "+25.31%",
+//     time: "02.25 13:33",
+//   },
+//   {
+//     nation: "미국",
+//     indexName: "다우산업",
+//     currentPrice: "34,058.75",
+//     vs: "57.63",
+//     rate: "+25.31%",
+//     time: "02.25 13:33",
+//   },
+//   {
+//     nation: "미국",
+//     indexName: "다우산업",
+//     currentPrice: "34,058.75",
+//     vs: "57.63",
+//     rate: "+25.31%",
+//     time: "02.25 13:33",
+//   },
+//   {
+//     nation: "미국",
+//     indexName: "다우산업",
+//     currentPrice: "34,058.75",
+//     vs: "57.63",
+//     rate: "+25.31%",
+//     time: "02.25 13:33",
+//   },
+//   {
+//     nation: "미국",
+//     indexName: "다우산업",
+//     currentPrice: "34,058.75",
+//     vs: "57.63",
+//     rate: "+25.31%",
+//     time: "02.25 13:33",
+//   },
+//   {
+//     nation: "미국",
+//     indexName: "다우산업",
+//     currentPrice: "34,058.75",
+//     vs: "57.63",
+//     rate: "+25.31%",
+//     time: "02.25 13:33",
+//   },
+// ];
 
-const MajorStock = () => {
-  const [majorData, setMajorData] = useState(initialData);
+const MajorStock = ({ data }) => {
+  const [majorData, setMajorData] = useState(data.items);
 
   return (
     <MajorStockWrapper>
