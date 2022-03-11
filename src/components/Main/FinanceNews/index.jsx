@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { FinanceNewsWrapper } from "./style";
 import Pagination from "@components/Disclosure/Pagination/Pagination";
+import ExpertModal from "./ExpertModal";
 
 // const initialRealTimeNewsData = [
 //   {
@@ -299,6 +300,7 @@ const FinanceNews = ({ type, data }) => {
   const [isActiveList, setIsActiveList] = useState(null);
   const [isActiveExpert, setIsActiveExpert] = useState(null);
   const [listData, setListData] = useState(initialListData);
+  const [isActiveModal, setIsActiveModal] = useState(false);
 
   //pagination set
   const [limit, setLimit] = useState(5);
@@ -386,6 +388,10 @@ const FinanceNews = ({ type, data }) => {
 
   return (
     <FinanceNewsWrapper>
+      <ExpertModal
+        isActiveModal={isActiveModal}
+        setIsActiveModal={setIsActiveModal}
+      />
       <div className="tabWraper">
         <div className="tab">
           <ul>
@@ -477,7 +483,11 @@ const FinanceNews = ({ type, data }) => {
                         onClick={() => isActiveExpertHandler(index)}>
                         자동번역
                       </div>
-                      <div className="button expert">전문가번역</div>
+                      <div
+                        className="button expert"
+                        onClick={() => setIsActiveModal(true)}>
+                        전문가번역
+                      </div>
                     </>
                   )}
                 </div>
