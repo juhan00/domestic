@@ -1,19 +1,21 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Header from "./Header";
-import Nav from "./Nav";
-import InfoTable from "./StockInfo";
-import { BaseStyle, MainSection } from "./style";
+import Header from "@components/Layout/Header";
+import StockInfo from "@components/Layout/StockInfo";
+import Nav from "@components/Layout/Nav";
+import { Base, MainSection } from "@components/Layout/style";
 
-export const Layout = () => {
+const Layout = () => {
   return (
-    <BaseStyle>
+    <Base>
       <Header />
+      <StockInfo />
       <Nav />
       <MainSection>
-        <InfoTable />
         <Outlet />
       </MainSection>
-    </BaseStyle>
+    </Base>
   );
 };
+
+export default Layout;

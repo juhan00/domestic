@@ -1,25 +1,23 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { Logo } from "../style";
-import Search from "../Search";
+import Search from "@components/Layout/Search";
+import MoyaLogo from "@images/moyaLogo.png";
 import {
-  HeaderStyle,
-  HaederMenuWrapper,
-  SearchMenuStyleOnHeader,
-} from "./style";
+  HeaderContainer,
+  HaederWrapper,
+  SearchOnHeader,
+} from "@components/Layout/Header/style";
 
 export const Header = () => {
   return (
-    <HeaderStyle>
-      <HaederMenuWrapper>
-        <NavLink to="/">
-          <Logo />
-        </NavLink>
-        <SearchMenuStyleOnHeader>
+    <HeaderContainer>
+      <HaederWrapper>
+        <img className="logo" src={MoyaLogo} alt="MoYa" />
+        <SearchOnHeader>
           <Search />
-        </SearchMenuStyleOnHeader>
-      </HaederMenuWrapper>
-    </HeaderStyle>
+        </SearchOnHeader>
+        <button className="login">로그인</button>
+      </HaederWrapper>
+    </HeaderContainer>
   );
 };
 
