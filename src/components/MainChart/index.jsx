@@ -78,7 +78,7 @@ const MainChart = ({
     svg.attr("width", width).attr("height", height);
 
     movingAverageLines.forEach((ele) => {
-      svg.selectAll(`.moving-average ${ele.value}`).remove();
+      svg.selectAll(`.moving-average-${ele.value}`).remove();
     });
 
     const xMin = min(data, (data) => data.date);
@@ -121,7 +121,7 @@ const MainChart = ({
         .curve(curveBasis);
 
       const movingAverageLine = svg
-        .selectAll(`.moving-average ${ele.value}`)
+        .selectAll(`.moving-average-${ele.value}`)
         .data([data]);
 
       movingAverageLine.join((enter) =>
@@ -129,7 +129,7 @@ const MainChart = ({
           .append("path")
           .attr("clip-path", "url(#clip)")
           .style("fill", "none")
-          .classed(`moving-average ${ele.value}`, true)
+          .classed(`moving-average-${ele.value}`, true)
           .attr("stroke", ele.color)
           .attr("stroke-width", 1.5)
           .attr("d", movingAverageLineGenerator),
