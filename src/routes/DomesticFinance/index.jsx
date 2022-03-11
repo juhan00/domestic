@@ -10,7 +10,6 @@ import {
   initialState,
   setPeriod,
 } from "@reducers/domesticfinance/domesticfinance";
-
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {
@@ -19,8 +18,10 @@ import {
   ContentsWrapper,
   DatePickerWrapper,
   HeaderWrapper,
+  FooterWrapper,
 } from "./style";
 import { getPreviousDate } from "@utils/getPreviousDate";
+import FinanceChart from "@components/financeChart";
 
 const publicDate = new Date("2021-08-01");
 
@@ -30,11 +31,8 @@ const DomesticStock = () => {
     initialState(publicDate),
   );
 
-  console.log(initialState(publicDate));
-
   const { period } = domesticState;
   const { startDate, endDate, diff } = period;
-  console.log(diff);
 
   const onChangeDate = (dates) => {
     const [start, end] = dates;
@@ -101,6 +99,7 @@ const DomesticStock = () => {
               selected={startDate}
               startDate={startDate}
               endDate={endDate}
+              minDate={publicDate}
               selectsStart
             />
             <span>~</span>
@@ -151,83 +150,102 @@ const DomesticStock = () => {
             </button>
           </PeriodButtonsWrapper>
         </div>
-        <button className="header-right-apply">적용</button>
+        <div className="header-right">
+          <button>적용</button>
+        </div>
       </HeaderWrapper>
       <ContentsWrapper>
         <CardsWrapper>
           <div className="content-card">
-            <div className="content-card-content">
-              <div className="content-card-content-title">
-                Apple Inc 관련 뉴스 수집량
-              </div>
-              <div className="content-card-content-description">
-                2022.02.01-2022.03.01 기준
-              </div>
-              <div className="content-card-content-value">
-                <span className="content-card-value-number">538</span>
-                <span className="content-card-value-unit">개</span>
+            <div className="emoji">B</div>
+            <div className="card-info">
+              <div className="title">Apple Inc 관련 뉴스 수집량</div>
+              <div className="date">2022.02.01-2022.03.01 기준</div>
+              <div className="value">
+                <span className="number">538</span>
+                <span className="unit">개</span>
               </div>
             </div>
-            <div className="content-card-content-emoji">B</div>
           </div>
           <div className="content-card">
-            <div className="content-card-content">
-              <div className="content-card-content-title">
-                Apple Inc 관련 뉴스 수집량
-              </div>
-              <div className="content-card-content-description">
-                2022.02.01-2022.03.01 기준
-              </div>
-              <div className="content-card-content-value">
-                <span className="content-card-value-number">538</span>
-                <span className="content-card-value-unit">개</span>
+            <div className="emoji">B</div>
+            <div className="card-info">
+              <div className="title">Apple Inc 관련 뉴스 수집량</div>
+              <div className="description">2022.02.01-2022.03.01 기준</div>
+              <div className="value">
+                <span className="number">538</span>
+                <span className="unit">개</span>
               </div>
             </div>
-            <div className="content-card-content-emoji">B</div>
           </div>
           <div className="content-card">
-            <div className="content-card-content">
-              <div className="content-card-content-title">
-                Apple Inc 관련 뉴스 수집량
-              </div>
-              <div className="content-card-content-description">
-                2022.02.01-2022.03.01 기준
-              </div>
-              <div className="content-card-content-value">
-                <span className="content-card-value-number">538</span>
-                <span className="content-card-value-unit">개</span>
+            <div className="emoji">B</div>
+            <div className="card-info">
+              <div className="title">Apple Inc 관련 뉴스 수집량</div>
+              <div className="description">2022.02.01-2022.03.01 기준</div>
+              <div className="value">
+                <span className="number">538</span>
+                <span className="unit">개</span>
               </div>
             </div>
-            <div className="content-card-content-emoji">B</div>
           </div>
           <div className="content-card">
-            <div className="content-card-content">
-              <div className="content-card-content-title">
-                Apple Inc 관련 뉴스 수집량
-              </div>
-              <div className="content-card-content-description">
-                2022.02.01-2022.03.01 기준
-              </div>
-              <div className="content-card-content-value">
-                <span className="content-card-value-number">538</span>
-                <span className="content-card-value-unit">개</span>
+            <div className="emoji">B</div>
+            <div className="card-info">
+              <div className="title">Apple Inc 관련 뉴스 수집량</div>
+              <div className="description">2022.02.01-2022.03.01 기준</div>
+              <div className="value">
+                <span className="number">538</span>
+                <span className="unit">개</span>
               </div>
             </div>
-            <div className="content-card-content-emoji">B</div>
           </div>
         </CardsWrapper>
-        <div className="main-chart-wrapper">
-          <div className="main-chart-title">주식 차트</div>
-          <MainChart />
+        <div className="level1-wrapper">
+          <div className="level1-chart-wrapper">
+            <div className="level1-main-chart-wrapper">
+              <div className="main-chart-wrapper">
+                <div className="title">주식 차트</div>
+                <MainChart />
+              </div>
+            </div>
+            <div className="level1-moya-chart-wrapper">
+              <div className="title">뉴스 분석</div>
+              <div className="buzz-chart-wrapper">
+                <BuzzChart />
+              </div>
+              <div className="emotion-chart-wrapper">
+                <EmotionChart />
+              </div>
+            </div>
+          </div>
+          <div className="level1-news-list-wrapper">뉴스 리스트</div>
         </div>
-        <div className="news-list-wrapper">뉴스 리스트</div>
-
-        <KeywordChart data={keywordData.current} />
-        <CategoryChart data={categoryData.current} />
-        <PressChart data={pressData.current} />
-        <BuzzChart />
-        <EmotionChart />
+        <div className="level2-chart-wrapper">
+          <div className="chart-wrapper">
+            <KeywordChart data={keywordData.current} />
+          </div>
+          <div className="chart-wrapper">
+            <PressChart data={pressData.current} />
+          </div>
+          <div className="chart-wrapper">
+            <CategoryChart data={categoryData.current} />
+          </div>
+        </div>
+        <div className="chart-wrapper">
+          <FinanceChart />
+        </div>
       </ContentsWrapper>
+      <FooterWrapper>
+        <div className="footer-comparison">
+          <div className="title">국내 주식 비교</div>
+          <div className="card-wrapper">ㅁㄴㅇㄻㄴㅇㄹ</div>
+        </div>
+        <div className="footer-comparison">
+          <div className="title">해외 주식 비교</div>
+          <div className="card-wrapper">ㅁㄴㅇㄻㄴㅇㄹ</div>
+        </div>
+      </FooterWrapper>
     </main>
   );
 };

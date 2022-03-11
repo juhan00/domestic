@@ -8,10 +8,30 @@ export const RouteWrapper = styled.div`
     flex-direction: column;
   }
 `;
+export const TableWrapper = styled.div`
+  margin-right: 20px;
+`;
 export const ChartWrapper = styled.div`
   background-color: #ffffff;
   max-width: 1222px;
   width: 100%;
   height: 783px;
   border-radius: 12px;
+  section {
+    background-color: #5fb6ad;
+    color: #ffffff;
+    width: 100%;
+    height: 43px;
+    border-radius: 12px 12px 0 0;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 43px;
+    text-align: center;
+  }
+`;
+export const CorrTableWrapper = styled.div`
+  float: left;
+  width: 23.913043%;
+  height: calc(100vh - 265px);
+  border-radius: 0 0 12px 12px;
 `;
