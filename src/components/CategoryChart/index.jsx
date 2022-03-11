@@ -1,10 +1,11 @@
 import React, { useRef, useEffect } from "react";
-import { select, sum, treemap, hierarchy } from "d3";
+import { select, sum, treemap, hierarchy, pointer } from "d3";
 import randomColor from "randomcolor";
 import isBright from "@utils/isBright";
 import { ChartWrapper } from "./style";
 import getTextWidth from "@utils/getTextWidth";
 import useResizeObserver from "@utils/useResizeObserver";
+import useDebounce from "@utils/useDebounce";
 
 const CategoryChart = ({
   data,
@@ -22,13 +23,14 @@ const CategoryChart = ({
   const svgRef = useRef(null);
   const categoryChartRef = useRef();
   const dimensions = useResizeObserver(categoryChartRef);
+  const resize = useDebounce(dimensions, 200);
   useEffect(() => {
     const svg = select(svgRef.current);
 
-    if (!dimensions) return;
+    if (!resize) return;
     svg.selectAll(".block").remove();
 
-    const { width, height } = dimensions;
+    const { width, height } = resize;
 
     svg.attr("width", width).attr("height", height);
 
@@ -54,6 +56,8 @@ const CategoryChart = ({
     const tree = createTree(mapData);
 
     svg
+      .select(".blockarea")
+
       .selectAll(".block")
       .data(tree.leaves())
       .join((enter) => {
@@ -76,7 +80,9 @@ const CategoryChart = ({
           })
           .attr("fill", (node) => node["data"]["color"]);
 
-        block
+        const blockTextG = block.append("g").classed("blocktextg", true);
+
+        blockTextG
           .append("text")
           .attr("fill", (node) => {
             return isBright(node["data"]["color"]) ? "black" : "white";
@@ -91,7 +97,7 @@ const CategoryChart = ({
             return (parentData.y1 - parentData.y0) / 2 + 7;
           });
 
-        block
+        blockTextG
           .append("text")
           .attr("fill", (node) => {
             return isBright(node["data"]["color"])
@@ -117,10 +123,12 @@ const CategoryChart = ({
             return (parentData.y1 - parentData.y0) / 2 - 7;
           });
       });
-  }, [data, dimensions]);
+  }, [data, resize]);
   return (
     <ChartWrapper ref={categoryChartRef}>
-      <svg ref={svgRef} />
+      <svg ref={svgRef}>
+        <g className="blockarea" />
+      </svg>
     </ChartWrapper>
   );
 };

@@ -7,6 +7,7 @@ export const ChartWrapper = styled.div`
   box-sizing: border-radius;
   & > svg {
     display: block;
+    position: relative;
     margin: auto;
     width: 100%;
 

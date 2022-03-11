@@ -14,6 +14,7 @@ import {
 import React, { useEffect, useRef } from "react";
 import useResizeObserver from "@utils/useResizeObserver";
 import { EmotionWrapper } from "./style";
+import useDebounce from "@utils/useDebounce";
 
 const data = [
   { date: new Date("2018-01-01"), value: 1 },
@@ -38,14 +39,15 @@ const EmotionChart = ({
   const emotionChartRef = useRef();
   const svgRef = useRef(null);
   const dimensions = useResizeObserver(emotionChartRef);
+  const resize = useDebounce(dimensions, 200);
 
   useEffect(() => {
     const svg = select(svgRef.current);
     svg.selectAll(".emotiong").remove();
 
-    if (!dimensions) return;
+    if (!resize) return;
 
-    const { width, height } = dimensions;
+    const { width, height } = resize;
     svg.attr("width", width).attr("height", height);
 
     const xScale = scaleTime()
@@ -124,7 +126,7 @@ const EmotionChart = ({
           .classed("emotionpath", true)
           .attr("d", (data) => chartLine(data));
       });
-  }, [data, dimensions]);
+  }, [data, resize]);
 
   return (
     <EmotionWrapper ref={emotionChartRef}>

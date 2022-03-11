@@ -18,6 +18,7 @@ import React, { useEffect, useRef, useState } from "react";
 import calculateMovingAverageLine from "@utils/calculateMovingAverageLine";
 import useResizeObserver from "@utils/useResizeObserver";
 import { MainChartWrapper } from "./style";
+import useDebounce from "@utils/useDebounce";
 
 function dataGenerator() {
   let start = Math.random() * 500 + 9000;
@@ -53,7 +54,7 @@ const MainChart = ({
   bandPadding = 0.3,
   movingAverageLines = [
     { value: 5, color: "green" },
-    { value: 20, color: "red" },
+    { value: 20, color: "#F5746B" },
     { value: 60, color: "yellow" },
     { value: 120, color: "#bdb1e1" },
   ],
@@ -62,7 +63,7 @@ const MainChart = ({
   const mainChartRef = useRef(null);
   const dimensions = useResizeObserver(mainChartRef);
   const [zoomState, setZoomState] = useState();
-
+  const resize = useDebounce(dimensions, 200);
   useEffect(() => {
     const svg = select(svgRef.current);
     svg.selectAll(".candlestick").remove();
@@ -72,9 +73,9 @@ const MainChart = ({
     // data를 어떻게 관리할지 고민이됨
     //const dataDiff= JSON.stringify(data)!==JSON.stringify(prevData)
 
-    if (!dimensions) return;
+    if (!resize) return;
 
-    const { width, height } = dimensions;
+    const { width, height } = resize;
     svg.attr("width", width).attr("height", height);
 
     movingAverageLines.forEach((ele) => {
@@ -275,6 +276,8 @@ const MainChart = ({
 
       candleSticksEnter
         .append("rect")
+        .attr("rx", 10)
+        .attr("ry", 10)
         .attr("x", (data) => xScale(data.date) - xBandScale.bandwidth())
         .attr("y", (data) => {
           // 시가 위치에 오도록
@@ -291,7 +294,7 @@ const MainChart = ({
         })
         .attr("fill", (d) => {
           if (d.end >= d.start) {
-            return "red";
+            return "#F5746B";
           } else {
             return "blue";
           }
@@ -315,13 +318,13 @@ const MainChart = ({
         })
         .attr("stroke", (d) => {
           if (d.end >= d.start) {
-            return "red";
+            return "#F5746B";
           } else {
-            return "blue";
+            return "#065398";
           }
         });
     });
-  }, [data, zoomState, dimensions]);
+  }, [data, zoomState, resize]);
 
   return (
     <MainChartWrapper ref={mainChartRef}>

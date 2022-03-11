@@ -13,6 +13,7 @@ import {
 import React, { useEffect, useRef } from "react";
 import useResizeObserver from "@utils/useResizeObserver";
 import { BuzzWrapper } from "./style";
+import useDebounce from "@utils/useDebounce";
 
 const data = [
   { date: new Date("2018-01-01"), value: 1 },
@@ -37,14 +38,14 @@ const BuzzChart = ({
   const buzzChartRef = useRef();
   const svgRef = useRef();
   const dimensions = useResizeObserver(buzzChartRef);
-
+  const resize = useDebounce(dimensions, 200);
   useEffect(() => {
     const svg = select(svgRef.current);
     svg.selectAll(".buzzpath").remove();
 
-    if (!dimensions) return;
+    if (!resize) return;
 
-    const { width, height } = dimensions;
+    const { width, height } = resize;
     svg.attr("width", width).attr("height", height);
 
     const xScale = scaleTime()
@@ -105,7 +106,7 @@ const BuzzChart = ({
       .classed("buzzpath", true)
 
       .attr("d", (data) => chartLine(data));
-  }, [data, dimensions]);
+  }, [data, resize]);
   return (
     <BuzzWrapper ref={buzzChartRef}>
       <svg ref={svgRef}>

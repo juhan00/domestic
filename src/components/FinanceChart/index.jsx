@@ -12,6 +12,7 @@ import useResizeObserver from "@utils/useResizeObserver";
 import { FinanceChartWrapper } from "./style";
 import { axisLeft } from "d3";
 import getTextWidth from "@utils/getTextWidth";
+import useDebounce from "@utils/useDebounce";
 
 const FinanceChart = ({
   barWidth = 20,
@@ -29,13 +30,14 @@ const FinanceChart = ({
   const financeChartRef = useRef();
   const svgRef = useRef(null);
   const dimensions = useResizeObserver(financeChartRef);
+  const resize = useDebounce(dimensions, 200);
   useEffect(() => {
     const svg = select(svgRef.current);
     svg.selectAll(".financeg").remove();
 
-    if (!dimensions) return;
+    if (!resize) return;
 
-    const { width, height } = dimensions;
+    const { width, height } = resize;
     svg.attr("width", width).attr("height", height);
 
     const [minX, maxX] = extent(data.values, (value) => value.value);
@@ -130,7 +132,7 @@ const FinanceChart = ({
             return yScale(length - index) + yScale.bandwidth() / 2;
           });
       });
-  }, [data, dimensions]);
+  }, [data, resize]);
 
   return (
     <FinanceChartWrapper ref={financeChartRef}>

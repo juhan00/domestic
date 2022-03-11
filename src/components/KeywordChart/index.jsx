@@ -4,6 +4,7 @@ import cloud from "d3-cloud";
 import randomColor from "randomcolor";
 import { KeywordChartWrapper } from "./style";
 import { useResizeObserver } from "@utils/useResizeObserver";
+import useDebounce from "@utils/useDebounce";
 
 let words;
 const KeywordChart = ({
@@ -22,13 +23,13 @@ const KeywordChart = ({
   const keywordChartRef = useRef();
   const svgRef = useRef(null);
   const dimensions = useResizeObserver(keywordChartRef);
-
+  const resize = useDebounce(dimensions, 200);
   useEffect(() => {
     const svg = select(svgRef.current);
 
-    if (!dimensions) return;
+    if (!resize) return;
 
-    const { width, height } = dimensions;
+    const { width, height } = resize;
     svg.attr("width", width).attr("height", height);
 
     if (!data[0].color) {
@@ -73,7 +74,7 @@ const KeywordChart = ({
       .text(function (d) {
         return d.text;
       });
-  }, [data, dimensions]);
+  }, [data, resize]);
   return (
     <KeywordChartWrapper ref={keywordChartRef}>
       <svg ref={svgRef}>
