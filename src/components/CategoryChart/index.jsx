@@ -109,7 +109,6 @@ const CategoryChart = ({
             const textLength = node["data"]["title"].length;
             const rectWidth = node["x1"] - node["x0"] - 40;
 
-            console.log(rectWidth, textWidth);
             if (rectWidth < textWidth) {
               for (let i = textLength - 1; i > 0; i--) {
                 const target = node["data"]["title"].substring(0, i) + "...";
