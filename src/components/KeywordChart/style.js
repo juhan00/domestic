@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const KeywordChartWrapper = styled.div`
   width: 100%;
-  padding: 0px 5%;
+  padding: 0px 30%;
   min-height: 300px;
   box-sizing: border-radius;
   & > svg {
