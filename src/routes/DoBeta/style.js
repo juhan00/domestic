@@ -8,6 +8,9 @@ export const RouteWrapper = styled.div`
     flex-direction: column;
   }
 `;
+export const TableWrapper = styled.div`
+  margin-right: 20px;
+`;
 export const ChartWrapper = styled.div`
   background-color: #ffffff;
   max-width: 1222px;
@@ -25,4 +28,10 @@ export const ChartWrapper = styled.div`
     line-height: 43px;
     text-align: center;
   }
+`;
+export const CorrTableWrapper = styled.div`
+  float: left;
+  width: 23.913043%;
+  height: calc(100vh - 265px);
+  border-radius: 0 0 12px 12px;
 `;

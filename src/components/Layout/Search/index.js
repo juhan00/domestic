@@ -1,92 +1,101 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import axios from "redaxios";
+import SearchBar from "@components/Layout/Search/SearchBar";
+import SearchResult from "@components/Layout/Search/SearchResult";
+import { clickOutside } from "@utils/clickOutside";
 import { NavLink } from "react-router-dom";
-import { clickOutside } from "../../../utils/clickOutside";
 
-const stockListSample = [
-  { symbol: "A", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "AA", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "AB", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "ABC", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "A2", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "B", companyName: "BBB INC", HQnation: "US" },
-  { symbol: "BA", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "BCSRAW", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "C", companyName: "CCC INC", HQnation: "US" },
-  { symbol: "D", companyName: "DDD INC", HQnation: "US" },
-  { symbol: "E", companyName: "EEE INC", HQnation: "US" },
-  { symbol: "F", companyName: "FFF INC", HQnation: "US" },
-  { symbol: "G", companyName: "GGG INC", HQnation: "US" },
-  { symbol: "H", companyName: "HHH INC", HQnation: "US" },
-  { symbol: "I", companyName: "III INC", HQnation: "US" },
-  { symbol: "J", companyName: "JJJ INC", HQnation: "US" },
-  { symbol: "K", companyName: "KKK INC", HQnation: "US" },
-  { symbol: "L", companyName: "LLL INC", HQnation: "US" },
-  { symbol: "M", companyName: "MMM INC", HQnation: "US" },
-  { symbol: "N", companyName: "NNN INC", HQnation: "US" },
-  { symbol: "O", companyName: "OOO INC", HQnation: "US" },
-  { symbol: "P", companyName: "PPP INC", HQnation: "US" },
-  { symbol: "Q", companyName: "QAQ INC", HQnation: "US" },
-  { symbol: "R", companyName: "RRR INC", HQnation: "US" },
-  { symbol: "S", companyName: "SSS INC", HQnation: "US" },
-  { symbol: "T", companyName: "TAT INC", HQnation: "US" },
-  { symbol: "U", companyName: "UUU INC", HQnation: "US" },
-  { symbol: "V", companyName: "VVV INC", HQnation: "US" },
-  { symbol: "W", companyName: "WWW INC", HQnation: "US" },
-  { symbol: "X", companyName: "XXX INC", HQnation: "US" },
-  { symbol: "Y", companyName: "YYY INC", HQnation: "US" },
-  { symbol: "Z", companyName: "ZAZ INC", HQnation: "US" },
-];
-
-export const Search = () => {
+const Search = () => {
   const ref = useRef();
-  const [searchItem, setSearchItem] = useState("");
+
   const [isOpen, setIsOpen] = useState(false);
-  const handleItem = (e) => {
-    setSearchItem(e.target.value);
+  const [keyword, setKeyworld] = useState("");
+  const [domesticList, setDomesticList] = useState([]);
+  const [globalList, setGlobalList] = useState([]);
+
+  // 주식 종목 리스트 불러와서 state로 저장
+  useEffect(() => {
+    let isComponentMounted = true;
+    const fetchData = async () => {
+      const domesticData = await axios.get(
+        "https://gyoheonlee.github.io/mobile-bank/data/api/doList.json",
+      );
+      const globalData = await axios.get(
+        "https://gyoheonlee.github.io/mobile-bank/data/api/goList.json",
+      );
+      if (isComponentMounted) {
+        setDomesticList(domesticData.data.domestic);
+        setGlobalList(globalData.data.global);
+      }
+    };
+    fetchData();
+    return () => {
+      isComponentMounted = false;
+    };
+  }, []);
+
+  // 인풋이 포커스되면 기존의 검색어를 지우고, isOpen 스테이트를 변경하는 함수
+  const handleFocused = () => {
+    setKeyworld("");
+    setIsOpen(true);
+  };
+
+  // 입력된 값의 변화를 감지하고 변경하는 함수
+  const handleChangeKeyworld = (e) => {
+    setKeyworld(e.target.value);
+  };
+
+  //검색 결과 클릭하면 isOpen false로 바꾸어서 리스트 창 닫는 함수
+  const handleClick = () => {
+    setIsOpen(false);
   };
 
   clickOutside(ref, isOpen, setIsOpen);
 
+  const SeachIcon = () => {
+    return (
+      <svg
+        width="16"
+        height="17"
+        viewBox="0 0 16 17"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M15 15.5L11.6945 12.1886M13.5263 7.76316C13.5263 9.42425 12.8665 11.0173 11.6919 12.1919C10.5173 13.3665 8.92425 14.0263 7.26316 14.0263C5.60207 14.0263 4.00901 13.3665 2.83444 12.1919C1.65987 11.0173 1 9.42425 1 7.76316C1 6.10207 1.65987 4.50901 2.83444 3.33444C4.00901 2.15987 5.60207 1.5 7.26316 1.5C8.92425 1.5 10.5173 2.15987 11.6919 3.33444C12.8665 4.50901 13.5263 6.10207 13.5263 7.76316Z"
+          stroke="#999999"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  };
+
   return (
     <>
-      <div className="searchContainer" ref={ref}>
-        <div className="searchFormWrapper">
-          <form>
-            <input
-              placeholder="종목명/지수명 검색"
-              onChange={handleItem}
-              value={searchItem}
-              onFocus={() => setIsOpen(true)}
-            />
-          </form>
-        </div>
+      <div className="searchOption">
+        <NavLink to="/domestic">국내</NavLink>
+      </div>
+      <div className="searchOption">
+        <NavLink to="/global">해외</NavLink>
+      </div>
+      <SeachIcon />
+      <div ref={ref}>
+        <SearchBar
+          onFocus={handleFocused}
+          onChangeKeyword={handleChangeKeyworld}
+          keyword={keyword}
+        />
         <div
-          className={isOpen ? "seachResultWrapper" : "seachResultWrapper hide"}>
-          <ul className="searchResultList">
-            {stockListSample
-              .filter((list) => {
-                if (searchItem == "") {
-                  return list;
-                } else if (
-                  list.symbol
-                    .toLowerCase()
-                    .includes(searchItem.toLowerCase()) ||
-                  list.companyName
-                    .toLowerCase()
-                    .includes(searchItem.toLowerCase())
-                ) {
-                  return list;
-                }
-              })
-              .map((list) => (
-                <li className="serachResultItem" key={list.symbol}>
-                  <NavLink to={`${list.symbol}`}>
-                    <span>{list.symbol}</span> | {list.companyName} |{" "}
-                    {list.HQnation}{" "}
-                  </NavLink>
-                </li>
-              ))}
-          </ul>
+          className={
+            isOpen ? "searchResultWrapper" : "searchResultWrapper hide"
+          }>
+          <SearchResult
+            keyword={keyword}
+            domesticList={domesticList}
+            globalList={globalList}
+            onClick={handleClick}
+          />
         </div>
       </div>
     </>
