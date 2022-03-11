@@ -41,7 +41,6 @@ for (let i = 0; i < 90; i++) {
   data[i].date = date;
   date = new Date(date.setDate(date.getDate() + 1));
 }
-
 const MainChart = ({
   marginTop = 40,
   marginBottom = 40,
@@ -67,6 +66,7 @@ const MainChart = ({
   useEffect(() => {
     const svg = select(svgRef.current);
     svg.selectAll(".candlestick").remove();
+    svg.selectAll(".volume").remove();
     svg.selectAll("#clip").remove();
 
     // 이전 데이터와 비교하여 달라질 경우에만 계산하기
@@ -84,8 +84,10 @@ const MainChart = ({
 
     const xMin = min(data, (data) => data.date);
     const xMax = max(data, (data) => data.date);
-    const yMin = min(data, (data) => data.low);
-    const yMax = max(data, (data) => data.high);
+    const yPriceMin = min(data, (data) => data.low);
+    const yPriceMax = max(data, (data) => data.high);
+    const yVolumeMin = min(data, (data) => data.volume);
+    const yVolumeMax = max(data, (data) => data.volume);
 
     const xScale = scaleTime()
       .domain([xMin, xMax])
@@ -96,9 +98,13 @@ const MainChart = ({
       .range([marginRight, width - marginLeft])
       .padding(bandPadding);
 
-    const yScale = scaleLinear()
-      .domain([yMin - 5, yMax + 5])
-      .range([height - marginBottom, marginTop]);
+    const yPriceScale = scaleLinear()
+      .domain([yPriceMin, yPriceMax])
+      .range([height * 0.75 - marginBottom, marginTop]);
+
+    const yVolumeScale = scaleLinear()
+      .domain([yVolumeMin, yVolumeMax])
+      .range([height - marginBottom, height * 0.75 - marginTop]);
 
     if (zoomState) {
       const newXScale = zoomState.rescaleX(xScale);
@@ -118,7 +124,7 @@ const MainChart = ({
     movingAverageLines.forEach((ele) => {
       const movingAverageLineGenerator = line()
         .x((data) => xScale(data.date))
-        .y((data) => yScale(data[`average${ele.value}`]))
+        .y((data) => yPriceScale(data[`average${ele.value}`]))
         .curve(curveBasis);
 
       const movingAverageLine = svg
@@ -140,7 +146,8 @@ const MainChart = ({
     svg.style("display", "block");
 
     const xAxis = axisBottom(xScale).tickFormat(timeFormat("%Y-%m-%d"));
-    const yAxis = axisRight(yScale);
+    const yPriceAxis = axisRight(yPriceScale);
+    const yVolumeAxis = axisRight(yVolumeScale);
 
     svg
       .append("clipPath")
@@ -152,12 +159,23 @@ const MainChart = ({
     svg
       .select(".x-axis")
       .attr("transform", `translate(0,${height - marginBottom})`)
-      .call(xAxis);
+      .call(xAxis)
+      .call((g) => g.select(".domain").remove())
+      .call((g) => g.selectAll(".tick line").remove());
 
     svg
-      .select(".y-axis")
+      .select(".y-priceaxis")
       .attr("transform", `translate(${width - marginLeft},0)`)
-      .call(yAxis);
+      .call(yPriceAxis)
+      .call((g) => g.selectAll(".tick line").remove())
+      .call((g) => g.select(".domain").remove());
+
+    svg
+      .select(".y-volumeaxis")
+      .attr("transform", `translate(${width - marginLeft},0)`)
+      .call(yVolumeAxis)
+      .call((g) => g.select(".domain").remove())
+      .call((g) => g.selectAll(".tick line").remove());
 
     const overlay = svg
       .selectAll(".overlay")
@@ -201,7 +219,7 @@ const MainChart = ({
         "transform",
         `translate(${
           xScale(currentPoint.date) - xBandScale.bandwidth() / 2
-        }, ${yScale(currentPoint.end)})`,
+        }, ${yPriceScale(currentPoint.end)})`,
       );
 
       focus
@@ -216,7 +234,7 @@ const MainChart = ({
         .attr("x1", 0)
         .attr("x2", 0)
         .attr("y1", 0)
-        .attr("y2", height - marginBottom - yScale(currentPoint.end));
+        .attr("y2", height - marginBottom - yPriceScale(currentPoint.end));
     }
 
     overlay
@@ -244,7 +262,7 @@ const MainChart = ({
     // price
     const priceLineGenerator = line()
       .x((data) => xScale(data.date))
-      .y((data) => yScale(data.end));
+      .y((data) => yPriceScale(data.end));
 
     const priceLine = svg.selectAll(".price").data([data]);
 
@@ -276,21 +294,22 @@ const MainChart = ({
 
       candleSticksEnter
         .append("rect")
-        .attr("rx", 10)
-        .attr("ry", 10)
+        .attr("clip-path", "url(#clip)")
+        .attr("rx", 5)
+        .attr("ry", 5)
         .attr("x", (data) => xScale(data.date) - xBandScale.bandwidth())
         .attr("y", (data) => {
           // 시가 위치에 오도록
-          if (data.end > data.start) return yScale(data.end);
-          else if (data.end === data.start) return yScale(data.end) - 1;
-          else return yScale(data.start);
+          if (data.end > data.start) return yPriceScale(data.end);
+          else if (data.end === data.start) return yPriceScale(data.end) - 1;
+          else return yPriceScale(data.start);
         })
         .attr("width", (data) => xBandScale.bandwidth())
         .attr("height", (data) => {
           if (data.end > data.start)
-            return yScale(data.start) - yScale(data.end);
+            return yPriceScale(data.start) - yPriceScale(data.end);
           else if (data.end === data.start) return 3;
-          else return yScale(data.end) - yScale(data.start);
+          else return yPriceScale(data.end) - yPriceScale(data.start);
         })
         .attr("fill", (d) => {
           if (d.end >= d.start) {
@@ -308,11 +327,11 @@ const MainChart = ({
           return candleStickLineGenerator([
             {
               x: xScale(data.date) - xBandScale.bandwidth() / 2,
-              y: yScale(data.high),
+              y: yPriceScale(data.high),
             },
             {
               x: xScale(data.date) - xBandScale.bandwidth() / 2,
-              y: yScale(data.low),
+              y: yPriceScale(data.low),
             },
           ]);
         })
@@ -324,15 +343,42 @@ const MainChart = ({
           }
         });
     });
+
+    const volumes = svg
+      .select("#volumes")
+      .attr("clip-path", "url(#clip)")
+      .selectAll(".volume")
+      .data(data);
+
+    volumes.join((enter) => {
+      const volumesEnter = enter.append("g").classed("volume", true);
+
+      volumesEnter
+        .append("rect")
+        .attr("clip-path", "url(#clip)")
+        .attr("fill", "#FDC055")
+        .attr("rx", 5)
+        .attr("ry", 5)
+        .attr("x", (data) => xScale(data.date) - xBandScale.bandwidth())
+        .attr("y", (data) => {
+          return yVolumeScale(data.volume);
+        })
+        .attr("width", (data) => xBandScale.bandwidth())
+        .attr(
+          "height",
+          (data) => height - marginBottom - yVolumeScale(data.volume),
+        );
+    });
   }, [data, zoomState, resize]);
 
   return (
     <MainChartWrapper ref={mainChartRef}>
       <svg ref={svgRef}>
         <g className="x-axis" />
-        <g className="y-axis" />
+        <g className="y-priceaxis" />
+        <g className="y-volumeaxis" />
         <rect className="overlay" />
-        <g id="volume" />
+        <g id="volumes" />
         <g id="candlesticks" />
         <g className="focus">
           <circle className="focus-circle" />
