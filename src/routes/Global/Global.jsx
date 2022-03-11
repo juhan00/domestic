@@ -7,6 +7,11 @@ import ExchangeRate from "@components/Main/ExchangeRate";
 import StockSector from "@components/Main/StockSector";
 import StockNews from "@components/Main/StockNews";
 import FinanceNews from "@components/Main/FinanceNews";
+import exchangeRateData from "@utils/MainData/exchangeRateData.json";
+import globalStockIndexData from "@utils/MainData/globalStockIndexData.json";
+import MajorStockData from "@utils/MainData/MajorStockData.json";
+import StockSectorData from "@utils/MainData/StockSectorData.json";
+import financeNewsData from "@utils/MainData/financeNewsData.json";
 
 const Global = () => {
   return (
@@ -15,27 +20,29 @@ const Global = () => {
         <RecentStock />
       </div>
       <div className="row">
-        <StockIndex name="코스피 지수" />
-        <StockIndex name="코스닥 지수" />
-        <StockIndex name="코스피 200 지수" />
+        {globalStockIndexData.items.map((item) => (
+          <div className="col" key={item.id}>
+            <StockIndex type="global" data={item} />
+          </div>
+        ))}
       </div>
       <div className="row">
         <div className="col col2">
           <div className="row">
-            <MajorStock />
+            <MajorStock data={MajorStockData} />
           </div>
           <div className="row">
             <StockNews />
           </div>
         </div>
         <div className="col">
-          <ExchangeRate />
+          <ExchangeRate data={exchangeRateData} />
         </div>
         <div className="col">
-          <StockSector />
+          <StockSector data={StockSectorData} />
         </div>
       </div>
-      <FinanceNews type="en" />
+      <FinanceNews type="global" data={financeNewsData} />
     </GlobalWrapper>
   );
 };
