@@ -29,8 +29,18 @@ const CategoryChart = ({
 
     if (!resize) return;
     svg.selectAll(".block").remove();
+    svg.selectAll("#categoryclip").remove();
 
     const { width, height } = resize;
+
+    svg
+      .append("clipPath")
+      .attr("id", "categoryclip")
+      .append("rect")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("rx", 15)
+      .attr("ry", 15);
 
     svg.attr("width", width).attr("height", height);
 
@@ -57,7 +67,7 @@ const CategoryChart = ({
 
     svg
       .select(".blockarea")
-
+      .attr("clip-path", "url(#categoryclip)")
       .selectAll(".block")
       .data(tree.leaves())
       .join((enter) => {
@@ -133,6 +143,7 @@ const CategoryChart = ({
     <ChartWrapper ref={categoryChartRef}>
       <svg ref={svgRef}>
         <g className="blockarea" />
+        <rect className="focus" />
       </svg>
     </ChartWrapper>
   );
