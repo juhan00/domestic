@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { FinanceNewsWrapper } from "./style";
-import Pagination from "@components/Disclosure/Pagination/Pagination";
+import Pagination from "@components/Disclosure/Pagination";
 import ExpertModal from "./ExpertModal";
 
 // const initialRealTimeNewsData = [
