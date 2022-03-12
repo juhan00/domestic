@@ -3,9 +3,9 @@ import ComInfoTable from "@components/ComInfoTable";
 import ComInfoGraph from "@components/ComInfoGraph";
 import ComInfoDailyPrice from "@components/DailyPrice";
 import axios from "redaxios";
-import { RouteWrapper, PriceWrapper } from "./style";
+import { RouteWrapper, PriceWrapper } from "../DoComInfo/style";
 
-const DoComInfo = () => {
+const GoComInfo = () => {
   return (
     <RouteWrapper>
       <PriceWrapper>
@@ -17,4 +17,4 @@ const DoComInfo = () => {
   );
 };
 
-export default DoComInfo;
+export default GoComInfo;
