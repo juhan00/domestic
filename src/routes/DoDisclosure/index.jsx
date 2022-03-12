@@ -1,20 +1,21 @@
 import React, {useState} from "react";
-import GlobalFilter from "@components/Disclosure/DisclosureFilter/GlobalFilter"
-import GlobalList from "@components/Disclosure/DisclosureList/GlobalList"
+import DomesticFilter from "@components/Disclosure/DisclosureFilter/DomesticFilter"
+import DomesticList from "@components/Disclosure/DisclosureList/DomesticList"
 import Pagination from "@components/Disclosure/Pagination";
-import globalSample from "@utils/goDisclosureData";
+import domesticSample from "@utils/doDisclosureData";
 
-const GoDisclosure = () => {
+
+const DoDisclosure = () => {
   const [limit, setLimit] = useState(15);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
 
-  const disclosureList = globalSample.list;
+  const disclosureList = domesticSample.list;
 
   return (
     <div className="disclosure">
-      <GlobalFilter />
-      <GlobalList 
+      <DomesticFilter />
+      <DomesticList 
         list={disclosureList} 
         offset={offset} 
         limit={limit}
@@ -29,4 +30,4 @@ const GoDisclosure = () => {
   );
 };
 
-export default GoDisclosure;
+export default DoDisclosure;
