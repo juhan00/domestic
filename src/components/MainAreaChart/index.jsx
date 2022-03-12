@@ -75,6 +75,7 @@ const MainAreaChart = ({
   useEffect(() => {
     const svg = select(svgRef.current);
     svg.selectAll(".volume").remove();
+    svg.selectAll(".priceg").remove();
     svg.selectAll("#clip").remove();
 
     // 이전 데이터와 비교하여 달라질 경우에만 계산하기
@@ -311,8 +312,9 @@ const MainAreaChart = ({
       .join((enter) => {
         const priceg = enter.append("g").classed("priceg", true);
 
-        enter
+        priceg
           .append("path")
+          .classed("pricepath", true)
           .attr("clip-path", "url(#clip)")
           .style("fill", "none")
           .attr("stroke", chartLineColor)
