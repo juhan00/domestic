@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { DisclosureFilterWrapper, SetPeriod, SetTypeForDesktop, GlobalType } from "./style";
+import { DisclosureFilterWrapper, SetPeriod, SetType, GlobalType } from "./style";
 
 const GlobalFilter = () => {
   const [period, setPeriod] = useState("oneY");
@@ -40,13 +40,13 @@ const GlobalFilter = () => {
       <div className="disclosure__filter">
         <form name="form" onSubmit={handleFormSubmit}>
           <SetPeriod key={period}>
-            <h4>기간 선택</h4>
-            <div>
+            <h4>기간</h4>
+            <div className="date--picker">
               <input type="date" name="date" defaultValue={getToday(date[period])} min={date.sixM} max={date.oneM} onChange={handleValueChange} />
-              ~
+              <span>~</span>
               <input type="date" name="date" defaultValue={getToday(date.today)} min={date.oneM} max={date.oneM} />
             </div>
-            <div>
+            <div className="date--radio">
               <div>                
                 <input type="radio" id="oneM" name="period" onChange={handleRadioChange} checked={period === "oneM"} />
                 <label htmlFor="oneM">1M</label>
@@ -73,7 +73,7 @@ const GlobalFilter = () => {
               </div>
             </div>
           </SetPeriod>
-          <SetTypeForDesktop>
+          <SetType>
             <GlobalType className="globalType">
               <label htmlFor="source">Source</label>
               <select name="source">
@@ -164,7 +164,7 @@ const GlobalFilter = () => {
                 Type - C
               </label>
             </div> */}
-          </SetTypeForDesktop>
+          </SetType>
           <button className="btn__form">적용</button>
           <input className="btn__form" type="reset" value="초기화" onClick={() => setPeriod('oneY')} />
         </form>
