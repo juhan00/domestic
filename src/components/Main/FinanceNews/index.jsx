@@ -311,11 +311,11 @@ const FinanceNews = ({ type, data }) => {
     (value) => {
       if (value === "realTime") {
         setIsActiveTab("realTime");
-        setListData({ ...listData, initialData: initialRealTimeNewsData });
+        setListData({ ...listData, initialData: data.realTime });
         setIsActiveList(null);
       } else {
         setIsActiveTab("newsList");
-        setListData({ ...listData, initialData: initialNewsListData });
+        setListData({ ...listData, initialData: data.newsList });
         setIsActiveList(null);
       }
     },
