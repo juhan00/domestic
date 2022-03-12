@@ -34,6 +34,7 @@ const FinanceChart = ({
   useEffect(() => {
     const svg = select(svgRef.current);
     svg.selectAll(".financeg").remove();
+    svg.selectAll(".tooltipg").remove();
 
     if (!resize) return;
 
@@ -59,6 +60,10 @@ const FinanceChart = ({
       .domain(data.values.map((value, idx) => idx))
       .range([height - marginBottom, marginTop])
       .padding(bandPadding);
+
+    const xToolTipScale = scaleBand()
+      .domain([0, data.length])
+      .range([marginLeft, width / 2]);
 
     const xAxis = axisBottom(xScale).tickFormat(format("d"));
     const yAxis = axisLeft(yScale);
@@ -90,7 +95,7 @@ const FinanceChart = ({
 
         financeg
           .append("rect")
-          .attr("class", (value) => `financerect ${value.type}`)
+          .attr("class", (value, index) => `financerect${index} ${value.type}`)
           .attr("x", (value) => {
             if (isUnderZero) {
               if (value.value < 0) {
@@ -109,11 +114,16 @@ const FinanceChart = ({
               ? xScale(Math.abs(value.value))
               : xScale(value.value);
           })
-          .attr("height", () => yScale.bandwidth());
+          .attr("height", () => yScale.bandwidth())
+          .attr("rx", 5)
+          .attr("ry", 5);
 
         financeg
           .append("text")
-          .classed("financetext", true)
+          .attr(
+            "class",
+            (value) => `financetext ${value.value < 0 ? "minus" : "plus"}`,
+          )
           .text((value) => value.value)
           .attr("x", (value) => {
             const textWidth = getTextWidth(value.value);
@@ -132,11 +142,36 @@ const FinanceChart = ({
             return yScale(length - index) + yScale.bandwidth() / 2;
           });
       });
+
+    const toolTip = svg
+      .select(".tooltip")
+      .selectAll(".tooltipg")
+      .data(data.values)
+      .join((enter) => {
+        const tooltipg = enter.append("g").classed("tooltipg", true);
+
+        const tooltipgele = tooltipg
+          .append("g")
+          .attr("transform", (value, index) => {
+            return `translate(${
+              width / 2 + xToolTipScale.bandwidth() * index - marginLeft * 2
+            },${marginBottom - 10})`;
+          });
+
+        tooltipgele
+          .append("circle")
+          .attr("class", (value, idx) => `${value.type} financerect${idx}`)
+          .attr("r", 3)
+          .attr("transform", `translate(${-marginLeft})`);
+
+        tooltipgele.append("text").text((value) => value.type);
+      });
   }, [data, resize]);
 
   return (
     <FinanceChartWrapper ref={financeChartRef}>
       <svg ref={svgRef}>
+        <g className="tooltip" />
         <g className="x-axis" />
         <g className="y-axis" />
       </svg>
