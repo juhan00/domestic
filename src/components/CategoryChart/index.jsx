@@ -11,6 +11,9 @@ const CategoryChart = ({
   data,
   width = 500,
   height = 300,
+  toolTipHeight = 100,
+  toolTipWidth = 100,
+  focusTooltipColor = "#eee",
   marginTop = 40,
   marginBottom = 40,
   marginLeft = 40,
@@ -65,6 +68,10 @@ const CategoryChart = ({
 
     const tree = createTree(mapData);
 
+    const focus = svg.selectAll(".focus");
+
+    const focusTooltip = focus.select(".focus-tooltip");
+
     svg
       .select(".blockarea")
       .attr("clip-path", "url(#categoryclip)")
@@ -74,10 +81,22 @@ const CategoryChart = ({
         const block = enter
           .append("g")
           .classed("block", true)
-          .attr(
-            "transform",
-            (node) => `translate(${node["x0"]},${node["y0"]})`,
-          );
+          .attr("transform", (node) => `translate(${node["x0"]},${node["y0"]})`)
+          .on("mouseover", () => focusTooltip.style("display", null))
+          .on("mouseout", () => focusTooltip.style("display", "none"))
+          .on("mousemove", function (e) {
+            focusTooltip
+              .attr("x", e.offsetX)
+              .attr("y", e.offsetY)
+              .attr("width", toolTipWidth)
+              .attr("height", toolTipHeight)
+              .attr("opacity", 1)
+              .attr("fill", focusTooltipColor)
+              .attr(
+                "transform",
+                `translate(-${toolTipWidth / 2}, -${toolTipHeight / 2})`,
+              );
+          });
 
         block
           .append("rect")
@@ -143,7 +162,9 @@ const CategoryChart = ({
     <ChartWrapper ref={categoryChartRef}>
       <svg ref={svgRef}>
         <g className="blockarea" />
-        <rect className="focus" />
+        <g className="focus">
+          <rect className="focus-tooltip"></rect>
+        </g>
       </svg>
     </ChartWrapper>
   );

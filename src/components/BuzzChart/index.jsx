@@ -115,11 +115,7 @@ const BuzzChart = ({
       .selectAll(".buzzg")
       .data([data])
       .join((enter) => {
-        const buzzg = enter
-          .append("g")
-          .classed("buzzg", true)
-          .attr("d", (data) => chartLine(data))
-          .attr("d", (data) => chartArea(data));
+        const buzzg = enter.append("g").classed("buzzg", true);
 
         buzzg
           .append("path")

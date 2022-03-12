@@ -127,7 +127,7 @@ const MainChart = ({
       calculateMovingAverageLine(data, ele);
     });
 
-    const movingAverageArea = svg.select("#movingaverage");
+    const movingAverageArea = svg.select(".movingaveragearea");
 
     movingAverageLines.forEach((ele) => {
       const movingAverageLineGenerator = line()
@@ -318,28 +318,12 @@ const MainChart = ({
 
     svg.call(zoomBehavior);
 
-    // // price
-    // const priceLineGenerator = line()
-    //   .x((data) => xScale(data.date))
-    //   .y((data) => yPriceScale(data.end));
-
-    // const priceLine = svg.select("#price").selectAll(".pricepath").data([data]);
-
-    // priceLine
-    //   .join("path")
-    //   .attr("clip-path", "url(#clip)")
-    //   .style("fill", "none")
-    //   .classed("pricepath", true)
-    //   .attr("stroke", "steelblue")
-    //   .attr("stroke-width", "1.5")
-    //   .attr("d", priceLineGenerator);
-
     const candleStickLineGenerator = line()
       .x((data) => data.x)
       .y((data) => data.y);
 
     const candleStick = svg
-      .select("#candlesticks")
+      .select(".candlesticks")
       .attr("clip-path", "url(#clip)")
       .selectAll(".candlestick")
       .data(data);
@@ -404,7 +388,7 @@ const MainChart = ({
     });
 
     const volumes = svg
-      .select("#volumes")
+      .select(".volumes")
       .attr("clip-path", "url(#clip)")
       .selectAll(".volume")
       .data(data);
@@ -434,10 +418,9 @@ const MainChart = ({
         <g className="x-axis" />
         <g className="y-priceaxis" />
         <g className="y-volumeaxis" />
-        <g id="price" />
-        <g id="volumes" />
-        <g id="movingaverage" />
-        <g id="candlesticks" />
+        <g className="volumes" />
+        <g className="movingaveragearea" />
+        <g className="candlesticks" />
         <rect className="overlay" />
         <g className="focus">
           <line className="x-line" />
