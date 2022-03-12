@@ -6,6 +6,6 @@ export default function calculateMovingAverageLine(data, numOfDays) {
     const sum = targetData.reduce((a, b) => {
       return a + b.end;
     }, 0);
-    data[index][`average${numOfDays}`] = sum / targetData.length;
+    data[index][`average${numOfDays}`] = Math.floor(sum / targetData.length);
   });
 }
