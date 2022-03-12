@@ -1,19 +1,23 @@
 import React from "react";
-import { TableHeaderWrapper, Row, Cell } from "./style";
+import { TableWrapper, Table, Row, Cell } from "../BetaTable/style";
 
 const TableHeader = ({ data, title }) => {
-  return <TableHeaderWrapper>
-    <thead>
-      <Row className="table__header">
-        <Cell colSpan={2}>{title}</Cell>
-      </Row>
-    </thead>
-    <tbody>
-      <Row className="table__body">
-        <Cell>{data}</Cell>
-      </Row>
-    </tbody>
-  </TableHeaderWrapper>
-}
+  return (
+    <TableWrapper style={{ height: "130px" }}>
+      <Table>
+        <thead>
+          <Row className="table__header">
+            <Cell colSpan={2}>{title}</Cell>
+          </Row>
+        </thead>
+        <tbody>
+          <Row className="table__body">
+            <Cell>{data}</Cell>
+          </Row>
+        </tbody>
+      </Table>
+    </TableWrapper>
+  );
+};
 
 export default TableHeader;

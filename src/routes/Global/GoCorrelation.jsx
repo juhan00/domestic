@@ -1,22 +1,25 @@
 import React from "react";
-import TableHeader from "@components/Table/TableHeader"
+import TableHeader from "@components/Table/TableHeader";
 import CorrelationTable from "@components/Table/CorrelationTable";
-import CorrelationChart from "@components/CorrelationChart"
-import {globalSample} from "@utils/statisticsData"
-import {CorrTableWrapper} from "../DoCorrelation/style"
+import CorrelationChart from "@components/CorrelationChart";
+import { globalSample } from "@utils/statisticsData";
+import {
+  RouteWrapper,
+  TableWrapper,
+  ChartWrapper,
+  CorrTableWrapper,
+} from "../DoBeta/style";
 
 const GoCorrelation = () => {
   return (
-    <>
-      <CorrTableWrapper>
-        <TableHeader 
-          data={globalSample.corr} 
-          title={globalSample.title[1]} 
-        />
+    <RouteWrapper>
+      <TableWrapper>
+        <TableHeader data={globalSample.corr} title={globalSample.title[1]} />
         <CorrelationTable data={globalSample} />
-      </CorrTableWrapper>
+      </TableWrapper>
       <CorrelationChart />
-    </>
-  );};
+    </RouteWrapper>
+  );
+};
 
 export default GoCorrelation;

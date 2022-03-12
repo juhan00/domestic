@@ -1,7 +1,7 @@
 import React from "react";
-import { Logo  } from "@components/Layout/style";
-import Search from "@components/Layout/Search"
-import Dropdown from "@components/Layout/Dropdown";
+import { Logo  } from "@components/oldLayout/style";
+import Search from "@components/oldLayout/Search"
+import Dropdown from "@components/oldLayout/Dropdown";
 import { HomeStyle, SearchMenuStyleAtHome } from "@routes/style";
 import { Link } from "react-router-dom";
 
@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <HomeStyle>
         <Logo />
-        <ul>
+        <ul className="menuWrapper">
           <li><Link to="/domestic">국내주식</Link></li>
           <li><Link to="/global">해외주식</Link></li>
           <li>뉴스</li>
