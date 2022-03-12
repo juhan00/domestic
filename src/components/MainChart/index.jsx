@@ -19,18 +19,25 @@ import calculateMovingAverageLine from "@utils/calculateMovingAverageLine";
 import useResizeObserver from "@utils/useResizeObserver";
 import { MainChartWrapper } from "./style";
 import useDebounce from "@utils/useDebounce";
+import numberWithCommas from "@utils/numberWithComma";
 
 function dataGenerator() {
-  let start = Math.random() * 500 + 9000;
-  let end = Math.random() > 0.5 ? start - 200 : start + 200;
-  let volume = Math.random() * 50000;
+  let start = Math.floor(Math.random() * 500 + 9000);
+  let end = Math.floor(Math.random() > 0.5 ? start - 200 : start + 200);
+  let volume = Math.floor(Math.random() * 50000);
 
   return {
     start,
     end,
     volume,
-    high: start > end ? start + Math.random() * 200 : end + Math.random() * 200,
-    low: start < end ? start - Math.random() * 200 : end - Math.random() * 200,
+    high:
+      start > end
+        ? Math.floor(start + Math.random() * 200)
+        : Math.floor(end + Math.random() * 200),
+    low:
+      start < end
+        ? Math.floor(start - Math.random() * 200)
+        : Math.floor(end - Math.random() * 200),
   };
 }
 
@@ -46,17 +53,16 @@ const MainChart = ({
   marginBottom = 40,
   marginLeft = 40,
   marginRight = 40,
-  focusCircleColor = "black",
+  volumeChartHeight = 40,
+  focusCircleColor = "#eee",
   focusLineColor = "#696969",
   focusLineWidth = 1.5,
+  toolTipWidth = 142,
+  toolTipHeight = 150,
+  toolTipColor = "#ffffffcc",
   overlayColor = "#fff",
   bandPadding = 0.3,
-  movingAverageLines = [
-    { value: 5, color: "green" },
-    { value: 20, color: "#F5746B" },
-    { value: 60, color: "yellow" },
-    { value: 120, color: "#bdb1e1" },
-  ],
+  movingAverageLines = [5, 20, 60, 120],
 }) => {
   const svgRef = useRef(null);
   const mainChartRef = useRef(null);
@@ -79,7 +85,7 @@ const MainChart = ({
     svg.attr("width", width).attr("height", height);
 
     movingAverageLines.forEach((ele) => {
-      svg.selectAll(`.moving-average-${ele.value}`).remove();
+      svg.selectAll(`.moving-average-${ele}`).remove();
     });
 
     const xMin = min(data, (data) => data.date);
@@ -100,11 +106,11 @@ const MainChart = ({
 
     const yPriceScale = scaleLinear()
       .domain([yPriceMin, yPriceMax])
-      .range([height * 0.75 - marginBottom, marginTop]);
+      .range([height - volumeChartHeight - marginBottom, marginTop]);
 
     const yVolumeScale = scaleLinear()
       .domain([yVolumeMin, yVolumeMax])
-      .range([height - marginBottom, height * 0.75 - marginTop]);
+      .range([height - marginBottom, height - volumeChartHeight - marginTop]);
 
     if (zoomState) {
       const newXScale = zoomState.rescaleX(xScale);
@@ -118,17 +124,19 @@ const MainChart = ({
     }
 
     movingAverageLines.forEach((ele) => {
-      calculateMovingAverageLine(data, ele.value);
+      calculateMovingAverageLine(data, ele);
     });
+
+    const movingAverageArea = svg.select("#movingaverage");
 
     movingAverageLines.forEach((ele) => {
       const movingAverageLineGenerator = line()
         .x((data) => xScale(data.date))
-        .y((data) => yPriceScale(data[`average${ele.value}`]))
+        .y((data) => yPriceScale(data[`average${ele}`]))
         .curve(curveBasis);
 
-      const movingAverageLine = svg
-        .selectAll(`.moving-average-${ele.value}`)
+      const movingAverageLine = movingAverageArea
+        .selectAll(`.moving-average-${ele}`)
         .data([data]);
 
       movingAverageLine.join((enter) =>
@@ -136,8 +144,7 @@ const MainChart = ({
           .append("path")
           .attr("clip-path", "url(#clip)")
           .style("fill", "none")
-          .classed(`moving-average-${ele.value}`, true)
-          .attr("stroke", ele.color)
+          .classed(`moving-average-${ele}`, true)
           .attr("stroke-width", 1.5)
           .attr("d", movingAverageLineGenerator),
       );
@@ -145,61 +152,51 @@ const MainChart = ({
 
     svg.style("display", "block");
 
-    const xAxis = axisBottom(xScale).tickFormat(timeFormat("%Y-%m-%d"));
-    const yPriceAxis = axisRight(yPriceScale);
-    const yVolumeAxis = axisRight(yVolumeScale);
-
+    const xAxis = axisBottom(xScale)
+      .tickFormat(timeFormat("%Y-%m-%d"))
+      .tickSize(-(height - marginBottom - marginTop));
+    const yPriceAxis = axisRight(yPriceScale).tickSize(
+      -(width - marginLeft - marginRight),
+    );
+    const yVolumeAxis = axisRight(yVolumeScale).tickSize(
+      -(width - marginLeft - marginRight),
+    );
     svg
       .append("clipPath")
       .attr("id", "clip")
       .append("rect")
-      .attr("width", width - marginLeft)
-      .attr("height", height);
+      .attr("width", width - marginLeft - marginRight)
+      .attr("height", height)
+      .attr("x", marginLeft)
+      .attr("y", marginBottom);
 
     svg
       .select(".x-axis")
       .attr("transform", `translate(0,${height - marginBottom})`)
       .call(xAxis)
-      .call((g) => g.select(".domain").remove())
-      .call((g) => g.selectAll(".tick line").remove());
+      .call((g) => g.select(".domain").remove());
 
     svg
       .select(".y-priceaxis")
       .attr("transform", `translate(${width - marginLeft},0)`)
       .call(yPriceAxis)
-      .call((g) => g.selectAll(".tick line").remove())
       .call((g) => g.select(".domain").remove());
 
     svg
       .select(".y-volumeaxis")
       .attr("transform", `translate(${width - marginLeft},0)`)
       .call(yVolumeAxis)
-      .call((g) => g.select(".domain").remove())
-      .call((g) => g.selectAll(".tick line").remove());
+      .call((g) => g.select(".domain").remove());
 
     const overlay = svg
       .selectAll(".overlay")
+      .attr("opacity", 0)
       .attr("width", width - marginLeft)
       .attr("height", height - marginBottom)
       .attr("fill", overlayColor)
       .style("pointer-events", "all");
 
-    const focus = svg.selectAll(".focus").style("display", "none");
-
-    focus
-      .selectAll(".focus-circle")
-      .attr("r", 5)
-      .attr("fill", focusCircleColor);
-
-    focus
-      .selectAll("line")
-      .style("fill", "none")
-      .style("stroke", focusLineColor)
-      .style("stroke-width", `${focusLineWidth}px`)
-      .style("stroke-dasharray", "3 3");
-
-    overlay.exit().remove();
-    overlay.enter().append("g").classed("focus", true).style("display", "none");
+    const focus = svg.selectAll(".focus");
 
     function generateCrosshair(e) {
       const focus = select(".focus");
@@ -215,6 +212,34 @@ const MainChart = ({
         curPositionDate - startDate.date > endDate.date - curPositionDate
           ? endDate
           : startDate;
+
+      focus
+        .selectAll("line")
+        .style("fill", "none")
+        .style("stroke", focusLineColor)
+        .style("stroke-width", `${focusLineWidth}px`)
+        .style("stroke-dasharray", "3 3");
+
+      focus
+        .select(".focus-tooltip")
+        .attr("width", toolTipWidth)
+        .attr("height", toolTipHeight)
+        .attr("opacity", 1)
+        .attr("fill", toolTipColor)
+        .attr("rx", 10)
+        .attr("ry", 10)
+        .attr(
+          "transform",
+          `translate(-${toolTipWidth / 2}, -${toolTipHeight / 2})`,
+        );
+
+      focus
+        .select(".focus-textg")
+        .attr(
+          "transform",
+          `translate(-${toolTipWidth / 2}, -${toolTipHeight / 2})`,
+        );
+
       focus.attr(
         "transform",
         `translate(${
@@ -235,7 +260,41 @@ const MainChart = ({
         .attr("x2", 0)
         .attr("y1", 0)
         .attr("y2", height - marginBottom - yPriceScale(currentPoint.end));
+
+      focus.select(".startlabel").text("시가");
+      focus.select(".endlabel").text("고가");
+
+      focus
+        .select(".starttext")
+        .text(`${numberWithCommas(currentPoint.start)}`);
+      focus.select(".endtext").text(`${numberWithCommas(currentPoint.end)}`);
+
+      movingAverageLines.map((ele) => {
+        focus
+          .select(`.average${ele}text`)
+          .text(`${numberWithCommas(currentPoint[`average${ele}`])}`);
+
+        focus.select(`.average${ele}label`).text(`${ele}일선`);
+      });
+
+      focus
+        .select(".focus-date")
+        .text(`${timeFormat("%y.%m.%d")(currentPoint.date)}`);
     }
+
+    const focusDate = focus.select(".focus-date").attr("x", 10).attr("y", 20);
+
+    const focusText = focus.selectAll(".focus-text");
+
+    focusText.attr("x", toolTipWidth / 2 + 10).attr("y", (value, index) => {
+      return toolTipHeight / 4 + 20 * index;
+    });
+
+    const focusLabel = focus.selectAll(".focus-label");
+
+    focusLabel.attr("x", 10).attr("y", (value, index) => {
+      return toolTipHeight / 4 + 20 * index;
+    });
 
     overlay
       .on("mouseover", () => focus.style("display", null))
@@ -259,21 +318,21 @@ const MainChart = ({
 
     svg.call(zoomBehavior);
 
-    // price
-    const priceLineGenerator = line()
-      .x((data) => xScale(data.date))
-      .y((data) => yPriceScale(data.end));
+    // // price
+    // const priceLineGenerator = line()
+    //   .x((data) => xScale(data.date))
+    //   .y((data) => yPriceScale(data.end));
 
-    const priceLine = svg.selectAll(".price").data([data]);
+    // const priceLine = svg.select("#price").selectAll(".pricepath").data([data]);
 
-    priceLine
-      .join("path")
-      .attr("clip-path", "url(#clip)")
-      .style("fill", "none")
-      .classed("price", true)
-      .attr("stroke", "steelblue")
-      .attr("stroke-width", "1.5")
-      .attr("d", priceLineGenerator);
+    // priceLine
+    //   .join("path")
+    //   .attr("clip-path", "url(#clip)")
+    //   .style("fill", "none")
+    //   .classed("pricepath", true)
+    //   .attr("stroke", "steelblue")
+    //   .attr("stroke-width", "1.5")
+    //   .attr("d", priceLineGenerator);
 
     const candleStickLineGenerator = line()
       .x((data) => data.x)
@@ -360,10 +419,8 @@ const MainChart = ({
         .attr("rx", 5)
         .attr("ry", 5)
         .attr("x", (data) => xScale(data.date) - xBandScale.bandwidth())
-        .attr("y", (data) => {
-          return yVolumeScale(data.volume);
-        })
-        .attr("width", (data) => xBandScale.bandwidth())
+        .attr("y", (data) => yVolumeScale(data.volume))
+        .attr("width", () => xBandScale.bandwidth())
         .attr(
           "height",
           (data) => height - marginBottom - yVolumeScale(data.volume),
@@ -377,13 +434,31 @@ const MainChart = ({
         <g className="x-axis" />
         <g className="y-priceaxis" />
         <g className="y-volumeaxis" />
-        <rect className="overlay" />
+        <g id="price" />
         <g id="volumes" />
+        <g id="movingaverage" />
         <g id="candlesticks" />
+        <rect className="overlay" />
         <g className="focus">
-          <circle className="focus-circle" />
           <line className="x-line" />
           <line className="y-line" />
+          <rect className="focus-tooltip" />
+          <g className="focus-textg">
+            <text className="focus-date"></text>
+            <text className="startlabel focus-label"></text>
+            <text className="endlabel focus-label"></text>
+            <text className="average5label focus-label"></text>
+            <text className="average20label focus-label"></text>
+            <text className="average60label focus-label"></text>
+            <text className="average120label focus-label"></text>
+
+            <text className="starttext focus-text" />
+            <text className="endtext focus-text" />
+            <text className="average5text focus-text" />
+            <text className="average20text focus-text" />
+            <text className="average60text focus-text" />
+            <text className="average120text focus-text" />
+          </g>
         </g>
       </svg>
     </MainChartWrapper>
