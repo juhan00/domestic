@@ -27,6 +27,8 @@ const SearchResult = ({ keyword, domesticList, globalList, onClick }) => {
       target = "beta";
     } else if (location.pathname.includes("correlation")) {
       target = "correlation";
+    } else if (location.pathname.includes("statistics")) {
+      target = "statistics";
     } else {
       target = "financial";
     }

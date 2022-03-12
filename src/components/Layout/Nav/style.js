@@ -1,50 +1,76 @@
 import styled from "@emotion/styled";
 
 export const MenuContainer = styled.div`
-  position: sticky;
   z-index: 99;
   top: 0;
-  background-color: #286f6c;
-
+  &.sticky {
+    width: 100%;
+    background-color: #047b6c;
+    position: fixed;
+    top: 0;
+    .mainmenu {
+      height: 38px;
+      line-height: 38px;
+    }
+  }
   .menuWrapper {
-    max-width: 1600px;
     display: flex;
     align-items: center;
     max-width: 1600px;
-    padding: 12px 36px 20px;
+    padding: 0 36px;
     margin: 0 auto;
-
-    a {
-      height: 44px;
-      padding: 0 24px;
-      border: 1px solid #fff;
-      line-height: 44px;
-      border-radius: 91px;
-      margin-right: 8px;
-      color: #fff;
-      text-decoration: none;
-      /* cursor: pointer; */
-      :hover {
-        background: #fff;
-        color: #286f6c;
-        font-weight: 700;
-      }
-    }
   }
 `;
 
-export const MenuItem = styled.div`
-  height: 44px;
-  padding: 0 24px;
-  border: 1px solid #fff;
-  line-height: 44px;
-  border-radius: 91px;
-  margin-right: 8px;
-  color: #fff;
-  cursor: pointer;
-  :hover {
-    background: #fff;
-    color: #286f6c;
-    font-weight: 700;
+export const MenuItem = styled.li`
+  position: relative;
+  a {
+    display: block;
+    text-decoration: none;
+  }
+  .mainmenu {
+    height: 46px;
+    padding: 0 2px;
+    line-height: 46px;
+    margin-left: 40px;
+    color: #fff;
+    transition: height 0.3s ease;
+
+    &:hover {
+      font-weight: 700;
+      border-bottom: 2px solid #fff;
+    }
+  }
+  &:first-of-type {
+    .mainmenu {
+      margin-left: 0;
+    }
+  }
+  .submenuWrapper {
+    display: none;
+  }
+
+  &:hover {
+    .submenuWrapper {
+      display: block;
+      position: absolute;
+      z-index: 100;
+      left: 37px;
+      top: 40px;
+      background-color: #fff;
+      width: 180px;
+      border-radius: 12px;
+      box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      .submenu {
+        color: #000;
+        padding: 12px 27px;
+        line-height: 22px;
+        font-size: 14px;
+        &:hover {
+          background-color: #eee;
+        }
+      }
+    }
   }
 `;
