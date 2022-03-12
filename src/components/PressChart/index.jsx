@@ -2,10 +2,11 @@ import { select, max, scaleLinear, scaleBand, axisRight, axisBottom } from "d3";
 import React, { useEffect, useRef } from "react";
 import useResizeObserver from "@utils/useResizeObserver";
 import { PressChartWrapper } from "./style";
+import useDebounce from "@utils/useDebounce";
 
 const PressChart = ({
   data,
-  barColor = "#5FB6AD",
+  barColor = "#CBEBDB",
   barWidth = 20,
   width = 500,
   height = 300,
@@ -19,15 +20,16 @@ const PressChart = ({
   const pressChartRef = useRef(null);
   const svgRef = useRef(null);
   const dimensions = useResizeObserver(pressChartRef);
+  const resize = useDebounce(dimensions, 200);
 
   useEffect(() => {
     const svg = select(svgRef.current);
 
-    if (!dimensions) return;
+    if (!resize) return;
 
     svg.selectAll(".pressg").remove();
 
-    const { width, height } = dimensions;
+    const { width, height } = resize;
     svg.attr("width", width).attr("height", height);
 
     const entireValue = max(data, (data) => data.value);
@@ -114,7 +116,7 @@ const PressChart = ({
           })
           .attr("y", (node) => yScale(node.value) - 10);
       });
-  }, [data, dimensions]);
+  }, [data, resize]);
 
   return (
     <PressChartWrapper ref={pressChartRef}>
