@@ -20,6 +20,7 @@ import useResizeObserver from "@utils/useResizeObserver";
 import { MainChartWrapper } from "./style";
 import useDebounce from "@utils/useDebounce";
 import numberWithCommas from "@utils/numberWithComma";
+import { ticks } from "d3";
 
 function dataGenerator() {
   let start = Math.floor(Math.random() * 500 + 9000);
@@ -112,6 +113,11 @@ const MainChart = ({
       .domain([yVolumeMin, yVolumeMax])
       .range([height - marginBottom, height - volumeChartHeight - marginTop]);
 
+    const xAxis = axisBottom(xScale)
+      .tickFormat(timeFormat("%Y-%m-%d"))
+      .tickValues(ticks(xMin, xMax, 7))
+      .tickSize(-(height - marginBottom - marginTop));
+
     if (zoomState) {
       const newXScale = zoomState.rescaleX(xScale);
       let [newStart, newEnd] = newXScale.domain();
@@ -121,6 +127,8 @@ const MainChart = ({
       xBandScale.range(
         [marginLeft, width - marginRight].map((data) => zoomState.applyX(data)),
       );
+
+      xAxis.tickValues(ticks(newStart, newEnd, 7));
     }
 
     movingAverageLines.forEach((ele) => {
@@ -152,9 +160,6 @@ const MainChart = ({
 
     svg.style("display", "block");
 
-    const xAxis = axisBottom(xScale)
-      .tickFormat(timeFormat("%Y-%m-%d"))
-      .tickSize(-(height - marginBottom - marginTop));
     const yPriceAxis = axisRight(yPriceScale).tickSize(
       -(width - marginLeft - marginRight),
     );

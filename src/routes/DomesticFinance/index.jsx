@@ -5,6 +5,7 @@ import PressChart from "@components/pressChart";
 import BuzzChart from "@components/BuzzChart";
 import EmotionChart from "@components/EmotionChart";
 import MainChart from "@components/MainChart";
+import MainAreaChart from "@components/MainAreaChart";
 import {
   reducer,
   initialState,
@@ -233,7 +234,7 @@ const DomesticStock = () => {
             <div className="level1-main-chart-wrapper">
               <div className="main-chart-wrapper">
                 <div className="title">주식 차트</div>
-                <MainChart />
+                {diff < 91 ? <MainChart /> : <MainAreaChart />}
               </div>
             </div>
             <div className="level1-moya-chart-wrapper">

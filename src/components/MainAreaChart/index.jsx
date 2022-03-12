@@ -21,6 +21,7 @@ import { MainChartWrapper } from "../MainChart/style";
 import useDebounce from "@utils/useDebounce";
 import numberWithCommas from "@utils/numberWithComma";
 import { area } from "d3";
+import { ticks } from "d3";
 
 function dataGenerator() {
   let start = Math.floor(Math.random() * 500 + 9000);
@@ -111,6 +112,11 @@ const MainAreaChart = ({
       .domain([yVolumeMin, yVolumeMax])
       .range([height - marginBottom, height - volumeChartHeight - marginTop]);
 
+    const xAxis = axisBottom(xScale)
+      .tickFormat(timeFormat("%Y-%m-%d"))
+      .tickValues(ticks(xMin, xMax, 7))
+      .tickSize(-(height - marginBottom - marginTop));
+
     if (zoomState) {
       const newXScale = zoomState.rescaleX(xScale);
       let [newStart, newEnd] = newXScale.domain();
@@ -120,6 +126,8 @@ const MainAreaChart = ({
       xBandScale.range(
         [marginLeft, width - marginRight].map((data) => zoomState.applyX(data)),
       );
+
+      xAxis.tickValues(ticks(newStart, newEnd, 7));
     }
 
     movingAverageLines.forEach((ele) => {
@@ -128,15 +136,13 @@ const MainAreaChart = ({
 
     svg.style("display", "block");
 
-    const xAxis = axisBottom(xScale)
-      .tickFormat(timeFormat("%Y-%m-%d"))
-      .tickSize(-(height - marginBottom - marginTop));
     const yPriceAxis = axisRight(yPriceScale).tickSize(
       -(width - marginLeft - marginRight),
     );
-    const yVolumeAxis = axisRight(yVolumeScale).tickSize(
-      -(width - marginLeft - marginRight),
-    );
+    const yVolumeAxis = axisRight(yVolumeScale)
+      .tickSize(-(width - marginLeft - marginRight))
+      .tickValues(ticks(yVolumeMin, yVolumeMax, 4));
+
     svg
       .append("clipPath")
       .attr("id", "clip")
