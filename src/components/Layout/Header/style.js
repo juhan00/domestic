@@ -1,7 +1,16 @@
 import styled from "@emotion/styled";
 
 export const HeaderContainer = styled.header`
-  background-color: #286f6c;
+  background-color: #047b6c;
+  .totop {
+    transform: translateX(0);
+  }
+`;
+
+export const HeaderInnerTemplate = styled.div`
+  max-width: 1600px;
+  padding: 0 36px;
+  margin: 0 auto;
 `;
 
 export const HaederWrapper = styled.div`
@@ -10,9 +19,6 @@ export const HaederWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1600px;
-  padding: 0 36px;
-  margin: 0 auto;
 
   .logo {
     width: 80px;
@@ -116,4 +122,25 @@ export const SearchOnHeader = styled.div`
       }
     }
   }
+`;
+
+export const ToTop = styled.div`
+  position: fixed;
+  z-index: 99999;
+  width: 40px;
+  height: 40px;
+  color: #000;
+  text-align: center;
+  line-height: 35px;
+  font-size: 25px;
+  font-weight: 700;
+  opacity: 0.8;
+  border: 2px solid #000;
+  border-radius: 10px;
+  bottom: 30px;
+  right: 30px;
+  background-color: #f5f6f8;
+  transform: translateX(100px);
+  transition: 0.3s;
+  cursor: pointer;
 `;

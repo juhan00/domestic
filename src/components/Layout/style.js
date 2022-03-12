@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export const Base = styled.div`
   min-height: 100vh;
   height: 100%;
-  background-color: #f7f7f9;
+  background-color: #f5f6f8;
   .hide {
     display: none;
   }
