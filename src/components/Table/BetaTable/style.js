@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
 
 export const TableWrapper = styled.div`
-  border: 1px solid red;
-
   max-width: 400px;
   width: 100%;
   border-radius: 12px;
