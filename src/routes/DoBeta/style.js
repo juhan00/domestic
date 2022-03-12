@@ -10,13 +10,13 @@ export const RouteWrapper = styled.div`
 `;
 export const TableWrapper = styled.div`
   margin-right: 20px;
+  flex: 1 1 400px;
 `;
 export const ChartWrapper = styled.div`
   background-color: #ffffff;
-  max-width: 1222px;
-  width: 100%;
   height: 783px;
   border-radius: 12px;
+  flex: 3 1 1200px;
   section {
     background-color: #5fb6ad;
     color: #ffffff;

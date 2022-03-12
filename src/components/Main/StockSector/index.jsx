@@ -1,62 +1,62 @@
 import React, { useCallback, useState } from "react";
 import { StockSectorWrapper } from "./style";
-const initialSectorData = () => [
-  {
-    name: "S&P 500",
-    rate: "+25.31%",
-  },
-  {
-    name: "Russell 2000",
-    rate: "+25.31%",
-  },
-  {
-    name: "Gold",
-    rate: "+25.31%",
-  },
-  {
-    name: "Oil",
-    rate: "+25.31%",
-  },
-  {
-    name: "Tech",
-    rate: "+25.31%",
-  },
-  {
-    name: "Energy",
-    rate: "+25.31%",
-  },
-  {
-    name: "Financial",
-    rate: "+25.31%",
-  },
-  {
-    name: "Discretionary",
-    rate: "+25.31%",
-  },
-  {
-    name: "Staples",
-    rate: "+25.31%",
-  },
-  {
-    name: "Materials",
-    rate: "+25.31%",
-  },
-  {
-    name: "Industrials",
-    rate: "+25.31%",
-  },
-  {
-    name: "Health Care",
-    rate: "+25.31%",
-  },
-  {
-    name: "Utilities",
-    rate: "+25.31%",
-  },
-];
+// const initialSectorData = () => [
+//   {
+//     id: "S&P 500",
+//     rate: "+25.31%",
+//   },
+//   {
+//     id: "Russell 2000",
+//     rate: "+25.31%",
+//   },
+//   {
+//     id: "Gold",
+//     rate: "+25.31%",
+//   },
+//   {
+//     id: "Oil",
+//     rate: "+25.31%",
+//   },
+//   {
+//     id: "Tech",
+//     rate: "+25.31%",
+//   },
+//   {
+//     id: "Energy",
+//     rate: "+25.31%",
+//   },
+//   {
+//     id: "Financial",
+//     rate: "+25.31%",
+//   },
+//   {
+//     id: "Discretionary",
+//     rate: "+25.31%",
+//   },
+//   {
+//     id: "Staples",
+//     rate: "+25.31%",
+//   },
+//   {
+//     id: "Materials",
+//     rate: "+25.31%",
+//   },
+//   {
+//     id: "Industrials",
+//     rate: "+25.31%",
+//   },
+//   {
+//     id: "Health Care",
+//     rate: "+25.31%",
+//   },
+//   {
+//     id: "Utilities",
+//     rate: "+25.31%",
+//   },
+// ];
 
-const StockSector = () => {
-  const [sectorData, setSectorData] = useState(initialSectorData);
+const StockSector = ({ data }) => {
+  const [sectorData, setSectorData] = useState(data.items);
 
   return (
     <StockSectorWrapper>
@@ -75,10 +75,10 @@ const StockSector = () => {
           </tr>
         </thead>
         <tbody>
-          {sectorData.map((data, index) => (
+          {sectorData.map((item, index) => (
             <tr key={index}>
-              <td className="alignL">{data.name}</td>
-              <td className="alignR">{data.rate}</td>
+              <td className="alignL">{item.id}</td>
+              <td className="alignR">{item.rate}</td>
             </tr>
           ))}
         </tbody>

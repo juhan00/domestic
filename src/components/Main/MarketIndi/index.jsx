@@ -7,18 +7,18 @@ import stock_up from "@images/stock_up.svg";
 import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
 
-const initialMarketIndi = {
-  indiData: [
-    { type: "금리", descript: "CD(91일)", index: 1.5, vs: 0 },
-    { type: "유가", descript: "WTI", index: 91.59, vs: 8.76 },
-    { type: "금", descript: "국제금", index: 91.59, vs: 8.76 },
-    { type: "금", descript: "국내금", index: 91.59, vs: 8.76 },
-  ],
-  date: "2022.02.28",
-};
+// const initialMarketIndi = {
+//   indiData: [
+//     { type: "금리", descript: "CD(91일)", index: 1.5, vs: 0 },
+//     { type: "유가", descript: "WTI", index: 91.59, vs: 8.76 },
+//     { type: "금", descript: "국제금", index: 91.59, vs: 8.76 },
+//     { type: "금", descript: "국내금", index: 91.59, vs: 8.76 },
+//   ],
+//   date: "2022.02.28",
+// };
 
-const MarketIndi = () => {
-  const [marketIndi, setMarketIndi] = useState(initialMarketIndi);
+const MarketIndi = ({ data }) => {
+  const [marketIndi, setMarketIndi] = useState(data);
 
   return (
     <MarketIndiWrapper>
@@ -27,11 +27,11 @@ const MarketIndi = () => {
         <span>{marketIndi.date} 기준</span>
       </div>
       <ul>
-        {marketIndi.indiData.map((data, index) => (
+        {marketIndi.data.map((item, index) => (
           <li key={index}>
             <img
               src={
-                data.type === "금리"
+                item.type === "금리"
                   ? market_interest_rate
                   : data.type === "유가"
                   ? market_oil_price
@@ -40,13 +40,13 @@ const MarketIndi = () => {
               alt="interest rate"
             />
             <div className="title">
-              <h3>{data.type}</h3>
-              <p>{data.descript}</p>
+              <h3>{item.type}</h3>
+              <p>{item.descript}</p>
             </div>
             <div className="index">
-              <div className="point">{data.index}</div>
+              <div className="point">{item.index}</div>
               <div className="vs">
-                <img src={stock_none} alt="stock none" /> {data.vs}
+                <img src={stock_none} alt="stock none" /> {item.vs}
               </div>
             </div>
           </li>
