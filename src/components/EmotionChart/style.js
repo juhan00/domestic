@@ -3,34 +3,34 @@ import styled from "@emotion/styled";
 export const EmotionWrapper = styled.div`
   width: 100%;
   min-height: 166.33px;
-  padding: 0 32px;
+  padding: 20px 32px;
   box-sizing: border-box;
   & > svg {
     display: block;
     margin: auto;
     width: 100%;
+  }
 
-    & .emotiong,
-    .emotionarea {
-      fill: url(#chartGradient);
-    }
+  & svg .emotionpath {
+    fill: none;
+    stroke: #065398;
+    stroke-width: 3;
+    stroke-line: join round;
+    stroke-line: cap round;
+  }
 
-    & .y-axis line {
-      stroke: #ddd;
-    }
+  & .y-axis text {
+    fill: #065398;
+    font-size: 11px;
+    font-weight: bold;
+  }
 
-    & .emotionpath {
-      fill: none;
-      stroke: #5fb6ad;
-      stroke-width: 3;
-      stroke-linejoin: round;
-      stroke-linecap: round;
-    }
-    & #chartGradient {
-      x1: 100%;
-      y2: 100%;
-      y1: 100%;
-      y2: 0%;
-    }
+  & .x-axis text {
+    fill: #767676;
+  }
+  & .title {
+    fill: #065398;
+    font-size: 14px;
+    font-weight: bold;
   }
 `;
