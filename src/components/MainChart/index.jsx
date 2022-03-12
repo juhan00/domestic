@@ -163,9 +163,9 @@ const MainChart = ({
     const yPriceAxis = axisRight(yPriceScale).tickSize(
       -(width - marginLeft - marginRight),
     );
-    const yVolumeAxis = axisRight(yVolumeScale).tickSize(
-      -(width - marginLeft - marginRight),
-    );
+    const yVolumeAxis = axisRight(yVolumeScale)
+      .tickSize(-(width - marginLeft - marginRight))
+      .tickValues(ticks(yVolumeMin, yVolumeMax, 4));
     svg
       .append("clipPath")
       .attr("id", "clip")
