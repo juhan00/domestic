@@ -84,9 +84,9 @@ const StockIndex = ({ type, data }) => {
     }
 
     //초기 셋팅
-    const margin = { top: 50, right: 50, bottom: 50, left: 50 };
+    const margin = { top: 40, right: 40, bottom: 50, left: 40 };
     const width = resize.width - (margin.left + margin.right);
-    const height = 100;
+    const height = 80;
     const xTickCount = 4;
     const yTickCount = 4;
     const xTickBlankCount = 2;

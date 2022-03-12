@@ -6,6 +6,7 @@ export const DomesticWrapper = styled.div`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    gap: 20px;
   }
   .row + .row {
     margin-top: 20px;
@@ -18,8 +19,5 @@ export const DomesticWrapper = styled.div`
   }
   .col.col2 {
     flex: 2 1 0;
-  }
-  .col + .col {
-    margin-left: 20px;
   }
 `;
