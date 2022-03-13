@@ -3,6 +3,7 @@ import MenuIconToggle from "@images/notice_icon.svg";
 import recent_close_icon from "@images/recent_close_icon.svg";
 
 export const RecentStockWrapper = styled.div`
+  height: 118px;
   display: flex;
   flex: 1 1 0;
   align-items: center;

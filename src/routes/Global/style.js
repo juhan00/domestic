@@ -6,6 +6,7 @@ export const GlobalWrapper = styled.div`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    gap: 20px;
   }
   .row + .row {
     margin-top: 20px;
@@ -17,9 +18,6 @@ export const GlobalWrapper = styled.div`
     flex-wrap: wrap;
   }
   .col.col2 {
-    flex: 2 1 0;
-  }
-  .col + .col {
-    margin-left: 20px;
+    flex: 2 1 20px;
   }
 `;
