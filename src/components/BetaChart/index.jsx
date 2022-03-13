@@ -109,7 +109,7 @@ const BetaChart = ({ data, names, beta }) => {
     // line
     svg
       .selectAll(".line")
-      .data(betaArray)
+      .data([betaArray])
       .join((enter) => {
         const line = enter.append("g").classed("line", true);
 
@@ -118,30 +118,53 @@ const BetaChart = ({ data, names, beta }) => {
           .style("fill", "none")
           .style("stroke-width", 4)
           .attr("stroke", "#286F6C")
-          .attr("d", (d) =>
+          .attr(
+            "d",
             d3
               .line()
               .x((d) => xScale(d.x))
               .y((d) => yScale(d.y)),
           );
       });
-    // svg
-    //   .append("path")
-    //   .datum(betaArray)
-    //   .attr("fill", "none")
-    //   .attr("stroke", "#69b3a2")
-    //   .attr("stroke-width", 1.5)
-    //   .attr(
-    //     "d",
-    //     d3
-    //       .line()
-    //       .x(function (d) {
-    //         return xScale(d.x);
-    //       })
-    //       .y(function (d) {
-    //         return yScale(d.y);
-    //       }),
-    //   );
+
+    svg
+      .selectAll(".rect")
+      .data(betaArray)
+      .join((enter) => {
+        const rect = enter.append("g").classed("rect", true);
+
+        rect
+          .append("rect")
+          .attr("width", 2)
+          .attr("height", 2)
+          .style("fill", "#286F6C")
+          .style("stroke", "#286F6C")
+          .style("stroke-opacity", 0)
+          .style("stroke-width", 5)
+          .attr(
+            "transform",
+            (d) => `translate(${xScale(d.x)}, ${yScale(d.y)}) rotate(-45)`,
+          )
+          .on("mouseover", (e, d) => {
+            setHoveredValue(d);
+            d3.select(e.target)
+              .attr("width", 10)
+              .attr("height", 10)
+              .style("stroke", "#286F6C")
+              .style("stroke-opacity", 0.5)
+              .style("stroke-width", 10);
+            console.log(d);
+          })
+          .on("mousemove", handleMouseMove)
+          .on("mouseleave", (e) => {
+            setHoveredValue(null);
+            d3.select(e.target)
+              .attr("width", 2)
+              .attr("height", 2)
+              .style("stroke-opacity", 0)
+              .style("stroke-width", 5);
+          });
+      });
 
     // dots
     svg
@@ -162,6 +185,7 @@ const BetaChart = ({ data, names, beta }) => {
               .style("stroke", "#FDC055")
               .style("stroke-opacity", 0.5)
               .style("stroke-width", 10);
+            console.log(d);
           })
           .on("mousemove", handleMouseMove)
           .on("mouseleave", (e) => {
