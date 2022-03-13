@@ -3,15 +3,18 @@ import axios from "redaxios";
 import SearchBar from "@components/Layout/Search/SearchBar";
 import SearchResult from "@components/Layout/Search/SearchResult";
 import { clickOutside } from "@utils/clickOutside";
-import { NavLink } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Search = () => {
   const ref = useRef();
+  const navigate = useNavigate();
+  const location = useLocation().pathname;
 
   const [isOpen, setIsOpen] = useState(false);
   const [keyword, setKeyworld] = useState("");
   const [domesticList, setDomesticList] = useState([]);
   const [globalList, setGlobalList] = useState([]);
+  const [sellcted, setSellected] = useState("domestic");
 
   // 주식 종목 리스트 불러와서 state로 저장
   useEffect(() => {
@@ -73,11 +76,35 @@ const Search = () => {
 
   return (
     <>
-      <div className="searchOption">
-        <NavLink to="/domestic">국내</NavLink>
+      <div
+        className={
+          location.includes("domestic") ? "searchOption active" : "searchOption"
+        }
+        onClick={
+          location.includes("domestic") || location.includes("global")
+            ? () => {
+                navigate("/domestic");
+              }
+            : () => {
+                setSellected("domestic");
+              }
+        }>
+        국내
       </div>
-      <div className="searchOption">
-        <NavLink to="/global">해외</NavLink>
+      <div
+        className={
+          location.includes("global") ? "searchOption active" : "searchOption"
+        }
+        onClick={
+          location.includes("domestic") || location.includes("global")
+            ? () => {
+                navigate("/global");
+              }
+            : () => {
+                setSellected("global");
+              }
+        }>
+        해외
       </div>
       <SeachIcon />
       <div ref={ref}>
@@ -95,6 +122,8 @@ const Search = () => {
             domesticList={domesticList}
             globalList={globalList}
             onClick={handleClick}
+            location={location}
+            sellcted={sellcted}
           />
         </div>
       </div>

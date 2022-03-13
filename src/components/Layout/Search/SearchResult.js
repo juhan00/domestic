@@ -1,14 +1,19 @@
 import React, { useMemo } from "react";
-import { useLocation, NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
-const SearchResult = ({ keyword, domesticList, globalList, onClick }) => {
-  const location = useLocation();
-
+const SearchResult = ({
+  keyword,
+  domesticList,
+  globalList,
+  onClick,
+  location,
+  sellcted,
+}) => {
   const firstTarget = useMemo(() => {
     let target = "";
-    if (location.pathname.includes("domestic")) {
+    if (location.includes("domestic")) {
       target = "domestic";
-    } else if (location.pathname.includes("global")) {
+    } else if (location.includes("global")) {
       target = "global";
     } else {
       // 홈의 경우 일단 국내로 이동.  옵션 선택에 따라 변경되도록 수정할 예정
@@ -19,15 +24,15 @@ const SearchResult = ({ keyword, domesticList, globalList, onClick }) => {
 
   const secondTarget = useMemo(() => {
     let target = "";
-    if (location.pathname.includes("cominfo")) {
+    if (location.includes("cominfo")) {
       target = "cominfo";
-    } else if (location.pathname.includes("disclosure")) {
+    } else if (location.includes("disclosure")) {
       target = "disclosure";
-    } else if (location.pathname.includes("beta")) {
+    } else if (location.includes("beta")) {
       target = "beta";
-    } else if (location.pathname.includes("correlation")) {
+    } else if (location.includes("correlation")) {
       target = "correlation";
-    } else if (location.pathname.includes("statistics")) {
+    } else if (location.includes("statistics")) {
       target = "statistics";
     } else {
       target = "financial";
@@ -35,7 +40,7 @@ const SearchResult = ({ keyword, domesticList, globalList, onClick }) => {
     return target;
   }, [location]);
 
-  if (location.pathname.includes("domestic")) {
+  if (location.includes("domestic") || sellcted == "domestic") {
     return (
       <ul className="searchResultList">
         {domesticList
@@ -60,7 +65,7 @@ const SearchResult = ({ keyword, domesticList, globalList, onClick }) => {
           ))}
       </ul>
     );
-  } else if (location.pathname.includes("global")) {
+  } else if (location.includes("global") || sellcted == "global") {
     return (
       <ul className="searchResultList">
         {globalList
