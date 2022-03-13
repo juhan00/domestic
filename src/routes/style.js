@@ -9,6 +9,10 @@ export const HomeStyle = styled.div`
   background-repeat: no-repeat;
   background-position: center bottom -20%;
   overflow: hidden;
+  .logo {
+    position: fixed;
+    width: 80px;
+  }
   .menuWrapper {
     width: 348px;
     position: fixed;
@@ -40,106 +44,92 @@ export const HomeStyle = styled.div`
       font-size: 60px;
     }
   }
+  .hide {
+    display: none;
+  }
 `;
 
-export const SearchMenuStyleAtHome = styled.div`
+export const SearchAtHome = styled.div`
   position: fixed;
-  width: 913px;
-  height: 80px;
-  display: flex;
-  background-color: #fff;
-  border-radius: 45px;
-  border: 0;
-  padding: 30px;
-  left: 50%;
   top: 48%;
+  left: 50%;
   transform: translateX(-50%);
-  box-shadow: 0 50px 30px -30px rgba(0, 0, 0, 0.5);
-  .searchContainer {
-    width: 80%;
-    input {
-      width: 100%;
-      height: 50px;
-      transform: translateY(-25%);
-      border: 0;
-      border-radius: 15px;
-      padding: 0 10px;
-      :focus {
-        border: 1px solid #5fb6ad;
-        outline: none;
-        font-weight: 700;
-        box-sizing: border-box;
-      }
-    }
-    .searchResultWrapper {
-      background-color: #fff;
-      width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
-      max-height: 300px;
-      overflow-y: scroll;
-      &.hide {
-        display: none;
-      }
-      .searchResultList {
-        .searchResultItem {
-          margin-top: 10px;
-          font-size: 16px;
-          width: 100%;
-          a {
-            padding: 4px 10px;
-            display: block;
-            text-decoration: none;
-            color: #5f5f5f;
-            font-size: 14px;
-            span {
-              color: #000;
-              font-size: 16px;
-            }
-          }
-          &:hover {
-            background-color: #5fb6ad;
-            a {
-              color: #fff;
-              span {
-                color: #fff;
-                font-weight: 700;
-              }
-            }
-          }
-        }
+  width: 913px;
+  border-radius: 45px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
+  .searchOption {
+    display: inline-block;
+    text-align: center;
+    line-height: 80px;
+    width: 100px;
+    height: 80px;
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+    cursor: pointer;
+    &:first-of-type {
+      &::after {
+        position: relative;
+        display: inline-block;
+        content: "";
+        width: 2px;
+        height: 20px;
+        background-color: #e5e5e5;
+        float: right;
+        margin-top: 30px;
       }
     }
   }
-  .dropdownWrapper {
-    cursor: pointer;
-    .optionList {
-      margin-top: 10px;
-      background-color: #fff;
-      width: 80%;
-      border-radius: 10px;
-      box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
-      .optionItem {
-        padding: 4px 10px;
+  svg {
+    margin: 0 9px;
+  }
+  input {
+    width: 600px;
+    height: 80px;
+    padding-left: 10px;
+    border: 0;
+    font-size: 18px;
+    :focus {
+      outline: none;
+    }
+  }
+  .searchResultWrapper {
+    position: absolute;
+    z-index: 999;
+    top: 72px;
+    background-color: #fff;
+    width: 600px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    max-height: 300px;
+    overflow-y: auto;
+    .searchResultItem {
+      a {
         font-size: 16px;
-        width: 100%;
-        margin-top: 10px;
-        padding: 4px 10px;
-        a {
-          text-decoration: none;
-          color: #5f5f5f;
-          font-size: 14px;
-        }
-        &:hover {
-          background-color: #5fb6ad;
-          color: #fff;
+        padding: 6px 10px;
+        display: block;
+        text-decoration: none;
+        color: #5f5f5f;
+        font-size: 14px;
+        span {
+          color: #000;
+          font-size: 16px;
         }
       }
-    }
-    .btnToggle {
-      width: 9px;
-      height: 4.5px;
-      margin: 0 30px;
+      &:hover {
+        background-color: #5fb6ad;
+        a {
+          color: #fff;
+          span {
+            color: #fff;
+            font-weight: 700;
+          }
+        }
+      }
     }
   }
 `;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import Search from "@components/Layout/Search";
 import MoyaLogo from "@images/moyaLogo.png";
 import StockInfo from "@components/Layout/StockInfo";
@@ -38,7 +39,9 @@ export const Header = () => {
     <HeaderContainer>
       <HeaderInnerTemplate>
         <HaederWrapper>
-          <img className="logo" src={MoyaLogo} alt="MoYa" />
+          <NavLink to="/">
+            <img className="logo" src={MoyaLogo} alt="MoYa" />
+          </NavLink>
           <SearchOnHeader>
             <Search />
           </SearchOnHeader>
