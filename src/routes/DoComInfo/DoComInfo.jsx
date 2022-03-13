@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import ComInfoTable from "@components/ComInfoTable";
 import ComInfoGraph from "@components/ComInfoGraph";
 import ComInfoDailyPrice from "@components/DailyPrice";
-import axios from "redaxios";
 import { RouteWrapper, PriceWrapper } from "./style";
 
 const DoComInfo = () => {

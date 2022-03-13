@@ -9,14 +9,18 @@ const Tooltip = ({ hoveredValue, mousePosition, names }) => {
     const yPosition = mousePosition.y;
     return (
       <TooltipContainer
-        style={{ left: `${xPosition + 25}px`, top: `${yPosition - 25}px` }}>
+        style={{ left: `${xPosition + 30}px`, top: `${yPosition - 40}px` }}>
         <div>
           <div id="tooltip">
-            {hoveredValue.basDt}
-            <br />
-            {names[0]}:{hoveredValue.xPrice}
-            <br />
-            {names[1]}:{hoveredValue.yPrice}
+            <h3>{hoveredValue.basDt}</h3>
+            <span>
+              <div>{names[0]}</div>
+              <div className="per">{hoveredValue.xPrice}%</div>
+            </span>
+            <span>
+              <div>{names[1]}</div>
+              <div className="per">{hoveredValue.yPrice}%</div>
+            </span>
           </div>
         </div>
       </TooltipContainer>
