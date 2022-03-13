@@ -4,8 +4,7 @@ export const TableWrapper = styled.div`
   background-color: #ffffff;
   max-width: 790px;
   width: 100%;
-  max-height: 384px;
-  height: 100%;
+  height: 381px;
   border-radius: 12px;
   margin: 0 20px 0 0;
   padding: 28px;

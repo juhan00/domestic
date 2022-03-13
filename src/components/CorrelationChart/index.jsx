@@ -6,46 +6,47 @@ import Search from "@components/Search"
 
 const CorrelationChart = () => {
   const data = [
-    { stock: 2900, date: "10:00" },
-    { stock: 2520, date: "10:10" },
-    { stock: 2530, date: "10:20" },
-    { stock: 2400, date: "10:30" },
-    { stock: 2500, date: "10:40" },
-    { stock: 2650, date: "10:50" },
-    { stock: 2700, date: "11:00" },
-    { stock: 2500, date: "11:10" },
-    { stock: 2403, date: "11:20" },
-    { stock: 2300, date: "11:30" },
-    { stock: 2230, date: "11:40" },
-    { stock: 2330, date: "11:50" },
-    { stock: 2400, date: "12:00" },
-    { stock: 2100, date: "12:10" },
-    { stock: 2540, date: "12:20" },
-    { stock: 2400, date: "12:30" },
-    { stock: 2600, date: "12:40" },
-    { stock: 2400, date: "12:50" },
-    { stock: 2300, date: "10:00" },
-    { stock: 2405, date: "10:10" },
-    { stock: 2500, date: "10:20" },
-    { stock: 2400, date: "10:30" },
-    { stock: 2500, date: "10:40" },
-    { stock: 2650, date: "10:50" },
-    { stock: 2700, date: "11:00" },
-    { stock: 2500, date: "11:10" },
-    { stock: 2400, date: "11:20" },
-    { stock: 2300, date: "11:30" },
-    { stock: 2200, date: "11:40" },
-    { stock: 2340, date: "11:50" },
-    { stock: 2400, date: "12:00" },
-    { stock: 2340, date: "12:10" },
-    { stock: 2500, date: "12:20" },
-    { stock: 2480, date: "12:30" },
-    { stock: 2600, date: "12:40" },
-    { stock: 2900, date: "12:50" },
+    { corr: 2.900, date: "10:00" },
+    { corr: 2.520, date: "10:10" },
+    { corr: 2.530, date: "10:20" },
+    { corr: 2.400, date: "10:30" },
+    { corr: 2.500, date: "10:40" },
+    { corr: 2.650, date: "10:50" },
+    { corr: 2.700, date: "11:00" },
+    { corr: 2.500, date: "11:10" },
+    { corr: 2.403, date: "11:20" },
+    { corr: 2.300, date: "11:30" },
+    { corr: 2.230, date: "11:40" },
+    { corr: 2.330, date: "11:50" },
+    { corr: 2.400, date: "12:00" },
+    { corr: 2.100, date: "12:10" },
+    { corr: 2.540, date: "12:20" },
+    { corr: 2.400, date: "12:30" },
+    { corr: 2.600, date: "12:40" },
+    { corr: 2.400, date: "12:50" },
+    { corr: 2.300, date: "10:00" },
+    { corr: 2.405, date: "10:10" },
+    { corr: 2.500, date: "10:20" },
+    { corr: 2.400, date: "10:30" },
+    { corr: 2.500, date: "10:40" },
+    { corr: 2.650, date: "10:50" },
+    { corr: 2.700, date: "11:00" },
+    { corr: 2.500, date: "11:10" },
+    { corr: 2.400, date: "11:20" },
+    { corr: 2.300, date: "11:30" },
+    { corr: 2.200, date: "11:40" },
+    { corr: 2.340, date: "11:50" },
+    { corr: 2.400, date: "12:00" },
+    { corr: 2.340, date: "12:10" },
+    { corr: 2.500, date: "12:20" },
+    { corr: 2.480, date: "12:30" },
+    { corr: 2.600, date: "12:40" },
+    { corr: 2.900, date: "12:50" },
   ];
 
   const corrChartRef = useRef(null);
   const svgRef = useRef(null);
+  const tooltipRef = useRef(null);
 
   //tick 분할 함수
   const setTickCount = useCallback((min, max, count, type) => {
@@ -67,32 +68,27 @@ const CorrelationChart = () => {
         tick.push(tickValue + interval);
         tickValue += interval;
       }
-
       return tick;
     }
   }, []);
 
-  const resizeWidth = useResizeObserver(corrChartRef);
-  const resizeHeight = useResizeObserver(corrChartRef);
+  const resize = useResizeObserver(corrChartRef);
 
   useEffect(() => {
-    if (!resizeWidth || !data) {
-      return;
-    }
-    if (!resizeHeight || !data) {
+    if (!resize || !data) {
       return;
     }
     //초기 셋팅
     const margin = { top: 20, right: 30, bottom: 30, left: 60 };
-    const width = resizeWidth.width - (margin.left + margin.right);
-    const height = resizeHeight.height - (margin.top + margin.bottom + 165);
+    const width = resize.width - (margin.left + margin.right);
+    const height = 545 - (margin.top + margin.bottom);
     const xTickCount = 12;
     const yTickCount = 7;
     const xTickBlankCount = 0;
-    const minStock = d3.min(data.map((d) => d.stock)) - 300;
-    const maxStock = d3.max(data.map((d) => d.stock)) + 300;
-    const xLabel = "(회차)";
-    const yLabel = "(원)";
+    const minCorr = d3.min(data.map((d) => d.corr)) - 1;
+    const maxCorr = d3.max(data.map((d) => d.corr)) + 1;
+    const tooltip = d3.select(tooltipRef.current);
+    const names = ["Correlation"]
 
     //svg 셋팅
     const svg = d3.select(svgRef.current);
@@ -119,23 +115,6 @@ const CorrelationChart = () => {
       )
       .style("stroke-opacity", 0)
       .call(xAxis)
-      // .append("text")
-      // .attr("class", "x-label")
-      // .attr("text-anchor", "start")
-      // .attr("fill", "black")
-      // .attr("transform", `translate(${width + 13}, 20)`)
-      // .text(xLabel);
-      .call((g) =>
-        g
-          // .selectAll(".x-label > *")
-          .selectAll(".x-label")
-          .append("text")
-          .attr("class", "x-label")
-          .attr("text-anchor", "start")
-          .attr("fill", "black")
-          .attr("transform", `translate(${width + 13}, 20)`)
-          // .text(xLabel),
-      );
 
     //x축 line
     const xScaleLine = d3
@@ -155,22 +134,15 @@ const CorrelationChart = () => {
       )
       .style("stroke-opacity", 1)
       .call(xAxisLine)
-      .call((g) =>
-        g
-          .selectAll(".tick line")
-          .style("transform", `translateY(-${height}px)`)
-          .attr("y2", height)
-          .style("stroke-opacity", 1),
-      );
 
     //y축 right + line
     const yScale = d3
       .scaleLinear()
-      .domain([minStock, maxStock])
+      .domain([minCorr, maxCorr])
       .range([height, 0]);
     const yAxis = d3
       .axisLeft(yScale)
-      .tickValues(setTickCount(minStock, maxStock, yTickCount))
+      .tickValues(setTickCount(minCorr, maxCorr, yTickCount))
       .tickSize(10);
     svg
       .selectAll(".y-axis")
@@ -187,26 +159,14 @@ const CorrelationChart = () => {
           .attr("x2", width)
           .style("stroke-opacity", 1),
       )
-      .call((g) =>
-        g
-          // .selectAll(".x-label > *")
-          .selectAll(".y-label")
-          .append("text")
-          .attr("class", "y-label")
-          .attr("text-anchor", "start")
-          .attr("fill", "black")
-          .attr("transform", `translate(13, -15)`)
-          // .text(yLabel),
-      );
     //data line
     const dataLine = d3
       .line()
       .x((value, index) => xScale(index))
       .y((value) => yScale(value))
-      // .curve(d3.curveCardinal);
     svg
       .selectAll(".dataLine")
-      .data([data.map((data) => data["stock"])])
+      .data([data.map((data) => data["corr"])])
       .join("path")
       .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
       .attr("class", "dataLine")
@@ -214,54 +174,80 @@ const CorrelationChart = () => {
       .attr("fill", "none")
       .attr("stroke-width", "4px"); // 선 두께 설정
 
-    return () => {
-      d3.selectAll(".x-label > *").remove();
-      d3.selectAll(".y-label > *").remove();
+    const mouseover = (e, d) => {
+      tooltip.transition().duration(200).style("visibility", "visible");
+      // circle.style("background-color", "black");
+      d3.select(e.target).transition()
+        .duration('100')
+        .attr("r", 7)
+        .attr("fill", "#f6a64b")
+        .style("opacity", 1);
+      tooltip
+        .html(`${names[0]} : ${d.corr}`,)
+        .style(
+          "transform",
+          `translate(${e.offsetX + 15}px, ${e.offsetY - 20}px)`,
+        );
     };
-  }, [data, resizeWidth, resizeHeight]);
+    const mouseleave = (e, d) => {
+      tooltip.transition().duration(200).style("visibility", "hidden");
+      d3.select(e.target).transition()
+        .duration('100')
+        .attr("r", 4)
+        .style("opacity", 0)
+    };  
 
-  return (<>
+    svg
+      .selectAll(".dot")
+      .data(data)
+      .enter().append("circle")
+      .attr("class", "dot")
+      .attr("cx", (d, i) => xScale(i))
+      .attr("cy", (d) => yScale(d.corr))
+      .attr("r", 5)
+      .attr("fill", "#f6a64b")
+      .style(
+        "transform",
+        `translate(${margin.left}px, ${margin.top}px)`,
+      )
+      .style("opacity", 0)
+      .on("mouseover", mouseover)
+      .on("mouseleave", mouseleave);
+
+
+  }, [data, resize]);
+
+  return (
     <CorrChartWrapper ref={corrChartRef}>
-      <>
-        <TableHeader>
-          <thead>
-            <Row className="table__header">
-              <Cell colSpan={3}>OPTIONS</Cell>
-            </Row>
-          </thead>
-          <tbody>
-            <Row className="table__header__sub">
-              <Cell>
-                <input type="date" name="date" />
-                ~
-                <input type="date" name="date" />
-              </Cell>
-              <Cell>
-                <Search />
-              </Cell>
-              <Cell>  
-                <Search />
-              </Cell>
-            </Row>
-            <Row className="table__body">
-              <Cell colSpan={3}>
-                <h5>{"SPY"} (X) vs {"AAPL"} (Y)</h5>
+      <TableHeader>
+        <thead>
+          <Row className="table__header">
+            <Cell colSpan={3}>OPTIONS</Cell>
+          </Row>
+        </thead>
+        <tbody>
+          <Row className="table__header__sub">
+            <Cell>
+              <input type="date" name="date" />~
+              <input type="date" name="date" />
+            </Cell>
+            <Cell><Search /></Cell>
+            <Cell><Search /></Cell>
+          </Row>
+          <Row className="table__body">
+            <Cell colSpan={3}>
+              <h5>{"SPY"} (X) vs {"AAPL"} (Y)</h5>
+                <div ref={tooltipRef} className="tooltip" />
                 <svg ref={svgRef}>
-                  <g className="x-axis">
-                    <g className="x-label" />
-                  </g>
-                  <g className="y-axis">
-                    <g className="y-label" />
-                  </g>
+                  <g className="x-axis" />
+                  <g className="y-axis" />
                   <g className="x-axis-line" />
                 </svg>
-              </Cell>
-            </Row>
-          </tbody>
-        </TableHeader>
-      </>
-     </CorrChartWrapper>
-    </>
+            </Cell>
+          </Row>
+        </tbody>
+      </TableHeader>
+    </CorrChartWrapper>
   );
 };
 

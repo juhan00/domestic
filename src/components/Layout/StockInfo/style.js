@@ -1,34 +1,31 @@
 import styled from "@emotion/styled";
 
 // 주식 개요 스타일
-export const StockInfoStyle = styled.div`
-  background-color: #286f6c;
-  .stockInfoContainer {
-    max-width: 1600px;
-    padding: 8px 36px;
-    margin: 0 auto;
-    .stockRecap {
-      position: absolute;
-      z-index: 990;
-      width: 70%;
-      padding: 30px;
-      border-radius: 12px;
-      background-color: #fff;
-      border: 1px solid #5fb6ad;
-      text-align: justify;
-      margin: 55px 0 0 100px;
-      .title {
-        display: block;
-        font-weight: 700;
-        margin-bottom: 15px;
-      }
-      .source {
-        display: block;
-        margin-top: 15px;
-        font-size: 12px;
-      }
+export const StockInfoContainer = styled.div`
+  padding: 8px 0;
+  margin: 0 auto;
+  .stockRecap {
+    position: absolute;
+    z-index: 990;
+    width: 70%;
+    padding: 30px;
+    border-radius: 12px;
+    background-color: #fff;
+    border: 1px solid #5fb6ad;
+    text-align: justify;
+    margin: 55px 0 0 100px;
+    .title {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    .source {
+      display: block;
+      margin-top: 15px;
+      font-size: 12px;
     }
   }
+
   .stockInfoWrapper {
     background: #fff;
     font-size: 14px;

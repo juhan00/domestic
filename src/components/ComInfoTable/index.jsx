@@ -34,56 +34,16 @@ const ComInfoTable = () => {
             <Cell>Date</Cell>
           </Row>
           <Row className="ifrs">
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
-            <Cell>
-              IFRS
-              <br />
-              연결
-            </Cell>
+            <Cell>IFRS 연결</Cell>
+            <Cell>IFRS 연결</Cell>
+            <Cell>IFRS 연결</Cell>
+            <Cell>IFRS 연결</Cell>
+            <Cell>IFRS 연결</Cell>
+            <Cell>IFRS 연결</Cell>
+            <Cell>IFRS 연결</Cell>
+            <Cell>IFRS 연결</Cell>
+            <Cell>IFRS 연결</Cell>
+            <Cell>IFRS 연결</Cell>
           </Row>
           <Row />
         </thead>

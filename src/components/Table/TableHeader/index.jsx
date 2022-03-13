@@ -1,3 +1,4 @@
+import { number } from "prop-types";
 import React from "react";
 import { TableWrapper, Table, Row, Cell } from "../BetaTable/style";
 
@@ -12,7 +13,7 @@ const TableHeader = ({ data, title }) => {
         </thead>
         <tbody>
           <Row className="table__body">
-            <Cell>{data}</Cell>
+            <Cell>{data.toFixed(5)}</Cell>
           </Row>
         </tbody>
       </Table>

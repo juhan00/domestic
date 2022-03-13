@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 
 export const TableWrapper = styled.div`
   background-color: #ffffff;
-  max-width: 790px;
+  max-width: 800px;
   width: 100%;
-  max-height: 782px;
+  min-height: 782px;
   height: 100%;
   border-radius: 12px;
   padding: 28px 32px 32px;
@@ -38,16 +38,18 @@ export const Row = styled.tr`
     text-align: center;
   }
   &.date {
-    color: #505050;
+    color: #999999;
+    font-size: 12px;
+    line-height: 16px;
   }
   &.sector {
-    border-top: 1px solid #f0f0f6;
+    border-top: 1px solid #767676;
   }
   &.ifrs {
-    color: #5fb6ad;
-    font-size: 13px;
+    color: #e76666;
+    font-size: 12px;
     font-weight: 500;
-    line-height: 20px;
+    line-height: 15px;
   }
 `;
 export const Cell = styled.td`

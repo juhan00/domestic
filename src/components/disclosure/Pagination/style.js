@@ -3,29 +3,27 @@ import styled from "@emotion/styled";
 export const Page = styled.nav`
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin: 16px;
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translate(-50%);
+  gap: 24px;
+  margin-bottom: 24px;
 `;
 
 export const Button = styled.button`
+  flex-shrink:0;
   border: none;
-  border-radius: 16px;
-  padding: 8px 12px;
-  /* font-size: 1rem; */
+  border-radius: 9px;
+  font-size: 13px;
+  height: 18px;
+  min-width: 18px;
+  padding: 2px;
+  /* box-sizing: border-box; */
+  background-color: transparent;
 
   &:hover {
-    /* background: tomato; */
     cursor: pointer;
     transform: translateY(-2px);
   }
 
   &[disabled] {
-    /* background: grey; */
     cursor: revert;
     transform: revert;
   }
