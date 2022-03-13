@@ -13,4 +13,5 @@ export const PriceWrapper = styled.div`
   max-width: 810px;
   width: 100%;
   margin-bottom: 20px;
+  margin-right: 20px;
 `;

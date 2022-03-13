@@ -27,6 +27,28 @@ export const CorrChartWrapper = styled.div`
   .dataLine {
     stroke: #5fb6ad;
   }
+  .tooltip {
+    position: absolute;
+    border-radius: 2px;
+    background-color: #FACDCD;
+    color : #000000;
+    padding: 8px 3px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 20px;
+    width: 110px;
+    &::after {
+      content: "";
+      border-bottom: 11px solid #FACDCD;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      position:absolute;
+      left: -10px;
+      top: 13px;
+      transform: rotate(-90deg);
+    }
+  }
 `;
 
 export const TableHeader = styled.table`
