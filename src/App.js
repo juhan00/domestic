@@ -17,7 +17,7 @@ import GoStatistics from "./routes/Global/GoStatistics";
 import GoBalance from "./routes/Global/GoBalance";
 import GoCashFlow from "./routes/Global/GoCashFlow";
 import GoIncome from "./routes/Global/GoIncome";
-import GoComInfo from "./routes/Global/GoCominfo";
+import GoComInfo from "@routes/GoComInfo/GoComInfo";
 import GoBeta from "./routes/Global/GoBeta";
 import GoCorrelation from "./routes/global/GoCorrelation";
 import GoDisclosure from "./routes/Global/GoDisclosure";

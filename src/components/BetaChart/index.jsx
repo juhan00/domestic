@@ -5,10 +5,9 @@ import Search from "@components/Search";
 import * as d3 from "d3";
 import useResizeObserver from "@utils/useResizeObserver";
 
-const BetaChart = ({ data, names }) => {
+const BetaChart = ({ data, names, beta }) => {
   const betaChartRef = useRef(null);
   const svgRef = useRef(null);
-  const tooltipRef = useRef(null);
   const resizeWidth = useResizeObserver(betaChartRef);
 
   const [hoveredValue, setHoveredValue] = useState(null);
@@ -40,16 +39,31 @@ const BetaChart = ({ data, names }) => {
     const yTickCount = 7;
     const xTickBlankCount = 0;
     const maxValueX = d3.max(data, (data) => data.xPrice);
+    const adjMaxX = maxValueX + Math.abs(maxValueX) * 0.05;
     const minValueX = d3.min(data, (data) => data.xPrice);
+    const adjMinX = minValueX - Math.abs(minValueX) * 0.05;
     const maxValueY = d3.max(data, (data) => data.yPrice);
+    const adjMaxY = maxValueY + Math.abs(maxValueY) * 0.05;
     const minValueY = d3.min(data, (data) => data.yPrice);
+    const adjMinY = minValueY - Math.abs(minValueY) * 0.05;
+    const tempArray = Array.from(
+      { length: 100 },
+      (_, i) => adjMinX + ((adjMaxX - adjMinX) / 100) * i,
+    );
+    const betaArray = tempArray.reduce(
+      (a, b) => [
+        ...a,
+        {
+          x: b,
+          y: b * beta,
+        },
+      ],
+      [],
+    );
 
     const xScale = d3
       .scaleLinear()
-      .domain([
-        minValueX - Math.abs(minValueX) * 0.05,
-        maxValueX + Math.abs(maxValueX) * 0.05,
-      ])
+      .domain([adjMinX, adjMaxX])
       .range([margin.left, width - margin.right])
       .nice();
     svg
@@ -60,10 +74,7 @@ const BetaChart = ({ data, names }) => {
 
     const yScale = d3
       .scaleLinear()
-      .domain([
-        minValueY - Math.abs(minValueY) * 0.05,
-        maxValueY + Math.abs(maxValueY) * 0.05,
-      ])
+      .domain([adjMinY, adjMaxY])
       .range([height, margin.bottom])
       .nice();
     svg
@@ -95,6 +106,66 @@ const BetaChart = ({ data, names }) => {
         );
     };
 
+    // line
+    svg
+      .selectAll(".line")
+      .data([betaArray])
+      .join((enter) => {
+        const line = enter.append("g").classed("line", true);
+
+        line
+          .append("path")
+          .style("fill", "none")
+          .style("stroke-width", 4)
+          .attr("stroke", "#286F6C")
+          .attr(
+            "d",
+            d3
+              .line()
+              .x((d) => xScale(d.x))
+              .y((d) => yScale(d.y)),
+          );
+      });
+
+    svg
+      .selectAll(".rect")
+      .data(betaArray)
+      .join((enter) => {
+        const rect = enter.append("g").classed("rect", true);
+
+        rect
+          .append("rect")
+          .attr("width", 2)
+          .attr("height", 2)
+          .style("fill", "#286F6C")
+          .style("stroke", "#286F6C")
+          .style("stroke-opacity", 0)
+          .style("stroke-width", 5)
+          .attr(
+            "transform",
+            (d) => `translate(${xScale(d.x)}, ${yScale(d.y)}) rotate(-45)`,
+          )
+          .on("mouseover", (e, d) => {
+            setHoveredValue(d);
+            d3.select(e.target)
+              .attr("width", 10)
+              .attr("height", 10)
+              .style("stroke", "#286F6C")
+              .style("stroke-opacity", 0.5)
+              .style("stroke-width", 10);
+            console.log(d);
+          })
+          .on("mousemove", handleMouseMove)
+          .on("mouseleave", (e) => {
+            setHoveredValue(null);
+            d3.select(e.target)
+              .attr("width", 2)
+              .attr("height", 2)
+              .style("stroke-opacity", 0)
+              .style("stroke-width", 5);
+          });
+      });
+
     // dots
     svg
       .selectAll(".dot")
@@ -107,13 +178,20 @@ const BetaChart = ({ data, names }) => {
           .attr("cx", (d) => xScale(d.xPrice))
           .attr("cy", (d) => yScale(d.yPrice))
           .attr("r", 5)
-          .style("fill", "#f6a64b")
+          .style("fill", "#FDC055")
           .on("mouseover", (e, d) => {
             setHoveredValue(d);
+            d3.select(e.target)
+              .style("stroke", "#FDC055")
+              .style("stroke-opacity", 0.5)
+              .style("stroke-width", 10);
             console.log(d);
           })
           .on("mousemove", handleMouseMove)
-          .on("mouseleave", () => setHoveredValue(null));
+          .on("mouseleave", (e) => {
+            setHoveredValue(null);
+            d3.select(e.target).style("stroke", null);
+          });
       });
   }, [data, resizeWidth]);
 

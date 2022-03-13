@@ -88,14 +88,28 @@ export const YLabel = styled.div`
   }
 `;
 export const TooltipContainer = styled.div`
-  background-color: #facdcd;
-  color: #000000;
-  border: none;
-  border-radius: 2px;
-  padding: 8px;
-  font-size: 13px;
-  line-height: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #767676;
+  width: 150px;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.16);
+  font-size: 12px;
+  line-height: 18px;
   position: absolute;
   overflow: visible;
   z-index: 10;
+  h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 20px;
+  }
+  span {
+    display: flex;
+    justify-content: space-between;
+    .per {
+      color: #111111;
+      font-weight: 700;
+    }
+  }
 `;
