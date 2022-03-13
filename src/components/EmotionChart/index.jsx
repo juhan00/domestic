@@ -3,17 +3,18 @@ import {
   extent,
   max,
   scaleLinear,
-  scaleTime,
   timeFormat,
+  scaleTime,
   select,
+  min,
   line,
   axisRight,
-  area,
   format,
 } from "d3";
 import React, { useEffect, useRef } from "react";
 import useResizeObserver from "@utils/useResizeObserver";
 import { EmotionWrapper } from "./style";
+import useDebounce from "@utils/useDebounce";
 
 const data = [
   { date: new Date("2018-01-01"), value: 1 },
@@ -35,17 +36,17 @@ const EmotionChart = ({
   marginRight = 40,
   padding = 0,
 }) => {
-  const emotionChartRef = useRef();
-  const svgRef = useRef(null);
-  const dimensions = useResizeObserver(emotionChartRef);
-
+  const emotionRef = useRef();
+  const svgRef = useRef();
+  const dimensions = useResizeObserver(emotionRef);
+  const resize = useDebounce(dimensions, 200);
   useEffect(() => {
     const svg = select(svgRef.current);
-    svg.selectAll(".emotiong").remove();
+    svg.selectAll(".emotionpath").remove();
 
-    if (!dimensions) return;
+    if (!resize) return;
 
-    const { width, height } = dimensions;
+    const { width, height } = resize;
     svg.attr("width", width).attr("height", height);
 
     const xScale = scaleTime()
@@ -58,21 +59,30 @@ const EmotionChart = ({
     // .tickSizeOuter(0);
 
     svg
+      .select(".title")
+      .attr("x", marginLeft)
+      .attr("y", marginBottom - 10);
+
+    svg
       .select(".x-axis")
       .call(xAxis)
       .call((g) => g.select(".domain").remove())
       .call((g) => g.selectAll(".tick line").remove())
       .style("transform", `translateY(${height - marginBottom}px)`);
 
-    const maxValue = max(data, (data) => data.value);
+    const yMin = min(data, (data) => data.value);
+    const yMax = max(data, (data) => data.value);
+
+    const maxValue =
+      Math.abs(yMin) > Math.abs(yMax) ? Math.abs(yMin) : Math.abs(yMax);
 
     const yScale = scaleLinear()
-      .domain([0, maxValue])
+      .domain([-maxValue, maxValue])
       .nice()
       .range([height - marginBottom, marginTop]);
 
     const yAxis = axisRight(yScale)
-      .tickValues([0, maxValue / 2, maxValue])
+      .tickValues([-maxValue, 0, maxValue])
       .tickFormat(format("d"));
 
     svg
@@ -99,68 +109,20 @@ const EmotionChart = ({
       .x((d) => xScale(d.date))
       .y((d) => yScale(d.value));
 
-    const chartArea = area()
-      .x((d) => xScale(d.date))
-      .y0(() => yScale(0))
-      .y1((d) => yScale(d.value));
-
     svg
-      .selectAll(".emotiong")
+      .selectAll(".emotionpath")
       .data([data])
-      .join((enter) => {
-        const emotiong = enter
-          .append("g")
-          .classed("emotiong", true)
-          .attr("fill", "url(#chartGradient)")
-          .attr("d", (data) => chartLine(data))
-          .attr("d", (data) => chartArea(data));
+      .join("path")
+      .classed("emotionpath", true)
 
-        emotiong
-          .append("path")
-          .classed("emotionarea", true)
-          .attr("fill", "url(#chartGradient)")
-          .attr("d", (data) => chartLine(data))
-          .attr("d", (data) => chartArea(data));
-
-        emotiong
-          .append("path")
-          .classed("emotionpath", true)
-          .attr("fill", "none")
-          .attr("stroke", "#5fb6ad")
-          .attr("stroke-width", 3)
-          .attr("stroke-linejoin", "round")
-          .attr("stroke-linecap", "round")
-          .attr("d", (data) => chartLine(data));
-      });
-  }, [data, dimensions]);
-
+      .attr("d", (data) => chartLine(data));
+  }, [data, resize]);
   return (
-    <EmotionWrapper ref={emotionChartRef}>
+    <EmotionWrapper ref={emotionRef}>
       <svg ref={svgRef}>
-        <defs>
-          <linearGradient
-            id="chartGradient"
-            x1="100%"
-            x2="100%"
-            y1="100%"
-            y2="0%">
-            <stop
-              id="stop1"
-              offset="0%"
-              stopColor="#5fb6ad"
-              stopOpacity="0.3"
-            />
-            <stop
-              id="stop2"
-              offset="100%"
-              stopColor="#5fb6ad"
-              stopOpacity="0.7"
-            />
-          </linearGradient>
-        </defs>
-        <text className="title">버즈량</text>
         <g className="x-axis" />
         <g className="y-axis" />
+        <text className="title">감성지수 분석</text>
       </svg>
     </EmotionWrapper>
   );

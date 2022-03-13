@@ -17,9 +17,10 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import calculateMovingAverageLine from "@utils/calculateMovingAverageLine";
 import useResizeObserver from "@utils/useResizeObserver";
-import { MainChartWrapper } from "./style";
+import { MainChartWrapper } from "../MainChart/style";
 import useDebounce from "@utils/useDebounce";
 import numberWithCommas from "@utils/numberWithComma";
+import { area } from "d3";
 import { ticks } from "d3";
 
 function dataGenerator() {
@@ -49,12 +50,14 @@ for (let i = 0; i < 90; i++) {
   data[i].date = date;
   date = new Date(date.setDate(date.getDate() + 1));
 }
-const MainChart = ({
+const MainAreaChart = ({
   marginTop = 40,
   marginBottom = 40,
   marginLeft = 40,
   marginRight = 40,
   volumeChartHeight = 40,
+  chartLineColor = "#286F6C",
+  chartAreaColor = "#5FB6AD",
   focusCircleColor = "#eee",
   focusLineColor = "#696969",
   focusLineWidth = 1.5,
@@ -72,8 +75,8 @@ const MainChart = ({
   const resize = useDebounce(dimensions, 200);
   useEffect(() => {
     const svg = select(svgRef.current);
-    svg.selectAll(".candlestick").remove();
     svg.selectAll(".volume").remove();
+    svg.selectAll(".priceg").remove();
     svg.selectAll("#clip").remove();
 
     // 이전 데이터와 비교하여 달라질 경우에만 계산하기
@@ -84,10 +87,6 @@ const MainChart = ({
 
     const { width, height } = resize;
     svg.attr("width", width).attr("height", height);
-
-    movingAverageLines.forEach((ele) => {
-      svg.selectAll(`.moving-average-${ele}`).remove();
-    });
 
     const xMin = min(data, (data) => data.date);
     const xMax = max(data, (data) => data.date);
@@ -135,29 +134,6 @@ const MainChart = ({
       calculateMovingAverageLine(data, ele);
     });
 
-    const movingAverageArea = svg.select(".movingaveragearea");
-
-    movingAverageLines.forEach((ele) => {
-      const movingAverageLineGenerator = line()
-        .x((data) => xScale(data.date))
-        .y((data) => yPriceScale(data[`average${ele}`]))
-        .curve(curveBasis);
-
-      const movingAverageLine = movingAverageArea
-        .selectAll(`.moving-average-${ele}`)
-        .data([data]);
-
-      movingAverageLine.join((enter) =>
-        enter
-          .append("path")
-          .attr("clip-path", "url(#clip)")
-          .style("fill", "none")
-          .classed(`moving-average-${ele}`, true)
-          .attr("stroke-width", 1.5)
-          .attr("d", movingAverageLineGenerator),
-      );
-    });
-
     svg.style("display", "block");
 
     const yPriceAxis = axisRight(yPriceScale).tickSize(
@@ -166,6 +142,7 @@ const MainChart = ({
     const yVolumeAxis = axisRight(yVolumeScale)
       .tickSize(-(width - marginLeft - marginRight))
       .tickValues(ticks(yVolumeMin, yVolumeMax, 4));
+
     svg
       .append("clipPath")
       .attr("id", "clip")
@@ -323,74 +300,41 @@ const MainChart = ({
 
     svg.call(zoomBehavior);
 
-    const candleStickLineGenerator = line()
-      .x((data) => data.x)
-      .y((data) => data.y);
+    // price
+    const priceLineGenerator = line()
+      .x((data) => xScale(data.date))
+      .y((data) => yPriceScale(data.end));
 
-    const candleStick = svg
-      .select(".candlesticks")
-      .attr("clip-path", "url(#clip)")
-      .selectAll(".candlestick")
-      .data(data);
+    const priceAreaGenerator = area()
+      .x((data) => xScale(data.date))
+      .y0(() => yPriceScale(yPriceMin))
+      .y1((data) => yPriceScale(data.end));
 
-    candleStick.join((enter) => {
-      const candleSticksEnter = enter
-        .append("g")
-        .classed("candlestick", true)
-        .append("g")
-        .classed("bars", true);
+    const priceLine = svg.select(".price");
 
-      candleSticksEnter
-        .append("rect")
-        .attr("clip-path", "url(#clip)")
-        .attr("rx", 5)
-        .attr("ry", 5)
-        .attr("x", (data) => xScale(data.date) - xBandScale.bandwidth())
-        .attr("y", (data) => {
-          // 시가 위치에 오도록
-          if (data.end > data.start) return yPriceScale(data.end);
-          else if (data.end === data.start) return yPriceScale(data.end) - 1;
-          else return yPriceScale(data.start);
-        })
-        .attr("width", (data) => xBandScale.bandwidth())
-        .attr("height", (data) => {
-          if (data.end > data.start)
-            return yPriceScale(data.start) - yPriceScale(data.end);
-          else if (data.end === data.start) return 3;
-          else return yPriceScale(data.end) - yPriceScale(data.start);
-        })
-        .attr("fill", (d) => {
-          if (d.end >= d.start) {
-            return "#F5746B";
-          } else {
-            return "blue";
-          }
-        });
+    priceLine
+      .selectAll(".priceg")
+      .data([data])
+      .join((enter) => {
+        const priceg = enter.append("g").classed("priceg", true);
 
-      candleSticksEnter
-        .append("path")
-        .attr("clip-path", "url(#clip)")
-        .classed("high-row", true)
-        .attr("d", (data) => {
-          return candleStickLineGenerator([
-            {
-              x: xScale(data.date) - xBandScale.bandwidth() / 2,
-              y: yPriceScale(data.high),
-            },
-            {
-              x: xScale(data.date) - xBandScale.bandwidth() / 2,
-              y: yPriceScale(data.low),
-            },
-          ]);
-        })
-        .attr("stroke", (d) => {
-          if (d.end >= d.start) {
-            return "#F5746B";
-          } else {
-            return "#065398";
-          }
-        });
-    });
+        priceg
+          .append("path")
+          .classed("pricepath", true)
+          .attr("clip-path", "url(#clip)")
+          .style("fill", "none")
+          .attr("stroke", chartLineColor)
+          .attr("stroke-width", 2)
+          .attr("d", priceLineGenerator);
+
+        priceg
+          .append("path")
+          .classed("pricearea", true)
+          .attr("clip-path", "url(#clip)")
+          .style("fill", "url(#mainAreaGradient)")
+          .attr("d", (data) => priceLineGenerator(data))
+          .attr("d", (data) => priceAreaGenerator(data));
+      });
 
     const volumes = svg
       .select(".volumes")
@@ -420,12 +364,28 @@ const MainChart = ({
   return (
     <MainChartWrapper ref={mainChartRef}>
       <svg ref={svgRef}>
+        <defs>
+          <linearGradient id="mainAreaGradient" x1="0" x2="0" y1="0" y2="100%">
+            <stop
+              id="stop1"
+              offset="0%"
+              stopColor={chartAreaColor}
+              stopOpacity="0.8"
+            />
+            <stop
+              id="stop2"
+              offset="100%"
+              stopColor={chartAreaColor}
+              stopOpacity="0.1"
+            />
+          </linearGradient>
+        </defs>
         <g className="x-axis" />
         <g className="y-priceaxis" />
         <g className="y-volumeaxis" />
+        <g className="price" />
         <g className="volumes" />
-        <g className="movingaveragearea" />
-        <g className="candlesticks" />
+        <g className="movingaverage" />
         <rect className="overlay" />
         <g className="focus">
           <line className="x-line" />
@@ -453,4 +413,4 @@ const MainChart = ({
   );
 };
 
-export default MainChart;
+export default MainAreaChart;

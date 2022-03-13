@@ -114,6 +114,16 @@ export const ContentsWrapper = styled.div`
     justify-content: space-between;
   }
 
+  & .chart-wrapper {
+    flex: 1 1 0;
+    min-height: 380px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 12px;
+  }
+
   & > .level1-wrapper > .level1-chart-wrapper {
     flex: 1 1 0;
     margin-right: 10px;
@@ -159,7 +169,6 @@ export const ContentsWrapper = styled.div`
     > .buzz-chart-wrapper {
     box-sizing: border-box;
     max-height: 50%;
-    padding: 0 32px;
   }
   &
     > .level1-wrapper
@@ -168,7 +177,6 @@ export const ContentsWrapper = styled.div`
     > .emotion-chart-wrapper {
     box-sizing: border-box;
     max-height: 50%;
-    padding: 0 32px;
   }
 
   & > .level1-wrapper > .level1-news-list-wrapper {
@@ -186,18 +194,26 @@ export const ContentsWrapper = styled.div`
     justify-content: space-between;
   }
 
-  & > .level2-chart-wrapper > .chart-wrapper {
-    flex: 1 1 0;
-    min-height: 380px;
+  & .level2-chart-wrapper .chart-wrapper:nth-of-type(2) {
+    margin: 0 20px;
+  }
+  & .finances-wrapper {
+    width: 100%;
     display: flex;
-    justify-content: center;
-    flex-direction: column;
-    background: #ffffff;
-    border-radius: 12px;
+    background: #fff;
+    justify-content: space-between;
   }
 
-  & > .level2-chart-wrapper > .chart-wrapper:nth-of-type(2) {
-    margin: 0 20px;
+  & .finances-ele {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+  }
+  & .finances-ele .chart-wrapper {
+    min-height: auto;
+    border-radius: none;
+    background: none;
   }
 `;
 
