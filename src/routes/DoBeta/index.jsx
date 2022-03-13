@@ -4,10 +4,12 @@ import BetaTable from "@components/Table/BetaTable";
 import BetaChart from "@components/BetaChart";
 import { RouteWrapper, TableWrapper, ChartWrapper } from "./style";
 import { sampleJson } from "@utils/api";
+import betaCoeff, { corrCoeff, standDev } from "@utils/corrCoeff";
 
 const DoBeta = () => {
   const [dataX, setDataX] = useState({});
   const [dataY, setDataY] = useState({});
+  const [beta, setBeta] = useState(0);
   const [data, setData] = useState([]);
   const [names, setNames] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -39,20 +41,20 @@ const DoBeta = () => {
         [],
       );
       setData(mergedArray);
+      setBeta(betaCoeff(xData, yData));
       setLoading(false);
     }
   }, [dataX, dataY]);
 
   return (
     <RouteWrapper>
-      {/* {!loading && <BetaTable data={data} names={names} />} */}
       <TableWrapper>
-        <TableHeader data={100} title={"BETA"} />
+        <TableHeader data={beta} title={"BETA"} />
         <BetaTable data={data} names={names} />
       </TableWrapper>
       <ChartWrapper>
         <section>OPTIONS</section>
-        {!loading && <BetaChart data={data} names={names} />}
+        {!loading && <BetaChart data={data} names={names} beta={beta} />}
       </ChartWrapper>
     </RouteWrapper>
   );
