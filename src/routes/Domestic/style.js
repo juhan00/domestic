@@ -18,6 +18,6 @@ export const DomesticWrapper = styled.div`
     flex-wrap: wrap;
   }
   .col.col2 {
-    flex: 2 1 0;
+    flex: 2 1 20px;
   }
 `;

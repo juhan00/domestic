@@ -14,8 +14,9 @@ import FinanceNews from "@components/Main/FinanceNews";
 import financeNewsData from "@utils/MainData/financeNewsData.json";
 import axios from "redaxios";
 import ContentLoader from "react-content-loader";
+import { Desktop, Tablet } from "@utils/useResponsive";
 
-const DomesticLoader = (props) => (
+const DomesticDesktopLoader = (props) => (
   <ContentLoader
     speed={2}
     width="100%"
@@ -33,12 +34,31 @@ const DomesticLoader = (props) => (
   </ContentLoader>
 );
 
+const DomesticTabletLoader = (props) => (
+  <ContentLoader
+    speed={2}
+    width="100%"
+    height="1540"
+    viewBox="0 0 1200 1540"
+    preserveAspectRatio="none"
+    backgroundColor="#e4e4e4"
+    foregroundColor="#f1f0f0"
+    {...props}>
+    <rect x="0" y="0" rx="12" ry="12" width="1200" height="118" />
+    <path d="M 0 150 c 0 -6.627 5.373 -12 12 -12 h 363 c 6.627 0 12 5.373 12 12 v 226 c 0 6.627 -5.373 12 -12 12 H 12 c -6.627 0 -12 -5.373 -12 -12 V 150 z M 407 150 c 0 -6.627 5.373 -12 12 -12 h 362 c 6.627 0 12 5.373 12 12 v 226 c 0 6.627 -5.373 12 -12 12 H 419 c -6.627 0 -12 -5.373 -12 -12 V 150 z M 813 150 c 0 -6.627 5.373 -12 12 -12 h 363 c 6.63 0 12 5.373 12 12 v 226 c 0 6.627 -5.37 12 -12 12 H 825 c -6.627 0 -12 -5.373 -12 -12 V 150 z M 0 420 c 0 -6.627 5.373 -12 12 -12 h 769 c 6.627 0 12 5.373 12 12 v 532 c 0 6.627 -5.373 12 -12 12 H 12 c -6.627 0 -12 -5.373 -12 -12 V 420 z M 0 996 c 0 -6.627 5.373 -12 12 -12 h 1176 c 6.63 0 12 5.373 12 12 v 532 c 0 6.63 -5.37 12 -12 12 H 12 c -6.627 0 -12 -5.37 -12 -12 V 996 z" />
+    <path d="M 32 1059 h 330 v -1 H 32 z" />
+    <path d="M 813 420 c 0 -6.627 5.373 -12 12 -12 h 363 c 6.63 0 12 5.373 12 12 v 532 c 0 6.627 -5.37 12 -12 12 H 825 c -6.627 0 -12 -5.373 -12 -12 V 420 z" />
+    <path d="M 845 483 h 314 v -1 H 845 z" />
+  </ContentLoader>
+);
+
 const Domestic = () => {
   const [stockIndexData, setStockIndexData] = useState(null);
   const [topStockData, setTopStockData] = useState(null);
   const [exchangeRateData, setExchangeRateData] = useState(null);
   const [marketIndiData, setMarketIndiData] = useState(null);
   const [apiDone, setApiDone] = useState(false);
+
   //stockIndexData
   useEffect(() => {
     let isApiSubscribed = true;
@@ -111,7 +131,14 @@ const Domestic = () => {
   return (
     <>
       {!apiDone ? (
-        <DomesticLoader />
+        <>
+          <Desktop>
+            <DomesticDesktopLoader />
+          </Desktop>
+          <Tablet>
+            <DomesticTabletLoader />
+          </Tablet>
+        </>
       ) : (
         <DomesticWrapper>
           <div className="row">
