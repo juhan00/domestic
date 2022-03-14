@@ -3,8 +3,9 @@ import * as d3 from "d3";
 import { CorrChartWrapper, TableHeader, Row, Cell } from "./style";
 import useResizeObserver from "@utils/useResizeObserver";
 import Search from "@components/Search"
+import Tooltip from "@components/BetaChart/Tooltip";
 
-const CorrelationChart = () => {
+const CorrelationChart = ({ names }) => {
   const data = [
     { corr: 2.900, date: "10:00" },
     { corr: 2.520, date: "10:10" },
@@ -42,11 +43,26 @@ const CorrelationChart = () => {
     { corr: 2.480, date: "12:30" },
     { corr: 2.600, date: "12:40" },
     { corr: 2.900, date: "12:50" },
+    { corr: 2.700, date: "11:00" },
+    { corr: 2.500, date: "11:10" },
+    { corr: 2.400, date: "11:20" },
+    { corr: 2.300, date: "11:30" },
+    { corr: 2.200, date: "11:40" },
+    { corr: 2.340, date: "11:50" },
+    { corr: 2.400, date: "12:00" },
+    { corr: 2.340, date: "12:10" },
+    { corr: 2.500, date: "12:20" },
+    { corr: 2.480, date: "12:30" },
+    { corr: 2.600, date: "12:40" },
+    { corr: 2.900, date: "12:50" },
   ];
 
   const corrChartRef = useRef(null);
   const svgRef = useRef(null);
   const tooltipRef = useRef(null);
+  const [hoveredValue, setHoveredValue] = useState(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
 
   //tick 분할 함수
   const setTickCount = useCallback((min, max, count, type) => {
@@ -81,7 +97,7 @@ const CorrelationChart = () => {
     //초기 셋팅
     const margin = { top: 20, right: 30, bottom: 30, left: 60 };
     const width = resize.width - (margin.left + margin.right);
-    const height = 545 - (margin.top + margin.bottom);
+    const height = 660 - (margin.top + margin.bottom);
     const xTickCount = 12;
     const yTickCount = 7;
     const xTickBlankCount = 0;
@@ -220,29 +236,29 @@ const CorrelationChart = () => {
   return (
     <CorrChartWrapper ref={corrChartRef}>
       <TableHeader>
-        <thead>
-          <Row className="table__header">
-            <Cell colSpan={3}>OPTIONS</Cell>
-          </Row>
-        </thead>
         <tbody>
           <Row className="table__header__sub">
-            <Cell>
-              <input type="date" name="date" />~
-              <input type="date" name="date" />
-            </Cell>
+            <Cell className="title">Corrlation</Cell>
             <Cell><Search /></Cell>
             <Cell><Search /></Cell>
           </Row>
           <Row className="table__body">
             <Cell colSpan={3}>
               <h5>{"SPY"} (X) vs {"AAPL"} (Y)</h5>
-                <div ref={tooltipRef} className="tooltip" />
+              <div ref={tooltipRef} className="tooltip" />
+              <div className="betaChartRef" ref={corrChartRef}>
+                <Tooltip
+                  hoveredValue={hoveredValue}
+                  mousePosition={mousePosition}
+                  names={names}
+                />
                 <svg ref={svgRef}>
                   <g className="x-axis" />
                   <g className="y-axis" />
                   <g className="x-axis-line" />
                 </svg>
+              </div>
+
             </Cell>
           </Row>
         </tbody>

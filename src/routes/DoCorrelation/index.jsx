@@ -13,6 +13,7 @@ import {
 const DoCorrelation = () => {
   return (
     <RouteWrapper>
+      <CorrelationChart />
       <TableWrapper>
         <TableHeader
           data={domesticSample.corr}
@@ -20,7 +21,6 @@ const DoCorrelation = () => {
         />
         <CorrelationTable data={domesticSample} />
       </TableWrapper>
-      <CorrelationChart />
     </RouteWrapper>
   );
 };
