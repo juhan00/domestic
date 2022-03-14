@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "redaxios";
-import { RouteWrapper, GraphWrapper } from "../DoStatistics/style";
+import { RouteWrapper, TopWrapper, GraphWrapper } from "../DoStatistics/style";
 import StatisticsTable from "@components/StatisticsTable";
 import StatisticsBarPathGraph from "@components/StatisticsBarPathGraph";
 import StatisticsPathGraph from "@components/StatisticsPathGraph";
@@ -89,12 +89,17 @@ const DoStatistics = () => {
     fetch();
     console.log(data);
   }, []);
+
   return (
     <RouteWrapper>
-      <GraphWrapper>
-        <StatisticsBarPathGraph data={testBarData} />
-        <StatisticsPathGraph data={testPathData} />
-      </GraphWrapper>
+      <TopWrapper>
+        <h1>재무비율 요약</h1>
+        <GraphWrapper>
+          <StatisticsBarPathGraph data={testBarData} />
+          <div className="divide" />
+          <StatisticsPathGraph data={testPathData} />
+        </GraphWrapper>
+      </TopWrapper>
       <StatisticsTable data={data} type={"statistics"} />
     </RouteWrapper>
   );

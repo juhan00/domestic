@@ -28,16 +28,19 @@ const BetaChart = ({ data, names, beta }) => {
     const tooltip = d3.select(svgRef.current);
 
     svg.selectAll(".dots").remove();
+    svg.selectAll(".line").remove();
+    svg.selectAll(".rect").remove();
+    svg.selectAll(".tick line").remove();
+    svg.selectAll(".tick").remove();
 
     if (!resizeWidth || !data) {
       return;
     }
+
     const margin = { top: 20, right: 30, bottom: 30, left: 60 };
-    const width = resizeWidth.width - (margin.left + margin.right);
-    const height = 450;
-    const xTickCount = 12;
-    const yTickCount = 7;
-    const xTickBlankCount = 0;
+    const width = resizeWidth.width;
+    const height = 480;
+
     const maxValueX = d3.max(data, (data) => data.xPrice);
     const adjMaxX = maxValueX + Math.abs(maxValueX) * 0.05;
     const minValueX = d3.min(data, (data) => data.xPrice);
@@ -46,6 +49,7 @@ const BetaChart = ({ data, names, beta }) => {
     const adjMaxY = maxValueY + Math.abs(maxValueY) * 0.05;
     const minValueY = d3.min(data, (data) => data.yPrice);
     const adjMinY = minValueY - Math.abs(minValueY) * 0.05;
+
     const tempArray = Array.from(
       { length: 100 },
       (_, i) => adjMinX + ((adjMaxX - adjMinX) / 100) * i,
@@ -56,6 +60,7 @@ const BetaChart = ({ data, names, beta }) => {
         {
           x: b,
           y: b * beta,
+          //d3.mean(data, (data) => data.yPrice),
         },
       ],
       [],
@@ -70,7 +75,7 @@ const BetaChart = ({ data, names, beta }) => {
       .append("g")
       .attr("transform", `translate(0,${height})`)
       .call(d3.axisBottom(xScale))
-      .call((g) => g.selectAll(".tick line").remove());
+      .call((g) => g.select(".domain").remove());
 
     const yScale = d3
       .scaleLinear()
@@ -82,7 +87,12 @@ const BetaChart = ({ data, names, beta }) => {
       .attr("transform", `translate(${margin.left}, 0)`)
       .call(d3.axisLeft(yScale))
       .call((g) => g.select(".domain").remove())
-      .call((g) => g.selectAll(".tick line").remove());
+      .call((g) =>
+        g
+          .selectAll(".tick line")
+          .attr("x2", width - margin.right - margin.left)
+          .style("stroke-opacity", 1),
+      );
 
     // tooltip
     tooltip
@@ -94,17 +104,6 @@ const BetaChart = ({ data, names, beta }) => {
       .style("border-width", "2px")
       .style("border-radius", "5px")
       .style("padding", "10px");
-
-    const mousemove = (e, d) => {
-      tooltip
-        .html(
-          `${d.basDt}<br/>${names[0]} : ${d.xPrice}<br/>${names[1]} : ${d.yPrice}`,
-        )
-        .style(
-          "transform",
-          `translate(${e.offsetX - 30}px, ${e.offsetY - 20}px)`,
-        );
-    };
 
     // line
     svg
@@ -153,7 +152,6 @@ const BetaChart = ({ data, names, beta }) => {
               .style("stroke", "#286F6C")
               .style("stroke-opacity", 0.5)
               .style("stroke-width", 10);
-            console.log(d);
           })
           .on("mousemove", handleMouseMove)
           .on("mouseleave", (e) => {
@@ -185,7 +183,6 @@ const BetaChart = ({ data, names, beta }) => {
               .style("stroke", "#FDC055")
               .style("stroke-opacity", 0.5)
               .style("stroke-width", 10);
-            console.log(d);
           })
           .on("mousemove", handleMouseMove)
           .on("mouseleave", (e) => {
@@ -198,11 +195,7 @@ const BetaChart = ({ data, names, beta }) => {
   return (
     <ChartWrapper>
       <Header>
-        <InputWrapper>
-          <input type="date" name="date" />
-          ~
-          <input type="date" name="date" />
-        </InputWrapper>
+        <span>legend</span>
         <Search />
         <YLabel>
           TICKER Y-AXIS<span>{names[1]}</span>

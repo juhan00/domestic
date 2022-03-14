@@ -1,7 +1,7 @@
 const domesticSample = {
   title: ["BETA", "CORRELATION"],
   beta: "[domestic-beta]",
-  corr: "[domestic-corr]",
+  corr: 100,
   axisX: "KOSPI",
   axisY: "삼성전자",
   date: [
