@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export const TableWrapper = styled.div`
   max-width: 400px;
   width: 100%;
-  height: 655px;
+  height: 585px;
   border-radius: 12px;
   overflow: hidden;
 `;
@@ -15,7 +15,7 @@ export const Table = styled.table`
     display: block;
     width: 100%;
     overflow: auto;
-    max-height: 612px;
+    max-height: 542px;
     font-size: 12px;
   }
 `;
@@ -25,7 +25,7 @@ export const Row = styled.tr`
   height: 36px;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   &:nth-of-type(even) {
     background-color: #fafafe;
@@ -35,26 +35,27 @@ export const Row = styled.tr`
     color: #767676;
     justify-content: center;
     font-size: 18px;
-    line-height: 40px;
+    line-height: 43px;
     font-weight: 700;
-    height: 40px;
+    height: 43px;
     text-align: center;
     
   }
   &.category {
     font-size: 14px;
-    justify-content: space-between;
+    justify-content: space-around;
   }
   &.table__body {
-    color: #767676;
+    color: #505050;
     justify-content: center;
     font-size: 36px;
+    font-weight: 500;
     text-align: center;
-    height: 60px;
+    height: 52px;
+    border-radius: 0 0 12px 12px;
   }
 `;
 export const Cell = styled.td`
-  padding: 0 20px;
   vertical-align: middle;
   &.item {
     text-align: end;
