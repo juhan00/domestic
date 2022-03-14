@@ -50,6 +50,7 @@ const TableList = (props) => {
       <rect x="523" y="141" rx="10" ry="10" width="169" height="19" />
       <rect x="731" y="139" rx="10" ry="10" width="85" height="19" />
       <rect x="852" y="138" rx="10" ry="10" width="85" height="19" />
+      <rect x="978" y="138" rx="10" ry="10" width="169" height="19" />
 
       <rect x="26" y="196" rx="4" ry="4" width="20" height="20" />
       <rect x="66" y="197" rx="10" ry="10" width="85" height="19" />
@@ -58,6 +59,7 @@ const TableList = (props) => {
       <rect x="522" y="198" rx="10" ry="10" width="169" height="19" />
       <rect x="730" y="196" rx="10" ry="10" width="85" height="19" />
       <rect x="851" y="195" rx="10" ry="10" width="85" height="19" />
+      <rect x="977" y="195" rx="10" ry="10" width="169" height="19" />
 
       <rect x="26" y="258" rx="4" ry="4" width="20" height="20" />
       <rect x="66" y="259" rx="10" ry="10" width="85" height="19" />
@@ -66,6 +68,7 @@ const TableList = (props) => {
       <rect x="522" y="260" rx="10" ry="10" width="169" height="19" />
       <rect x="730" y="258" rx="10" ry="10" width="85" height="19" />
       <rect x="851" y="257" rx="10" ry="10" width="85" height="19" />
+      <rect x="977" y="257" rx="10" ry="10" width="169" height="19" />
 
       <rect x="26" y="316" rx="4" ry="4" width="20" height="20" />
       <rect x="66" y="317" rx="10" ry="10" width="85" height="19" />
@@ -74,6 +77,7 @@ const TableList = (props) => {
       <rect x="522" y="318" rx="10" ry="10" width="169" height="19" />
       <rect x="730" y="316" rx="10" ry="10" width="85" height="19" />
       <rect x="851" y="315" rx="10" ry="10" width="85" height="19" />
+      <rect x="977" y="315" rx="10" ry="10" width="169" height="19" />
 
       <rect x="26" y="379" rx="4" ry="4" width="20" height="20" />
       <rect x="66" y="380" rx="10" ry="10" width="85" height="19" />
@@ -82,11 +86,6 @@ const TableList = (props) => {
       <rect x="522" y="381" rx="10" ry="10" width="169" height="19" />
       <rect x="730" y="379" rx="10" ry="10" width="85" height="19" />
       <rect x="851" y="378" rx="10" ry="10" width="85" height="19" />
-
-      <rect x="978" y="138" rx="10" ry="10" width="169" height="19" />
-      <rect x="977" y="195" rx="10" ry="10" width="169" height="19" />
-      <rect x="977" y="257" rx="10" ry="10" width="169" height="19" />
-      <rect x="977" y="315" rx="10" ry="10" width="169" height="19" />
       <rect x="977" y="378" rx="10" ry="10" width="169" height="19" />
 
       <circle cx="37" cy="97" r="11" />

@@ -76,9 +76,8 @@ export const StockIndexWrapper = styled.div`
       .dataLine {
         stroke: #5fb6ad;
       }
-      .dataLineBlur {
-        stroke: #5fb6ad;
-        filter: blur(4px);
+      .dataArea {
+        fill: url(#areaGradient);
       }
       .todayLine {
         stroke-width: 1;
