@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const ChartWrapper = styled.div`
   width: 100%;
-  height: 740px;
+  height: 700px;
   h5 {
     color: #505050;
     margin-top: 30px;

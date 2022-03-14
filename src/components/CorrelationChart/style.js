@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
 
 export const CorrChartWrapper = styled.div`
-  float: right;
-  width: 74.740061%;
+  width: 100%;
   height: calc(100vh - 265px);
   /* padding: 10px; */
   .tick {
@@ -31,8 +30,8 @@ export const CorrChartWrapper = styled.div`
     z-index: -2;
     position: absolute;
     border-radius: 2px;
-    background-color: #FACDCD;
-    color : #000000;
+    background-color: #facdcd;
+    color: #000000;
     padding: 8px 3px;
     text-align: center;
     font-size: 13px;
@@ -41,10 +40,10 @@ export const CorrChartWrapper = styled.div`
     width: 110px;
     &::after {
       content: "";
-      border-bottom: 11px solid #FACDCD;
+      border-bottom: 11px solid #facdcd;
       border-left: 5px solid transparent;
       border-right: 5px solid transparent;
-      position:absolute;
+      position: absolute;
       left: -10px;
       top: 13px;
       transform: rotate(-90deg);
@@ -64,21 +63,21 @@ export const TableHeader = styled.table`
     font-weight: 700;
     height: 43px;
     td {
-      border-radius: 12px 12px 0 0; 
+      border-radius: 12px 12px 0 0;
     }
   }
   .table__header__sub {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     td {
       background-clip: content-box;
-      background-color: #FAFAFE;
+      background-color: #fafafe;
       width: 33%;
       padding: 20px;
       input[type="date"] {
         background-color: transparent;
         width: 40%;
         border: none;
-        border-bottom: 1px solid #E5E5EC;
+        border-bottom: 1px solid #e5e5ec;
         color: #111111;
         padding-bottom: 5px;
         margin: 0 5px;
@@ -94,24 +93,21 @@ export const TableHeader = styled.table`
       margin: 35px 0 0 30px;
       text-align: left;
       &::before {
-        float:left;
+        float: left;
         margin-right: 5px;
         display: block;
         content: "";
         width: 15px;
         height: 15px;
-        border: 1px solid #FDC055;
+        border: 1px solid #fdc055;
         border-radius: 50%;
-        background-color: #FDC055;
-
-
+        background-color: #fdc055;
       }
     }
-
   }
   .table__body {
     td {
-      background-color: #FFFFFF;
+      background-color: #ffffff;
       color: #767676;
       font-size: 36px;
       font-weight: 500;
