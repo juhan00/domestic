@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 export const HomeStyle = styled.div`
   position: relative;
+  min-width: 1200px;
   min-height: 100vh;
   height: 100%;
   background-color: #f2f2f8;
@@ -15,7 +16,7 @@ export const HomeStyle = styled.div`
   }
   .menuWrapper {
     width: 348px;
-    position: fixed;
+    position: absolute;
     top: 65px;
     left: 50%;
     transform: translateX(-50%);
@@ -31,7 +32,8 @@ export const HomeStyle = styled.div`
   }
   .slogan {
     width: 100vw;
-    position: fixed;
+    min-width: 1200px;
+    position: absolute;
     top: 21%;
     text-align: center;
     font-size: 40px;
@@ -50,7 +52,7 @@ export const HomeStyle = styled.div`
 `;
 
 export const SearchAtHome = styled.div`
-  position: fixed;
+  position: absolute;
   top: 48%;
   left: 50%;
   transform: translateX(-50%);

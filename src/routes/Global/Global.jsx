@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { GlobalWrapper } from "./style";
 import StockIndex from "@components/Main/StockIndex";
-import RecentStock from "@components/Main/RecentStock";
 import MajorStock from "@components/Main/MajorStock";
 import ExchangeRate from "@components/Main/ExchangeRate";
 import StockSector from "@components/Main/StockSector";
@@ -16,9 +15,6 @@ import financeNewsData from "@utils/MainData/financeNewsData.json";
 const Global = () => {
   return (
     <GlobalWrapper>
-      <div className="row">
-        <RecentStock />
-      </div>
       <div className="row">
         {globalStockIndexData.items.map((item) => (
           <div className="col" key={item.id}>

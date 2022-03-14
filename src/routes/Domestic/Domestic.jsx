@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { DomesticWrapper } from "./style";
 import StockIndex from "@components/Main/StockIndex";
-import RecentStock from "@components/Main/RecentStock";
 import TopStock from "@components/Main/TopStock/index";
 import ExchangeRate from "@components/Main/ExchangeRate";
 import MarketIndi from "@components/Main/MarketIndi";
@@ -141,9 +140,6 @@ const Domestic = () => {
         </>
       ) : (
         <DomesticWrapper>
-          <div className="row">
-            <RecentStock />
-          </div>
           <div className="row">
             {stockIndexData &&
               stockIndexData.items.map((item) => (

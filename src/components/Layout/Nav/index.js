@@ -1,16 +1,16 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { NavLink, useLocation, useParams } from "react-router-dom";
 import { MenuContainer, MenuItem } from "@components/Layout/Nav/style";
 
 const Nav = ({ scrolled }) => {
-  const location = useLocation();
+  const location = useLocation().pathname;
   const stockId = useParams().stockId;
 
   const firstTarget = useMemo(() => {
     let target = "";
-    if (location.pathname.includes("domestic")) {
+    if (location.includes("domestic")) {
       target = "domestic";
-    } else if (location.pathname.includes("global")) {
+    } else if (location.includes("global")) {
       target = "global";
     }
     return target;
@@ -19,8 +19,8 @@ const Nav = ({ scrolled }) => {
   return (
     <MenuContainer className={scrolled ? "sticky" : ""}>
       {/* 해외 메뉴는 아직 검색의 디폴트인 주식 뉴스 분석이 없어서 라우트 이동이 불편하므로 작업 편이를 위해 잠시 주석 처리.  */}
-      {/* <div className={stockId ? "menuWrapper" : "hide"}> */}
-      <ul className="menuWrapper">
+      <ul className={stockId ? "menuWrapper" : "hide"}>
+        {/* <ul className="menuWrapper"> */}
         <MenuItem>
           <NavLink
             className="mainmenu"
