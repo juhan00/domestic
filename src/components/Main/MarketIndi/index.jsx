@@ -6,16 +6,15 @@ import market_gold from "@images/market_gold.svg";
 import stock_up from "@images/stock_up.svg";
 import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
+import { FromList } from "@components/ContentLoader";
 
-// const initialMarketIndi = {
-//   indiData: [
-//     { type: "금리", descript: "CD(91일)", index: 1.5, vs: 0 },
-//     { type: "유가", descript: "WTI", index: 91.59, vs: 8.76 },
-//     { type: "금", descript: "국제금", index: 91.59, vs: 8.76 },
-//     { type: "금", descript: "국내금", index: 91.59, vs: 8.76 },
-//   ],
-//   date: "2022.02.28",
-// };
+export const MarketIndiLoader = () => {
+  return (
+    <MarketIndiWrapper>
+      <FromList />
+    </MarketIndiWrapper>
+  );
+};
 
 const MarketIndi = ({ data }) => {
   const [marketIndi, setMarketIndi] = useState(data);
