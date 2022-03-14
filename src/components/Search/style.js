@@ -1,7 +1,11 @@
 import styled from "@emotion/styled";
 
 export const SearchMenuStyleOnHeader = styled.div`
-   list-style:none;
+  list-style:none;
+  margin-left: auto;
+  margin-right: 20px;
+  width: 40%;
+  max-width: 332px;
   .searchContainer {    
     width: 100%;
     box-shadow: 0 50px 30px -30px rgba(0, 0, 0, 0.5);
@@ -19,7 +23,7 @@ export const SearchMenuStyleOnHeader = styled.div`
         }
         input {
           width: 100%;
-          height: 60px;
+          height: 30px;
           border: none;
           border-radius: 6px;
           padding-left: 140px;
@@ -48,7 +52,8 @@ export const SearchMenuStyleOnHeader = styled.div`
     .seachResultWrapper {
       text-align: left;
       position: absolute;
-      top: 60px;
+      z-index: 1;
+      /* top: 60px; */
       /* left: 30px; */
       background-color: #fff;
       width: 100%;

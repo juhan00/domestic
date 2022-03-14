@@ -7,6 +7,7 @@ const GlobalFilter = () => {
   const date = {
     today: new Date(),
     oneM: new Date(new Date().setMonth(new Date().getMonth() - 1)),
+    threeM: new Date(new Date().setMonth(new Date().getMonth() - 3)),
     sixM: new Date(new Date().setMonth(new Date().getMonth() - 6)),
     oneY: new Date(new Date().setFullYear(new Date().getFullYear() - 1)),
     threeY: new Date(new Date().setFullYear(new Date().getFullYear() - 3)),
@@ -40,40 +41,43 @@ const GlobalFilter = () => {
       <div className="disclosure__filter">
         <form name="form" onSubmit={handleFormSubmit}>
           <SetPeriod key={period}>
-            <h4>기간</h4>
             <div className="date--picker">
               <input type="date" name="date" defaultValue={getToday(date[period])} min={date.sixM} max={date.oneM} onChange={handleValueChange} />
               <span>~</span>
               <input type="date" name="date" defaultValue={getToday(date.today)} min={date.oneM} max={date.oneM} />
             </div>
-            <div className="date--radio">
-              <div>                
+            <ul className="date--radio">
+              <li>                
                 <input type="radio" id="oneM" name="period" onChange={handleRadioChange} checked={period === "oneM"} />
                 <label htmlFor="oneM">1M</label>
-              </div>
-              <div>
+              </li>
+              <li>
+                <input type="radio" id="threeM" name="period" onChange={handleRadioChange} checked={period === "threeM"} />
+                <label htmlFor="threeM">3M</label>
+              </li>
+              <li>
                 <input type="radio" id="sixM" name="period" onChange={handleRadioChange} checked={period === "sixM"} />
                 <label htmlFor="sixM">6M</label>
-              </div>
-              <div>
+              </li>
+              <li>
                 <input type="radio" id="oneY" name="period" onChange={handleRadioChange} checked={period === "oneY"} />
                 <label htmlFor="oneY">1Y</label>
-              </div>
-              <div>
+              </li>
+              <li>
                 <input type="radio" id="threeY" name="period" onChange={handleRadioChange} checked={period === "threeY"} />
                 <label htmlFor="threeY">3Y</label>
-              </div>
-              <div>
+              </li>
+              <li>
                 <input type="radio" id="fiveY" name="period" onChange={handleRadioChange} checked={period === "fiveY"} />
                 <label htmlFor="fiveY">5Y</label>
-              </div>
-              <div>
+              </li>
+              <li>
                 <input type="radio" id="tenY" name="period" onChange={handleRadioChange} checked={period === "tenY"} />
                 <label htmlFor="tenY">10Y</label>
-              </div>
-            </div>
+              </li>
+            </ul>
           </SetPeriod>
-          <SetType>
+          {/* <SetType>
             <GlobalType className="globalType">
               <label htmlFor="source">Source</label>
               <select name="source">
@@ -163,10 +167,10 @@ const GlobalFilter = () => {
                 <input type="checkbox" id="typeJ" name="type" />
                 Type - C
               </label>
-            </div> */}
-          </SetType>
-          <button className="btn__form">적용</button>
-          <input className="btn__form" type="reset" value="초기화" onClick={() => setPeriod('oneY')} />
+            </div>
+          </SetType> */}
+          <button className="btn__filter">Filter</button>
+          <button className="btn__submit">검색</button>        
         </form>
       </div>
     </DisclosureFilterWrapper>
