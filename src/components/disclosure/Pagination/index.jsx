@@ -3,6 +3,7 @@ import { Page, Button } from "./style";
 
 
 function Pagination({ total, limit, page, setPage }) {
+  console.log(total / limit)
   const numPages = Math.ceil(total / limit);
 
   return (
