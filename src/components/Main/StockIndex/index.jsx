@@ -6,6 +6,7 @@ import useDebounce from "@utils/useDebounce";
 import stock_up from "@images/stock_up.svg";
 import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
+import { BarChart } from "@components/ContentLoader";
 
 // const data = [
 //   { stock: 2900, date: "10:00" },
@@ -45,6 +46,14 @@ import stock_none from "@images/stock_none.svg";
 //   { stock: 2600, date: "12:40" },
 //   { stock: 2900, date: "12:50" },
 // ];
+
+export const StockIndexLoader = () => {
+  return (
+    <StockIndexWrapper>
+      <BarChart />
+    </StockIndexWrapper>
+  );
+};
 
 const StockIndex = ({ type, data }) => {
   const chartData = data.chart;

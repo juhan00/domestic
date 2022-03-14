@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { hierarchy } from "d3";
 
 export const TopStockWrapper = styled.div`
   flex: 2 1 0;

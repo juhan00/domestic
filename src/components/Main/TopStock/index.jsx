@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { TopStockWrapper } from "./style";
 import question_mark_icon from "@images/question_mark_icon.svg";
+import { TableList } from "@components/ContentLoader";
 
 // const upperData = () => [
 //   {
@@ -147,6 +148,13 @@ import question_mark_icon from "@images/question_mark_icon.svg";
 //     trading: "68,090",
 //   },
 // ];
+export const TopStockLoader = () => {
+  return (
+    <TopStockWrapper>
+      <TableList />
+    </TopStockWrapper>
+  );
+};
 
 const TopStock = ({ data }) => {
   const upperData = data.items.find((item) => item.id === "upperData").data;
