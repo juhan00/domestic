@@ -11,7 +11,7 @@ import {
   ChartWrapper,
 } from "./style";
 import { sampleJson } from "@utils/api";
-import betaCoeff, { corrCoeff, standDev } from "@utils/corrCoeff";
+import betaCoeff from "@utils/corrCoeff";
 
 const DoBeta = () => {
   const [dataX, setDataX] = useState({});

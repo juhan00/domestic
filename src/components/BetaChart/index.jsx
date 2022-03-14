@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
-import { ChartWrapper, InputWrapper, Header, YLabel } from "./style";
+import { ChartWrapper, Header, YLabel } from "./style";
 import Tooltip from "./Tooltip";
 import Search from "@components/Search";
 import * as d3 from "d3";

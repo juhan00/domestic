@@ -7,9 +7,6 @@ const BetaTable = ({ data, names }) => {
     <TableWrapper>
       <Table>
         <thead>
-          <Row className="table__header">
-            <Cell colSpan={3}>RETURNS</Cell>
-          </Row>
           <Row className="table__header category">
             <Cell>Dates</Cell>
             <Cell>{names[0]}</Cell>
