@@ -30,6 +30,10 @@ const DoBeta = () => {
         .then((res) => res.data)
         .then((data) => setDataY(data));
     })();
+    return () => {
+      setDataX({})
+      setDataY({})
+    }
   }, []);
 
   useEffect(() => {

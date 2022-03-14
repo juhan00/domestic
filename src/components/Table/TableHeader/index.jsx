@@ -4,7 +4,7 @@ import { TableWrapper, Table, Row, Cell } from "../BetaTable/style";
 
 const TableHeader = ({ data, title }) => {
   return (
-    <TableWrapper style={{ height: "130px" }}>
+    <TableWrapper style={{ height: "115px" }}>
       <Table>
         <thead>
           <Row className="table__header">

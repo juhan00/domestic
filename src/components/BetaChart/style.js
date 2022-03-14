@@ -50,13 +50,13 @@ export const Header = styled.div`
 export const YLabel = styled.div`
   color: #505050;
   background-color: #fafafe;
-  height: 60px;
+  height: 30px;
   border: none;
   border-radius: 6px;
   padding: 0 20px;
   font-size: 16px;
   font-weight: 700;
-  line-height: 60px;
+  line-height: 30px;
   & > span {
     color: #000000;
     font-size: 18px;
