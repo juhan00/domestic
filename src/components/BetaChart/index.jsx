@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
-import { ChartWrapper, InputWrapper, Header, YLabel } from "./style";
+import { ChartWrapper, Header, YLabel } from "./style";
 import Tooltip from "./Tooltip";
 import Search from "@components/Search";
 import * as d3 from "d3";
@@ -198,11 +198,6 @@ const BetaChart = ({ data, names, beta }) => {
   return (
     <ChartWrapper>
       <Header>
-        <InputWrapper>
-          <input type="date" name="date" />
-          ~
-          <input type="date" name="date" />
-        </InputWrapper>
         <Search />
         <YLabel>
           TICKER Y-AXIS<span>{names[1]}</span>

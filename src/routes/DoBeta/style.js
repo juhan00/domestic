@@ -9,7 +9,7 @@ export const RouteWrapper = styled.div`
   }
 `;
 export const TableWrapper = styled.div`
-  margin-right: 20px;
+  margin-left: 20px;
   flex: 1 1 400px;
 `;
 export const ChartWrapper = styled.div`
@@ -30,7 +30,7 @@ export const ChartWrapper = styled.div`
   }
 `;
 export const CorrTableWrapper = styled.div`
-  float: left;
+  /* float: left; */
   width: 23.913043%;
   height: calc(100vh - 265px);
   border-radius: 0 0 12px 12px;
