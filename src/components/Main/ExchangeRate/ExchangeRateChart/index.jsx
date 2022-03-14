@@ -12,7 +12,8 @@ const ExchangeRateChart = ({ data }) => {
 
   //tick 분할 함수
   const setTickCount = useCallback((min, max, count, type) => {
-    const interval = (max - min) / count;
+    const interval = Math.round((max - min) / count);
+    console.log(interval);
     if (type === "center") {
       const tick = [interval];
       let tickValue = interval;
@@ -46,7 +47,7 @@ const ExchangeRateChart = ({ data }) => {
     const height = 150;
     const xTickCount = 6;
     const yTickCount = 5;
-    const xTickBlankCount = 0;
+    const xTickBlankCount = 2;
     const minStock = d3.min(data.map((d) => d.stock)) - 300;
     const maxStock = d3.max(data.map((d) => d.stock)) + 300;
     const xLabel = "(회차)";
@@ -66,6 +67,7 @@ const ExchangeRateChart = ({ data }) => {
     const xAxis = d3
       .axisBottom(xScale)
       .tickValues(setTickCount(0, data.length, xTickCount, "center"))
+      // .tickValues([0, 33])
       .tickFormat((index) => data[index]["date"])
       .tickSize(10);
 
@@ -171,6 +173,7 @@ const ExchangeRateChart = ({ data }) => {
     };
   }, [data, resize]);
 
+  console.log(data.length);
   return (
     <ExchangeRateChartWrapper ref={exchangeRateChartRef}>
       <svg ref={svgRef}>
