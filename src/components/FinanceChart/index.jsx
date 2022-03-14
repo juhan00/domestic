@@ -31,6 +31,18 @@ const FinanceChart = ({
   const svgRef = useRef(null);
   const dimensions = useResizeObserver(financeChartRef);
   const resize = useDebounce(dimensions, 200);
+  const financialType = useRef({
+    take: "매출액",
+    profit: "영업이익",
+    netprofit: "순이익",
+    assets: "자산총계",
+    dept: "부채총계",
+    capital: "자본총계",
+    sales: "영업활동",
+    investment: "투자활동",
+    finance: "재무활동",
+  });
+
   useEffect(() => {
     const svg = select(svgRef.current);
     svg.selectAll(".financeg").remove();
@@ -80,7 +92,7 @@ const FinanceChart = ({
           idx === 1
             ? select(node)
                 .select("text")
-                .text(() => data.date)
+                .text(() => timeFormat("%Y. %m")(new Date(data.date)))
                 .attr("transform", `translate(${marginLeft},0)`)
                 .classed("yAxisLabel", true)
             : select(node).select("text").remove();
@@ -164,7 +176,9 @@ const FinanceChart = ({
           .attr("r", 3)
           .attr("transform", `translate(${-marginLeft})`);
 
-        tooltipgele.append("text").text((value) => value.type);
+        tooltipgele
+          .append("text")
+          .text((value) => financialType.current[value.type]);
       });
   }, [data, resize]);
 
