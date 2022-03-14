@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import TableHeader from "@components/Table/TableHeader";
 import BetaTable from "@components/Table/BetaTable";
 import BetaChart from "@components/BetaChart";
+import StatisticsHeader from "@components/Table/StatisticsHeader"
 import { RouteWrapper, TableWrapper, ChartWrapper } from "./style";
 import { sampleJson } from "@utils/api";
 import betaCoeff, { corrCoeff, standDev } from "@utils/corrCoeff";
@@ -46,18 +47,18 @@ const DoBeta = () => {
     }
   }, [dataX, dataY]);
 
-  return (
+  return (<>
+    <StatisticsHeader />
     <RouteWrapper>
+      <ChartWrapper>
+        {!loading && <BetaChart data={data} names={names} beta={beta} />}
+      </ChartWrapper>
       <TableWrapper>
         <TableHeader data={beta} title={"BETA"} />
         <BetaTable data={data} names={names} />
       </TableWrapper>
-      <ChartWrapper>
-        <section>OPTIONS</section>
-        {!loading && <BetaChart data={data} names={names} beta={beta} />}
-      </ChartWrapper>
     </RouteWrapper>
-  );
+  </>);
 };
 
 export default DoBeta;
