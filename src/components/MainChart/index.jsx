@@ -114,7 +114,7 @@ const MainChart = ({
       .range([height - marginBottom, height - volumeChartHeight - marginTop]);
 
     const xAxis = axisBottom(xScale)
-      .tickFormat(timeFormat("%Y-%m-%d"))
+      .tickFormat(timeFormat("%Y.%m.%d"))
       .tickValues(ticks(xMin, xMax, 7))
       .tickSize(-(height - marginBottom - marginTop));
 
