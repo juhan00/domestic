@@ -17,12 +17,24 @@ export const StockIndexWrapper = styled.div`
 
   & > .topInfo {
     width: 100%;
-    & > h2 {
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 1.5;
-      color: #111111;
+    & > .title {
+      display: flex;
+      h2 {
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.5;
+        color: #111111;
+      }
+      .date {
+        align-self: flex-start;
+        margin-left: auto;
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #505050;
+      }
     }
+
     & > .info {
       width: 100%;
       display: flex;
@@ -46,14 +58,6 @@ export const StockIndexWrapper = styled.div`
           margin-left: 12px;
         }
       }
-      & > .date {
-        align-self: flex-end;
-        margin-left: auto;
-        font-size: 11px;
-        font-weight: 400;
-        line-height: 1.5;
-        color: #505050;
-      }
     }
   }
 
@@ -62,6 +66,16 @@ export const StockIndexWrapper = styled.div`
     & > svg {
       width: 100%;
       //d3 chart
+      .x-axis {
+        .tick {
+          text {
+            font-size: 11px;
+            font-weight: 400;
+            line-height: 1.2;
+            color: #111;
+          }
+        }
+      }
       .tick {
         line {
           stroke: #f0f0f6;
@@ -74,14 +88,15 @@ export const StockIndexWrapper = styled.div`
         }
       }
       .dataLine {
-        stroke: #5fb6ad;
+        stroke: #359866;
+        stroke-width: 2px;
       }
       .dataArea {
         fill: url(#areaGradient);
       }
       .todayLine {
         stroke-width: 1;
-        stroke: #f0f0f6;
+        stroke: #facdcd;
         stroke-dasharray: 3, 3;
       }
     }

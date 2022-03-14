@@ -32,7 +32,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setStockIndexData(res.data);
-        }, 2000);
+        }, 0);
       }
     };
 
@@ -50,7 +50,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setTopStockData(res.data);
-        }, 2000);
+        }, 0);
       }
     };
     topStockFetch();
@@ -67,7 +67,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setExchangeRateData(res.data);
-        }, 2000);
+        }, 0);
       }
     };
     exchangeRateFetch();
@@ -84,7 +84,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setMarketIndiData(res.data);
-        }, 2000);
+        }, 0);
       }
     };
     marketIndiFetch();
@@ -112,7 +112,11 @@ const Domestic = () => {
         ) : (
           stockIndexData.items.map((item) => (
             <div className="col" key={item.id}>
-              <StockIndex type="domestic" data={item} />
+              <StockIndex
+                type="domestic"
+                data={item}
+                date={stockIndexData.date}
+              />
             </div>
           ))
         )}
@@ -125,6 +129,8 @@ const Domestic = () => {
             <TopStock data={topStockData} />
           )}
         </div>
+      </div>
+      <div className="row">
         <div className="col">
           {!exchangeRateData ? (
             <ExchangeRateLoader />

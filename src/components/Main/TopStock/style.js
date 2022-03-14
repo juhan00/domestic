@@ -69,10 +69,10 @@ export const TopStockWrapper = styled.div`
           line-height: 1.5;
           color: #111;
           vertical-align: middle;
-          &.red {
+          &.up {
             color: #e82b2b;
           }
-          &.blue {
+          &.down {
             color: #1b61d1;
           }
           &.primary {
