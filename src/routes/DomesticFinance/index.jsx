@@ -35,11 +35,6 @@ const DomesticStock = () => {
   const { period } = domesticState;
   const { startDate, endDate, diff } = period;
 
-  const onChangeDate = (dates) => {
-    const [start, end] = dates;
-    dispatch(setPeriod(start, end));
-  };
-
   const onClickPeriodButton = (numOfDates) => {
     const newStartDate = getPreviousDate(endDate, numOfDates);
     const targetDate = newStartDate > publicDate ? newStartDate : publicDate;
@@ -90,32 +85,86 @@ const DomesticStock = () => {
     },
   ]);
 
-  const finance1 = useRef({
-    date: "2021-12",
-    values: [
-      { type: "take", value: -42500 },
-      { type: "profit", value: 91200 },
-      { type: "netprofit", value: 31200 },
-    ],
-  });
+  const finance1 = useRef([
+    {
+      date: "2021-12-3",
+      values: [
+        { type: "take", value: -42500 },
+        { type: "profit", value: 91200 },
+        { type: "netprofit", value: 31200 },
+      ],
+    },
+    {
+      date: "2021-12-3",
+      values: [
+        { type: "assets", value: -42500 },
+        { type: "dept", value: 91200 },
+        { type: "capital", value: 31200 },
+      ],
+    },
+    {
+      date: "2021-9",
+      values: [
+        { type: "sales", value: -42500 },
+        { type: "investment", value: 91200 },
+        { type: "finance", value: 31200 },
+      ],
+    },
+  ]);
 
-  const finance2 = useRef({
-    date: "2021-12",
-    values: [
-      { type: "assets", value: -42500 },
-      { type: "dept", value: 91200 },
-      { type: "capital", value: 31200 },
-    ],
-  });
+  const finance2 = useRef([
+    {
+      date: "2021-9-3",
+      values: [
+        { type: "take", value: -42500 },
+        { type: "profit", value: 91200 },
+        { type: "netprofit", value: 31200 },
+      ],
+    },
+    {
+      date: "2021-09-1",
+      values: [
+        { type: "assets", value: -42500 },
+        { type: "dept", value: 91200 },
+        { type: "capital", value: 31200 },
+      ],
+    },
+    {
+      date: "2021-9",
+      values: [
+        { type: "sales", value: -42500 },
+        { type: "investment", value: 91200 },
+        { type: "finance", value: 31200 },
+      ],
+    },
+  ]);
 
-  const finance3 = useRef({
-    date: "2021-12",
-    values: [
-      { type: "sales", value: -42500 },
-      { type: "investment", value: 91200 },
-      { type: "finance", value: 31200 },
-    ],
-  });
+  const finance3 = useRef([
+    {
+      date: "2021-6-3",
+      values: [
+        { type: "take", value: -42500 },
+        { type: "profit", value: 91200 },
+        { type: "netprofit", value: 31200 },
+      ],
+    },
+    {
+      date: "2021-6-1",
+      values: [
+        { type: "assets", value: -42500 },
+        { type: "dept", value: 91200 },
+        { type: "capital", value: 31200 },
+      ],
+    },
+    {
+      date: "2021-6",
+      values: [
+        { type: "sales", value: -42500 },
+        { type: "investment", value: 91200 },
+        { type: "finance", value: 31200 },
+      ],
+    },
+  ]);
 
   return (
     <main>
@@ -262,37 +311,25 @@ const DomesticStock = () => {
         </div>
         <div className="finances-wrapper">
           <div className="finances-ele">
-            <div className="chart-wrapper">
-              <FinanceChart data={finance1.current} />
-            </div>
-            <div className="chart-wrapper">
-              <FinanceChart data={finance2.current} />
-            </div>
-            <div className="chart-wrapper">
-              <FinanceChart data={finance3.current} />
-            </div>
+            {finance1.current.map((ele, idx) => (
+              <div className="chart-wrapper" key={idx}>
+                <FinanceChart data={ele} />
+              </div>
+            ))}
           </div>
           <div className="finances-ele">
-            <div className="chart-wrapper">
-              <FinanceChart data={finance1.current} />
-            </div>
-            <div className="chart-wrapper">
-              <FinanceChart data={finance2.current} />
-            </div>
-            <div className="chart-wrapper">
-              <FinanceChart data={finance3.current} />
-            </div>
+            {finance2.current.map((ele, idx) => (
+              <div className="chart-wrapper" key={idx}>
+                <FinanceChart data={ele} />
+              </div>
+            ))}
           </div>
           <div className="finances-ele">
-            <div className="chart-wrapper">
-              <FinanceChart data={finance1.current} />
-            </div>
-            <div className="chart-wrapper">
-              <FinanceChart data={finance2.current} />
-            </div>
-            <div className="chart-wrapper">
-              <FinanceChart data={finance3.current} />
-            </div>
+            {finance3.current.map((ele, idx) => (
+              <div className="chart-wrapper" key={idx}>
+                <FinanceChart data={ele} />
+              </div>
+            ))}
           </div>
         </div>
       </ContentsWrapper>

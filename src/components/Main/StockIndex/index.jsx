@@ -6,6 +6,7 @@ import useDebounce from "@utils/useDebounce";
 import stock_up from "@images/stock_up.svg";
 import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
+import { BarChart } from "@components/ContentLoader";
 
 // const data = [
 //   { stock: 2900, date: "10:00" },
@@ -46,6 +47,14 @@ import stock_none from "@images/stock_none.svg";
 //   { stock: 2900, date: "12:50" },
 // ];
 
+export const StockIndexLoader = () => {
+  return (
+    <StockIndexWrapper>
+      <BarChart />
+    </StockIndexWrapper>
+  );
+};
+
 const StockIndex = ({ type, data }) => {
   const chartData = data.chart;
   const svgRef = useRef(null);
@@ -84,9 +93,9 @@ const StockIndex = ({ type, data }) => {
     }
 
     //초기 셋팅
-    const margin = { top: 50, right: 50, bottom: 50, left: 50 };
+    const margin = { top: 40, right: 40, bottom: 50, left: 40 };
     const width = resize.width - (margin.left + margin.right);
-    const height = 100;
+    const height = 80;
     const xTickCount = 4;
     const yTickCount = 4;
     const xTickBlankCount = 2;

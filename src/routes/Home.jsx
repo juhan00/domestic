@@ -1,14 +1,13 @@
 import React from "react";
-import { Logo  } from "@components/oldLayout/style";
-import Search from "@components/oldLayout/Search"
-import Dropdown from "@components/oldLayout/Dropdown";
-import { HomeStyle, SearchMenuStyleAtHome } from "@routes/style";
+import MoyaLogo from "@images/moyaLogo.png";
+import Search from "@components/Layout/Search"
+import { HomeStyle, SearchAtHome } from "@routes/style";
 import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
     <HomeStyle>
-        <Logo />
+        <img className="logo" src={MoyaLogo} alt="MoYa" />
         <ul className="menuWrapper">
           <li><Link to="/domestic">국내주식</Link></li>
           <li><Link to="/global">해외주식</Link></li>
@@ -18,10 +17,9 @@ const Home = () => {
           당신을 위한 뉴스<span>n개</span>가 준비되어 있습니다
           <div>지금 바로 검색해 보세요!</div>
         </div>
-        <SearchMenuStyleAtHome>
-          <Dropdown />
+        <SearchAtHome>
           <Search />
-        </SearchMenuStyleAtHome>
+        </SearchAtHome>
     </HomeStyle>
   );
 };

@@ -3,17 +3,19 @@ import styled from "@emotion/styled";
 export const TableWrapper = styled.div`
   max-width: 400px;
   width: 100%;
+  height: 655px;
   border-radius: 12px;
   overflow: hidden;
-  margin: 0 20px 20px 0;
 `;
 export const Table = styled.table`
+  height: 100%;
   width: 100%;
+  
   tbody {
     display: block;
     width: 100%;
     overflow: auto;
-    max-height: 540px;
+    max-height: 612px;
     font-size: 12px;
   }
 `;
@@ -29,15 +31,15 @@ export const Row = styled.tr`
     background-color: #fafafe;
   }
   &.table__header {
-    background-color: #5fb6ad;
-    color: #ffffff;
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 3px solid #E5EEEE;
+    color: #767676;
     justify-content: center;
     font-size: 18px;
     line-height: 40px;
     font-weight: 700;
     height: 40px;
     text-align: center;
+    
   }
   &.category {
     font-size: 14px;
@@ -48,7 +50,7 @@ export const Row = styled.tr`
     justify-content: center;
     font-size: 36px;
     text-align: center;
-    height: 90px;
+    height: 60px;
   }
 `;
 export const Cell = styled.td`

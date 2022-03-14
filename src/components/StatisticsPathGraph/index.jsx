@@ -7,54 +7,58 @@ import {
   scaleTime,
   select,
   line,
-  axisRight,
+  axisLeft,
 } from "d3";
-import { axisLeft } from "d3";
+import useResizeObserver from "@utils/useResizeObserver";
 
-const StatisticsGraph = ({
-  data,
-  width = 700,
-  height = 170,
-  marginTop = 20,
-  marginBottom = 20,
-  marginLeft = 80,
-  marginRight = 110,
-  padding = 40,
-}) => {
+const StatisticsGraph = ({ data }) => {
   const graphRef = useRef();
   const svgRef = useRef(null);
+  const resizeWidth = useResizeObserver(graphRef);
 
   useEffect(() => {
     const graphWrapper = select(graphRef.current);
     const svg = select(svgRef.current);
 
-    svg.attr("width", 700).attr("height", 170);
+    svg.selectAll(".lines").remove();
+    svg.selectAll(".dots").remove();
+
+    if (!resizeWidth || !data) {
+      return;
+    }
+
+    const width = resizeWidth.width;
+    const height = 300;
+    const margin = { top: 30, right: 30, bottom: 30, left: 50 };
+    const innerPadding = 60;
+
+    svg.attr("width", 700).attr("height", 300);
 
     const xScale = scaleTime()
       .domain(extent(data, (data) => data.basDt))
-      .range([marginLeft, width - marginRight]);
-
+      .range([margin.left + innerPadding, width - margin.right - innerPadding]);
     const xAxis = axisBottom(xScale).ticks(data.length);
-    // .tickSizeOuter(0);
 
     svg
       .select(".x-axis")
       .call(xAxis)
       .call((g) => g.select(".domain").remove())
       .call((g) => g.selectAll(".tick line").remove())
-      .style("transform", `translate(30px, ${height - marginBottom}px)`);
+      .style(
+        "transform",
+        `translate(${margin.right}px, ${height - margin.bottom}px)`,
+      );
 
     const yScale = scaleLinear()
       .domain([0, max(data, (data) => data.부채비율)])
       .nice()
-      .range([height - marginBottom, marginTop]);
-
+      .range([height - margin.bottom, margin.top]);
     const yAxis = axisLeft(yScale);
 
     svg
       .select(".y-axis")
       .call(yAxis)
-      .style("transform", `translateX(${width}px)`)
+      .style("transform", `translateX(80px)`)
       .call((g) => g.select(".domain").remove())
       .call((g) =>
         g
@@ -62,89 +66,135 @@ const StatisticsGraph = ({
           .attr("x1", 0)
           .attr("x2", width)
           .style("stroke", "#f0f0f6")
-          .style("transform", `translateX(${-width}px)`),
+          .style("transform", `translateX(0px)`),
       );
 
-    const chartLine1 = line()
-      .defined((d) => !isNaN(d.부채비율))
-      .x((d) => xScale(d.basDt))
-      .y((d) => yScale(d.부채비율));
+    svg
+      .selectAll(".line")
+      .data([data])
+      .join((enter) => {
+        const lines = enter.append("g").classed("lines", true);
 
-    const chartLine2 = line()
-      .defined((d) => !isNaN(d.유동부채비율))
-      .x((d) => xScale(d.basDt))
-      .y((d) => yScale(d.유동부채비율));
-
-    const chartLine3 = line()
-      .defined((d) => !isNaN(d.비유동부채비율))
-      .x((d) => xScale(d.basDt))
-      .y((d) => yScale(d.비유동부채비율));
+        Object.keys(data[0]).map((keys) => {
+          keys === "basDt"
+            ? null
+            : lines
+                .append("path")
+                .attr("fill", "none")
+                .attr("stroke", "#5fb6ad")
+                .attr("stroke-width", 2)
+                .attr("stroke-linejoin", "round")
+                .attr("stroke-linecap", "round")
+                .attr(
+                  "d",
+                  line()
+                    .x((d) => xScale(d["basDt"]))
+                    .y((d) => yScale(d[keys])),
+                );
+        });
+      });
 
     svg
-      .append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", "#5fb6ad")
-      .attr("stroke-width", 2)
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("d", chartLine1);
-    svg
-      .append("g")
-      .selectAll("dot")
+      .selectAll(".dots")
       .data(data)
-      .join("circle")
-      .attr("cx", (d) => xScale(d.basDt))
-      .attr("cy", (d) => yScale(d.부채비율))
-      .attr("r", 4)
-      .attr("fill", "#5fb6ad")
-      .attr("stroke", "white");
+      .join((enter) => {
+        const dots = enter.append("g").classed("dots", true);
 
-    svg
-      .append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", "#5fc8e9")
-      .attr("stroke-width", 2)
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("d", chartLine2);
-    svg
-      .append("g")
-      .selectAll("dot")
-      .data(data)
-      .join("circle")
-      .attr("cx", (d) => xScale(d.basDt))
-      .attr("cy", (d) => yScale(d.유동부채비율))
-      .attr("r", 4)
-      .attr("fill", "#5fc8e9")
-      .attr("stroke", "white");
+        Object.keys(data[0]).map((keys) => {
+          keys === "basDt"
+            ? null
+            : dots
+                .append("circle")
+                .attr("cx", (d) => xScale(d["basDt"]))
+                .attr("cy", (d) => yScale(d[keys]))
+                .attr("r", 4)
+                .attr("fill", "#5fb6ad")
+                .attr("stroke", "white");
+        });
+      });
 
-    svg
-      .append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", "#366d8c")
-      .attr("stroke-width", 2)
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("d", chartLine3);
-    svg
-      .append("g")
-      .selectAll("dot")
-      .data(data)
-      .join("circle")
-      .attr("cx", (d) => xScale(d.basDt))
-      .attr("cy", (d) => yScale(d.비유동부채비율))
-      .attr("r", 4)
-      .attr("fill", "#366d8c")
-      .attr("stroke", "white");
-  }, []);
+    // const chartLine1 = line()
+    //   .defined((d) => !isNaN(d.부채비율))
+    //   .x((d) => xScale(d.basDt))
+    //   .y((d) => yScale(d.부채비율));
+
+    // const chartLine2 = line()
+    //   .defined((d) => !isNaN(d.유동부채비율))
+    //   .x((d) => xScale(d.basDt))
+    //   .y((d) => yScale(d.유동부채비율));
+
+    // const chartLine3 = line()
+    //   .defined((d) => !isNaN(d.비유동부채비율))
+    //   .x((d) => xScale(d.basDt))
+    //   .y((d) => yScale(d.비유동부채비율));
+
+    // svg
+    //   .append("path")
+    //   .datum(data)
+    //   .attr("fill", "none")
+    //   .attr("stroke", "#5fb6ad")
+    //   .attr("stroke-width", 2)
+    //   .attr("stroke-linejoin", "round")
+    //   .attr("stroke-linecap", "round")
+    //   .attr("d", chartLine1);
+    // svg
+    //   .append("g")
+    //   .selectAll("dot")
+    //   .data(data)
+    //   .join("circle")
+    //   .attr("cx", (d) => xScale(d.basDt))
+    //   .attr("cy", (d) => yScale(d.부채비율))
+    //   .attr("r", 4)
+    //   .attr("fill", "#5fb6ad")
+    //   .attr("stroke", "white");
+
+    // svg
+    //   .append("path")
+    //   .datum(data)
+    //   .attr("fill", "none")
+    //   .attr("stroke", "#5fc8e9")
+    //   .attr("stroke-width", 2)
+    //   .attr("stroke-linejoin", "round")
+    //   .attr("stroke-linecap", "round")
+    //   .attr("d", chartLine2);
+    // svg
+    //   .append("g")
+    //   .selectAll("dot")
+    //   .data(data)
+    //   .join("circle")
+    //   .attr("cx", (d) => xScale(d.basDt))
+    //   .attr("cy", (d) => yScale(d.유동부채비율))
+    //   .attr("r", 4)
+    //   .attr("fill", "#5fc8e9")
+    //   .attr("stroke", "white");
+
+    // svg
+    //   .append("path")
+    //   .datum(data)
+    //   .attr("fill", "none")
+    //   .attr("stroke", "#366d8c")
+    //   .attr("stroke-width", 2)
+    //   .attr("stroke-linejoin", "round")
+    //   .attr("stroke-linecap", "round")
+    //   .attr("d", chartLine3);
+    // svg
+    //   .append("g")
+    //   .selectAll("dot")
+    //   .data(data)
+    //   .join("circle")
+    //   .attr("cx", (d) => xScale(d.basDt))
+    //   .attr("cy", (d) => yScale(d.비유동부채비율))
+    //   .attr("r", 4)
+    //   .attr("fill", "#366d8c")
+    //   .attr("stroke", "white");
+  }, [data, resizeWidth]);
   return (
-    <svg ref={svgRef}>
-      <g className="x-axis" />
-      <g className="y-axis" />
-    </svg>
+    <div ref={graphRef} style={{ backgroundColor: "red" }}>
+      <svg ref={svgRef}>
+        <g className="x-axis" />
+        <g className="y-axis" />
+      </svg>
+    </div>
   );
 };
 

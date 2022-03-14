@@ -15,6 +15,7 @@ import React, { useEffect, useRef } from "react";
 import useResizeObserver from "@utils/useResizeObserver";
 import { EmotionWrapper } from "./style";
 import useDebounce from "@utils/useDebounce";
+import { ticks } from "d3";
 
 const data = [
   { date: new Date("2018-01-01"), value: 1 },
@@ -49,12 +50,17 @@ const EmotionChart = ({
     const { width, height } = resize;
     svg.attr("width", width).attr("height", height);
 
+    const xMax = max(data, (data) => data.date);
+    const xMin = min(data, (data) => data.date);
+
     const xScale = scaleTime()
-      .domain(extent(data, (data) => data.date))
+      .domain([xMin, xMax])
       .range([marginLeft, width - marginLeft]);
 
     const xAxis = axisBottom(xScale)
       .ticks(data.length)
+      .tickValues(ticks(xMin, xMax, 7))
+
       .tickFormat(timeFormat("%m-%d"));
     // .tickSizeOuter(0);
 

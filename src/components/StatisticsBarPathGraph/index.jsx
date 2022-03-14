@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import { GraphWrapper } from "./style";
 import {
   axisBottom,
   extent,
@@ -12,32 +11,35 @@ import {
   axisRight,
   axisLeft,
 } from "d3";
+import useResizeObserver from "@utils/useResizeObserver";
 
-const StatisticsGraph = ({
-  data,
-  barColor = "#5FB6AD",
-  barWidth = 50,
-  width = 750,
-  height = 170,
-  marginTop = 20,
-  marginBottom = 20,
-  marginLeft = 80,
-  marginRight = 110,
-  padding = 40,
-}) => {
+const StatisticsGraph = ({ data }) => {
   const graphRef = useRef();
   const svgRef = useRef(null);
+  const resizeWidth = useResizeObserver(graphRef);
+
   useEffect(() => {
     const graphWrapper = select(graphRef.current);
     const svg = select(svgRef.current);
 
     const entireValue = max(data, (data) => data.당기순이익);
 
-    svg.attr("width", 750).attr("height", 170);
+    svg.selectAll(".dots").remove();
+    svg.selectAll(".line").remove();
+
+    if (!resizeWidth || !data) {
+      return;
+    }
+
+    const width = resizeWidth.width;
+    const height = 300;
+    const margin = { top: 30, right: 30, bottom: 30, left: 50 };
+
+    svg.attr("width", 750).attr("height", 300);
 
     const xScale = scaleTime()
       .domain(extent(data, (data) => data.date))
-      .range([marginLeft, width - marginRight]);
+      .range([margin.left, width - margin.right]);
     const xAxis = axisBottom(xScale).ticks(data.length);
     // .tickSizeOuter(0);
 
@@ -54,24 +56,24 @@ const StatisticsGraph = ({
       .call(xAxis)
       .call((g) => g.select(".domain").remove())
       .call((g) => g.selectAll(".tick line").remove())
-      .style("transform", `translate(30px, ${height - marginBottom}px)`);
+      .style("transform", `translate(30px, ${height - margin.bottom}px)`);
     svg
       .append("g")
       .call(xBandAxis)
       .call((g) => g.select(".domain").remove())
       .call((g) => g.selectAll(".tick line").remove())
-      .style("transform", `translate(30px, ${height - marginBottom}px)`);
+      .style("transform", `translate(30px, ${height - margin.bottom}px)`);
 
     const yRightScale = scaleLinear()
       .domain([0, max(data, (data) => data.ROE)])
       .nice()
-      .range([height - marginBottom, marginTop]);
+      .range([height - margin.bottom, margin.top]);
     const yRightAxis = axisLeft(yRightScale);
 
     const yLeftScale = scaleLinear()
       .domain([0, max(data, (data) => data.당기순이익)])
       .nice()
-      .range([height - marginBottom, marginTop]);
+      .range([height - margin.bottom, margin.top]);
     const yLeftAxis = axisRight(yLeftScale);
 
     svg
@@ -94,22 +96,17 @@ const StatisticsGraph = ({
       .call((g) => g.selectAll(".tick line").remove());
 
     function topRounded(x, y, w, h, r, f) {
-      // Flag for sweep:
       if (f == undefined) f = 1;
-      // x coordinates of top of arcs
       let x0 = x + r;
       let x1 = x + w - r;
-      // y coordinates of bottom of arcs
       let y0 = y - h + r;
-
-      // assemble path:
       let parts = [
         "M",
         x,
-        y, // step 1
+        y,
         "L",
         x,
-        y0, // step 2
+        y0,
         "A",
         r,
         r,
@@ -117,10 +114,10 @@ const StatisticsGraph = ({
         0,
         f,
         x0,
-        y - h, // step 3
+        y - h,
         "L",
         x1,
-        y - h, // step 4
+        y - h,
         "A",
         r,
         r,
@@ -128,11 +125,11 @@ const StatisticsGraph = ({
         0,
         f,
         x + w,
-        y0, // step 5
+        y0,
         "L",
         x + w,
-        y, // step 6
-        "Z", // step 7
+        y,
+        "Z",
       ];
       return parts.join(" ");
     }
@@ -148,10 +145,10 @@ const StatisticsGraph = ({
           yLeftScale(0),
           xBandScale.bandwidth(),
           yLeftScale(0) - yLeftScale(node.당기순이익),
-          4,
+          2,
         ),
       )
-      .attr("fill", "#5fb6ad");
+      .attr("fill", "#FECF5B");
 
     const chartLine1 = line()
       .defined((d) => !isNaN(d.ROE))
@@ -227,12 +224,14 @@ const StatisticsGraph = ({
       .attr("r", 4)
       .attr("fill", "#A61515")
       .attr("stroke", "white");
-  }, []);
+  }, [data, resizeWidth]);
   return (
-    <svg ref={svgRef}>
-      <g className="x-axis" />
-      <g className="y-axis" />
-    </svg>
+    <div ref={graphRef} style={{ backgroundColor: "blue" }}>
+      <svg ref={svgRef}>
+        <g className="x-axis" />
+        <g className="y-axis" />
+      </svg>
+    </div>
   );
 };
 

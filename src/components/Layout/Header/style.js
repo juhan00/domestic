@@ -51,26 +51,28 @@ export const SearchOnHeader = styled.div`
   padding: 0 12px;
   box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
   .searchOption {
+    display: inline-block;
     text-align: center;
     line-height: 48px;
-    a {
-      display: inline-block;
-      width: 70px;
-      height: 48px;
-      text-decoration: none;
-      color: #000;
-      &.active {
-        color: #286f6c;
-        font-weight: 700;
-      }
+    width: 70px;
+    height: 48px;
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+    &.active {
+      color: #286f6c;
+      font-weight: 700;
     }
     &:first-of-type {
       &::after {
+        position: relative;
         display: inline-block;
         content: "";
         width: 1px;
         height: 14px;
         background-color: #e5e5e5;
+        float: right;
+        margin-top: 17px;
       }
     }
   }
