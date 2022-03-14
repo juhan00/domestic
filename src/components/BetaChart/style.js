@@ -47,29 +47,6 @@ export const Header = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-export const InputWrapper = styled.div`
-  background-color: #fafafe;
-  height: 60px;
-  padding: 20px 0;
-  border-radius: 6px;
-  text-align: center;
-  input[type="date"] {
-    background-color: transparent;
-    width: 40%;
-    height: 100%;
-    border: none;
-    border-bottom: 1px solid #e5e5ec;
-    color: #111111;
-    padding-bottom: 5px;
-    margin: 0 5px;
-  }
-  input[type="date"]::-webkit-calendar-picker-indicator {
-    width: 15px;
-    padding: 0px;
-    margin: 0px;
-    color: #767676;
-  }
-`;
 export const YLabel = styled.div`
   color: #505050;
   background-color: #fafafe;

@@ -28,6 +28,7 @@ export const CorrChartWrapper = styled.div`
     stroke: #5fb6ad;
   }
   .tooltip {
+    z-index: -2;
     position: absolute;
     border-radius: 2px;
     background-color: #FACDCD;
@@ -89,6 +90,24 @@ export const TableHeader = styled.table`
         color: #767676;
       }
     }
+    .title {
+      margin: 35px 0 0 30px;
+      text-align: left;
+      &::before {
+        float:left;
+        margin-right: 5px;
+        display: block;
+        content: "";
+        width: 15px;
+        height: 15px;
+        border: 1px solid #FDC055;
+        border-radius: 50%;
+        background-color: #FDC055;
+
+
+      }
+    }
+
   }
   .table__body {
     td {
