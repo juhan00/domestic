@@ -7,29 +7,30 @@ export const DisclosureFilterWrapper = styled.div`
         cursor: pointer; 
       }
       form {
-        text-align: center;
-        width: 100%;
+        /* width: 100%; */
         display: flex;
-        justify-content:space-between;
-        .btn__form {
-          float: right;
-          border-radius: 16px;
-          padding: 5px;
-          height: 34px;
-          width: 104px;
-          box-sizing: border-box;
-        }
+        /* justify-content:space-between; */
         button {
-          border: 1px solid #F0F0F6;
-          background-color: #5FB6AD;
-          color: #FFFFFF;
-          margin-left: 11px;
+          font-size: 14px;
+          font-weight: 500;
+          height: 36px;
+          outline: none;
+          border: none;
         }
-        > input {
-          margin-left: auto;
-          border: 1px solid #5FB6AD;
+        .btn__filter {
           background-color: #FFFFFF;
-          color: #5FB6AD;
+          color: #111111;
+          margin-left: 30px;
+          border-radius: 6px;
+          width: 103px;
+
+        }
+        .btn__submit {
+          margin-left: auto;
+          width: 74px;
+          color: #FFFFFF;
+          background-color: #286F6C;
+          border-radius: 2px;
         }
       }
     }
@@ -67,88 +68,44 @@ export const SetPeriod = styled.fieldset`
   }  
   .date--radio {
     display: flex;
-    justify-content: space-between;
-    div {
+    padding-top: 7px;
+    li {
       font-weight: 500;
       font-size: 14px;
-      color: #5FB6AD;
+      color: #999999;
       position: relative;
+      margin-left: 15px;
       input[type="radio"] {
         -webkit-appearance: none; 
         -moz-appearance: none; 
         appearance: none;
-        height: 26px; 
-        width: 45px;
-        border:1px solid #5FB6AD;
-        border-radius: 4px;
-        box-sizing: border-box;
-        margin: 3px 2px;
-        &:checked {
-          background: #5FB6AD;
+        &::before {
+          position: absolute;
+          top:5px;
+          left: -3px;
+          content:"";
+          display: block;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background-color: #C4C4C4;
         }
-        &:checked + label {  
-          color:#FFFFFF; 
+        &:checked { 
+          + label {  
+            color:#000000; 
+            font-size: 500;
+          }
+          &::before {
+            background-color: #047B6C;
+          }
         }
       }
       label {
-        width: 46px;
-        height: 26px;
-        box-sizing: border-box;
-        line-height: 22px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         cursor: pointer;
       }
     }
   }
-  @media only screen and (max-width: 1201px) {
-
-  }
 `
-// 삭제 예정
-// export const SetTypeForDesktop = styled.fieldset`
-//   padding-left: 36px;
-//   width: calc(70% - 36px);
-//   display: flex;
-//   flex-wrap: wrap;
-//   text-align: left;
-//   h4 {
-//     position: absolute;
-//     width: 1px;
-//     height: 1px;
-//     margin: -1px;
-//     overflow: hidden;
-//     clip-path: polygon(0 0, 0 0, 0 0);
-//   }
-//   div {
-//     min-width: 17.5%;
-//     height: 34px;
-//     border: 1px solid #F0F0F6;
-//     box-sizing: border-box;
-//     margin: 0 15px 15px 0;
-//     label {
-//       padding-left: 4px;
-//       line-height: 34px;
-//       display: block;
-//       font-size: 14px;
-//       input {
-//         margin: auto 10px auto 3px;
-//         -webkit-appearance: none; 
-//         -moz-appearance: none; 
-//         appearance: none; 
-//         border-radius: 1.5px; 
-//         height: 15px; 
-//         width: 15px;
-//         border:2.5px solid #5FB6AD;
-//         box-sizing: border-box;
-//         &:checked { background: #5FB6AD; }
-//       }
-//     }
-//   }
-// `
-
 export const SetType = styled.fieldset`
   display: flex;
   margin-left: 25px;
