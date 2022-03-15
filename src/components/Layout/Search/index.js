@@ -13,9 +13,12 @@ const useLocalStorage = (key) => {
       return value;
     }
   });
+  console.log(storageValue);
   const maxStorageCount = 8;
 
   const setStorage = (value) => {
+    //로컬 스토리지 받아오기
+    const storageValue = JSON.parse(localStorage.getItem(key));
     if (storageValue) {
       const overlap = storageValue.filter((item) => item.name === value.name);
 

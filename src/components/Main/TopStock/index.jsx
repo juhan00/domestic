@@ -3,151 +3,6 @@ import { TopStockWrapper } from "./style";
 import question_mark_icon from "@images/question_mark_icon.svg";
 import { TableList } from "@components/ContentLoader";
 
-// const upperData = () => [
-//   {
-//     name: "노루페인트1",
-//     currentPrice: "25,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "노루페인트1",
-//     currentPrice: "25,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "노루페인트1",
-//     currentPrice: "25,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "노루페인트1",
-//     currentPrice: "25,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "노루페인트1",
-//     currentPrice: "25,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "노루페인트1",
-//     currentPrice: "25,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "노루페인트1",
-//     currentPrice: "25,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "노루페인트1",
-//     currentPrice: "25,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "노루페인트1",
-//     currentPrice: "25,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "노루페인트1",
-//     currentPrice: "25,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-// ];
-
-// const lowerData = () => [
-//   {
-//     name: "페인트1",
-//     currentPrice: "15,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "페인트1",
-//     currentPrice: "15,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "페인트1",
-//     currentPrice: "15,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "페인트1",
-//     currentPrice: "15,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "페인트1",
-//     currentPrice: "15,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "페인트1",
-//     currentPrice: "15,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "페인트1",
-//     currentPrice: "15,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "페인트1",
-//     currentPrice: "15,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "페인트1",
-//     currentPrice: "15,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-//   {
-//     name: "페인트1",
-//     currentPrice: "15,500",
-//     compare: "5,150",
-//     rate: "+25.31%",
-//     trading: "68,090",
-//   },
-// ];
 export const TopStockLoader = () => {
   return (
     <TopStockWrapper>
@@ -157,41 +12,45 @@ export const TopStockLoader = () => {
 };
 
 const TopStock = ({ data }) => {
-  const upperData = data.items.find((item) => item.id === "upperData").data;
-  const lowerData = data.items.find((item) => item.id === "lowerData").data;
-  const increaseData = data.items.find((item) => item.id === "upperData").data;
-  const holdingData = data.items.find((item) => item.id === "lowerData").data;
-  const degradationData = data.items.find(
-    (item) => item.id === "upperData",
+  const upperLimitData = data.items.find(
+    (item) => item.id === "upperLimitData",
   ).data;
-  const tradingData = data.items.find((item) => item.id === "lowerData").data;
-  const marketCapData = data.items.find((item) => item.id === "upperData").data;
+  const lowerLimitData = data.items.find(
+    (item) => item.id === "lowerLimitData",
+  ).data;
+  const upperData = data.items.find((item) => item.id === "upperData").data;
+  const flatData = data.items.find((item) => item.id === "flatData").data;
+  const lowerData = data.items.find((item) => item.id === "lowerData").data;
+  const topTradingData = data.items.find(
+    (item) => item.id === "topTradingData",
+  ).data;
+  const topCapData = data.items.find((item) => item.id === "topCapData").data;
 
-  const [topData, setTopData] = useState(upperData);
-  const [filterIsActive, setFilterIsActive] = useState("upper");
+  const [topData, setTopData] = useState(upperLimitData);
+  const [filterIsActive, setFilterIsActive] = useState("upperLimitData");
 
   const topDataHandler = useCallback((type) => {
-    if (type === "upper") {
+    if (type === "upperLimitData") {
+      setTopData(upperLimitData);
+      setFilterIsActive("upperLimitData");
+    } else if (type === "lowerLimitData") {
+      setTopData(lowerLimitData);
+      setFilterIsActive("lowerLimitData");
+    } else if (type === "upperData") {
       setTopData(upperData);
-      setFilterIsActive("upper");
-    } else if (type === "lower") {
+      setFilterIsActive("upperData");
+    } else if (type === "flatData") {
+      setTopData(flatData);
+      setFilterIsActive("flatData");
+    } else if (type === "lowerData") {
       setTopData(lowerData);
-      setFilterIsActive("lower");
-    } else if (type === "increase") {
-      setTopData(increaseData);
-      setFilterIsActive("increase");
-    } else if (type === "holding") {
-      setTopData(holdingData);
-      setFilterIsActive("holding");
-    } else if (type === "degradation") {
-      setTopData(degradationData);
-      setFilterIsActive("degradation");
-    } else if (type === "trading") {
-      setTopData(tradingData);
-      setFilterIsActive("trading");
-    } else if (type === "marketCap") {
-      setTopData(marketCapData);
-      setFilterIsActive("marketCap");
+      setFilterIsActive("lowerData");
+    } else if (type === "topTradingData") {
+      setTopData(topTradingData);
+      setFilterIsActive("topTradingData");
+    } else if (type === "topCapData") {
+      setTopData(topCapData);
+      setFilterIsActive("topCapData");
     }
   }, []);
 
@@ -206,38 +65,44 @@ const TopStock = ({ data }) => {
         </h2>
         <ul className="filter">
           <li
-            onClick={(e) => topDataHandler("upper")}
-            className={filterIsActive === "upper" ? "active" : undefined}>
+            onClick={(e) => topDataHandler("upperLimitData")}
+            className={
+              filterIsActive === "upperLimitData" ? "active" : undefined
+            }>
             상한가
           </li>
           <li
-            onClick={() => topDataHandler("lower")}
-            className={filterIsActive === "lower" ? "active" : undefined}>
+            onClick={() => topDataHandler("lowerLimitData")}
+            className={
+              filterIsActive === "lowerLimitData" ? "active" : undefined
+            }>
             하한가
           </li>
           <li
-            onClick={() => topDataHandler("increase")}
-            className={filterIsActive === "increase" ? "active" : undefined}>
+            onClick={() => topDataHandler("upperData")}
+            className={filterIsActive === "upperData" ? "active" : undefined}>
             상승
           </li>
           <li
-            onClick={() => topDataHandler("holding")}
-            className={filterIsActive === "holding" ? "active" : undefined}>
+            onClick={() => topDataHandler("flatData")}
+            className={filterIsActive === "flatData" ? "active" : undefined}>
             보합
           </li>
           <li
-            onClick={() => topDataHandler("degradation")}
-            className={filterIsActive === "degradation" ? "active" : undefined}>
+            onClick={() => topDataHandler("lowerData")}
+            className={filterIsActive === "lowerData" ? "active" : undefined}>
             하락
           </li>
           <li
-            onClick={() => topDataHandler("trading")}
-            className={filterIsActive === "trading" ? "active" : undefined}>
+            onClick={() => topDataHandler("topTradingData")}
+            className={
+              filterIsActive === "topTradingData" ? "active" : undefined
+            }>
             거래량상위
           </li>
           <li
-            onClick={() => topDataHandler("marketCap")}
-            className={filterIsActive === "marketCap" ? "active" : undefined}>
+            onClick={() => topDataHandler("topCapData")}
+            className={filterIsActive === "topCapData" ? "active" : undefined}>
             시가총액상위
           </li>
         </ul>
@@ -255,16 +120,36 @@ const TopStock = ({ data }) => {
         </thead>
         {/* <TopStockList topData={topData} /> */}
         <tbody>
-          {topData.map((data, index) => (
-            <tr key={index}>
-              <td className="primary">{index + 1}</td>
-              <td>{data.name}</td>
-              <td className="red">{data.currentPrice}</td>
-              <td className="red">{data.compare}</td>
-              <td>{data.rate}</td>
-              <td>{data.trading}</td>
-            </tr>
-          ))}
+          {topData.map((data, index) =>
+            Math.sign(data.compare) === 1 ? (
+              <tr key={data.id}>
+                <td className="primary">{index + 1}</td>
+                <td>{data.name}</td>
+                <td>{data.currentPrice}</td>
+                <td className="up">{data.compare}</td>
+                <td className="up">{data.rate.toFixed(2)}%</td>
+                <td>{data.trading}</td>
+              </tr>
+            ) : Math.sign(data.compare) === -1 ? (
+              <tr key={index}>
+                <td className="primary">{index + 1}</td>
+                <td>{data.name}</td>
+                <td>{data.currentPrice}</td>
+                <td className="down">{data.compare}</td>
+                <td className="down">{data.rate.toFixed(2)}%</td>
+                <td>{data.trading}</td>
+              </tr>
+            ) : (
+              <tr key={index}>
+                <td className="primary">{index + 1}</td>
+                <td>{data.name}</td>
+                <td>{data.currentPrice}</td>
+                <td>{data.compare}</td>
+                <td>{data.rate.toFixed(2)}%</td>
+                <td>{data.trading}</td>
+              </tr>
+            ),
+          )}
         </tbody>
       </table>
     </TopStockWrapper>
