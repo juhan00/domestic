@@ -5,7 +5,7 @@ export const MenuContainer = styled.div`
   top: 0;
   &.sticky {
     width: 100%;
-    background-color: #047b6c;
+    background-color: #48a185;
     position: fixed;
     top: 0;
     .mainmenu {
@@ -31,6 +31,7 @@ export const MenuItem = styled.li`
   .mainmenu {
     height: 46px;
     padding: 0 2px;
+    font-size: 16px;
     line-height: 46px;
     margin-left: 40px;
     color: #fff;
@@ -38,7 +39,7 @@ export const MenuItem = styled.li`
 
     &:hover {
       font-weight: 700;
-      border-bottom: 2px solid #fff;
+      border-bottom: 4px solid #fff;
     }
   }
   &:first-of-type {
@@ -59,7 +60,7 @@ export const MenuItem = styled.li`
       top: 40px;
       background-color: #fff;
       width: 180px;
-      border-radius: 12px;
+      border-radius: 4px;
       box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.2);
       overflow: hidden;
       .submenu {

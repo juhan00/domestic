@@ -85,23 +85,20 @@ const RecentStock = () => {
               />
               <div className="inner">
                 {stock.name ? <h3>{stock.name}</h3> : <h3>{stock.id}</h3>}
-                {stock.rate > 0 ? (
-                  <div className="index red">
-                    {stock.price}
-                    <div className="rate">
+                <div className="index">
+                  {stock.price}
+                  {stock.rate > 0 ? (
+                    <div className="rate red">
                       <img src={stock_up} alt="stock up" />
                       {stock.rate}%
                     </div>
-                  </div>
-                ) : (
-                  <div className="index blue">
-                    {stock.price}
-                    <div className="rate">
+                  ) : (
+                    <div className="rate blue">
                       <img src={stock_down} alt="stock up" />
-                      {stock.rate}
+                      {stock.rate}%
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </div>
           ))

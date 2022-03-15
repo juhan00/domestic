@@ -53,10 +53,9 @@ export const RecentStockWrapper = styled.div`
       height: 62px;
       min-width: 100px;
       margin-right: 10px;
-      border: 1px solid #f0f0f6;
+      border: 1px solid #e5e5ec;
       box-sizing: border-box;
       border-radius: 81px;
-      /* padding: 8px 28px; */
       cursor: pointer;
       & > .inner {
         padding: 8px 28px;
@@ -65,24 +64,27 @@ export const RecentStockWrapper = styled.div`
           font-size: 14px;
           font-weight: 400;
           line-height: 1.5;
-          color: #111111;
+          color: #767676;
         }
         & > .index {
           display: flex;
-          font-size: 14px;
-          font-weight: 400;
+          font-size: 16px;
+          font-weight: 700;
           line-height: 1.5;
           color: #111111;
-          &.red {
-            color: #e00400;
-          }
-          &.blue {
-            color: #1b61d1;
-          }
           & > .rate {
+            font-size: 16px;
+            font-weight: 400;
             display: flex;
             margin-left: 12px;
+            &.red {
+              color: #e82b2b;
+            }
+            &.blue {
+              color: #065398;
+            }
             & > img {
+              width: 10px;
               margin-right: 4px;
             }
           }

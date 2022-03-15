@@ -12,6 +12,6 @@ export const Base = styled.div`
 
 export const MainSection = styled.div`
   max-width: 1600px;
-  padding: 20px 36px 30px;
+  padding: 20px 36px 50px;
   margin: 0 auto;
 `;
