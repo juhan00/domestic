@@ -11,7 +11,7 @@ export const MarketIndiWrapper = styled.div`
     align-items: center;
     & > h2 {
       font-size: 18px;
-      font-weight: 500;
+      font-weight: 700;
       line-height: 1.5;
       color: #111;
       min-width: 100px;

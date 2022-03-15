@@ -7,6 +7,7 @@ import ExchangeRate, {
   ExchangeRateLoader,
 } from "@components/Main/ExchangeRate";
 import MarketIndi, { MarketIndiLoader } from "@components/Main/MarketIndi";
+import StockNews from "@components/Main/StockNews";
 // import StorageInput from "@components/Main/StorageInput";
 // import FinanceNews from "@components/Main/FinanceNews";
 // import stockIndexData from "@utils/MainData/stockIndexData.json";
@@ -128,6 +129,9 @@ const Domestic = () => {
           ) : (
             <TopStock data={topStockData} />
           )}
+        </div>
+        <div className="col">
+          <StockNews />
         </div>
       </div>
       <div className="row">

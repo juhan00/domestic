@@ -28,10 +28,15 @@ export const StockIndexWrapper = styled.div`
       .date {
         align-self: flex-start;
         margin-left: auto;
+        height: 21px;
+        line-height: 21px;
+        padding: 0 8px;
+        box-sizing: border-box;
+        border: 1px solid #e8f1ee;
+        border-radius: 21px;
         font-size: 11px;
         font-weight: 400;
-        line-height: 1.5;
-        color: #505050;
+        color: #286f6c;
       }
     }
 

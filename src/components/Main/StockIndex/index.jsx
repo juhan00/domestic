@@ -33,7 +33,6 @@ const StockIndex = ({ type, data, date }) => {
     const margin = { top: 40, right: 40, bottom: 50, left: 0 };
     const width = resize.width - (margin.left + margin.right);
     const height = 80;
-    const eveStock = 2700;
     const stockGap = 300;
     const minStock = d3.min(chartData.map((d) => d.stock)) - stockGap;
     const maxStock = d3.max(chartData.map((d) => d.stock)) + stockGap;
@@ -114,24 +113,6 @@ const StockIndex = ({ type, data, date }) => {
           .attr("x2", width)
           .style("stroke-opacity", 1),
       );
-
-    //x축 today line
-    const xScaleToday = d3
-      .scaleLinear()
-      .domain([0, chartData.length - 1])
-      .range([0, width]);
-    const todayLine = d3
-      .line()
-      .x((value, index) => xScaleToday(index))
-      .y((value) => yScale(value));
-    svg
-      .selectAll(".todayLine")
-      .data([chartData.map((value) => eveStock)])
-      .join("path")
-      .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
-      .attr("class", "todayLine")
-      .attr("d", todayLine)
-      .style("stroke-opacity", 1);
 
     //data line
     const dataLine = d3

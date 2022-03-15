@@ -32,7 +32,9 @@ const ExchangeRate = ({ data }) => {
       {exchangeRate.map((item, index) => (
         <div className="itemWrapper" key={item.id}>
           <div className="item">
-            <div className="title" onClick={() => isActiveHandler(index)}>
+            <div
+              className={`title ${isActive === index && "active"}`}
+              onClick={() => isActiveHandler(index)}>
               <h3>
                 {item.id === "usd"
                   ? "미국(USD)"
@@ -44,20 +46,74 @@ const ExchangeRate = ({ data }) => {
                   ? "중국(CNY)"
                   : item.id === "gbp" && "영국(GBP)"}
               </h3>
-              <div className="info">
-                <div className="index" style={{ marginLeft: "auto" }}>
-                  {item.stockIndex}
-                </div>
-                <div className="vs">
-                  <img src={stock_none} alt="stock none" /> {item.vs}
-                </div>
-                <div className="rate">{item.rate}</div>
-              </div>
-              <div className={`arrow ${isActive === index && "active"}`}>
+              <div className="arrow">
                 <img src={exch_rate_arrow_icon} alt="arrow" />
               </div>
             </div>
-            {isActive === index && <ExchangeRateChart data={item.chartData} />}
+            {isActive === index && (
+              <div className="content">
+                <div className="info">
+                  <div className="indexWrapper">
+                    {item.vs === 1 ? (
+                      <>
+                        <div className="index">{item.stockIndex}</div>
+                        <div className="vs">
+                          <img src={stock_up} alt="stock up" />{" "}
+                          {item.vs.toFixed(2)}
+                        </div>
+                        <div className="rate">{item.rate.toFixed(2)}</div>
+                      </>
+                    ) : item.vs === -1 ? (
+                      <>
+                        <div className="index">{item.stockIndex}</div>
+                        <div className="vs">
+                          <img src={stock_down} alt="stock down" />{" "}
+                          {item.vs.toFixed(2)}
+                        </div>
+                        <div className="rate">{item.rate.toFixed(2)}</div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="index">{item.stockIndex}</div>
+                        <div className="vs">
+                          <img src={stock_none} alt="stock none" />{" "}
+                          {item.vs.toFixed(2)}
+                        </div>
+                        <div className="rate">{item.rate.toFixed(2)}</div>
+                      </>
+                    )}
+                  </div>
+                  <div className="upDownWrapper">
+                    <div className="upDown">
+                      <div className="item">
+                        <h4>고가</h4>
+                        <p>{item.high}</p>
+                      </div>
+                      <div className="item">
+                        <h4>저가</h4>
+                        <p>{item.low}</p>
+                      </div>
+                    </div>
+                    <div className="week">
+                      <div className="item">
+                        <h4>52주 최고</h4>
+                        <p>{item.weekHigh}</p>
+                      </div>
+                      <div className="item">
+                        <h4>52주 최저</h4>
+                        <p>{item.weekLow}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="date">
+                    2022.02.23 하나은행 기준 <span>고시회차 333회</span>
+                  </div>
+                </div>
+                <div className="chart">
+                  <ExchangeRateChart data={item.chartData} />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       ))}
