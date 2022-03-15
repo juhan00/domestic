@@ -39,7 +39,7 @@ export const MenuItem = styled.li`
 
     &:hover {
       font-weight: 700;
-      border-bottom: 2px solid #fff;
+      border-bottom: 4px solid #fff;
     }
   }
   &:first-of-type {

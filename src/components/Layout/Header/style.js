@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const HeaderContainer = styled.header`
-  background-color: #48a185;
+  background: #48a185;
   .totop {
     transform: translateX(0);
   }
@@ -39,90 +39,6 @@ export const HaederWrapper = styled.div`
       color: #286f6c;
       font-weight: 700;
       cursor: pointer;
-    }
-  }
-`;
-
-export const SearchOnHeader = styled.div`
-  width: 664px;
-  border-radius: 60px;
-  background-color: #fff;
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
-  .searchOption {
-    display: inline-block;
-    text-align: center;
-    line-height: 48px;
-    width: 70px;
-    height: 48px;
-    text-decoration: none;
-    color: #000;
-    cursor: pointer;
-    &.active {
-      color: #286f6c;
-      font-weight: 700;
-    }
-    &:first-of-type {
-      &::after {
-        position: relative;
-        display: inline-block;
-        content: "";
-        width: 1px;
-        height: 14px;
-        background-color: #e5e5e5;
-        float: right;
-        margin-top: 17px;
-      }
-    }
-  }
-  svg {
-    margin: 0 9px;
-  }
-  input {
-    width: 450px;
-    height: 48px;
-    padding-left: 10px;
-    border: 0;
-    font-size: 16px;
-    :focus {
-      outline: none;
-    }
-  }
-  .searchResultWrapper {
-    position: absolute;
-    z-index: 999;
-    top: 72px;
-    background-color: #fff;
-    width: 475px;
-    border-radius: 10px;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
-    max-height: 300px;
-    overflow-y: auto;
-    .searchResultItem {
-      a {
-        font-size: 16px;
-        padding: 6px 10px;
-        display: block;
-        text-decoration: none;
-        color: #5f5f5f;
-        font-size: 14px;
-        span {
-          color: #000;
-          font-size: 16px;
-        }
-      }
-      &:hover {
-        background-color: #5fb6ad;
-        a {
-          color: #fff;
-          span {
-            color: #fff;
-            font-weight: 700;
-          }
-        }
-      }
     }
   }
 `;

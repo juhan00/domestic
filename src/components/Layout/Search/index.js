@@ -4,6 +4,8 @@ import SearchBar from "@components/Layout/Search/SearchBar";
 import SearchResult from "@components/Layout/Search/SearchResult";
 import { clickOutside } from "@utils/clickOutside";
 import { useLocation, useNavigate } from "react-router-dom";
+import { SearchContainer } from "@components/Layout/Search/style";
+import SearchIcon from "@images/icon_search.svg";
 
 // 최근 기록을 최대 8개까지만 기록하고 유지하는 함수
 const useLocalStorage = (key) => {
@@ -51,7 +53,6 @@ const Search = () => {
   const [keyword, setKeyworld] = useState("");
   const [domesticList, setDomesticList] = useState([]);
   const [globalList, setGlobalList] = useState([]);
-  const [sellcted, setSellected] = useState("domestic");
 
   const [domesticStorage, setDomesticStorage] =
     useLocalStorage("domesticRecent");
@@ -77,15 +78,6 @@ const Search = () => {
       isComponentMounted = false;
     };
   }, []);
-
-  // url주소에 따른 검색 옵션값 정하기
-  useEffect(() => {
-    if (location.includes("domestic")) {
-      setSellected("domestic");
-    } else if (location.includes("global")) {
-      setSellected("global");
-    }
-  }, [location]);
 
   // 인풋이 포커스되면 기존의 검색어를 지우고, isOpen 스테이트를 변경하는 함수
   const handleFocused = () => {
@@ -122,58 +114,27 @@ const Search = () => {
 
   clickOutside(ref, isOpen, setIsOpen);
 
-  const SeachIcon = () => {
-    return (
-      <svg
-        width="16"
-        height="17"
-        viewBox="0 0 16 17"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M15 15.5L11.6945 12.1886M13.5263 7.76316C13.5263 9.42425 12.8665 11.0173 11.6919 12.1919C10.5173 13.3665 8.92425 14.0263 7.26316 14.0263C5.60207 14.0263 4.00901 13.3665 2.83444 12.1919C1.65987 11.0173 1 9.42425 1 7.76316C1 6.10207 1.65987 4.50901 2.83444 3.33444C4.00901 2.15987 5.60207 1.5 7.26316 1.5C8.92425 1.5 10.5173 2.15987 11.6919 3.33444C12.8665 4.50901 13.5263 6.10207 13.5263 7.76316Z"
-          stroke="#999999"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    );
-  };
-
   return (
-    <>
-      <div
-        className={
-          location.includes("domestic") ? "searchOption active" : "searchOption"
-        }
-        onClick={
-          location.includes("domestic") || location.includes("global")
-            ? () => {
-                navigate("/domestic");
-              }
-            : () => {
-                setSellected("domestic");
-              }
-        }>
-        국내
+    <SearchContainer>
+      <div className="menuWrapper">
+        <div
+          className={location.includes("domestic") ? "menu active" : "menu"}
+          onClick={() => {
+            navigate("/domestic");
+          }}>
+          국내주식
+        </div>
+        <div
+          className={location.includes("global") ? "menu active" : "menu"}
+          onClick={() => {
+            navigate("/global");
+          }}>
+          해외주식
+        </div>
       </div>
-      <div
-        className={
-          location.includes("global") ? "searchOption active" : "searchOption"
-        }
-        onClick={
-          location.includes("global") || location.includes("domestic")
-            ? () => {
-                navigate("/global");
-              }
-            : () => {
-                setSellected("global");
-              }
-        }>
-        해외
-      </div>
-      <SeachIcon />
+      <button className="searchBtn">
+        <img src={SearchIcon} alt="검색" />
+      </button>
       <div ref={ref}>
         <SearchBar
           onFocus={handleFocused}
@@ -191,11 +152,10 @@ const Search = () => {
             onClickDomestic={handleClickDomestic}
             onClickGlobal={handleClickGlobal}
             location={location}
-            sellcted={sellcted}
           />
         </div>
       </div>
-    </>
+    </SearchContainer>
   );
 };
 

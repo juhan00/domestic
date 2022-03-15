@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useLocation, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import Search from "@components/Layout/Search";
 import MoyaLogoWh from "@images/moyaLogo_Wh.png";
 import StockInfo from "@components/Layout/StockInfo";
@@ -8,7 +8,6 @@ import {
   HeaderContainer,
   HeaderInnerTemplate,
   HaederWrapper,
-  SearchOnHeader,
   ToTop,
 } from "@components/Layout/Header/style";
 
@@ -42,9 +41,7 @@ export const Header = () => {
           <NavLink to="/">
             <img className="logo" src={MoyaLogoWh} alt="MoYa" />
           </NavLink>
-          <SearchOnHeader>
-            <Search />
-          </SearchOnHeader>
+          <Search />
           <button className="login">로그인</button>
         </HaederWrapper>
         {stockId ? <StockInfo /> : null}

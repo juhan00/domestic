@@ -7,14 +7,14 @@ import Footer from "@components/Layout/Footer";
 const UseTerms = () => {
   return (
     <TermsStyle>
-      <div className="header">
+      <header className="header">
         <div className="inner">
           <NavLink to="/">
             <img className="logo" src={MoyaLogoWh} alt="MoYa" />
           </NavLink>{" "}
           <button className="login">로그인</button>
         </div>
-      </div>
+      </header>
       <div className="inner">
         <div className="termsWrapper">
           <ul>
