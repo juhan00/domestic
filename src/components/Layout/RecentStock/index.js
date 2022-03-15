@@ -33,101 +33,82 @@ const RecentStock = () => {
       const recentStocks = JSON.parse(localStorage.getItem("globalRecent"));
       setGlobalStocks(recentStocks);
     }
-  }, []);
+  }, [location]);
 
-  if (location.includes("domestic")) {
-    return (
-      <RecentStockWrapper>
-        <h2>
-          최근
-          <br />
-          조회
-        </h2>
-        <div className="itemWrapper">
-          {!domesticStocks || domesticStocks.length === 0 ? (
-            <div className="default">최근 조회종목이 없습니다.</div>
-          ) : (
-            domesticStocks.map((stock, index) => (
-              <div
-                className="item"
-                key={index}
-                onClick={
-                  isActive
-                    ? null
-                    : () => navigate(`domestic/financial/${stock.id}`)
-                }>
-                <img
-                  src={recent_close_icon}
-                  alt="삭제"
-                  className="del"
-                  onClick={() => deleteStock(index)}
-                  onMouseEnter={() => setIsActive(true)}
-                  onMouseLeave={() => setIsActive(false)}
-                />
-                <div className="inner">
-                  <h3>{stock.name}</h3>
+  const targetStock = useMemo(() => {
+    let target = [];
+    if (location.includes("domestic")) {
+      target = domesticStocks;
+    } else if (location.includes("global")) {
+      target = globalStocks;
+    }
+    return target;
+  }, [domesticStocks, globalStocks, location]);
+
+  const targetUrl = useMemo(() => {
+    let target = "";
+    if (location.includes("domestic")) {
+      target = "domestic";
+    } else if (location.includes("global")) {
+      target = "global";
+    }
+    return target;
+  });
+
+  return (
+    <RecentStockWrapper>
+      <h2>
+        최근
+        <br />
+        조회
+      </h2>
+      <div className="itemWrapper">
+        {!targetStock || targetStock.length === 0 ? (
+          <div className="default">최근 조회종목이 없습니다.</div>
+        ) : (
+          targetStock.map((stock, index) => (
+            <div
+              className="item"
+              key={index}
+              onClick={
+                isActive
+                  ? null
+                  : () => navigate(`${targetUrl}/financial/${stock.id}`)
+              }>
+              <img
+                src={recent_close_icon}
+                alt="삭제"
+                className="del"
+                onClick={() => deleteStock(index)}
+                onMouseEnter={() => setIsActive(true)}
+                onMouseLeave={() => setIsActive(false)}
+              />
+              <div className="inner">
+                {stock.name ? <h3>{stock.name}</h3> : <h3>{stock.id}</h3>}
+                {stock.rate > 0 ? (
                   <div className="index red">
-                    {stock.stockIndex}
+                    {stock.price}
                     <div className="rate">
                       <img src={stock_up} alt="stock up" />
+                      {stock.rate}%
+                    </div>
+                  </div>
+                ) : (
+                  <div className="index blue">
+                    {stock.price}
+                    <div className="rate">
+                      <img src={stock_down} alt="stock up" />
                       {stock.rate}
                     </div>
                   </div>
-                </div>
+                )}
               </div>
-            ))
-          )}
-        </div>
-      </RecentStockWrapper>
-    );
-  } else if (location.includes("global")) {
-    return (
-      <RecentStockWrapper>
-        <h2>
-          최근
-          <br />
-          조회
-        </h2>
-        <div className="itemWrapper">
-          {!globalStocks || globalStocks.length === 0 ? (
-            <div className="default">최근 조회종목이 없습니다.</div>
-          ) : (
-            globalStocks.map((stock, index) => (
-              <div
-                className="item"
-                key={index}
-                onClick={
-                  isActive
-                    ? null
-                    : () => navigate(`global/financial/${stock.name}`)
-                }>
-                <img
-                  src={recent_close_icon}
-                  alt="삭제"
-                  className="del"
-                  onClick={() => deleteStock(index)}
-                  onMouseEnter={() => setIsActive(true)}
-                  onMouseLeave={() => setIsActive(false)}
-                />
-                <div className="inner">
-                  <h3>{stock.name}</h3>
-                  <div className="index red">
-                    {stock.stockIndex}
-                    <div className="rate">
-                      <img src={stock_up} alt="stock up" />
-                      {stock.rate}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-      </RecentStockWrapper>
-    );
-  } else {
-    return null;
-  }
+            </div>
+          ))
+        )}
+      </div>
+    </RecentStockWrapper>
+  );
 };
 
 export default RecentStock;

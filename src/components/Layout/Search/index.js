@@ -26,12 +26,12 @@ const useLocalStorage = (key) => {
         if (storageValue.length === maxStorageCount) {
           localStorage.setItem(
             key,
-            JSON.stringify([...storageValue.slice(1), value]),
+            JSON.stringify([value, ...storageValue.slice(0, 7)]),
           );
-          setStorageValue([...storageValue.slice(1), value]);
+          setStorageValue([value, ...storageValue.slice(0, 7)]);
         } else {
-          localStorage.setItem(key, JSON.stringify([...storageValue, value]));
-          setStorageValue([...storageValue, value]);
+          localStorage.setItem(key, JSON.stringify([value, ...storageValue]));
+          setStorageValue([value, ...storageValue]);
         }
       }
     } else {
@@ -102,13 +102,22 @@ const Search = () => {
   //검색 결과 클릭하면 isOpen false로 바꾸어서 리스트 창 닫고 검색 내역에 추가 함수
   const handleClickDomestic = (name, id) => {
     setIsOpen(false);
-    const stockItem = { name: name, id: id };
+    const stockItem = {
+      name: name,
+      id: id,
+      price: Math.floor(Math.random() * 1001) * 100,
+      rate: (Math.random() - Math.random()).toFixed(2),
+    };
     setDomesticStorage(stockItem);
   };
 
-  const handleClickGlobal = (name) => {
+  const handleClickGlobal = (id) => {
     setIsOpen(false);
-    const stockItem = { name: name, stockIndex: "74,300", rate: "0.54%" };
+    const stockItem = {
+      id: id,
+      price: Math.floor(Math.random() * 1001) * 100,
+      rate: (Math.random() - Math.random()).toFixed(2),
+    };
     setGlobalStorage(stockItem);
   };
 
