@@ -1,6 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "@routes/Home";
+import UseTerms from "@routes/UseTerms";
+import PrivacyTerms from "@routes/PrivacyTerms";
 import Layout from "@components/Layout";
 
 import Domestic from "@routes/Domestic/Domestic";
@@ -27,6 +29,8 @@ const Router = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/terms" element={<UseTerms />} />
+      <Route path="/privacy" element={<PrivacyTerms />} />
       <Route element={<Layout />}>
         <Route path="/domestic" element={<Domestic />} />
         <Route

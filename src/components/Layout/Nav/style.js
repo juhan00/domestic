@@ -60,7 +60,7 @@ export const MenuItem = styled.li`
       top: 40px;
       background-color: #fff;
       width: 180px;
-      border-radius: 12px;
+      border-radius: 4px;
       box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.2);
       overflow: hidden;
       .submenu {
