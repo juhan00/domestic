@@ -177,7 +177,6 @@ const ExchangeRateChart = ({ data }) => {
     };
   }, [data, resize]);
 
-  console.log(data.length);
   return (
     <ExchangeRateChartWrapper ref={exchangeRateChartRef}>
       <svg ref={svgRef}>

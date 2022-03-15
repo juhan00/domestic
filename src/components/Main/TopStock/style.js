@@ -107,16 +107,16 @@ export const TopStockWrapper = styled.div`
         background: #fafafe;
         border-radius: 8px;
       }
-      tr td:first-child {
+      tr td:first-of-type {
         border-top-left-radius: 10px;
       }
-      tr td:first-child {
+      tr td:first-of-type {
         border-bottom-left-radius: 10px;
       }
-      tr td:last-child {
+      tr td:last-of-type {
         border-top-right-radius: 10px;
       }
-      tr td:last-child {
+      tr td:last-of-type {
         border-bottom-right-radius: 10px;
       }
     }

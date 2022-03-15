@@ -2,80 +2,92 @@ import styled from "@emotion/styled";
 
 export const MarketIndiWrapper = styled.div`
   width: 100%;
-  height: 544px;
+  height: 498px;
   background: #fff;
   border-radius: 12px;
   padding: 28px;
   & > .top {
     display: flex;
     align-items: center;
-    & > h2 {
+    margin-bottom: 20px;
+    h2 {
       font-size: 18px;
       font-weight: 700;
       line-height: 1.5;
       color: #111;
-      min-width: 100px;
     }
-    & > span {
+    .date {
+      margin-left: auto;
+      height: 21px;
+      line-height: 21px;
+      padding: 0 8px;
+      box-sizing: border-box;
+      border: 1px solid #e8f1ee;
+      border-radius: 21px;
       font-size: 11px;
       font-weight: 400;
-      line-height: 1.5;
-      color: #767676;
-      margin-left: auto;
+      color: #286f6c;
     }
   }
-  & > ul {
-    margin-top: 20px;
-    & > li {
+  & > .itemWrapper {
+    padding-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    .item {
       display: flex;
       align-items: center;
-      height: 112px;
-      border-top: 1px solid #f0f0f6;
-      .title {
-        margin-left: 24px;
-        h3 {
-          font-size: 14px;
-          font-weight: 400;
-          line-height: 1.5;
-          color: #767676;
-        }
-        p {
-          font-size: 16px;
-          font-weight: 500;
-          line-height: 1.5;
-          color: #111111;
-        }
-      }
-      .index {
-        display: flex;
-        margin-left: auto;
-        color: #111111;
-        &.red {
-          color: #e00400;
-        }
-        &.blue {
-          color: #1b61d1;
-        }
-        .point {
-          font-size: 16px;
-          font-weight: 500;
-          line-height: 1.5;
-        }
-        .vs {
-          display: flex;
-          align-items: center;
-          font-size: 13px;
-          font-weight: 400;
-          line-height: 1.5;
-          margin-left: 16px;
-          & > img {
-            margin-right: 4px;
+      width: calc(50% - 20px);
+      height: 160px;
+      background-color: #fafafe;
+      border-radius: 20px;
+      padding: 0 0 0 32px;
+      ul {
+        margin-left: 28px;
+        li {
+          h3 {
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #767676;
+          }
+          .descript {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.5;
+            color: #0e393a;
+          }
+          .index {
+            display: flex;
+            color: #111111;
+            .point {
+              font-size: 22px;
+              font-weight: 500;
+              line-height: 1.5;
+            }
+            .vs {
+              position: relative;
+              top: 3px;
+              display: flex;
+              align-items: center;
+              font-size: 13px;
+              font-weight: 400;
+              line-height: 1.5;
+              margin-left: 16px;
+              & > img {
+                margin-right: 4px;
+                transform: translateY(-2px);
+              }
+            }
+            &.up {
+              color: #f5746b;
+            }
+            &.down {
+              color: #065398;
+            }
           }
         }
       }
-    }
-    & > li:last-of-type {
-      border-bottom: 1px solid #f0f0f6;
     }
   }
 `;

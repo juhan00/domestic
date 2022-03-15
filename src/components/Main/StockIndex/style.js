@@ -53,6 +53,7 @@ export const StockIndexWrapper = styled.div`
           margin-left: 12px;
           & > img {
             margin-right: 6px;
+            transform: translateY(-1px);
           }
           font-size: 14px;
           line-height: 1.5;

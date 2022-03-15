@@ -33,6 +33,47 @@ export const ExchangeRateWrapper = styled.div`
         cursor: pointer;
         background-color: #fafafa;
         padding: 0 5px 0 0;
+
+        & > .listInfoWrapper {
+          margin-left: auto;
+          display: flex;
+          align-items: center;
+          .info {
+            display: flex;
+            align-items: center;
+            color: #111;
+            .index {
+              font-size: 16px;
+              font-weight: 500;
+              line-height: 1.5;
+            }
+            .vs {
+              margin-left: 15px;
+              & > img {
+                margin-right: 5px;
+                transform: translateY(-1px);
+              }
+              display: flex;
+              align-items: center;
+              font-size: 13px;
+              font-weight: 400;
+              line-height: 1.5;
+            }
+            .rate {
+              font-size: 13px;
+              font-weight: 400;
+              line-height: 1.5;
+              margin: 0 12px 0 8px;
+            }
+            &.up {
+              color: #e00400;
+            }
+            &.down {
+              color: #1b61d1;
+            }
+          }
+        }
+
         h3 {
           font-size: 14px;
           font-weight: 400;
@@ -58,20 +99,21 @@ export const ExchangeRateWrapper = styled.div`
       .content {
         display: flex;
         .info {
-          .indexWrapper {
+          & > .indexWrapper {
             margin-top: 10px;
             display: flex;
             align-items: center;
+            color: #111;
             .index {
               font-size: 16px;
               font-weight: 500;
               line-height: 1.5;
-              color: #111;
             }
             .vs {
               margin-left: 15px;
               & > img {
                 margin-right: 5px;
+                transform: translateY(-1px);
               }
               display: flex;
               align-items: center;
@@ -85,24 +127,18 @@ export const ExchangeRateWrapper = styled.div`
               line-height: 1.5;
               margin-left: 8px;
             }
+            &.up {
+              color: #e00400;
+            }
+            &.down {
+              color: #1b61d1;
+            }
           }
           .upDownWrapper {
             white-space: nowrap;
             display: flex;
-            .upDown {
-              .item {
-                p {
-                  color: #e82b2b;
-                }
-              }
-            }
             .week {
               margin-left: 20px;
-              .item {
-                p {
-                  color: #111;
-                }
-              }
             }
             .item {
               margin-top: 20px;
@@ -118,6 +154,12 @@ export const ExchangeRateWrapper = styled.div`
                 font-weight: 400;
                 line-height: 1.5;
                 margin-left: 14px;
+                &.up {
+                  color: #e00400;
+                }
+                &.down {
+                  color: #1b61d1;
+                }
               }
             }
             .item + .item {
@@ -136,7 +178,9 @@ export const ExchangeRateWrapper = styled.div`
         }
         .chart {
           margin-left: auto;
-          max-width: 340px;
+          width: 100%;
+          padding-left: 10%;
+          box-sizing: border-box;
         }
       }
     }

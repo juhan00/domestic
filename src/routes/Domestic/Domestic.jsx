@@ -20,6 +20,7 @@ import axios from "redaxios";
 const Domestic = () => {
   const [stockIndexData, setStockIndexData] = useState(null);
   const [topStockData, setTopStockData] = useState(null);
+  const [stockNewsData, setStockNewsData] = useState(null);
   const [exchangeRateData, setExchangeRateData] = useState(null);
   const [marketIndiData, setMarketIndiData] = useState(null);
 
@@ -55,6 +56,23 @@ const Domestic = () => {
       }
     };
     topStockFetch();
+    return () => (isApiSubscribed = false);
+  }, []);
+
+  //stockNewsData
+  useEffect(() => {
+    let isApiSubscribed = true;
+    const stockNewsFetch = async () => {
+      const res = await axios.get(
+        "https://gyoheonlee.github.io/mobile-bank/data/api/MajorStockNewsData.json",
+      );
+      if (isApiSubscribed) {
+        setTimeout(() => {
+          setStockNewsData(res.data);
+        }, 0);
+      }
+    };
+    stockNewsFetch();
     return () => (isApiSubscribed = false);
   }, []);
 
@@ -131,7 +149,7 @@ const Domestic = () => {
           )}
         </div>
         <div className="col">
-          <StockNews />
+          {stockNewsData && <StockNews data={stockNewsData} />}
         </div>
       </div>
       <div className="row">

@@ -8,6 +8,7 @@ import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
 import { BarChart } from "@components/ContentLoader";
 import { ticks } from "d3";
+import numberWithCommas from "@utils/numberWithComma";
 
 export const StockIndexLoader = () => {
   return (
@@ -167,7 +168,7 @@ const StockIndex = ({ type, data, date }) => {
         {Math.sign(data.index) === 1 ? (
           <div className="info up">
             <div className="index">
-              {data.index}
+              {numberWithCommas(data.index)}
               <span className="vs">
                 <img src={stock_up} alt="stock up" />
                 {data.vs.toFixed(2)}
@@ -178,7 +179,7 @@ const StockIndex = ({ type, data, date }) => {
         ) : Math.sign(data.index) === -1 ? (
           <div className="info down">
             <div className="index">
-              {data.index}
+              {numberWithCommas(data.index)}
               <span className="vs">
                 <img src={stock_down} alt="stock down" />
                 {data.vs.toFixed(2)}
@@ -189,7 +190,7 @@ const StockIndex = ({ type, data, date }) => {
         ) : (
           <div className="info">
             <div className="index">
-              {data.index}
+              {numberWithCommas(data.index)}
               <span className="vs">
                 <img src={stock_none} alt="stock none" />
                 {data.vs.toFixed(2)}
