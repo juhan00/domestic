@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useLocation, useParams } from "react-router-dom";
 import Search from "@components/Layout/Search";
-import MoyaLogo from "@images/moyaLogo.png";
+import MoyaLogoWh from "@images/moyaLogo_Wh.png";
 import StockInfo from "@components/Layout/StockInfo";
 import Nav from "@components/Layout/Nav";
 import {
@@ -40,7 +40,7 @@ export const Header = () => {
       <HeaderInnerTemplate>
         <HaederWrapper>
           <NavLink to="/">
-            <img className="logo" src={MoyaLogo} alt="MoYa" />
+            <img className="logo" src={MoyaLogoWh} alt="MoYa" />
           </NavLink>
           <SearchOnHeader>
             <Search />

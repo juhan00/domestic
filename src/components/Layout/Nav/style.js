@@ -5,7 +5,7 @@ export const MenuContainer = styled.div`
   top: 0;
   &.sticky {
     width: 100%;
-    background-color: #047b6c;
+    background-color: #48a185;
     position: fixed;
     top: 0;
     .mainmenu {
@@ -31,6 +31,7 @@ export const MenuItem = styled.li`
   .mainmenu {
     height: 46px;
     padding: 0 2px;
+    font-size: 16px;
     line-height: 46px;
     margin-left: 40px;
     color: #fff;

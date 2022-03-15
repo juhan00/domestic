@@ -13,7 +13,6 @@ const useLocalStorage = (key) => {
       return value;
     }
   });
-  console.log(storageValue);
   const maxStorageCount = 8;
 
   const setStorage = (value) => {
