@@ -27,7 +27,8 @@ export const ExchangeRateChartWrapper = styled.div`
       line-height: 1.2;
     }
     .dataLine {
-      stroke: #5fb6ad;
+      stroke: #dd8354;
+      stroke-width: 2px;
     }
   }
 `;

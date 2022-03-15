@@ -1,9 +1,15 @@
 import styled from "@emotion/styled";
 
-export const CorrChartWrapper = styled.div`
+export const ChartWrapper = styled.div`
   width: 100%;
-  height: calc(100vh - 265px);
-  /* padding: 10px; */
+  height: 700px;
+    h5 {
+    color: #505050;
+    margin-top: 30px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 22px;
+  }
   .tick {
     line {
       stroke: #f0f0f6;
@@ -15,7 +21,6 @@ export const CorrChartWrapper = styled.div`
       color: #999;
     }
   }
-
   .x-label,
   .y-label {
     fill: #999;
@@ -26,107 +31,60 @@ export const CorrChartWrapper = styled.div`
   .dataLine {
     stroke: #5fb6ad;
   }
-  .tooltip {
-    z-index: -2;
-    position: absolute;
-    border-radius: 2px;
-    background-color: #facdcd;
-    color: #000000;
-    padding: 8px 3px;
-    text-align: center;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 20px;
-    width: 110px;
-    &::after {
-      content: "";
-      border-bottom: 11px solid #facdcd;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
+  .corrChartRef {
+    width: 100%;
+    position: relative;
+    & > svg {
+      width: 100%;
+      height: 500px;
+    }
+    .tooltip {
       position: absolute;
-      left: -10px;
-      top: 13px;
-      transform: rotate(-90deg);
+      top: 500px;
     }
   }
 `;
 
-export const TableHeader = styled.table`
+export const Header = styled.div`
   width: 100%;
-  td {
-    text-align: center;
+  margin-top: 20px;
+  padding: 0 32px;
+  display: flex;
+  justify-content: space-between;
+  .title {
+    padding-top: 10px;
+    text-align: left;
+    background-color: transparent;
+    &::before {
+      float: left;
+      margin-right: 5px;
+      display: block;
+      content: "";
+      width: 15px;
+      height: 15px;
+      border: 1px solid #fdc055;
+      border-radius: 50%;
+      background-color: #fdc055;
+    }
   }
-  .table__header {
-    background-color: #5fb6ad;
-    color: #fff;
+`;
+
+export const YLabel = styled.div`
+  overflow: hidden;
+  color: #505050;
+  background-color: #fafafe;
+  width: 30%;
+  height: 30px;
+  border: none;
+  border-radius: 6px;
+  padding: 0 20px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 30px;
+  & > span {
+    color: #000000;
     font-size: 18px;
     font-weight: 700;
-    height: 43px;
-    td {
-      border-radius: 12px 12px 0 0;
-    }
+    margin-left: 10px;
   }
-  .table__header__sub {
-    background-color: #ffffff;
-    td {
-      background-clip: content-box;
-      background-color: #fafafe;
-      width: 33%;
-      padding: 20px;
-      input[type="date"] {
-        background-color: transparent;
-        width: 40%;
-        border: none;
-        border-bottom: 1px solid #e5e5ec;
-        color: #111111;
-        padding-bottom: 5px;
-        margin: 0 5px;
-      }
-      input[type="date"]::-webkit-calendar-picker-indicator {
-        width: 15px;
-        padding: 0px;
-        margin: 0px;
-        color: #767676;
-      }
-    }
-    .title {
-      margin: 35px 0 0 30px;
-      text-align: left;
-      &::before {
-        float: left;
-        margin-right: 5px;
-        display: block;
-        content: "";
-        width: 15px;
-        height: 15px;
-        border: 1px solid #fdc055;
-        border-radius: 50%;
-        background-color: #fdc055;
-      }
-    }
-  }
-  .table__body {
-    td {
-      background-color: #ffffff;
-      color: #767676;
-      font-size: 36px;
-      font-weight: 500;
-      /* height: 87px; */
-      border-radius: 0 0 12px 12px;
-      h5 {
-        font-size: 14px;
-        margin-top: 5px;
-      }
-    }
-  }
-`;
-
-export const Row = styled.tr`
-  height: 36px;
-  .table__header {
-  }
-`;
-
-export const Cell = styled.td`
-  vertical-align: middle;
 `;

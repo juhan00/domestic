@@ -5,6 +5,44 @@ import SearchResult from "@components/Layout/Search/SearchResult";
 import { clickOutside } from "@utils/clickOutside";
 import { useLocation, useNavigate } from "react-router-dom";
 
+// 최근 기록을 최대 8개까지만 기록하고 유지하는 함수
+const useLocalStorage = (key) => {
+  const [storageValue, setStorageValue] = useState(() => {
+    const value = JSON.parse(localStorage.getItem(key));
+    if (value) {
+      return value;
+    }
+  });
+  console.log(storageValue);
+  const maxStorageCount = 8;
+
+  const setStorage = (value) => {
+    //로컬 스토리지 받아오기
+    const storageValue = JSON.parse(localStorage.getItem(key));
+    if (storageValue) {
+      const overlap = storageValue.filter((item) => item.name === value.name);
+
+      if (overlap.length === 0) {
+        if (storageValue.length === maxStorageCount) {
+          localStorage.setItem(
+            key,
+            JSON.stringify([...storageValue.slice(1), value]),
+          );
+          setStorageValue([...storageValue.slice(1), value]);
+        } else {
+          localStorage.setItem(key, JSON.stringify([...storageValue, value]));
+          setStorageValue([...storageValue, value]);
+        }
+      }
+    } else {
+      localStorage.setItem(key, JSON.stringify([value]));
+      setStorageValue([value]);
+    }
+  };
+
+  return [storageValue, setStorage];
+};
+
 const Search = () => {
   const ref = useRef();
   const navigate = useNavigate();
@@ -15,6 +53,10 @@ const Search = () => {
   const [domesticList, setDomesticList] = useState([]);
   const [globalList, setGlobalList] = useState([]);
   const [sellcted, setSellected] = useState("domestic");
+
+  const [domesticStorage, setDomesticStorage] =
+    useLocalStorage("domesticRecent");
+  const [globalStorage, setGlobalStorage] = useLocalStorage("globalRecent");
 
   // 주식 종목 리스트 불러와서 state로 저장
   useEffect(() => {
@@ -37,6 +79,15 @@ const Search = () => {
     };
   }, []);
 
+  // url주소에 따른 검색 옵션값 정하기
+  useEffect(() => {
+    if (location.includes("domestic")) {
+      setSellected("domestic");
+    } else if (location.includes("global")) {
+      setSellected("global");
+    }
+  }, [location]);
+
   // 인풋이 포커스되면 기존의 검색어를 지우고, isOpen 스테이트를 변경하는 함수
   const handleFocused = () => {
     setKeyworld("");
@@ -48,9 +99,17 @@ const Search = () => {
     setKeyworld(e.target.value);
   };
 
-  //검색 결과 클릭하면 isOpen false로 바꾸어서 리스트 창 닫는 함수
-  const handleClick = () => {
+  //검색 결과 클릭하면 isOpen false로 바꾸어서 리스트 창 닫고 검색 내역에 추가 함수
+  const handleClickDomestic = (name, id) => {
     setIsOpen(false);
+    const stockItem = { name: name, id: id };
+    setDomesticStorage(stockItem);
+  };
+
+  const handleClickGlobal = (name) => {
+    setIsOpen(false);
+    const stockItem = { name: name, stockIndex: "74,300", rate: "0.54%" };
+    setGlobalStorage(stockItem);
   };
 
   clickOutside(ref, isOpen, setIsOpen);
@@ -96,7 +155,7 @@ const Search = () => {
           location.includes("global") ? "searchOption active" : "searchOption"
         }
         onClick={
-          location.includes("domestic") || location.includes("global")
+          location.includes("global") || location.includes("domestic")
             ? () => {
                 navigate("/global");
               }
@@ -121,7 +180,8 @@ const Search = () => {
             keyword={keyword}
             domesticList={domesticList}
             globalList={globalList}
-            onClick={handleClick}
+            onClickDomestic={handleClickDomestic}
+            onClickGlobal={handleClickGlobal}
             location={location}
             sellcted={sellcted}
           />

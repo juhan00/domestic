@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { DisclosureListWrapper } from "./style";
 
-const DomesticList = ({ list, offset, limit }) => {
-  // const [posts, setPosts] = useState([]); // 공시 리스트
+const DomesticList = ({ data, offset, limit }) => {
+  console.log(data)
 
   return (
     <DisclosureListWrapper>
-      <div className="disclosure__list">
-        <table>
+      <table className="disclosure__list">
           <thead className="disclosure__list__header">
             <tr>
               <th>번호</th>
@@ -19,11 +18,11 @@ const DomesticList = ({ list, offset, limit }) => {
             </tr>
           </thead>
           <tbody className="disclosure__list__body">
-            {list.slice(offset, offset + limit).map((li, index) => {
+            {data.list.slice(offset, offset + limit).map((li, index) => {
               return (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{li.corp_name}</td>
+                  <td>{data.corp_name}</td>
                   <td>{li.report_nm}</td>
                   <td>{li.flr_nm}</td>
                   <td>{li.rcept_dt}</td>
@@ -32,19 +31,7 @@ const DomesticList = ({ list, offset, limit }) => {
               );
             })}
           </tbody>
-        </table>
-        {/* <label>
-            <select
-              type="number"
-              value={limit}
-              onChange={({ target: { value } }) => setLimit(Number(value))}
-            >
-              <option value="15">15</option>
-              <option value="30">30</option>
-              <option value="100">100</option>
-            </select>
-          </label> */}
-      </div>
+      </table>
     </DisclosureListWrapper>
   );
 };
