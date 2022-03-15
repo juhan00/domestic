@@ -56,6 +56,10 @@ const App = () => {
           />
 
           <Route path="/global" element={<Global />} />
+          <Route
+            path="/global/financial/:stockId"
+            element={<DomesticStock />}
+          />
           <Route path="/global/cominfo/:stockId" element={<GoComInfo />} />
           <Route path="/global/Statistics/:stockId" element={<GoStatistics />}>
             <Route path="Balance" element={<GoBalance />} />
