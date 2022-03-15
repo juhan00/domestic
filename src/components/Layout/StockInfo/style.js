@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 export const StockInfoContainer = styled.div`
   padding: 8px 0;
   margin: 0 auto;
+  overflow: hidden;
   .stockRecap {
     position: absolute;
     z-index: 990;
