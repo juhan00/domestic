@@ -8,45 +8,6 @@ import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
 import { BarChart } from "@components/ContentLoader";
 
-// const data = [
-//   { stock: 2900, date: "10:00" },
-//   { stock: 2520, date: "10:10" },
-//   { stock: 2530, date: "10:20" },
-//   { stock: 2400, date: "10:30" },
-//   { stock: 2500, date: "10:40" },
-//   { stock: 2650, date: "10:50" },
-//   { stock: 2700, date: "11:00" },
-//   { stock: 2500, date: "11:10" },
-//   { stock: 2403, date: "11:20" },
-//   { stock: 2300, date: "11:30" },
-//   { stock: 2230, date: "11:40" },
-//   { stock: 2330, date: "11:50" },
-//   { stock: 2400, date: "12:00" },
-//   { stock: 2100, date: "12:10" },
-//   { stock: 2540, date: "12:20" },
-//   { stock: 2400, date: "12:30" },
-//   { stock: 2600, date: "12:40" },
-//   { stock: 2400, date: "12:50" },
-//   { stock: 2300, date: "10:00" },
-//   { stock: 2405, date: "10:10" },
-//   { stock: 2500, date: "10:20" },
-//   { stock: 2400, date: "10:30" },
-//   { stock: 2500, date: "10:40" },
-//   { stock: 2650, date: "10:50" },
-//   { stock: 2700, date: "11:00" },
-//   { stock: 2500, date: "11:10" },
-//   { stock: 2400, date: "11:20" },
-//   { stock: 2300, date: "11:30" },
-//   { stock: 2200, date: "11:40" },
-//   { stock: 2340, date: "11:50" },
-//   { stock: 2400, date: "12:00" },
-//   { stock: 2340, date: "12:10" },
-//   { stock: 2500, date: "12:20" },
-//   { stock: 2480, date: "12:30" },
-//   { stock: 2600, date: "12:40" },
-//   { stock: 2900, date: "12:50" },
-// ];
-
 export const StockIndexLoader = () => {
   return (
     <StockIndexWrapper>
@@ -64,7 +25,7 @@ const StockIndex = ({ type, data }) => {
 
   //tick 분할 함수
   const setTickCount = useCallback((min, max, count, type) => {
-    const interval = (max - min) / count;
+    const interval = Math.round((max - min) / count);
     if (type === "center") {
       const tick = [interval];
       let tickValue = interval;
@@ -211,6 +172,13 @@ const StockIndex = ({ type, data }) => {
       .x((value, index) => xScale(index))
       .y((value) => yScale(value))
       .curve(d3.curveCardinal);
+    const dataArea = d3
+      .area()
+      .x((value, index) => xScale(index))
+      .y0(() => yScale(0))
+      .y1((value) => yScale(value))
+      .curve(d3.curveCardinal);
+
     svg
       .selectAll(".dataLine")
       .data([chartData.map((value) => value["stock"])])
@@ -219,16 +187,29 @@ const StockIndex = ({ type, data }) => {
       .attr("class", "dataLine")
       .attr("d", dataLine)
       .attr("fill", "none");
+    // svg
+    //   .selectAll(".dataArea")
+    //   .data([chartData.map((vlaue) => vlaue["stock"])])
+    //   .join("path")
+    //   .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
+    //   .attr("class", "dataArea")
+    //   .attr("d", dataArea)
+    //   .attr("fill");
     svg
-      .selectAll(".dataLineBlur")
+      .selectAll(".dataArea")
       .data([chartData.map((vlaue) => vlaue["stock"])])
-      .join("path")
-      .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
-      .attr("class", "dataLineBlur")
-      .attr("d", dataLine)
-      .attr("fill", "none");
+      .join((enter) => {
+        enter
+          .append("g")
+          // .classed("dataArea", true)
+          // .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
+          // .attr("class", "dataArea")
+          .attr("d", dataArea)
+          .attr("fill");
+      });
   }, [chartData, resize]);
 
+  // console.log(data);
   return (
     <StockIndexWrapper>
       <div className="topInfo">
@@ -263,6 +244,15 @@ const StockIndex = ({ type, data }) => {
           <g className="y-axis" />
           <g className="y-axis-right" />
           <g className="x-axis-line" />
+          {/* <linearGradient id="areaGradient" x1="0" x2="0" y1="0" y2="100%">
+            <stop id="stop1" offset="0%" stopColor="#F5746B" stopOpacity="1" />
+            <stop
+              id="stop2"
+              offset="100%"
+              stopColor="#F5746B"
+              stopOpacity="0.2"
+            />
+          </linearGradient> */}
         </svg>
       </div>
     </StockIndexWrapper>
