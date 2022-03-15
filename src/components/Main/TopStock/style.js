@@ -2,11 +2,11 @@ import styled from "@emotion/styled";
 
 export const TopStockWrapper = styled.div`
   flex: 2 1 0;
-  height: 544px;
+  height: 556px;
   background: #fff;
   border-radius: 12px;
   padding: 28px;
-  & .top {
+  & > .top {
     & > h2 {
       display: flex;
       font-size: 18px;
@@ -57,7 +57,14 @@ export const TopStockWrapper = styled.div`
         font-weight: 500;
         line-height: 1.5;
         color: #999;
-        padding: 14px 0;
+        padding: 14px 10px;
+        text-align: right;
+      }
+      th:nth-of-type(1) {
+        text-align: center;
+      }
+      th:nth-of-type(2) {
+        text-align: left;
       }
     }
     tbody {
@@ -69,6 +76,8 @@ export const TopStockWrapper = styled.div`
           line-height: 1.5;
           color: #111;
           vertical-align: middle;
+          padding: 0 10px;
+          text-align: right;
           &.up {
             color: #e82b2b;
           }
@@ -78,6 +87,12 @@ export const TopStockWrapper = styled.div`
           &.primary {
             color: #5fb6ad;
           }
+        }
+        td:nth-of-type(1) {
+          text-align: center;
+        }
+        td:nth-of-type(2) {
+          text-align: left;
         }
       }
       tr:nth-of-type(2n + 1) {
