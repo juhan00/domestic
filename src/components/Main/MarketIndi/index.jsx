@@ -7,13 +7,15 @@ import market_gold_global from "@images/market_gold_global.svg";
 import stock_up from "@images/stock_up.svg";
 import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
-import { FromList } from "@components/ContentLoader";
 import numberWithCommas from "@utils/numberWithComma";
+import HashLoader from "react-spinners/HashLoader";
 
 export const MarketIndiLoader = () => {
   return (
     <MarketIndiWrapper>
-      <FromList />
+      <div className="loaderWrapper">
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
     </MarketIndiWrapper>
   );
 };

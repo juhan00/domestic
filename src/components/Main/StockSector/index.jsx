@@ -1,59 +1,16 @@
 import React, { useCallback, useState } from "react";
 import { StockSectorWrapper } from "./style";
-// const initialSectorData = () => [
-//   {
-//     id: "S&P 500",
-//     rate: "+25.31%",
-//   },
-//   {
-//     id: "Russell 2000",
-//     rate: "+25.31%",
-//   },
-//   {
-//     id: "Gold",
-//     rate: "+25.31%",
-//   },
-//   {
-//     id: "Oil",
-//     rate: "+25.31%",
-//   },
-//   {
-//     id: "Tech",
-//     rate: "+25.31%",
-//   },
-//   {
-//     id: "Energy",
-//     rate: "+25.31%",
-//   },
-//   {
-//     id: "Financial",
-//     rate: "+25.31%",
-//   },
-//   {
-//     id: "Discretionary",
-//     rate: "+25.31%",
-//   },
-//   {
-//     id: "Staples",
-//     rate: "+25.31%",
-//   },
-//   {
-//     id: "Materials",
-//     rate: "+25.31%",
-//   },
-//   {
-//     id: "Industrials",
-//     rate: "+25.31%",
-//   },
-//   {
-//     id: "Health Care",
-//     rate: "+25.31%",
-//   },
-//   {
-//     id: "Utilities",
-//     rate: "+25.31%",
-//   },
-// ];
+import HashLoader from "react-spinners/HashLoader";
+
+export const StockSectorLoader = () => {
+  return (
+    <StockSectorWrapper>
+      <div className="loaderWrapper">
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
+    </StockSectorWrapper>
+  );
+};
 
 const StockSector = ({ data }) => {
   const [sectorData, setSectorData] = useState(data.items);

@@ -1,13 +1,15 @@
 import React, { useCallback, useState } from "react";
 import { TopStockWrapper } from "./style";
 import question_mark_icon from "@images/question_mark_icon.svg";
-import { TableList } from "@components/ContentLoader";
 import numberWithCommas from "@utils/numberWithComma";
+import HashLoader from "react-spinners/HashLoader";
 
 export const TopStockLoader = () => {
   return (
     <TopStockWrapper>
-      <TableList />
+      <div className="loaderWrapper">
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
     </TopStockWrapper>
   );
 };

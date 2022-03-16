@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import { StockNewsWrapper } from "./style";
+import HashLoader from "react-spinners/HashLoader";
 
+export const StockNewsLoader = () => {
+  return (
+    <StockNewsWrapper>
+      <div className="loaderWrapper">
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
+    </StockNewsWrapper>
+  );
+};
 const StockNews = ({ type, data }) => {
   const [stockNews, setStockNews] = useState(
     type === "domestic" ? data.items.slice(0, 13) : data.items.slice(0, 8),
