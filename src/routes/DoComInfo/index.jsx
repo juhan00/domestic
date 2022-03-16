@@ -16,7 +16,7 @@ const DoComInfo = () => {
         .then((res) => res.data)
         .then((data) => setComInfoData(data));
     })();
-  }, []);
+  }, [crno]);
 
   return (
     <RouteWrapper>

@@ -5,13 +5,15 @@ import stock_up from "@images/stock_up.svg";
 import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
 import exch_rate_arrow_icon from "@images/exch_rate_arrow_icon.svg";
-import { FromList } from "@components/ContentLoader";
 import numberWithCommas from "@utils/numberWithComma";
+import HashLoader from "react-spinners/HashLoader";
 
-export const ExchangeRateLoader = () => {
+export const ExchangeRateLoader = ({ type }) => {
   return (
-    <ExchangeRateWrapper>
-      <FromList />
+    <ExchangeRateWrapper className={type}>
+      <div className="loaderWrapper">
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
     </ExchangeRateWrapper>
   );
 };

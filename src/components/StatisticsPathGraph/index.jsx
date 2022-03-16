@@ -9,21 +9,30 @@ import {
   select,
   line,
   axisLeft,
+  timeFormat,
 } from "d3";
 import useResizeObserver from "@utils/useResizeObserver";
 
-const StatisticsGraph = ({ data, newData }) => {
+const StatisticsGraph = ({ data }) => {
   const graphRef = useRef();
   const svgRef = useRef(null);
   const resizeWidth = useResizeObserver(graphRef);
 
-  const yearly = newData.yearly;
+  const pathKeys = ["opMargin", "netMargin", "deptEquity"];
+
+  const yearly = data.yearly;
 
   const myColor = ["#065398", "#F5746B", "#FDC055", "#35A67D"];
 
   useEffect(() => {
     const graphWrapper = select(graphRef.current);
     const svg = select(svgRef.current);
+
+    const yMax = Math.max(
+      max(yearly, (year) => year.opMargin),
+      max(yearly, (year) => year.netMargin),
+      max(yearly, (year) => year.deptEquity),
+    );
 
     svg.selectAll(".lines").remove();
     svg.selectAll(".dots").remove();
@@ -43,11 +52,12 @@ const StatisticsGraph = ({ data, newData }) => {
       .domain(extent(yearly, (year) => new Date(year.basDt)))
       .range([margin.left + innerPadding, width - margin.right - innerPadding])
       .nice();
-    const xAxis = axisBottom(xScale).ticks(yearly.length);
 
     svg
       .select(".x-axis")
-      .call(xAxis)
+      .call(
+        axisBottom(xScale).ticks(yearly.length).tickFormat(timeFormat("%Y.%m")),
+      )
       .call((g) => g.select(".domain").remove())
       .call((g) => g.selectAll(".tick line").remove())
       .style(
@@ -56,14 +66,13 @@ const StatisticsGraph = ({ data, newData }) => {
       );
 
     const yScale = scaleLinear()
-      .domain([0, max(yearly, (year) => year.deptEquity) * 1.2])
+      .domain([0, yMax * 1.2])
       .range([height - margin.bottom, margin.top])
       .nice();
-    const yAxis = axisLeft(yScale);
 
     svg
       .select(".y-axis")
-      .call(yAxis.ticks(5))
+      .call(axisLeft(yScale).ticks(5))
       .style("transform", `translateX(${margin.left}px)`)
       .call((g) => g.select(".domain").remove())
       .call((g) =>
@@ -82,21 +91,21 @@ const StatisticsGraph = ({ data, newData }) => {
         const lines = enter.append("g").classed("lines", true);
 
         Object.keys(yearly[0]).map((keys, idx) => {
-          keys === "basDt"
-            ? null
-            : lines
+          pathKeys.includes(keys)
+            ? lines
                 .append("path")
                 .attr("fill", "none")
-                .attr("stroke", myColor[idx - 1])
+                .attr("stroke", myColor[idx % 4])
                 .attr("stroke-width", 2)
                 .attr("stroke-linejoin", "round")
                 .attr("stroke-linecap", "round")
                 .attr(
                   "d",
                   line()
-                    .x((d) => xScale(d["basDt"]))
+                    .x((d) => xScale(new Date(d["basDt"])))
                     .y((d) => yScale(d[keys])),
-                );
+                )
+            : null;
         });
       });
 
@@ -106,20 +115,20 @@ const StatisticsGraph = ({ data, newData }) => {
       .join((enter) => {
         const dots = enter.append("g").classed("dots", true);
 
-        Object.keys(data[0]).map((keys, idx) => {
-          keys === "basDt"
-            ? null
-            : dots
+        Object.keys(yearly[0]).map((keys, idx) => {
+          pathKeys.includes(keys)
+            ? dots
                 .append("circle")
-                .attr("cx", (d) => xScale(d["basDt"]))
+                .attr("cx", (d) => xScale(new Date(d["basDt"])))
                 .attr("cy", (d) => yScale(d[keys]))
                 .attr("r", 3)
                 .attr("fill", "#ffffff")
-                .attr("stroke", myColor[idx - 1])
-                .attr("stroke-width", 2);
+                .attr("stroke", myColor[idx % 4])
+                .attr("stroke-width", 2)
+            : null;
         });
       });
-  }, [newData, resizeWidth]);
+  }, [data, resizeWidth]);
 
   return (
     <GraphWrapper ref={graphRef}>

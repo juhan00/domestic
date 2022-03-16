@@ -11,32 +11,6 @@ const ExchangeRateChart = ({ data }) => {
   const size = useResizeObserver(exchangeRateChartRef);
   const resize = useDebounce(size, 200);
 
-  //tick 분할 함수
-  const setTickCount = useCallback((min, max, count, type) => {
-    const interval = Math.round((max - min) / count);
-
-    if (type === "center") {
-      const tick = [interval];
-      let tickValue = interval;
-
-      for (let i = 2; i < count; i++) {
-        tick.push(tickValue + interval);
-        tickValue += interval;
-      }
-      return tick;
-    } else {
-      const tick = [min];
-      let tickValue = min;
-
-      for (let i = 0; i < count; i++) {
-        tick.push(tickValue + interval);
-        tickValue += interval;
-      }
-
-      return tick;
-    }
-  }, []);
-
   useEffect(() => {
     if (!resize || !data) {
       return;
@@ -64,6 +38,9 @@ const ExchangeRateChart = ({ data }) => {
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom);
 
+    svg.selectAll(".x-label").remove();
+    svg.selectAll(".y-label").remove();
+
     //x축
     const xScale = d3
       .scaleLinear()
@@ -84,16 +61,20 @@ const ExchangeRateChart = ({ data }) => {
         `translate(${margin.left}px, ${height + margin.top}px)`,
       )
       .style("stroke-opacity", 1)
-      .call(xAxis)
-      .call((g) =>
-        g
-          .selectAll(".x-label")
+      .call(xAxis);
+
+    svg
+      .selectAll(".x-axis")
+      .selectAll(".x-label")
+      .data([xLabel])
+      .join((enter) =>
+        enter
           .append("text")
           .attr("class", "x-label")
           .attr("text-anchor", "start")
           .attr("fill", "black")
           .attr("transform", `translate(${width + 13}, 20)`)
-          .text(xLabel),
+          .text((data) => data),
       );
 
     //x축 line
@@ -132,6 +113,7 @@ const ExchangeRateChart = ({ data }) => {
       .axisRight(yScale)
       .tickValues(ticks(minStock, maxStock, 4))
       .tickSize(10);
+
     svg
       .selectAll(".y-axis")
       .call(yAxis)
@@ -146,17 +128,20 @@ const ExchangeRateChart = ({ data }) => {
           .style("transform", "translateX(0px)")
           .attr("x2", -width)
           .style("stroke-opacity", 1),
-      )
-      .call((g) =>
-        g
-          // .selectAll(".x-label > *")
-          .selectAll(".y-label")
+      );
+
+    svg
+      .selectAll(".y-axis")
+      .selectAll(".y-label")
+      .data([yLabel])
+      .join((enter) =>
+        enter
           .append("text")
           .attr("class", "y-label")
           .attr("text-anchor", "start")
           .attr("fill", "black")
           .attr("transform", `translate(13, -15)`)
-          .text(yLabel),
+          .text((data) => data),
       );
 
     //data line
@@ -173,11 +158,6 @@ const ExchangeRateChart = ({ data }) => {
       .attr("class", "dataLine")
       .attr("d", dataLine)
       .attr("fill", "none");
-
-    return () => {
-      d3.selectAll(".x-label > *").remove();
-      d3.selectAll(".y-label > *").remove();
-    };
   }, [data, resize]);
 
   return (
