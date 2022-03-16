@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import TableHeader from "@components/Table/TableHeader";
 import BetaTable from "@components/Table/BetaTable";
 import BetaChart from "@components/BetaChart";
-import StatisticsHeader from "@components/Table/StatisticsHeader"
+import StatisticsHeader from "@components/Table/StatisticsHeader";
 import {
   RouteWrapper,
   SemiHeader,

@@ -12,10 +12,11 @@ import {
   line,
   axisRight,
   axisLeft,
+  timeFormat,
 } from "d3";
 import useResizeObserver from "@utils/useResizeObserver";
 
-const StatisticsGraph = ({ data, barData, pathData }) => {
+const StatisticsGraph = ({ data, barData, pathData, newData }) => {
   const graphRef = useRef();
   const svgRef = useRef(null);
   const resizeWidth = useResizeObserver(graphRef);
@@ -66,6 +67,11 @@ const StatisticsGraph = ({ data, barData, pathData }) => {
     const graphWrapper = select(graphRef.current);
     const svg = select(svgRef.current);
 
+    const barKeys = ["netInc", "opInc"];
+    const pathKeys = ["roe", "roa"];
+
+    const yearly = data.yearly;
+
     const entireValue = max(data, (data) => data.당기순이익);
 
     svg.selectAll(".dots").remove();
@@ -94,10 +100,10 @@ const StatisticsGraph = ({ data, barData, pathData }) => {
         margin.left + innerPadding + xBandScale.bandwidth() / 2,
         width - margin.right - innerPadding - xBandScale.bandwidth() / 2,
       ]);
-    const xAxis = axisBottom(xScale).ticks(barData.length);
-    const xBandAxis = axisBottom(xScale).tickFormat((node, i) => {
-      return barData[node];
-    });
+    const xAxis = axisBottom(xScale)
+      .ticks(barData.length)
+      .tickFormat(timeFormat("%Y.%m"));
+    const xBandAxis = axisBottom(xScale).tickFormat((node, i) => barData[node]);
 
     svg
       .select(".x-axis")

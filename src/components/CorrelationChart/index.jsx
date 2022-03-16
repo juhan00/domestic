@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ChartWrapper, Header, Row, Cell, YLabel } from "./style";
 import Tooltip from "@components/BetaChart/Tooltip";
-import Search from "@components/Search"
+import Search from "@components/Search";
 import * as d3 from "d3";
 import useResizeObserver from "@utils/useResizeObserver";
 
-const CorrelationChart = ({ data, names, beta }) => {
+const CorrelationChart = ({ corr, names }) => {
   const [hoveredValue, setHoveredValue] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -13,13 +13,12 @@ const CorrelationChart = ({ data, names, beta }) => {
   const svgRef = useRef(null);
   const resize = useResizeObserver(corrChartRef);
 
-  
   const handleMouseMove = useCallback(
     (event) => {
       const { offsetX, offsetY } = event;
       setMousePosition({ x: offsetX, y: offsetY });
     },
-    [setMousePosition]
+    [setMousePosition],
   );
 
   //초기 셋팅
@@ -34,7 +33,7 @@ const CorrelationChart = ({ data, names, beta }) => {
     svg.selectAll(".tick line").remove();
     svg.selectAll(".tick").remove();
 
-    if (!resize || !data) {
+    if (!resize || !corr) {
       return;
     }
 
@@ -42,48 +41,27 @@ const CorrelationChart = ({ data, names, beta }) => {
     const width = resize.width;
     const height = 480;
 
-    const minCorr = d3.min(data.map((d) => d.x)) - 1;
-    const maxCorr = d3.max(data.map((d) => d.x)) + 1;
-
-    const maxValueX = d3.max(data, (data) => data.xPrice);
-    const adjMaxX = maxValueX + Math.abs(maxValueX) * 0.05;
-    const minValueX = d3.min(data, (data) => data.xPrice);
-    const adjMinX = minValueX - Math.abs(minValueX) * 0.05;
-    const maxValueY = d3.max(data, (data) => data.yPrice);
-    const adjMaxY = maxValueY + Math.abs(maxValueY) * 0.05;
-    const minValueY = d3.min(data, (data) => data.yPrice);
-    const adjMinY = minValueY - Math.abs(minValueY) * 0.05;
-
-    const tempArray = Array.from(
-      { length: 100 },
-      (_, i) => adjMinX + ((adjMaxX - adjMinX) / 100) * i,
-    );
-    const betaArray = tempArray.reduce(
-      (a, b) => [
-        ...a,
-        {
-          x: b,
-          y: b * beta,
-          //d3.mean(data, (data) => data.yPrice),
-        },
-      ],
-      [],
-    );
+    const minCorr = d3.min(corr.map((d) => d.corr));
+    const maxCorr = d3.max(corr.map((d) => d.corr));
+    const adjMaxY = maxCorr + 0.05;
+    const adjMinY = minCorr - 0.05;
 
     const xScale = d3
       .scaleLinear()
-      .domain([minValueX, maxValueX])
+      .domain(d3.extent(corr, (data) => new Date(data["basDt"])))
       .range([margin.left, width - margin.right])
       .nice();
     svg
       .append("g")
       .attr("transform", `translate(0,${height})`)
-      .call(d3.axisBottom(xScale))
+      .call(
+        d3.axisBottom(xScale).tickFormat(d3.timeFormat("%Y-%m-%d")).ticks(5),
+      )
       .call((g) => g.select(".domain").remove());
 
     const yScale = d3
       .scaleLinear()
-      .domain([minValueY, maxValueY])
+      .domain([adjMinY, adjMaxY])
       .range([height, margin.bottom])
       .nice();
     svg
@@ -100,74 +78,25 @@ const CorrelationChart = ({ data, names, beta }) => {
 
     // 선
     svg
-    .selectAll(".line")
-    .data([betaArray])
-    .join((enter) => {
-      const line = enter.append("g").classed("line", true);
+      .selectAll(".line")
+      .data([corr])
+      .join((enter) => {
+        const line = enter.append("g").classed("line", true);
 
-      line
-        .append("path")
-        .style("fill", "none")
-        .style("stroke-width", 4)
-        .attr("stroke", "#5FB6AD")
-        .attr(
-          "d",
-          d3
-            .line()
-            .x((d) => xScale(d.x))
-            .y((d) => yScale(d.y)),
-        );
-    });
-
-    svg
-    .selectAll(".rect")
-    .data(betaArray)
-    .join((enter) => {
-      const rect = enter.append("g").classed("rect", true);
-
-      rect
-        .append("rect")
-        .attr("width", 2)
-        .attr("height", 2)
-        .style("fill", "#FDC055")
-        .style("fill-opacity", 0)
-        .style("stroke", "#5FB6AD")
-        .style("stroke-opacity", 0)
-        .style("stroke-width", 5)
-        .attr(
-          "transform",
-          (d, i) => `translate(${xScale(d.x)}, ${yScale(d.y)}) rotate(-45)`,
-        )
-        .on("mouseover", (e, d) => {
-          setHoveredValue(d);
-          d3.select(e.target)
-            .attr("width", 10)
-            .attr("height", 10)
-            .style("stroke", "#FDC055")
-            .style("fill-opacity", 1)
-            .style("stroke-opacity", 0.5)
-            .style("stroke-width", 10)
-            .transition('corners')
-            .duration(0)
-            .attr("rx", 5)
-            .attr("ry", 5)
-            .attr(
-              "transform",
-              (d, i) => `translate(${xScale(d.x) - 4}, ${yScale(d.y) - 5})`,
-            )
-        })
-        .on("mousemove", handleMouseMove)
-        .on("mouseleave", (e) => {
-          setHoveredValue(null);
-          d3.select(e.target)
-            .attr("width", 2)
-            .attr("height", 2)
-            .style("fill-opacity", 0)
-            .style("stroke-opacity", 0)
-            .style("stroke-width", 5)
-        });
-    });
-  }, [data, resize]);
+        line
+          .append("path")
+          .style("fill", "none")
+          .style("stroke-width", 4)
+          .attr("stroke", "#5FB6AD")
+          .attr(
+            "d",
+            d3
+              .line()
+              .x((d) => xScale(new Date(d["basDt"])))
+              .y((d) => yScale(d["corr"])),
+          );
+      });
+  }, [corr, resize]);
 
   return (
     <ChartWrapper>
@@ -192,7 +121,6 @@ const CorrelationChart = ({ data, names, beta }) => {
           <g className="y-axis" />
         </svg>
       </div>
-
     </ChartWrapper>
   );
 };
