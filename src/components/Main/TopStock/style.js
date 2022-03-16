@@ -48,6 +48,13 @@ export const TopStockWrapper = styled.div`
           border: 1px solid #286f6c;
           box-sizing: border-box;
           color: #fff;
+          &:hover {
+            color: #fff;
+          }
+        }
+        &:hover {
+          color: #286f6c;
+          text-decoration-line: underline;
         }
       }
       li + li {
@@ -77,7 +84,10 @@ export const TopStockWrapper = styled.div`
         padding: 14px 20px;
         text-align: right;
       }
-      th:nth-of-type(1) {
+      th:nth-of-type(1),
+      th:nth-of-type(3),
+      th:nth-of-type(4),
+      th:nth-of-type(5) {
         text-align: center;
       }
       th:nth-of-type(2) {
@@ -105,7 +115,10 @@ export const TopStockWrapper = styled.div`
             color: #359866;
           }
         }
-        td:nth-of-type(1) {
+        td:nth-of-type(1),
+        td:nth-of-type(3),
+        td:nth-of-type(4),
+        td:nth-of-type(5) {
           text-align: center;
         }
         td:nth-of-type(2) {
