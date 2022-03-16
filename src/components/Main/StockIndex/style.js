@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { all } from "redux-saga/effects";
+import { Link } from "react-router-dom";
 
 export const StockIndexWrapper = styled.div`
   height: 250px;
@@ -50,7 +51,7 @@ export const StockIndexWrapper = styled.div`
         font-weight: 500;
         line-height: 1;
 
-        & > .vs {
+        .vs {
           margin-left: 12px;
           & > img {
             margin-right: 6px;
@@ -59,14 +60,14 @@ export const StockIndexWrapper = styled.div`
           font-size: 14px;
           line-height: 1.5;
         }
-        & > .rate {
+        .rate {
           font-size: 14px;
           line-height: 1.5;
           margin-left: 12px;
         }
       }
       &.up {
-        color: #f5746b;
+        color: #e82b2b;
       }
       &.down {
         color: #065398;
