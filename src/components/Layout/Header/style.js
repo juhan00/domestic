@@ -46,13 +46,11 @@ export const HaederWrapper = styled.div`
 export const ToTop = styled.div`
   position: fixed;
   z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 52px;
   height: 52px;
-  color: #fff;
-  text-align: center;
-  line-height: 45px;
-  font-size: 25px;
-  font-weight: 700;
   border-radius: 80px;
   bottom: 80px;
   right: 40px;
@@ -61,4 +59,7 @@ export const ToTop = styled.div`
   transform: translateX(100px);
   transition: 0.3s;
   cursor: pointer;
+  & > img {
+    width: 10px;
+  }
 `;
