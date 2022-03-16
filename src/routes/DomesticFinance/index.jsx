@@ -39,6 +39,7 @@ const DomesticStock = () => {
   );
 
   const { period, periodError, today, stockData } = domesticState;
+  console.log(domesticState);
   const { startDate, endDate, diff } = period;
 
   const [curStartDate, onChangeCurStartDate, setCurStartDate] =
