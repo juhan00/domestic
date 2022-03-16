@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { StockNewsWrapper } from "./style";
 
-const StockNews = ({ data }) => {
-  const [stockNews, setStockNews] = useState(data.items);
+const StockNews = ({ type, data }) => {
+  const [stockNews, setStockNews] = useState(
+    type === "domestic" ? data.items.slice(0, 13) : data.items.slice(0, 8),
+  );
 
   return (
-    <StockNewsWrapper>
+    <StockNewsWrapper className={type}>
       <div className="top">
         <h2>주요 종목 뉴스</h2>
       </div>

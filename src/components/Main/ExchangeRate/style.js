@@ -6,6 +6,18 @@ export const ExchangeRateWrapper = styled.div`
   background: #fff;
   border-radius: 12px;
   padding: 28px;
+  &.domestic {
+    height: 498px;
+    .title {
+      height: 44px;
+    }
+  }
+  &.global {
+    height: 682px;
+    .title {
+      height: 82px;
+    }
+  }
   & .top {
     & > h2 {
       display: flex;
@@ -28,7 +40,6 @@ export const ExchangeRateWrapper = styled.div`
       border-top: 1px solid #f0f0f6;
       .title {
         display: flex;
-        height: 44px;
         align-items: center;
         cursor: pointer;
         background-color: #fafafa;

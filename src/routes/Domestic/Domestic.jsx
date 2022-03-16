@@ -1,20 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { DomesticWrapper } from "./style";
 import StockIndex, { StockIndexLoader } from "@components/Main/StockIndex";
-// import RecentStock from "@components/Main/RecentStock";
 import TopStock, { TopStockLoader } from "@components/Main/TopStock/index";
 import ExchangeRate, {
   ExchangeRateLoader,
 } from "@components/Main/ExchangeRate";
 import MarketIndi, { MarketIndiLoader } from "@components/Main/MarketIndi";
 import StockNews from "@components/Main/StockNews";
-// import StorageInput from "@components/Main/StorageInput";
-// import FinanceNews from "@components/Main/FinanceNews";
-// import stockIndexData from "@utils/MainData/stockIndexData.json";
-// import topStockData from "@utils/MainData/topStockData.json";
-// import exchangeRateData from "@utils/MainData/exchangeRateData.json";
-// import marketIndiData from "@utils/MainData/marketIndiData.json";
-// import financeNewsData from "@utils/MainData/financeNewsData.json";
 import axios from "redaxios";
 
 const Domestic = () => {
@@ -149,7 +141,7 @@ const Domestic = () => {
           )}
         </div>
         <div className="col">
-          {stockNewsData && <StockNews data={stockNewsData} />}
+          {stockNewsData && <StockNews type="domestic" data={stockNewsData} />}
         </div>
       </div>
       <div className="row">
@@ -157,14 +149,14 @@ const Domestic = () => {
           {!exchangeRateData ? (
             <ExchangeRateLoader />
           ) : (
-            <ExchangeRate data={exchangeRateData} />
+            <ExchangeRate type="domestic" data={exchangeRateData} />
           )}
         </div>
         <div className="col">
           {!marketIndiData ? (
             <MarketIndiLoader />
           ) : (
-            <MarketIndi data={marketIndiData} />
+            <MarketIndi type="domestic" data={marketIndiData} />
           )}
         </div>
       </div>

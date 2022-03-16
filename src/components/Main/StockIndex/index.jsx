@@ -31,10 +31,10 @@ const StockIndex = ({ type, data, date }) => {
     }
 
     //초기 셋팅
-    const margin = { top: 40, right: 40, bottom: 50, left: 0 };
+    const margin = { top: 40, right: 45, bottom: 50, left: 0 };
     const width = resize.width - (margin.left + margin.right);
     const height = 80;
-    const stockGap = 300;
+    const stockGap = d3.max(chartData.map((d) => d.stock)) * 0.12;
     const minStock = d3.min(chartData.map((d) => d.stock)) - stockGap;
     const maxStock = d3.max(chartData.map((d) => d.stock)) + stockGap;
 
@@ -165,7 +165,7 @@ const StockIndex = ({ type, data, date }) => {
           </h2>
           <div className="date">{date} 기준</div>
         </div>
-        {Math.sign(data.index) === 1 ? (
+        {Math.sign(data.rate) === 1 ? (
           <div className="info up">
             <div className="index">
               {numberWithCommas(data.index)}
@@ -176,15 +176,15 @@ const StockIndex = ({ type, data, date }) => {
               <span className="rate">+{data.rate.toFixed(2)}%</span>
             </div>
           </div>
-        ) : Math.sign(data.index) === -1 ? (
+        ) : Math.sign(data.rate) === -1 ? (
           <div className="info down">
             <div className="index">
               {numberWithCommas(data.index)}
               <span className="vs">
                 <img src={stock_down} alt="stock down" />
-                {data.vs.toFixed(2)}
+                {Math.abs(data.vs.toFixed(2))}
               </span>
-              <span className="rate">-{data.rate.toFixed(2)}%</span>
+              <span className="rate">{data.rate.toFixed(2)}%</span>
             </div>
           </div>
         ) : (

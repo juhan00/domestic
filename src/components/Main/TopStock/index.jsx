@@ -57,7 +57,7 @@ const TopStock = ({ data }) => {
 
   return (
     <TopStockWrapper>
-      <div className="top" style={{ display: "flex" }}>
+      <div className="top">
         <h2>
           Top종목
           <span>

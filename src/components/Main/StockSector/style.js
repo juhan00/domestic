@@ -3,7 +3,7 @@ import { all } from "redux-saga/effects";
 
 export const StockSectorWrapper = styled.div`
   width: 100%;
-  height: 100%;
+  height: 682px;
   background: #fff;
   border-radius: 12px;
   padding: 28px;
@@ -17,7 +17,7 @@ export const StockSectorWrapper = styled.div`
     & > h2 {
       display: flex;
       font-size: 18px;
-      font-weight: 500;
+      font-weight: 700;
       line-height: 1.5;
       color: #111;
       min-width: 100px;
@@ -41,7 +41,7 @@ export const StockSectorWrapper = styled.div`
         font-weight: 500;
         line-height: 1.5;
         color: #999;
-        padding: 14px 0;
+        padding: 14px 20px;
       }
     }
     tbody {
@@ -53,6 +53,7 @@ export const StockSectorWrapper = styled.div`
           line-height: 1.5;
           color: #111;
           vertical-align: middle;
+          padding: 0 20px;
           &.red {
             color: #e82b2b;
           }
@@ -65,7 +66,7 @@ export const StockSectorWrapper = styled.div`
         }
       }
       tr:nth-of-type(2n + 1) {
-        background: #fcfcff;
+        background: #fafafe;
       }
     }
   }

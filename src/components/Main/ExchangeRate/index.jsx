@@ -16,7 +16,7 @@ export const ExchangeRateLoader = () => {
   );
 };
 
-const ExchangeRate = ({ data }) => {
+const ExchangeRate = ({ type, data }) => {
   const [isActive, setIsActive] = useState(0);
   const [exchangeRate, setExchangeRate] = useState(data.items);
 
@@ -25,7 +25,7 @@ const ExchangeRate = ({ data }) => {
   };
 
   return (
-    <ExchangeRateWrapper>
+    <ExchangeRateWrapper className={type}>
       <div className="top">
         <h2>환율</h2>
       </div>

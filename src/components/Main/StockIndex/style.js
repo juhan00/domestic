@@ -44,11 +44,12 @@ export const StockIndexWrapper = styled.div`
       width: 100%;
       display: flex;
       margin-top: 4px;
+      color: #111;
       & > .index {
         font-size: 26px;
         font-weight: 500;
         line-height: 1;
-        color: #e00400;
+
         & > .vs {
           margin-left: 12px;
           & > img {
@@ -63,6 +64,12 @@ export const StockIndexWrapper = styled.div`
           line-height: 1.5;
           margin-left: 12px;
         }
+      }
+      &.up {
+        color: #f5746b;
+      }
+      &.down {
+        color: #065398;
       }
     }
   }

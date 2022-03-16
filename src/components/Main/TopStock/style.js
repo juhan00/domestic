@@ -7,6 +7,8 @@ export const TopStockWrapper = styled.div`
   border-radius: 12px;
   padding: 28px;
   & > .top {
+    display: flex;
+    align-items: center;
     & > h2 {
       display: flex;
       font-size: 18px;
@@ -93,7 +95,7 @@ export const TopStockWrapper = styled.div`
             color: #1b61d1;
           }
           &.primary {
-            color: #5fb6ad;
+            color: #359866;
           }
         }
         td:nth-of-type(1) {

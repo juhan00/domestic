@@ -3,10 +3,16 @@ import { axisBottom } from "d3";
 
 export const StockNewsWrapper = styled.div`
   width: 100%;
-  height: 556px;
   background: #fff;
   border-radius: 12px;
   padding: 28px;
+  &.domestic {
+    height: 556px;
+  }
+  &.global {
+    height: 377px;
+  }
+
   & .top {
     & > h2 {
       display: flex;
@@ -20,7 +26,7 @@ export const StockNewsWrapper = styled.div`
     border-bottom: 1px solid #f0f0f6;
   }
   ul {
-    margin-top: 10px;
+    margin-top: 15px;
     li {
       display: flex;
       flex-wrap: wrap;
