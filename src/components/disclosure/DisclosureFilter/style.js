@@ -18,19 +18,13 @@ export const DisclosureFilterWrapper = styled.div`
           border: none;
         }
         .btn__filter {
+          margin-left: auto;
+          width: 100px;
+          border: 1px solid #286F6C;
+          border-radius: 2px;
+          box-sizing: border-box;
           background-color: #FFFFFF;
           color: #111111;
-          margin-left: 30px;
-          border-radius: 6px;
-          width: 103px;
-
-        }
-        .btn__submit {
-          margin-left: auto;
-          width: 74px;
-          color: #FFFFFF;
-          background-color: #286F6C;
-          border-radius: 2px;
         }
       }
     }
@@ -45,7 +39,7 @@ export const SetPeriod = styled.fieldset`
     font-weight: 500;
     font-size: 16px;
   }
-  .date--picker {
+  .date__picker {
     margin-right: 15px;
     span {
       color: #767676;
@@ -66,7 +60,7 @@ export const SetPeriod = styled.fieldset`
       }
     }
   }  
-  .date--radio {
+  .date__radio {
     display: flex;
     padding-top: 7px;
     li {
