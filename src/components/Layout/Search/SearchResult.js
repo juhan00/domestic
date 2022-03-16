@@ -8,7 +8,6 @@ const SearchResult = ({
   onClickDomestic,
   onClickGlobal,
   location,
-  sellcted,
 }) => {
   const secondTarget = useMemo(() => {
     let target = "";
@@ -28,7 +27,7 @@ const SearchResult = ({
     return target;
   }, [location]);
 
-  if (sellcted == "domestic") {
+  const DomesticResultList = () => {
     return (
       <ul className="searchResultList">
         {domesticList
@@ -53,7 +52,9 @@ const SearchResult = ({
           ))}
       </ul>
     );
-  } else if (sellcted == "global") {
+  };
+
+  const GlobalResultList = () => {
     return (
       <ul className="searchResultList">
         {globalList
@@ -79,8 +80,19 @@ const SearchResult = ({
           ))}
       </ul>
     );
+  };
+
+  if (location.includes("domestic")) {
+    return <DomesticResultList />;
+  } else if (location.includes("global")) {
+    return <GlobalResultList />;
   } else {
-    return null;
+    return (
+      <>
+        <DomesticResultList />
+        <GlobalResultList />
+      </>
+    );
   }
 };
 
