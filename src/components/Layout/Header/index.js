@@ -4,6 +4,7 @@ import Search from "@components/Layout/Search";
 import MoyaLogoWh from "@images/moyaLogo_Wh.png";
 import StockInfo from "@components/Layout/StockInfo";
 import Nav from "@components/Layout/Nav";
+import ArrowToTop from "@images/icon_totop.png";
 import {
   HeaderContainer,
   HeaderInnerTemplate,
@@ -48,7 +49,7 @@ export const Header = () => {
       </HeaderInnerTemplate>
       <Nav scrolled={scrolled} />
       <ToTop className={scrolled ? "totop" : ""} onClick={handleToTop}>
-        ↑
+        <img src={ArrowToTop} alt="상단이동버튼" />
       </ToTop>
     </HeaderContainer>
   );

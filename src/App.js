@@ -7,8 +7,8 @@ import ScrollToTop from "@utils/scrollToTop";
 const App = () => {
   return (
     <BrowserRouter>
-      <GlobalStyle />
       <ScrollToTop />
+      <GlobalStyle />
       <Router />
     </BrowserRouter>
   );

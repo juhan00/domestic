@@ -27,6 +27,21 @@ const SearchResult = ({
     return target;
   }, [location]);
 
+  const hilighting = (text) => {
+    const parts = text.split(new RegExp(`(${keyword})`, "gi"));
+    return (
+      <>
+        {parts.map((part, index) =>
+          part.toLowerCase() === keyword.toLowerCase() ? (
+            <mark key={index}>{part}</mark>
+          ) : (
+            part
+          ),
+        )}
+      </>
+    );
+  };
+
   const DomesticResultList = () => {
     return (
       <ul className="searchResultList">
@@ -46,7 +61,7 @@ const SearchResult = ({
               <NavLink
                 to={`domestic/${secondTarget}/${list.crno}`}
                 onClick={() => onClickDomestic(list.itmsNm, list.crno)}>
-                <span>{list.itmsNm}</span> | {list.crno}
+                <span>{hilighting(list.itmsNm)}</span> | {hilighting(list.crno)}
               </NavLink>
             </li>
           ))}
@@ -73,8 +88,8 @@ const SearchResult = ({
               <NavLink
                 to={`global/${secondTarget}/${list.symbol}`}
                 onClick={() => onClickGlobal(list.symbol)}>
-                <span>{list.symbol}</span> | {list.companyName} |{" "}
-                {list.HQnation}
+                <span>{hilighting(list.symbol)}</span> |
+                {hilighting(list.companyName)} | {list.HQnation}
               </NavLink>
             </li>
           ))}
