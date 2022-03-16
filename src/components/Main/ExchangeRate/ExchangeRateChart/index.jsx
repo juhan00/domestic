@@ -49,7 +49,10 @@ const ExchangeRateChart = ({ data }) => {
     const xTickCount = 6;
     const yTickCount = 5;
     // const xTickBlankCount = 2;
-    const stockGap = 300;
+    const stockGap = Math.floor(
+      (d3.max(data.map((d) => d.stock)) - d3.min(data.map((d) => d.stock))) *
+        1.5,
+    );
     const minStock = d3.min(data.map((d) => d.stock)) - stockGap;
     const maxStock = d3.max(data.map((d) => d.stock)) + stockGap;
     const xLabel = "(회차)";
@@ -127,7 +130,7 @@ const ExchangeRateChart = ({ data }) => {
       .range([height, 0]);
     const yAxis = d3
       .axisRight(yScale)
-      .tickValues(setTickCount(minStock, maxStock, yTickCount))
+      .tickValues(ticks(minStock, maxStock, 4))
       .tickSize(10);
     svg
       .selectAll(".y-axis")

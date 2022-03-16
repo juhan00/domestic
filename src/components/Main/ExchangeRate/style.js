@@ -39,6 +39,8 @@ export const ExchangeRateWrapper = styled.div`
     & > .item {
       border-top: 1px solid #f0f0f6;
       .title {
+        transition: all ease 0.5s;
+        animation-timing-function: ease-in-out;
         display: flex;
         align-items: center;
         cursor: pointer;
@@ -100,15 +102,13 @@ export const ExchangeRateWrapper = styled.div`
           width: 16px;
           height: 16px;
         }
-        &.active {
-          background-color: transparent;
-          .arrow {
-            transform: rotate(-180deg);
-          }
-        }
       }
       .content {
+        overflow: hidden;
+        transition: all ease 0.5s;
+        animation-timing-function: ease-in-out;
         display: flex;
+        height: 0px;
         .info {
           & > .indexWrapper {
             margin-top: 10px;
@@ -192,6 +192,20 @@ export const ExchangeRateWrapper = styled.div`
           width: 100%;
           padding-left: 10%;
           box-sizing: border-box;
+        }
+      }
+      &.active {
+        .title {
+          background-color: #fff;
+          .info {
+            display: none;
+          }
+          .arrow {
+            transform: rotate(-180deg);
+          }
+        }
+        .content {
+          height: 170px;
         }
       }
     }

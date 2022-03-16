@@ -32,10 +32,8 @@ const ExchangeRate = ({ type, data }) => {
 
       {exchangeRate.map((item, index) => (
         <div className="itemWrapper" key={item.id}>
-          <div className="item">
-            <div
-              className={`title ${isActive === index && "active"}`}
-              onClick={() => isActiveHandler(index)}>
+          <div className={`item ${isActive === index && "active"}`}>
+            <div className="title" onClick={() => isActiveHandler(index)}>
               <h3>
                 {item.id === "usd"
                   ? "미국(USD)"
@@ -48,47 +46,46 @@ const ExchangeRate = ({ type, data }) => {
                   : item.id === "gbp" && "영국(GBP)"}
               </h3>
               <div className="listInfoWrapper">
-                {isActive != index &&
-                  (Math.sign(item.vs) === 1 ? (
-                    <div className="info up">
-                      <div className="index">
-                        {numberWithCommas(item.stockIndex)}
-                      </div>
-                      <div className="vs">
-                        <img src={stock_up} alt="stock up" />
-                        {item.vs.toFixed(2)}
-                      </div>
-                      <div className="rate">+{item.rate.toFixed(2)}</div>
+                {Math.sign(item.vs) === 1 ? (
+                  <div className="info up">
+                    <div className="index">
+                      {numberWithCommas(item.stockIndex)}
                     </div>
-                  ) : Math.sign(item.vs) === -1 ? (
-                    <div className="info down">
-                      <div className="index">
-                        {numberWithCommas(item.stockIndex)}
-                      </div>
-                      <div className="vs">
-                        <img src={stock_down} alt="stock down" />
-                        {Math.abs(item.vs.toFixed(2))}
-                      </div>
-                      <div className="rate">{item.rate.toFixed(2)}</div>
+                    <div className="vs">
+                      <img src={stock_up} alt="stock up" />
+                      {item.vs.toFixed(2)}
                     </div>
-                  ) : (
-                    <div className="info">
-                      <div className="index">
-                        {numberWithCommas(item.stockIndex)}
-                      </div>
-                      <div className="vs">
-                        <img src={stock_none} alt="stock none" />
-                        {item.vs.toFixed(2)}
-                      </div>
-                      <div className="rate">{item.rate.toFixed(2)}</div>
+                    <div className="rate">+{item.rate.toFixed(2)}</div>
+                  </div>
+                ) : Math.sign(item.vs) === -1 ? (
+                  <div className="info down">
+                    <div className="index">
+                      {numberWithCommas(item.stockIndex)}
                     </div>
-                  ))}
+                    <div className="vs">
+                      <img src={stock_down} alt="stock down" />
+                      {Math.abs(item.vs.toFixed(2))}
+                    </div>
+                    <div className="rate">{item.rate.toFixed(2)}</div>
+                  </div>
+                ) : (
+                  <div className="info">
+                    <div className="index">
+                      {numberWithCommas(item.stockIndex)}
+                    </div>
+                    <div className="vs">
+                      <img src={stock_none} alt="stock none" />
+                      {item.vs.toFixed(2)}
+                    </div>
+                    <div className="rate">{item.rate.toFixed(2)}</div>
+                  </div>
+                )}
                 <div className="arrow">
                   <img src={exch_rate_arrow_icon} alt="arrow" />
                 </div>
               </div>
             </div>
-            {isActive === index && (
+            {
               <div className="content">
                 <div className="info">
                   {Math.sign(item.vs) === 1 ? (
@@ -160,7 +157,7 @@ const ExchangeRate = ({ type, data }) => {
                   <ExchangeRateChart data={item.chartData} />
                 </div>
               </div>
-            )}
+            }
           </div>
         </div>
       ))}
