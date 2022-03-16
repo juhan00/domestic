@@ -38,7 +38,7 @@ const Router = () => {
           element={<DomesticStock />}
         />
         <Route path="/domestic/cominfo/:stockId" element={<DoComInfo />} />
-        <Route path="/domestic/Statistics/" element={<DoStatistics />}>
+        <Route path="/domestic/Statistics/:stockId" element={<DoStatistics />}>
           <Route path="ratio/:stockId" />
           <Route path="balance/:stockId" element={<DoBalance />} />
           <Route path="income/:stockId" element={<DoIncome />} />

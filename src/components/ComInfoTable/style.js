@@ -2,8 +2,6 @@ import styled from "@emotion/styled";
 
 export const TableWrapper = styled.div`
   background-color: #ffffff;
-  max-width: 800px;
-  width: 100%;
   min-height: 782px;
   height: 100%;
   border-radius: 12px;
@@ -16,11 +14,12 @@ export const TableWrapper = styled.div`
   }
 `;
 export const Table = styled.table`
-  max-width: 726px;
   width: 100%;
   font-size: 11px;
   line-height: 16px;
   text-align: end;
+  border-collapse: separate;
+  border-spacing: 0 10px;
 `;
 export const Row = styled.tr`
   height: 36px;
@@ -32,10 +31,6 @@ export const Row = styled.tr`
     td {
       padding: 0;
     }
-  }
-  .title__sub {
-    color: #505050;
-    text-align: center;
   }
   &.date {
     color: #999999;
@@ -53,13 +48,20 @@ export const Row = styled.tr`
   }
 `;
 export const Cell = styled.td`
-  border-right: 1px solid #f0f0f6;
   width: 60px;
+  height: 20px;
+  border-right: 1px solid #f0f0f6;
   vertical-align: middle;
   padding: 0 4px;
+  &.title__sub {
+    color: #286f6c;
+    background-color: #e8f1ee;
+    text-align: center;
+  }
   &.type {
     color: #505050;
     width: 92px;
+    border: none;
     text-align: start;
     font-weight: 500;
     span {
