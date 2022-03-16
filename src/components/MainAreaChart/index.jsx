@@ -49,6 +49,7 @@ const MainAreaChart = ({
   const dimensions = useResizeObserver(mainChartRef);
   const [zoomState, setZoomState] = useState();
   const resize = useDebounce(dimensions, 200);
+
   useEffect(() => {
     const svg = select(svgRef.current);
     svg.selectAll(".volume").remove();
