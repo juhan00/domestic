@@ -1,6 +1,13 @@
 import styled from "@emotion/styled";
 
 export const TopStockWrapper = styled.div`
+  & > .loaderWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   flex: 2 1 0;
   height: 556px;
   background: #fff;

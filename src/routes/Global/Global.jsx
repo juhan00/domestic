@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { GlobalWrapper } from "./style";
-import StockIndex from "@components/Main/StockIndex";
-import MajorStock from "@components/Main/MajorStock";
-import ExchangeRate from "@components/Main/ExchangeRate";
-import StockSector from "@components/Main/StockSector";
-import StockNews from "@components/Main/StockNews";
+import StockIndex, { StockIndexLoader } from "@components/Main/StockIndex";
+import MajorStock, { MajorStockLoader } from "@components/Main/MajorStock";
+import ExchangeRate, {
+  ExchangeRateLoader,
+} from "@components/Main/ExchangeRate";
+import StockSector, { StockSectorLoader } from "@components/Main/StockSector";
+import StockNews, { StockNewsLoader } from "@components/Main/StockNews";
 // import financeNewsData from "@utils/MainData/financeNewsData.json";
 import axios from "redaxios";
 
@@ -25,7 +27,7 @@ const Global = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setStockIndexData(res.data);
-        }, 0);
+        }, 1000);
       }
     };
 
@@ -43,7 +45,7 @@ const Global = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setMajorStockData(res.data);
-        }, 0);
+        }, 1000);
       }
     };
     majorStockFetch();
@@ -60,7 +62,7 @@ const Global = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setStockNewsData(res.data);
-        }, 0);
+        }, 1000);
       }
     };
     stockNewsFetch();
@@ -77,7 +79,7 @@ const Global = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setExchangeRateData(res.data);
-        }, 0);
+        }, 1000);
       }
     };
     exchangeRateFetch();
@@ -94,7 +96,7 @@ const Global = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setStockSectorData(res.data);
-        }, 0);
+        }, 1000);
       }
     };
     stockSectorFetch();
@@ -104,7 +106,19 @@ const Global = () => {
   return (
     <GlobalWrapper>
       <div className="row">
-        {stockIndexData &&
+        {!stockIndexData ? (
+          <>
+            <div className="col">
+              <StockIndexLoader />
+            </div>
+            <div className="col">
+              <StockIndexLoader />
+            </div>
+            <div className="col">
+              <StockIndexLoader />
+            </div>
+          </>
+        ) : (
           stockIndexData.items.map((item) => (
             <div className="col" key={item.id}>
               <StockIndex
@@ -113,24 +127,39 @@ const Global = () => {
                 date={stockIndexData.date}
               />
             </div>
-          ))}
+          ))
+        )}
       </div>
       <div className="row">
         <div className="col col2">
-          {majorStockData && <MajorStock data={majorStockData} />}
+          {!majorStockData ? (
+            <MajorStockLoader />
+          ) : (
+            <MajorStock data={majorStockData} />
+          )}
         </div>
         <div className="col">
-          {stockNewsData && <StockNews type="global" data={stockNewsData} />}
+          {!stockNewsData ? (
+            <StockNewsLoader />
+          ) : (
+            <StockNews type="global" data={stockNewsData} />
+          )}
         </div>
       </div>
       <div className="row">
         <div className="col">
-          {exchangeRateData && (
+          {!exchangeRateData ? (
+            <ExchangeRateLoader type="global" />
+          ) : (
             <ExchangeRate type="global" data={exchangeRateData} />
           )}
         </div>
         <div className="col">
-          {stockSectorData && <StockSector data={stockSectorData} />}
+          {!stockSectorData ? (
+            <StockSectorLoader />
+          ) : (
+            <StockSector data={stockSectorData} />
+          )}
         </div>
       </div>
       {/* <FinanceNews type="global" data={financeNewsData} /> */}
