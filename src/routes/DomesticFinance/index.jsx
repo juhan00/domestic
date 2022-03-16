@@ -15,15 +15,21 @@ import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {
   PeriodButtonsWrapper,
-  CardsWrapper,
   ContentsWrapper,
   DatePickerWrapper,
+  ErrorMessageWrapper,
   HeaderWrapper,
   FooterWrapper,
 } from "./style";
 import { getPreviousDate } from "@utils/getPreviousDate";
 import FinanceChart from "@components/financeChart";
-
+import CardsList from "@components/Cards";
+import useInput from "@utils/useInput";
+import period_active from "@images/period_active.svg";
+import period_unactive from "@images/period_unactive.svg";
+import ComparisonCardsList from "@components/ComparisonCardsList";
+import { timeFormat } from "d3";
+import chart_description from "@images/chart_description.svg";
 const publicDate = new Date("2021-08-01");
 
 const DomesticStock = () => {
@@ -32,13 +38,31 @@ const DomesticStock = () => {
     initialState(publicDate),
   );
 
-  const { period } = domesticState;
+  const { period, periodError, today, stockData } = domesticState;
   const { startDate, endDate, diff } = period;
+
+  const [curStartDate, onChangeCurStartDate, setCurStartDate] =
+    useInput(startDate);
+  const [curEndDate, onChangeCurEndDate, setCurEndDate] = useInput(endDate);
 
   const onClickPeriodButton = (numOfDates) => {
     const newStartDate = getPreviousDate(endDate, numOfDates);
-    const targetDate = newStartDate > publicDate ? newStartDate : publicDate;
-    dispatch(setPeriod(targetDate, endDate));
+    const startError = newStartDate >= publicDate ? false : true;
+    const targetStartDate =
+      newStartDate >= publicDate ? newStartDate : publicDate;
+
+    const curDate = new Date();
+    const endError = curDate < endDate ? true : false;
+    const targetEndDate = curDate < endDate ? curDate : endDate;
+
+    setCurStartDate(targetStartDate);
+    setCurEndDate(targetEndDate);
+
+    dispatch(setPeriod(targetStartDate, targetEndDate, startError || endError));
+  };
+
+  const onClickPeriodApplyButton = () => {
+    dispatch(setPeriod(curStartDate, curEndDate));
   };
 
   const keywordData = useRef([
@@ -173,121 +197,97 @@ const DomesticStock = () => {
           <DatePickerWrapper>
             <ReactDatePicker
               dateFormat="yyyy.MM.dd"
-              selected={startDate}
-              startDate={startDate}
-              endDate={endDate}
+              selected={curStartDate}
+              onChange={onChangeCurStartDate}
+              startDate={curStartDate}
+              endDate={curEndDate}
               minDate={publicDate}
               selectsStart
             />
             <span>~</span>
             <ReactDatePicker
               dateFormat="yyyy.MM.dd"
-              selected={endDate}
+              selected={curEndDate}
               selectsEnd
-              startDate={startDate}
-              endDate={endDate}
-              minDate={startDate}
+              onChange={onChangeCurEndDate}
+              startDate={curStartDate}
+              endDate={curEndDate}
+              maxDate={today}
+              minDate={curStartDate}
             />
           </DatePickerWrapper>
           <PeriodButtonsWrapper>
             <button
               onClick={() => onClickPeriodButton(30)}
               className={diff === 30 ? "active" : null}>
+              <img src={diff === 30 ? period_active : period_unactive} />
               1개월
             </button>
             <button
               onClick={() => onClickPeriodButton(90)}
               className={diff === 90 ? "active" : null}>
+              <img src={diff === 90 ? period_active : period_unactive} />
               3개월
             </button>
             <button
               onClick={() => onClickPeriodButton(180)}
               className={diff === 180 ? "active" : null}>
+              <img src={diff === 180 ? period_active : period_unactive} />
               6개월
             </button>
             <button
               onClick={() => onClickPeriodButton(365)}
               className={diff === 365 ? "active" : null}>
+              <img src={diff === 365 ? period_active : period_unactive} />
               1년
             </button>
             <button
               onClick={() => onClickPeriodButton(1095)}
               className={diff === 1095 ? "active" : null}>
+              <img src={diff === 1095 ? period_active : period_unactive} />
               3년
-            </button>
-            <button
-              onClick={() => onClickPeriodButton(1825)}
-              className={diff === 1825 ? "active" : null}>
-              5년
-            </button>
-            <button
-              onClick={() => onClickPeriodButton(3650)}
-              className={diff === 3650 ? "active" : null}>
-              10년
             </button>
           </PeriodButtonsWrapper>
         </div>
         <div className="header-right">
-          <button>적용</button>
+          <button onClick={onClickPeriodApplyButton}>적용</button>
         </div>
       </HeaderWrapper>
+      {periodError && (
+        <ErrorMessageWrapper>
+          {`상장일 이후부터 현재 날짜까지의 기간만 선택 가능합니다.`}
+        </ErrorMessageWrapper>
+      )}
       <ContentsWrapper>
-        <CardsWrapper>
-          <div className="content-card">
-            <div className="emoji">B</div>
-            <div className="card-info">
-              <div className="title">Apple Inc 관련 뉴스 수집량</div>
-              <div className="date">2022.02.01-2022.03.01 기준</div>
-              <div className="value">
-                <span className="number">538</span>
-                <span className="unit">개</span>
-              </div>
-            </div>
-          </div>
-          <div className="content-card">
-            <div className="emoji">B</div>
-            <div className="card-info">
-              <div className="title">Apple Inc 관련 뉴스 수집량</div>
-              <div className="description">2022.02.01-2022.03.01 기준</div>
-              <div className="value">
-                <span className="number">538</span>
-                <span className="unit">개</span>
-              </div>
-            </div>
-          </div>
-          <div className="content-card">
-            <div className="emoji">B</div>
-            <div className="card-info">
-              <div className="title">Apple Inc 관련 뉴스 수집량</div>
-              <div className="description">2022.02.01-2022.03.01 기준</div>
-              <div className="value">
-                <span className="number">538</span>
-                <span className="unit">개</span>
-              </div>
-            </div>
-          </div>
-          <div className="content-card">
-            <div className="emoji">B</div>
-            <div className="card-info">
-              <div className="title">Apple Inc 관련 뉴스 수집량</div>
-              <div className="description">2022.02.01-2022.03.01 기준</div>
-              <div className="value">
-                <span className="number">538</span>
-                <span className="unit">개</span>
-              </div>
-            </div>
-          </div>
-        </CardsWrapper>
+        <CardsList startDate={curStartDate} endDate={curEndDate} />
         <div className="level1-wrapper">
           <div className="level1-chart-wrapper">
             <div className="level1-main-chart-wrapper">
               <div className="main-chart-wrapper">
-                <div className="title">주식 차트</div>
-                {diff < 91 ? <MainChart /> : <MainAreaChart />}
+                <div className="main-title">
+                  주식차트
+                  <img className="title-emoji" src={chart_description} />
+                </div>
+                {diff < 91 && startDate && endDate ? (
+                  <MainChart
+                    startDate={startDate}
+                    endDate={endDate}
+                    stockData={stockData}
+                  />
+                ) : (
+                  <MainAreaChart
+                    startDate={startDate}
+                    endDate={endDate}
+                    stockData={stockData}
+                  />
+                )}
               </div>
             </div>
             <div className="level1-moya-chart-wrapper">
-              <div className="title">뉴스 분석</div>
+              <div className="news-title">
+                뉴스분석
+                <img className="title-emoji" src={chart_description} />
+              </div>
               <div className="buzz-chart-wrapper">
                 <BuzzChart />
               </div>
@@ -300,47 +300,83 @@ const DomesticStock = () => {
         </div>
         <div className="level2-chart-wrapper">
           <div className="chart-wrapper">
+            <div className="keyword-title">
+              키워드 분석
+              <img className="title-emoji" src={chart_description} />
+            </div>
             <KeywordChart data={keywordData.current} />
           </div>
           <div className="chart-wrapper">
+            <div className="press-title">
+              언론사 분석
+              <img className="title-emoji" src={chart_description} />
+            </div>
             <PressChart data={pressData.current} />
           </div>
           <div className="chart-wrapper">
+            <div className="category-title">
+              카테고리 분석
+              <img className="title-emoji" src={chart_description} />
+            </div>
             <CategoryChart data={categoryData.current} />
           </div>
         </div>
         <div className="finances-wrapper">
-          <div className="finances-ele">
-            {finance1.current.map((ele, idx) => (
-              <div className="chart-wrapper" key={idx}>
-                <FinanceChart data={ele} />
-              </div>
-            ))}
+          <div className="finances-title-wrapper">
+            <div className="finances-title">
+              재무데이터 그래프
+              <img className="title-emoji" src={chart_description} />
+            </div>
+            <div className="finances-buttons-wrapper">
+              <button className="finances-button">연간실적</button>
+              <button className="finances-button active">분기실적</button>
+            </div>
           </div>
-          <div className="finances-ele">
-            {finance2.current.map((ele, idx) => (
-              <div className="chart-wrapper" key={idx}>
-                <FinanceChart data={ele} />
-              </div>
-            ))}
-          </div>
-          <div className="finances-ele">
-            {finance3.current.map((ele, idx) => (
-              <div className="chart-wrapper" key={idx}>
-                <FinanceChart data={ele} />
-              </div>
-            ))}
+          <div className="finances-content">
+            <div className="finances-ele">
+              {finance1.current.map((ele, idx) => (
+                <div className="chart-wrapper" key={idx}>
+                  <FinanceChart data={ele} />
+                </div>
+              ))}
+            </div>
+            <div className="finances-ele">
+              {finance2.current.map((ele, idx) => (
+                <div className="chart-wrapper" key={idx}>
+                  <FinanceChart data={ele} />
+                </div>
+              ))}
+            </div>
+            <div className="finances-ele">
+              {finance3.current.map((ele, idx) => (
+                <div className="chart-wrapper" key={idx}>
+                  <FinanceChart data={ele} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </ContentsWrapper>
       <FooterWrapper>
         <div className="footer-comparison">
-          <div className="title">국내 주식 비교</div>
-          <div className="card-wrapper">ㅁㄴㅇㄻㄴㅇㄹ</div>
+          <div className="title-wrapper">
+            <div className="title">
+              국내 종목비교
+              <button className="title-button">반도체와반도체장비</button>
+            </div>
+            <div className="period">{timeFormat("%Y.%m.%d")(endDate)} 기준</div>
+          </div>
+          <ComparisonCardsList />
         </div>
         <div className="footer-comparison">
-          <div className="title">해외 주식 비교</div>
-          <div className="card-wrapper">ㅁㄴㅇㄻㄴㅇㄹ</div>
+          <div className="title-wrapper">
+            <div className="title">
+              해외 종목비교
+              <button className="title-button">반도체와반도체장비</button>
+            </div>
+            <div className="period">{timeFormat("%Y.%m.%d")(endDate)} 기준</div>
+          </div>
+          <ComparisonCardsList />
         </div>
       </FooterWrapper>
     </main>
@@ -348,51 +384,3 @@ const DomesticStock = () => {
 };
 
 export default DomesticStock;
-
-// basDt	string
-// YYYYMMDD
-// 기준일자
-
-// srtnCd	string
-// 종목 코드보다 짧으면서 유일성이 보장되는 코드(6자리)
-
-// isinCd	string
-// 현선물 통합상품의 종목 코드(12자리)
-
-// itmsNm	string
-// 종목의 명칭
-
-// mrktCtg	string
-// 주식의 시장 구분 (KOSPI/KOSDAQ/KONEX 중 1)
-
-// clpr	number
-// 정규시장의 매매시간종료시까지 형성되는 최종가격
-
-// vs	number
-// 전일 대비 등락
-
-// fltRt	number
-// 전일 대비 등락에 따른 비율
-
-// mkp	number
-// 정규시장의 매매시간개시후 형성되는 최초가격
-
-// hipr	number
-// 하루 중 가격의 최고치
-
-// lopr	number
-// 하루 중 가격의 최저치
-
-// trqu	number
-// 체결수량의 누적 합계
-
-// trPrc	number
-// 거래건 별 체결가격 * 체결수량의 누적 합계
-
-// lstgStCnt	number
-// 종목의 상장주식수
-
-// mrktTotAmt	number
-// 종가 * 상장주식수
-
-// https://stackoverflow.com/questions/22972669/nvd3-d3-js-date-format-returns-incorrect-month

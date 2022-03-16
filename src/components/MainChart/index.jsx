@@ -22,37 +22,13 @@ import useDebounce from "@utils/useDebounce";
 import numberWithCommas from "@utils/numberWithComma";
 import { ticks } from "d3";
 
-function dataGenerator() {
-  let start = Math.floor(Math.random() * 500 + 9000);
-  let end = Math.floor(Math.random() > 0.5 ? start - 200 : start + 200);
-  let volume = Math.floor(Math.random() * 50000);
-
-  return {
-    start,
-    end,
-    volume,
-    high:
-      start > end
-        ? Math.floor(start + Math.random() * 200)
-        : Math.floor(end + Math.random() * 200),
-    low:
-      start < end
-        ? Math.floor(start - Math.random() * 200)
-        : Math.floor(end - Math.random() * 200),
-  };
-}
-
-let date = new Date("2021-11-29");
-let data = [];
-for (let i = 0; i < 90; i++) {
-  data[i] = dataGenerator();
-  data[i].date = date;
-  date = new Date(date.setDate(date.getDate() + 1));
-}
 const MainChart = ({
   marginTop = 40,
   marginBottom = 40,
   marginLeft = 40,
+  stockData,
+  endDate,
+  startDate,
   marginRight = 40,
   volumeChartHeight = 40,
   focusCircleColor = "#eee",
@@ -82,6 +58,9 @@ const MainChart = ({
 
     if (!resize) return;
 
+    let data = stockData.filter(
+      (ele) => ele.date <= endDate && ele.date >= startDate,
+    );
     const { width, height } = resize;
     svg.attr("width", width).attr("height", height);
 
@@ -343,8 +322,8 @@ const MainChart = ({
       candleSticksEnter
         .append("rect")
         .attr("clip-path", "url(#clip)")
-        .attr("rx", 5)
-        .attr("ry", 5)
+        .attr("rx", 2)
+        .attr("ry", 2)
         .attr("x", (data) => xScale(data.date) - xBandScale.bandwidth())
         .attr("y", (data) => {
           // 시가 위치에 오도록
@@ -405,8 +384,8 @@ const MainChart = ({
         .append("rect")
         .attr("clip-path", "url(#clip)")
         .attr("fill", "#FDC055")
-        .attr("rx", 5)
-        .attr("ry", 5)
+        .attr("rx", 2)
+        .attr("ry", 2)
         .attr("x", (data) => xScale(data.date) - xBandScale.bandwidth())
         .attr("y", (data) => yVolumeScale(data.volume))
         .attr("width", () => xBandScale.bandwidth())
@@ -415,7 +394,7 @@ const MainChart = ({
           (data) => height - marginBottom - yVolumeScale(data.volume),
         );
     });
-  }, [data, zoomState, resize]);
+  }, [stockData, zoomState, resize]);
 
   return (
     <MainChartWrapper ref={mainChartRef}>
