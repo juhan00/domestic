@@ -25,10 +25,12 @@ const CategoryChart = ({
 }) => {
   const svgRef = useRef(null);
   const categoryChartRef = useRef();
+  const tooltipRef = useRef();
   const dimensions = useResizeObserver(categoryChartRef);
   const resize = useDebounce(dimensions, 200);
   useEffect(() => {
     const svg = select(svgRef.current);
+    const tooltip = select(tooltipRef.current);
 
     if (!resize) return;
     svg.selectAll(".block").remove();
@@ -40,12 +42,15 @@ const CategoryChart = ({
       .append("clipPath")
       .attr("id", "categoryclip")
       .append("rect")
-      .attr("width", width)
-      .attr("height", height)
-      .attr("rx", 15)
-      .attr("ry", 15);
+      .attr("width", width - marginLeft)
+      .attr("height", height - marginBottom)
+      .attr("rx", 4)
+      .attr("ry", 4);
 
-    svg.attr("width", width).attr("height", height);
+    svg
+      .attr("width", width - marginLeft)
+      .attr("height", height - marginBottom)
+      .attr("transform", `translate(${marginLeft / 2},${marginBottom / 2})`);
 
     const entireValue = sum(data, (data) => data.value);
     if (!data[0].color) {
@@ -62,15 +67,14 @@ const CategoryChart = ({
       });
     }
 
-    const createTree = treemap().size([width, height]);
+    const createTree = treemap().size([
+      width - marginLeft,
+      height - marginBottom,
+    ]);
 
     const mapData = hierarchy(data, (node) => node).sum((node) => node.value);
 
     const tree = createTree(mapData);
-
-    const focus = svg.selectAll(".focus");
-
-    const focusTooltip = focus.select(".focus-tooltip");
 
     svg
       .select(".blockarea")
@@ -81,22 +85,10 @@ const CategoryChart = ({
         const block = enter
           .append("g")
           .classed("block", true)
-          .attr("transform", (node) => `translate(${node["x0"]},${node["y0"]})`)
-          .on("mouseover", () => focusTooltip.style("display", null))
-          .on("mouseout", () => focusTooltip.style("display", "none"))
-          .on("mousemove", function (e) {
-            focusTooltip
-              .attr("x", e.offsetX)
-              .attr("y", e.offsetY)
-              .attr("width", toolTipWidth)
-              .attr("height", toolTipHeight)
-              .attr("opacity", 1)
-              .attr("fill", focusTooltipColor)
-              .attr(
-                "transform",
-                `translate(-${toolTipWidth / 2}, -${toolTipHeight / 2})`,
-              );
-          });
+          .attr(
+            "transform",
+            (node) => `translate(${node["x0"]},${node["y0"]})`,
+          );
 
         block
           .append("rect")
@@ -113,6 +105,7 @@ const CategoryChart = ({
 
         blockTextG
           .append("text")
+          .classed(".blockcategory", true)
           .attr("fill", (node) => {
             return isBright(node["data"]["color"]) ? "black" : "white";
           })
@@ -128,6 +121,8 @@ const CategoryChart = ({
 
         blockTextG
           .append("text")
+          .attr("width", "100")
+          .classed(".blockpercent", true)
           .attr("fill", (node) => {
             return isBright(node["data"]["color"])
               ? darkTextColor
@@ -156,17 +151,34 @@ const CategoryChart = ({
             const parentData = select(this.parentNode).datum();
             return (parentData.y1 - parentData.y0) / 2 - 7;
           });
+
+        block
+          .append("rect")
+          .classed("blockoverlay", true)
+          .attr("width", (node) => {
+            return node["x1"] - node["x0"];
+          })
+          .attr("height", (node) => {
+            return node["y1"] - node["y0"];
+          })
+          .attr("opacity", 0)
+          .on("mousemove", function (e) {
+            const data = select(e.target).data()[0].data;
+            tooltip.text(`${data.title}\n${data.percentage}%`);
+          });
       });
   }, [data, resize]);
   return (
-    <ChartWrapper ref={categoryChartRef}>
-      <svg ref={svgRef}>
-        <g className="blockarea" />
-        <g className="focus">
-          <rect className="focus-tooltip"></rect>
-        </g>
-      </svg>
-    </ChartWrapper>
+    <>
+      <ChartWrapper ref={categoryChartRef}>
+        <svg ref={svgRef}>
+          <g className="blockarea" />
+        </svg>
+        <div className="tooltip" ref={tooltipRef}>
+          tooltip!
+        </div>
+      </ChartWrapper>
+    </>
   );
 };
 

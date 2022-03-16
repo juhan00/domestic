@@ -127,8 +127,8 @@ const FinanceChart = ({
               : xScale(value.value);
           })
           .attr("height", () => yScale.bandwidth())
-          .attr("rx", 5)
-          .attr("ry", 5);
+          .attr("rx", 2)
+          .attr("ry", 2);
 
         financeg
           .append("text")
