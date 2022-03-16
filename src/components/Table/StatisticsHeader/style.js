@@ -1,14 +1,15 @@
 import styled from "@emotion/styled";
 
 export const HeaderWrapper = styled.div`
-  line-height: 26px;
-  margin-bottom: 15px;
-  overflow: hidden;
-  h3 {
+  line-height: 36px;
+  /* overflow: hidden; */
+  width: 100%;
+  button {
     color: #111111;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 700;
     float: left;
+    height: 36px;
   }
 `;
 

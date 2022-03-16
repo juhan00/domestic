@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import TableHeader from "@components/Table/TableHeader";
 import BetaTable from "@components/Table/BetaTable";
 import BetaChart from "@components/BetaChart";
+import StatisticsHeader from "@components/Table/StatisticsHeader"
 import {
   RouteWrapper,
   SemiHeader,
@@ -62,12 +63,7 @@ const DoBeta = () => {
   return (
     <RouteWrapper>
       <SemiHeader>
-        <h1>회귀 그래프(Regression Graph)</h1>
-        <InputWrapper>
-          <input type="date" name="date" />
-          ~
-          <input type="date" name="date" />
-        </InputWrapper>
+        <StatisticsHeader />
       </SemiHeader>
       <ContentWrapper>
         <ChartWrapper>

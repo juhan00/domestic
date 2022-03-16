@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ComInfoTable from "@components/ComInfoTable";
 import ComInfoGraph from "@components/ComInfoGraph";
 import ComInfoDailyPrice from "@components/DailyPrice";
-import { RouteWrapper, PriceWrapper } from "./style";
+// import { RouteWrapper, PriceWrapper } from "./style";
 import { sampleJson } from "@utils/api";
 import { useParams } from "react-router-dom";
 
@@ -19,21 +19,6 @@ const GoComInfo = () => {
     })();
   }, []);
 
-  return (
-    <RouteWrapper>
-      <PriceWrapper>
-        <ComInfoGraph />
-        <ComInfoDailyPrice />
-      </PriceWrapper>
-      {Object.keys(comInfoData).length
-        ? // <ComInfoTable
-          //   yearly={comInfoData.yearly}
-          //   quarters={comInfoData.quarters}
-          // />
-          null
-        : null}
-    </RouteWrapper>
-  );
 };
 
 export default GoComInfo;
