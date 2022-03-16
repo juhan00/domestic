@@ -31,12 +31,15 @@ export const PeriodButtonsWrapper = styled.div`
     all: unset;
     cursor: pointer;
     padding: 5px;
-    border: 1px solid #5fb6ad;
+    font-size: 14;
     border-radius: 10px;
     margin: 3px;
   }
+  & button img {
+    margin-right: 6px;
+  }
   .active {
-    background: #5fb6ad;
+    font-weight: bold;
   }
 `;
 
@@ -57,57 +60,12 @@ export const DatePickerWrapper = styled.div`
   }
 `;
 
-export const CardsWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  margin: 50px 0;
-  justify-content: flex-start;
-
-  & .card-info div {
-    margin-bottom: 10px;
-  }
-
-  & .content-card {
-    flex: 1 1 0;
-    padding: 30px 40px;
-    margin: 0px 10px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    background: #ffffff;
-    border-radius: 12px;
-    align-items: center;
-  }
-  & .content-card:first-of-type {
-    margin-left: 0px;
-  }
-
-  & .content-card:last-of-type {
-    margin-right: 0px;
-  }
-
-  & .title {
-    font-size: 12px;
-    line-height: 16px;
-    color: #505050;
-  }
-
-  & .description {
-    font-size: 11px;
-    line-height: 16px;
-    color: #999999;
-  }
-
-  & .number {
-    font-size: 22px;
-    line-height: 26px;
-  }
-
-  & .emoji {
-    margin-left: 20px;
-  }
+export const ErrorMessageWrapper = styled.div`
+  position: absolute;
+  color: red;
+  margin-top: 10px;
+  font-size: 12px;
 `;
-
 export const ContentsWrapper = styled.div`
   & .level1-wrapper {
     display: flex;
@@ -122,6 +80,46 @@ export const ContentsWrapper = styled.div`
     flex-direction: column;
     background: #ffffff;
     border-radius: 12px;
+  }
+
+  & .main-title {
+    display: flex;
+    align-items: center;
+    padding: 20px 72px 0px 72px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  & .news-title {
+    display: flex;
+    align-items: center;
+    padding: 20px 72px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  & .category-title {
+    display: flex;
+    align-items: center;
+    padding: 0px calc(10% + 20px);
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  & .press-title {
+    display: flex;
+    align-items: center;
+    padding: 0px calc(5% + 40px);
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  & .keyword-title {
+    display: flex;
+    align-items: center;
+    padding: 0px 20%;
+    font-size: 18px;
+    font-weight: bold;
   }
 
   & > .level1-wrapper > .level1-chart-wrapper {
@@ -199,8 +197,46 @@ export const ContentsWrapper = styled.div`
   }
   & .finances-wrapper {
     width: 100%;
-    display: flex;
     background: #fff;
+    box-sizing: border-box;
+  }
+
+  & .finances-title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 28px 20px 20px 32px;
+  }
+
+  & .finances-title {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  & .finances-buttons-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  & .finances-button {
+    all: unset;
+    cursor: pointer;
+    font-size: 12px;
+    color: #999999;
+    border: 1px solid #e5e5ec;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 4px 12px;
+  }
+
+  & .active {
+    color: #ffffff;
+    background: #286f6c;
+  }
+
+  & .finances-content {
+    display: flex;
     justify-content: space-between;
   }
 
@@ -209,11 +245,15 @@ export const ContentsWrapper = styled.div`
     width: 100%;
     flex-direction: column;
     justify-content: center;
+    border-bottom: 1px solid #e4e4e4;
   }
   & .finances-ele .chart-wrapper {
     min-height: auto;
     border-radius: none;
     background: none;
+  }
+  & .title-emoji {
+    margin-left: 12px;
   }
 `;
 
@@ -221,32 +261,59 @@ export const FooterWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  & > .footer-comparison {
+  & .footer-comparison {
     width: 100%;
-    background: red;
+    background: #ffffff;
     min-height: 164px;
   }
 
-  & > .footer-comparison > .footer-comparison-title {
+  & .title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 28px 32px 20px 32px;
+  }
+
+  & .title {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 26px;
+    color: #111111;
+  }
+
+  & .title .title-button {
+    all: unset;
+    cursor: pointer;
+    margin-left: 8px;
+    font-size: 12px;
+    border: 1px solid #e5e5ec;
+    padding: 2px 12px 3px;
+    color: #767676;
+    border-radius: 31px;
+  }
+
+  & .footer-comparison-title {
     font-size: 34px;
     margin: 20px 0 0 32px;
   }
 
-  & > .footer-comparison > .footer-comparison-card-wrapper {
+  & .card-wrapper {
     display: flex;
+    justify-content: space-around;
     margin: 20px 32px 28px 32px;
   }
 
-  & > .footer-comparison > .footer-comparison-card-wrapper {
-    display: flex;
-    margin: 20px 32px 28px 32px;
+  & .period {
+    font-size: 11px;
+    line-height: 16px;
+    text-align: right;
+    padding: 2px 8px 3px;
+    border: 1px solid #e8f1ee;
+    color: #286f6c;
+    box-sizing: border-box;
+    border-radius: 26px;
   }
 
-  & > .footer-comparison > .footer-comparison-card-wrapper > .footer-card {
-    flex: 1 1 150px;
-  }
-
-  & > .footer-comparison:first-of-type {
+  & .footer-comparison:first-of-type {
     margin: 20px 0;
   }
 `;
