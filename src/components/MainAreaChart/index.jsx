@@ -26,7 +26,7 @@ import { ticks } from "d3";
 const MainAreaChart = ({
   marginTop = 40,
   marginBottom = 40,
-  stockData,
+  data,
   marginLeft = 40,
   marginRight = 40,
   startDate,
@@ -60,10 +60,6 @@ const MainAreaChart = ({
     //const dataDiff= JSON.stringify(data)!==JSON.stringify(prevData)
 
     if (!resize) return;
-
-    let data = stockData.filter(
-      (ele) => ele.date <= endDate && ele.date >= startDate,
-    );
 
     const { width, height } = resize;
     svg.attr("width", width).attr("height", height);
@@ -328,18 +324,32 @@ const MainAreaChart = ({
       volumesEnter
         .append("rect")
         .attr("clip-path", "url(#clip)")
+        .attr("fill", " rgba(253, 192, 85, 0.2)")
+        // .attr("rx", 4)
+        // .attr("ry", 4)
+        .attr("x", (data) => xScale(data.date) - xBandScale.bandwidth())
+        .attr("y", (data) => yVolumeScale(yVolumeMax))
+        .attr("width", () => xBandScale.bandwidth())
+        .attr(
+          "height",
+          (data) => yVolumeScale(data.volume) - yVolumeScale(yVolumeMax) + 10,
+        );
+
+      volumesEnter
+        .append("rect")
+        .attr("clip-path", "url(#clip)")
         .attr("fill", "#FDC055")
-        .attr("rx", 5)
-        .attr("ry", 5)
+        .attr("rx", 4)
+        .attr("ry", 4)
         .attr("x", (data) => xScale(data.date) - xBandScale.bandwidth())
         .attr("y", (data) => yVolumeScale(data.volume))
         .attr("width", () => xBandScale.bandwidth())
         .attr(
           "height",
-          (data) => height - marginBottom - yVolumeScale(data.volume),
+          (data) => yVolumeScale(yVolumeMin) - yVolumeScale(data.volume),
         );
     });
-  }, [stockData, zoomState, resize]);
+  }, [data, zoomState, resize]);
 
   return (
     <MainChartWrapper ref={mainChartRef}>
