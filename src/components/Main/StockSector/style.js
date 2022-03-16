@@ -54,14 +54,11 @@ export const StockSectorWrapper = styled.div`
           color: #111;
           vertical-align: middle;
           padding: 0 20px;
-          &.red {
+          &.up {
             color: #e82b2b;
           }
-          &.blue {
+          &.down {
             color: #1b61d1;
-          }
-          &.primary {
-            color: #5fb6ad;
           }
         }
       }

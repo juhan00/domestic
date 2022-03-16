@@ -29,7 +29,7 @@ const MarketIndi = ({ data }) => {
       </div>
       <div className="itemWrapper">
         {marketIndi.data.map((item, index) => (
-          <div className="item">
+          <div className="item" key={item.id}>
             <div className="icon">
               <img
                 src={

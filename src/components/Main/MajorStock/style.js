@@ -62,11 +62,21 @@ export const MajorStockWrapper = styled.div`
           vertical-align: middle;
           padding: 0 20px;
           text-align: right;
+          img {
+            margin-right: 3px;
+            transform: translateY(-3px);
+          }
           &.up {
             color: #e82b2b;
+            img {
+              transform: translateY(-1px);
+            }
           }
           &.down {
             color: #1b61d1;
+            img {
+              transform: translateY(-1px);
+            }
           }
           &.primary {
             color: #359866;
