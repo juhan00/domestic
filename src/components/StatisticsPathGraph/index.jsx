@@ -12,10 +12,12 @@ import {
 } from "d3";
 import useResizeObserver from "@utils/useResizeObserver";
 
-const StatisticsGraph = ({ data }) => {
+const StatisticsGraph = ({ data, newData }) => {
   const graphRef = useRef();
   const svgRef = useRef(null);
   const resizeWidth = useResizeObserver(graphRef);
+
+  const yearly = newData.yearly;
 
   const myColor = ["#065398", "#F5746B", "#FDC055", "#35A67D"];
 
@@ -26,7 +28,7 @@ const StatisticsGraph = ({ data }) => {
     svg.selectAll(".lines").remove();
     svg.selectAll(".dots").remove();
 
-    if (!resizeWidth || !data) {
+    if (!resizeWidth || !yearly) {
       return;
     }
 
@@ -38,9 +40,10 @@ const StatisticsGraph = ({ data }) => {
     svg.attr("width", resizeWidth).attr("height", 300);
 
     const xScale = scaleTime()
-      .domain(extent(data, (data) => data.basDt))
-      .range([margin.left + innerPadding, width - margin.right - innerPadding]);
-    const xAxis = axisBottom(xScale).ticks(data.length);
+      .domain(extent(yearly, (year) => new Date(year.basDt)))
+      .range([margin.left + innerPadding, width - margin.right - innerPadding])
+      .nice();
+    const xAxis = axisBottom(xScale).ticks(yearly.length);
 
     svg
       .select(".x-axis")
@@ -53,9 +56,9 @@ const StatisticsGraph = ({ data }) => {
       );
 
     const yScale = scaleLinear()
-      .domain([0, max(data, (data) => data.부채비율) * 1.2])
-      .nice()
-      .range([height - margin.bottom, margin.top]);
+      .domain([0, max(yearly, (year) => year.deptEquity) * 1.2])
+      .range([height - margin.bottom, margin.top])
+      .nice();
     const yAxis = axisLeft(yScale);
 
     svg
@@ -74,11 +77,11 @@ const StatisticsGraph = ({ data }) => {
 
     svg
       .selectAll(".line")
-      .data([data])
+      .data([yearly])
       .join((enter) => {
         const lines = enter.append("g").classed("lines", true);
 
-        Object.keys(data[0]).map((keys, idx) => {
+        Object.keys(yearly[0]).map((keys, idx) => {
           keys === "basDt"
             ? null
             : lines
@@ -99,7 +102,7 @@ const StatisticsGraph = ({ data }) => {
 
     svg
       .selectAll(".dots")
-      .data(data)
+      .data(yearly)
       .join((enter) => {
         const dots = enter.append("g").classed("dots", true);
 
@@ -116,7 +119,7 @@ const StatisticsGraph = ({ data }) => {
                 .attr("stroke-width", 2);
         });
       });
-  }, [data, resizeWidth]);
+  }, [newData, resizeWidth]);
 
   return (
     <GraphWrapper ref={graphRef}>

@@ -18,7 +18,7 @@ const ComInfoTable = ({ yearly, quarters }) => {
             <Cell className="title__sub" colSpan={4}>
               최근 연간 실적
             </Cell>
-            <Cell className="title__sub" colSpan={6}>
+            <Cell className="title__sub" colSpan={4}>
               최근 분기 실적
             </Cell>
           </Row>
@@ -107,17 +107,6 @@ const ComInfoTable = ({ yearly, quarters }) => {
             ))}
             {quarters.map((item) => (
               <Cell>{numberWithCommas(item.deptEquity)}</Cell>
-            ))}
-          </Row>
-          <Row>
-            <Cell className="type">
-              유보율 <span>(%)</span>
-            </Cell>
-            {yearly.map((item) => (
-              <Cell>{numberWithCommas(item.reserve)}</Cell>
-            ))}
-            {quarters.map((item) => (
-              <Cell>{numberWithCommas(item.reserve)}</Cell>
             ))}
           </Row>
           <Row className="sector">

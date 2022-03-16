@@ -4,6 +4,8 @@ import { RouteWrapper, TopWrapper, GraphWrapper } from "../DoStatistics/style";
 import StatisticsTable from "@components/StatisticsTable";
 import StatisticsBarPathGraph from "@components/StatisticsBarPathGraph";
 import StatisticsPathGraph from "@components/StatisticsPathGraph";
+import { useParams } from "react-router-dom";
+import { sampleJson } from "@utils/api";
 
 const pathData = [
   {
@@ -131,6 +133,17 @@ const testPathData = [
 
 const DoStatistics = () => {
   const [data, setData] = useState();
+  const [statisticsData, setStatisticsDate] = useState([]);
+  const crno = useParams();
+
+  useEffect(() => {
+    (async () => {
+      sampleJson(crno.stockId, "balance")
+        .then((res) => res.data)
+        .then((data) => setStatisticsDate(data))
+        .then((x) => console.log(x));
+    })();
+  }, []);
 
   const fetch = async () => {
     const res = await axios.get(
@@ -153,12 +166,22 @@ const DoStatistics = () => {
             data={testBarData}
             barData={barData}
             pathData={pathData}
+            yearly={statisticsData.yearly}
+            quarters={statisticsData.quarters}
           />
           <div className="divide" />
-          <StatisticsPathGraph data={testPathData} />
+          {Object.keys(statisticsData).length ? (
+            <StatisticsPathGraph data={testPathData} newData={statisticsData} />
+          ) : null}
         </GraphWrapper>
       </TopWrapper>
-      <StatisticsTable data={data} type={"statistics"} />
+      {Object.keys(statisticsData).length ? (
+        <StatisticsTable
+          data={data}
+          newData={statisticsData}
+          type={"statistics"}
+        />
+      ) : null}
     </RouteWrapper>
   );
 };
