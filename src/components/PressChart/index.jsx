@@ -103,6 +103,8 @@ const PressChart = ({
           )
           .attr("x", (_, index) => xScale(index) + xScale.bandwidth() / 2)
           .attr("y", (node) => yScale(node.value))
+          .attr("rx", 2)
+          .attr("ry", 2)
           .attr("width", xScale.bandwidth())
           .attr("fill", barColor);
 

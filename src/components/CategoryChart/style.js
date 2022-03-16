@@ -2,8 +2,9 @@ import styled from "@emotion/styled";
 
 export const ChartWrapper = styled.div`
   width: 100%;
-  padding: 0px 15%;
+  padding: 0px 10%;
   min-height: 300px;
+  position: relative;
   box-sizing: border-radius;
   & > svg {
     display: block;
@@ -20,5 +21,9 @@ export const ChartWrapper = styled.div`
       stroke: white;
       stroke-width: 3;
     }
+  }
+
+  & .tooltip {
+    position: absolute;
   }
 `;
