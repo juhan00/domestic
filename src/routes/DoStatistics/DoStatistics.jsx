@@ -4,7 +4,63 @@ import { RouteWrapper, TopWrapper, GraphWrapper } from "../DoStatistics/style";
 import StatisticsTable from "@components/StatisticsTable";
 import StatisticsBarPathGraph from "@components/StatisticsBarPathGraph";
 import StatisticsPathGraph from "@components/StatisticsPathGraph";
+import { useParams } from "react-router-dom";
+import { sampleJson } from "@utils/api";
 
+const pathData = [
+  {
+    date: new Date("2022-03-31"),
+    ROE: 5,
+    ROA: 15,
+    ROIC: 2,
+  },
+  {
+    date: new Date("2021.03.31"),
+    ROE: 15,
+    ROA: 10,
+    ROIC: 21,
+  },
+  {
+    date: new Date("2020.03.31"),
+    ROE: 5,
+    ROA: 25,
+    ROIC: 20,
+  },
+  {
+    date: new Date("2019.03.31"),
+    ROE: 15,
+    ROA: 15,
+    ROIC: 10,
+  },
+  {
+    date: new Date("2018.03.31"),
+    ROE: 35,
+    ROA: 5,
+    ROIC: 15,
+  },
+];
+const barData = [
+  {
+    date: new Date("2022-03-31"),
+    당기순이익: 2500,
+  },
+  {
+    date: new Date("2021.03.31"),
+    당기순이익: 2500,
+  },
+  {
+    date: new Date("2020.03.31"),
+    당기순이익: 3000,
+  },
+  {
+    date: new Date("2019.03.31"),
+    당기순이익: 3000,
+  },
+  {
+    date: new Date("2018.03.31"),
+    당기순이익: 4000,
+  },
+];
 const testBarData = [
   {
     date: new Date("2022-03-31"),
@@ -77,6 +133,17 @@ const testPathData = [
 
 const DoStatistics = () => {
   const [data, setData] = useState();
+  const [statisticsData, setStatisticsDate] = useState([]);
+  const crno = useParams();
+
+  useEffect(() => {
+    (async () => {
+      sampleJson(crno.stockId, "balance")
+        .then((res) => res.data)
+        .then((data) => setStatisticsDate(data))
+        .then((x) => console.log(x));
+    })();
+  }, []);
 
   const fetch = async () => {
     const res = await axios.get(
@@ -95,12 +162,26 @@ const DoStatistics = () => {
       <TopWrapper>
         <h1>재무비율 요약</h1>
         <GraphWrapper>
-          <StatisticsBarPathGraph data={testBarData} />
+          <StatisticsBarPathGraph
+            data={testBarData}
+            barData={barData}
+            pathData={pathData}
+            yearly={statisticsData.yearly}
+            quarters={statisticsData.quarters}
+          />
           <div className="divide" />
-          <StatisticsPathGraph data={testPathData} />
+          {Object.keys(statisticsData).length ? (
+            <StatisticsPathGraph data={testPathData} newData={statisticsData} />
+          ) : null}
         </GraphWrapper>
       </TopWrapper>
-      <StatisticsTable data={data} type={"statistics"} />
+      {Object.keys(statisticsData).length ? (
+        <StatisticsTable
+          data={data}
+          newData={statisticsData}
+          type={"statistics"}
+        />
+      ) : null}
     </RouteWrapper>
   );
 };

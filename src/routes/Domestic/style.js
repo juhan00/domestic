@@ -5,7 +5,7 @@ export const DomesticWrapper = styled.div`
   .row {
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     gap: 20px;
   }
   .row + .row {
@@ -15,7 +15,7 @@ export const DomesticWrapper = styled.div`
     width: 100%;
     display: flex;
     flex: 1 1 0;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
   }
   .col.col2 {
     flex: 2 1 20px;

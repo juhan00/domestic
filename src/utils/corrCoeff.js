@@ -23,6 +23,21 @@ export function standDev(data) {
   return standDev;
 }
 
+export function deterCoeff(xData, yData, beta) {
+  const n = yData.length;
+  const xArray = xData.map((item) => item.price);
+  const yArray = yData.map((item) => item.price);
+  const yMean = yArray.reduce((a, b) => a + b, 0) / n;
+
+  const deterCoeff = [];
+
+  yArray.map((item, idx) => {
+    deterCoeff.push((xArray[idx] * beta) ** 2 / (item - yMean) ** 2);
+  });
+
+  return deterCoeff;
+}
+
 export default function betaCoeff(xData, yData) {
   const xArray = xData.map((item) => item.price);
   const yArray = yData.map((item) => item.price);

@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import Search from "@components/Layout/Search";
-import MoyaLogo from "@images/moyaLogo.png";
+import MoyaLogoWh from "@images/moyaLogo_Wh.png";
 import StockInfo from "@components/Layout/StockInfo";
 import Nav from "@components/Layout/Nav";
 import {
   HeaderContainer,
   HeaderInnerTemplate,
   HaederWrapper,
-  SearchOnHeader,
   ToTop,
 } from "@components/Layout/Header/style";
-import { reduce } from "d3";
 
 export const Header = () => {
+  const stockId = useParams().stockId;
   const [scrolled, setScrolled] = useState(false);
 
   const handleToTop = () => {
@@ -40,14 +39,12 @@ export const Header = () => {
       <HeaderInnerTemplate>
         <HaederWrapper>
           <NavLink to="/">
-            <img className="logo" src={MoyaLogo} alt="MoYa" />
+            <img className="logo" src={MoyaLogoWh} alt="MoYa" />
           </NavLink>
-          <SearchOnHeader>
-            <Search />
-          </SearchOnHeader>
+          <Search />
           <button className="login">로그인</button>
         </HaederWrapper>
-        <StockInfo />
+        {stockId ? <StockInfo /> : null}
       </HeaderInnerTemplate>
       <Nav scrolled={scrolled} />
       <ToTop className={scrolled ? "totop" : ""} onClick={handleToTop}>

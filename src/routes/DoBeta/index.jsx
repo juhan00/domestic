@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import TableHeader from "@components/Table/TableHeader";
 import BetaTable from "@components/Table/BetaTable";
 import BetaChart from "@components/BetaChart";
@@ -11,7 +12,7 @@ import {
   ChartWrapper,
 } from "./style";
 import { sampleJson } from "@utils/api";
-import betaCoeff from "@utils/corrCoeff";
+import betaCoeff, { corrCoeff } from "@utils/corrCoeff";
 
 const DoBeta = () => {
   const [dataX, setDataX] = useState({});
@@ -20,20 +21,21 @@ const DoBeta = () => {
   const [data, setData] = useState([]);
   const [names, setNames] = useState([]);
   const [loading, setLoading] = useState(true);
+  const crno = useParams();
 
   useEffect(() => {
     (async () => {
-      sampleJson("xData")
+      sampleJson(crno.stockId, "percentage")
         .then((res) => res.data)
         .then((data) => setDataX(data));
-      sampleJson("yData")
+      sampleJson(crno.stockId, "percentage")
         .then((res) => res.data)
         .then((data) => setDataY(data));
     })();
     return () => {
-      setDataX({})
-      setDataY({})
-    }
+      setDataX({});
+      setDataY({});
+    };
   }, []);
 
   useEffect(() => {

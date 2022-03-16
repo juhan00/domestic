@@ -1,67 +1,159 @@
-import React, { useRef, useState } from "react";
-import { StockInfoContainer } from "@components/Layout/StockInfo/style";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  StockInfoContainer,
+  MoreInfoContainer,
+} from "@components/Layout/StockInfo/style";
 import Toggle from "@images/icon_toggle.svg";
 import { clickOutside } from "@utils/clickOutside";
 import numberWithCommas from "@utils/numberWithComma";
+import { useLocation, useParams } from "react-router-dom";
+import axios from "redaxios";
 
 const StockInfo = () => {
   const ref = useRef();
   const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen((isOpen) => !isOpen);
+  const [data, setData] = useState([]);
+  const handleToggle = () => {
+    setIsOpen((isOpen) => !isOpen);
+  };
+  const location = useLocation().pathname;
+  const stockId = useParams().stockId;
+
+  useEffect(() => {
+    const fetch = async () => {
+      const res = await axios.get(
+        "https://gyoheonlee.github.io/mobile-bank/data/api/domesticRecap.json",
+      );
+      setData(res.data.domestic);
+    };
+    fetch();
+  }, [stockId]);
 
   clickOutside(ref, isOpen, setIsOpen);
+
   return (
-    <StockInfoContainer>
-      <div className="stockInfoWrapper">
-        {/* <div className={isOpen ? "stockRecap" : "stockRecap hide"} ref={ref}>
-          <span className="title">기업개요</span> 한국 및 CE, IM부문 해외 9개
-          지역총괄과 DS부문 해외 5개 지역총괄, Harman 등 234개의 종속기업으로
-          구성된 글로벌 전자기업임. 세트사업에는 TV, 냉장고 등을 생산하는
-          CE부문과 스마트폰, 네트워크시스템, 컴퓨터 등을 생산하는 IM부문이 있음.
-          부품사업(DS부문)에서는 D램, 낸드 플래쉬, 모바일AP 등의 제품을 생산하는
-          반도체 사업과 TFT-LCD 및 OLED 디스플레이 패널을 생산하는 DP사업으로
-          구성됨. <span className="source">출처 : 에프앤가이드</span>
-        </div> */}
-        <ul>
-          <li>
-            <div className="stockName">
-              <h3>삼성전자</h3>
-              <img src={Toggle} onClick={toggle} />
-              <span>005930</span>
+    <StockInfoContainer ref={ref}>
+      {data
+        .filter((item) => {
+          if (item.crno === `${stockId}`) {
+            return item;
+          }
+        })
+        .map((item) => (
+          <>
+            <div className="stockInfoWrapper">
+              <ul>
+                <li>
+                  <div className="stockName">
+                    <h3>{item.itmsNm}</h3>
+                    <span>{item.crno}</span>
+                  </div>
+                  <div className="stockPrice">
+                    전일가
+                    <span className="price">
+                      {numberWithCommas(item.price)}
+                    </span>
+                    <div className="marketType">{item.type}</div>
+                    <span className="date">{item.date}기준</span>
+                  </div>
+                </li>
+                <li>
+                  <div className="provider"></div>
+                </li>
+                <li>
+                  <div className="infoTitle">상장주식수</div>
+                  <div className="infoValue">
+                    {numberWithCommas(item.exStock)}
+                  </div>
+                </li>
+                <li>
+                  <div className="infoTitle">시가총액</div>
+                  <div className="infoValue">
+                    {numberWithCommas(item.marketCap)}
+                    <span>억원</span>
+                  </div>
+                </li>
+                <li>
+                  <div className="provider"></div>
+                </li>
+                <li>
+                  <div className="infoTitle">52주 최저</div>
+                  <div className="infoValue">{numberWithCommas(68300)}</div>
+                </li>
+                <li>
+                  <div className="infoTitle">52주 최고</div>
+                  <div className="infoValue">{numberWithCommas(86200)}</div>
+                </li>
+              </ul>
+              <div className="toggle" onClick={handleToggle}>
+                더보기 <img src={Toggle} alt="토글버튼" />
+              </div>
             </div>
-            <div className="stockPrice">
-              전일가<span className="price">{numberWithCommas(74300)}</span>
-              <span className="date">2022.2.28기준</span>
-            </div>
-          </li>
-          <li>
-            <div className="provider"></div>
-          </li>
-          <li>
-            <div className="infoTItle">상장주식수</div>
-            <div className="infoValue">{numberWithCommas(5969782550)}</div>
-          </li>
-          <li>
-            <div className="infoTItle">거래소</div>
-            <div className="infoValue">KOSPI</div>
-          </li>
-          <li>
-            <div className="infoTItle">시가총액</div>
-            <div className="infoValue">{numberWithCommas(2516263)}</div>
-          </li>
-          <li>
-            <div className="provider"></div>
-          </li>
-          <li>
-            <div className="infoTItle">52주 최저</div>
-            <div className="infoValue">{numberWithCommas(36850)}</div>
-          </li>
-          <li>
-            <div className="infoTItle">52주 최고</div>
-            <div className="infoValue">{numberWithCommas(54140)}</div>
-          </li>
-        </ul>
-      </div>
+            <MoreInfoContainer
+              className={isOpen ? "moreInfo" : "moreInfo hide"}>
+              <div>
+                <span className="title">기업정보</span>
+                <span className="source">출처 : 에프앤가이드</span>
+              </div>
+              <div className="recap">{item.recap}</div>
+              <ul>
+                <li>
+                  <div className="infoTitle">EPS</div>
+                  <div className="infoValue">
+                    {numberWithCommas(item.EPS)}
+                    <span>원</span>
+                  </div>
+                </li>
+                <li>
+                  <div className="infoTitle">BPS</div>
+                  <div className="infoValue">
+                    {numberWithCommas(item.BPS)}
+                    <span>원</span>
+                  </div>
+                </li>
+                <li>
+                  <div className="infoTitle">PER</div>
+                  <div className="infoValue">
+                    {item.PER}
+                    <span>배</span>
+                  </div>
+                </li>
+                {location.includes("domestic") ? (
+                  <>
+                    <li>
+                      <div className="infoTitle">동일업종 PER</div>
+                      <div className="infoValue">
+                        {item.categoryPER}
+                        <span>배</span>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="infoTitle">배당수익률</div>
+                      <div className="infoValue">
+                        {item.dividendYield}
+                        <span>%</span>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="infoTitle">동일업종 등락률</div>
+                      <div className="infoValue">
+                        {item.categoryRate}
+                        <span>%</span>
+                      </div>
+                    </li>
+                  </>
+                ) : null}
+                <li>
+                  <div className="infoTitle">ROE</div>
+                  <div className="infoValue">
+                    20.3
+                    <span>%</span>
+                  </div>
+                </li>
+              </ul>
+            </MoreInfoContainer>
+          </>
+        ))}
     </StockInfoContainer>
   );
 };

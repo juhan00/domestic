@@ -1,27 +1,14 @@
 import React, { useMemo } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const SearchResult = ({
   keyword,
   domesticList,
   globalList,
-  onClick,
+  onClickDomestic,
+  onClickGlobal,
   location,
-  sellcted,
 }) => {
-  const firstTarget = useMemo(() => {
-    let target = "";
-    if (location.includes("domestic")) {
-      target = "domestic";
-    } else if (location.includes("global")) {
-      target = "global";
-    } else {
-      // 홈의 경우 일단 국내로 이동.  옵션 선택에 따라 변경되도록 수정할 예정
-      target = "domestic";
-    }
-    return target;
-  }, [location]);
-
   const secondTarget = useMemo(() => {
     let target = "";
     if (location.includes("cominfo")) {
@@ -40,7 +27,7 @@ const SearchResult = ({
     return target;
   }, [location]);
 
-  if (location.includes("domestic") || sellcted == "domestic") {
+  const DomesticResultList = () => {
     return (
       <ul className="searchResultList">
         {domesticList
@@ -57,15 +44,17 @@ const SearchResult = ({
           .map((list) => (
             <li className="searchResultItem" key={list.crno}>
               <NavLink
-                to={`${firstTarget}/${secondTarget}/${list.crno}`}
-                onClick={onClick}>
+                to={`domestic/${secondTarget}/${list.crno}`}
+                onClick={() => onClickDomestic(list.itmsNm, list.crno)}>
                 <span>{list.itmsNm}</span> | {list.crno}
               </NavLink>
             </li>
           ))}
       </ul>
     );
-  } else if (location.includes("global") || sellcted == "global") {
+  };
+
+  const GlobalResultList = () => {
     return (
       <ul className="searchResultList">
         {globalList
@@ -82,8 +71,8 @@ const SearchResult = ({
           .map((list) => (
             <li className="searchResultItem" key={list.symbol}>
               <NavLink
-                to={`${firstTarget}/${secondTarget}/${list.symbol}`}
-                onClick={onClick}>
+                to={`global/${secondTarget}/${list.symbol}`}
+                onClick={() => onClickGlobal(list.symbol)}>
                 <span>{list.symbol}</span> | {list.companyName} |{" "}
                 {list.HQnation}
               </NavLink>
@@ -91,8 +80,19 @@ const SearchResult = ({
           ))}
       </ul>
     );
+  };
+
+  if (location.includes("domestic")) {
+    return <DomesticResultList />;
+  } else if (location.includes("global")) {
+    return <GlobalResultList />;
   } else {
-    return null;
+    return (
+      <>
+        <DomesticResultList />
+        <GlobalResultList />
+      </>
+    );
   }
 };
 

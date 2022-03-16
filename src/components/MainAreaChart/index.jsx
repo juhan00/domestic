@@ -23,38 +23,14 @@ import numberWithCommas from "@utils/numberWithComma";
 import { area } from "d3";
 import { ticks } from "d3";
 
-function dataGenerator() {
-  let start = Math.floor(Math.random() * 500 + 9000);
-  let end = Math.floor(Math.random() > 0.5 ? start - 200 : start + 200);
-  let volume = Math.floor(Math.random() * 50000);
-
-  return {
-    start,
-    end,
-    volume,
-    high:
-      start > end
-        ? Math.floor(start + Math.random() * 200)
-        : Math.floor(end + Math.random() * 200),
-    low:
-      start < end
-        ? Math.floor(start - Math.random() * 200)
-        : Math.floor(end - Math.random() * 200),
-  };
-}
-
-let date = new Date("2021-11-29");
-let data = [];
-for (let i = 0; i < 90; i++) {
-  data[i] = dataGenerator();
-  data[i].date = date;
-  date = new Date(date.setDate(date.getDate() + 1));
-}
 const MainAreaChart = ({
   marginTop = 40,
   marginBottom = 40,
+  stockData,
   marginLeft = 40,
   marginRight = 40,
+  startDate,
+  endDate,
   volumeChartHeight = 40,
   chartLineColor = "#286F6C",
   chartAreaColor = "#5FB6AD",
@@ -84,6 +60,10 @@ const MainAreaChart = ({
     //const dataDiff= JSON.stringify(data)!==JSON.stringify(prevData)
 
     if (!resize) return;
+
+    let data = stockData.filter(
+      (ele) => ele.date <= endDate && ele.date >= startDate,
+    );
 
     const { width, height } = resize;
     svg.attr("width", width).attr("height", height);
@@ -359,7 +339,7 @@ const MainAreaChart = ({
           (data) => height - marginBottom - yVolumeScale(data.volume),
         );
     });
-  }, [data, zoomState, resize]);
+  }, [stockData, zoomState, resize]);
 
   return (
     <MainChartWrapper ref={mainChartRef}>

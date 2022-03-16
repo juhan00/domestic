@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { GraphWrapper } from "../StatisticsBarPathGraph/style";
 import {
   axisBottom,
   extent,
@@ -11,10 +12,14 @@ import {
 } from "d3";
 import useResizeObserver from "@utils/useResizeObserver";
 
-const StatisticsGraph = ({ data }) => {
+const StatisticsGraph = ({ data, newData }) => {
   const graphRef = useRef();
   const svgRef = useRef(null);
   const resizeWidth = useResizeObserver(graphRef);
+
+  const yearly = newData.yearly;
+
+  const myColor = ["#065398", "#F5746B", "#FDC055", "#35A67D"];
 
   useEffect(() => {
     const graphWrapper = select(graphRef.current);
@@ -23,21 +28,22 @@ const StatisticsGraph = ({ data }) => {
     svg.selectAll(".lines").remove();
     svg.selectAll(".dots").remove();
 
-    if (!resizeWidth || !data) {
+    if (!resizeWidth || !yearly) {
       return;
     }
 
     const width = resizeWidth.width;
     const height = 300;
-    const margin = { top: 30, right: 30, bottom: 30, left: 50 };
+    const margin = { top: 30, right: 30, bottom: 30, left: 30 };
     const innerPadding = 60;
 
-    svg.attr("width", 700).attr("height", 300);
+    svg.attr("width", resizeWidth).attr("height", 300);
 
     const xScale = scaleTime()
-      .domain(extent(data, (data) => data.basDt))
-      .range([margin.left + innerPadding, width - margin.right - innerPadding]);
-    const xAxis = axisBottom(xScale).ticks(data.length);
+      .domain(extent(yearly, (year) => new Date(year.basDt)))
+      .range([margin.left + innerPadding, width - margin.right - innerPadding])
+      .nice();
+    const xAxis = axisBottom(xScale).ticks(yearly.length);
 
     svg
       .select(".x-axis")
@@ -50,15 +56,15 @@ const StatisticsGraph = ({ data }) => {
       );
 
     const yScale = scaleLinear()
-      .domain([0, max(data, (data) => data.부채비율)])
-      .nice()
-      .range([height - margin.bottom, margin.top]);
+      .domain([0, max(yearly, (year) => year.deptEquity) * 1.2])
+      .range([height - margin.bottom, margin.top])
+      .nice();
     const yAxis = axisLeft(yScale);
 
     svg
       .select(".y-axis")
-      .call(yAxis)
-      .style("transform", `translateX(80px)`)
+      .call(yAxis.ticks(5))
+      .style("transform", `translateX(${margin.left}px)`)
       .call((g) => g.select(".domain").remove())
       .call((g) =>
         g
@@ -71,17 +77,17 @@ const StatisticsGraph = ({ data }) => {
 
     svg
       .selectAll(".line")
-      .data([data])
+      .data([yearly])
       .join((enter) => {
         const lines = enter.append("g").classed("lines", true);
 
-        Object.keys(data[0]).map((keys) => {
+        Object.keys(yearly[0]).map((keys, idx) => {
           keys === "basDt"
             ? null
             : lines
                 .append("path")
                 .attr("fill", "none")
-                .attr("stroke", "#5fb6ad")
+                .attr("stroke", myColor[idx - 1])
                 .attr("stroke-width", 2)
                 .attr("stroke-linejoin", "round")
                 .attr("stroke-linecap", "round")
@@ -96,105 +102,32 @@ const StatisticsGraph = ({ data }) => {
 
     svg
       .selectAll(".dots")
-      .data(data)
+      .data(yearly)
       .join((enter) => {
         const dots = enter.append("g").classed("dots", true);
 
-        Object.keys(data[0]).map((keys) => {
+        Object.keys(data[0]).map((keys, idx) => {
           keys === "basDt"
             ? null
             : dots
                 .append("circle")
                 .attr("cx", (d) => xScale(d["basDt"]))
                 .attr("cy", (d) => yScale(d[keys]))
-                .attr("r", 4)
-                .attr("fill", "#5fb6ad")
-                .attr("stroke", "white");
+                .attr("r", 3)
+                .attr("fill", "#ffffff")
+                .attr("stroke", myColor[idx - 1])
+                .attr("stroke-width", 2);
         });
       });
+  }, [newData, resizeWidth]);
 
-    // const chartLine1 = line()
-    //   .defined((d) => !isNaN(d.부채비율))
-    //   .x((d) => xScale(d.basDt))
-    //   .y((d) => yScale(d.부채비율));
-
-    // const chartLine2 = line()
-    //   .defined((d) => !isNaN(d.유동부채비율))
-    //   .x((d) => xScale(d.basDt))
-    //   .y((d) => yScale(d.유동부채비율));
-
-    // const chartLine3 = line()
-    //   .defined((d) => !isNaN(d.비유동부채비율))
-    //   .x((d) => xScale(d.basDt))
-    //   .y((d) => yScale(d.비유동부채비율));
-
-    // svg
-    //   .append("path")
-    //   .datum(data)
-    //   .attr("fill", "none")
-    //   .attr("stroke", "#5fb6ad")
-    //   .attr("stroke-width", 2)
-    //   .attr("stroke-linejoin", "round")
-    //   .attr("stroke-linecap", "round")
-    //   .attr("d", chartLine1);
-    // svg
-    //   .append("g")
-    //   .selectAll("dot")
-    //   .data(data)
-    //   .join("circle")
-    //   .attr("cx", (d) => xScale(d.basDt))
-    //   .attr("cy", (d) => yScale(d.부채비율))
-    //   .attr("r", 4)
-    //   .attr("fill", "#5fb6ad")
-    //   .attr("stroke", "white");
-
-    // svg
-    //   .append("path")
-    //   .datum(data)
-    //   .attr("fill", "none")
-    //   .attr("stroke", "#5fc8e9")
-    //   .attr("stroke-width", 2)
-    //   .attr("stroke-linejoin", "round")
-    //   .attr("stroke-linecap", "round")
-    //   .attr("d", chartLine2);
-    // svg
-    //   .append("g")
-    //   .selectAll("dot")
-    //   .data(data)
-    //   .join("circle")
-    //   .attr("cx", (d) => xScale(d.basDt))
-    //   .attr("cy", (d) => yScale(d.유동부채비율))
-    //   .attr("r", 4)
-    //   .attr("fill", "#5fc8e9")
-    //   .attr("stroke", "white");
-
-    // svg
-    //   .append("path")
-    //   .datum(data)
-    //   .attr("fill", "none")
-    //   .attr("stroke", "#366d8c")
-    //   .attr("stroke-width", 2)
-    //   .attr("stroke-linejoin", "round")
-    //   .attr("stroke-linecap", "round")
-    //   .attr("d", chartLine3);
-    // svg
-    //   .append("g")
-    //   .selectAll("dot")
-    //   .data(data)
-    //   .join("circle")
-    //   .attr("cx", (d) => xScale(d.basDt))
-    //   .attr("cy", (d) => yScale(d.비유동부채비율))
-    //   .attr("r", 4)
-    //   .attr("fill", "#366d8c")
-    //   .attr("stroke", "white");
-  }, [data, resizeWidth]);
   return (
-    <div ref={graphRef} style={{ backgroundColor: "red" }}>
+    <GraphWrapper ref={graphRef}>
       <svg ref={svgRef}>
         <g className="x-axis" />
         <g className="y-axis" />
       </svg>
-    </div>
+    </GraphWrapper>
   );
 };
 

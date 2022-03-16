@@ -43,6 +43,9 @@ const TableList = (props) => {
       backgroundColor={backgroundColorValue}
       foregroundColor={foregroundColorValue}
       {...props}>
+      <text x="150" y="20" style={{ font: "bold 30px sans-serif" }}>
+        Loading...
+      </text>
       <rect x="27" y="139" rx="4" ry="4" width="20" height="20" />
       <rect x="67" y="140" rx="10" ry="10" width="85" height="19" />
       <rect x="188" y="141" rx="10" ry="10" width="169" height="19" />

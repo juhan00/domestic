@@ -1,22 +1,22 @@
 import styled from "@emotion/styled";
 import MenuIconToggle from "@images/notice_icon.svg";
-import recent_close_icon from "@images/recent_close_icon.svg";
 
 export const RecentStockWrapper = styled.div`
-  height: 118px;
+  height: 110px;
   display: flex;
   flex: 1 1 0;
   align-items: center;
   background: #ffffff;
   border-radius: 12px;
-  padding: 28px;
+  padding: 25px;
   overflow: hidden;
+  margin-bottom: 20px;
 
   & > h2 {
     display: flex;
     align-items: center;
     width: 60px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     color: #111111;
     margin-right: 20px;
@@ -41,7 +41,7 @@ export const RecentStockWrapper = styled.div`
         background-size: 20px 20px;
         margin-right: 7px;
       }
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 500;
       line-height: 1.5;
       color: #505050;
@@ -51,58 +51,66 @@ export const RecentStockWrapper = styled.div`
       align-items: center;
       position: relative;
       height: 62px;
+      min-width: 100px;
       margin-right: 10px;
-      padding: 10px;
-      border: 1px solid #f0f0f6;
+      border: 1px solid #e5e5ec;
       box-sizing: border-box;
       border-radius: 81px;
-      padding: 8px 28px;
-      overflow: hidden;
+      cursor: pointer;
       & > .inner {
+        padding: 8px 28px;
+
         & > h3 {
           font-size: 14px;
           font-weight: 400;
           line-height: 1.5;
-          color: #111111;
+          color: #767676;
         }
         & > .index {
           display: flex;
-          font-size: 14px;
-          font-weight: 400;
+          font-size: 16px;
+          font-weight: 700;
           line-height: 1.5;
           color: #111111;
-          &.red {
-            color: #e00400;
-          }
-          &.blue {
-            color: #1b61d1;
-          }
           & > .rate {
+            font-size: 16px;
+            font-weight: 400;
             display: flex;
             margin-left: 12px;
+            &.red {
+              color: #e82b2b;
+            }
+            &.blue {
+              color: #065398;
+            }
             & > img {
+              width: 10px;
               margin-right: 4px;
             }
           }
         }
       }
       & > .del {
-        position: absolute;
-        width: 12px;
-        height: 12px;
-        font-size: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        right: 24px;
-        background: url(${recent_close_icon});
-        background-size: 12px 12px;
-        cursor: pointer;
-        z-index: 1;
+        display: none;
       }
       &.active > .inner {
-        filter: blur(10px);
-        -webkit-filter: blur(10px);
         cursor: default;
+      }
+      &:hover {
+        .del {
+          display: block;
+          position: absolute;
+          width: 26px;
+          height: 26px;
+          padding: 4px;
+          top: 50%;
+          transform: translateY(-50%);
+          right: 18px;
+          background-color: rgba(0, 0, 0, 0.4);
+          border-radius: 12px;
+          cursor: pointer;
+          z-index: 1;
+        }
       }
     }
   }

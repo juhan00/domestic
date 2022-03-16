@@ -7,20 +7,27 @@ export const MajorStockWrapper = styled.div`
   border-radius: 12px;
   padding: 28px;
   & .top {
-    & > h2 {
+    display: flex;
+    align-items: center;
+    h2 {
       display: flex;
       font-size: 18px;
-      font-weight: 500;
+      font-weight: 700;
       line-height: 1.5;
       color: #111;
       min-width: 100px;
     }
-    & > span {
+    .date {
+      margin-left: auto;
+      height: 21px;
+      line-height: 21px;
+      padding: 0 8px;
+      box-sizing: border-box;
+      border: 1px solid #e8f1ee;
+      border-radius: 21px;
       font-size: 11px;
       font-weight: 400;
-      line-height: 1.5;
-      color: #505050;
-      margin-left: auto;
+      color: #286f6c;
     }
   }
 
@@ -34,7 +41,14 @@ export const MajorStockWrapper = styled.div`
         font-weight: 500;
         line-height: 1.5;
         color: #999;
-        padding: 14px 0;
+        padding: 14px 20px;
+        text-align: right;
+      }
+      th:nth-of-type(1) {
+        text-align: center;
+      }
+      th:nth-of-type(2) {
+        text-align: left;
       }
     }
     tbody {
@@ -46,19 +60,49 @@ export const MajorStockWrapper = styled.div`
           line-height: 1.5;
           color: #111;
           vertical-align: middle;
-          &.red {
-            color: #e82b2b;
+          padding: 0 20px;
+          text-align: right;
+          img {
+            margin-right: 3px;
+            transform: translateY(-3px);
           }
-          &.blue {
+          &.up {
+            color: #e82b2b;
+            img {
+              transform: translateY(-1px);
+            }
+          }
+          &.down {
             color: #1b61d1;
+            img {
+              transform: translateY(-1px);
+            }
           }
           &.primary {
-            color: #5fb6ad;
+            color: #359866;
           }
+        }
+        td:nth-of-type(1) {
+          text-align: center;
+        }
+        td:nth-of-type(2) {
+          text-align: left;
         }
       }
       tr:nth-of-type(2n + 1) {
-        background: #fcfcff;
+        background: #fafafe;
+      }
+      tr td:first-of-type {
+        border-top-left-radius: 10px;
+      }
+      tr td:first-of-type {
+        border-bottom-left-radius: 10px;
+      }
+      tr td:last-of-type {
+        border-top-right-radius: 10px;
+      }
+      tr td:last-of-type {
+        border-bottom-right-radius: 10px;
       }
     }
   }

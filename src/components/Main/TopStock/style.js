@@ -2,18 +2,19 @@ import styled from "@emotion/styled";
 
 export const TopStockWrapper = styled.div`
   flex: 2 1 0;
-  height: 544px;
+  height: 556px;
   background: #fff;
   border-radius: 12px;
   padding: 28px;
-  & .top {
+  & > .top {
+    display: flex;
+    align-items: center;
     & > h2 {
       display: flex;
       font-size: 18px;
-      font-weight: 500;
+      font-weight: 700;
       line-height: 1.5;
       color: #111;
-      min-width: 100px;
       & > span {
         display: flex;
         align-items: center;
@@ -22,27 +23,36 @@ export const TopStockWrapper = styled.div`
     }
     & > ul.filter {
       display: flex;
+      height: 24px;
+      line-height: 24px;
       margin-left: auto;
-      min-width: 515px;
+
       li {
-        height: 26px;
-        padding: 2px 12px;
-        font-size: 14px;
+        padding: 0 12px;
+        font-size: 12px;
         font-weight: 400;
-        line-height: 1.5;
-        color: #999;
-        border: 1px solid #e5e5ec;
+        border: 1px solid #f0f0f6;
         box-sizing: border-box;
-        border-radius: 32px;
+        color: #999;
         cursor: pointer;
         &.active {
-          background-color: #5fb6ad;
-          border: 1px solid #5fb6ad;
+          font-weight: 700;
+          background-color: #286f6c;
+          border: 1px solid #286f6c;
+          box-sizing: border-box;
           color: #fff;
         }
       }
       li + li {
-        margin-left: 8px;
+        border-left: 0px;
+      }
+      li:first-of-type {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+      }
+      li:last-of-type {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
       }
     }
   }
@@ -57,7 +67,14 @@ export const TopStockWrapper = styled.div`
         font-weight: 500;
         line-height: 1.5;
         color: #999;
-        padding: 14px 0;
+        padding: 14px 20px;
+        text-align: right;
+      }
+      th:nth-of-type(1) {
+        text-align: center;
+      }
+      th:nth-of-type(2) {
+        text-align: left;
       }
     }
     tbody {
@@ -69,19 +86,40 @@ export const TopStockWrapper = styled.div`
           line-height: 1.5;
           color: #111;
           vertical-align: middle;
-          &.red {
+          padding: 0 20px;
+          text-align: right;
+          &.up {
             color: #e82b2b;
           }
-          &.blue {
+          &.down {
             color: #1b61d1;
           }
           &.primary {
-            color: #5fb6ad;
+            color: #359866;
           }
+        }
+        td:nth-of-type(1) {
+          text-align: center;
+        }
+        td:nth-of-type(2) {
+          text-align: left;
         }
       }
       tr:nth-of-type(2n + 1) {
-        background: #fcfcff;
+        background: #fafafe;
+        border-radius: 8px;
+      }
+      tr td:first-of-type {
+        border-top-left-radius: 10px;
+      }
+      tr td:first-of-type {
+        border-bottom-left-radius: 10px;
+      }
+      tr td:last-of-type {
+        border-top-right-radius: 10px;
+      }
+      tr td:last-of-type {
+        border-bottom-right-radius: 10px;
       }
     }
   }

@@ -12,10 +12,11 @@ export const TopWrapper = styled.div`
   flex-direction: column;
   border-radius: 12px;
   margin: 20px 0;
-  padding: 30px;
+  padding: 30px 0;
   h1 {
     color: #111111;
     width: 100%;
+    margin-left: 30px;
     font-size: 18px;
     font-weight: 500;
     line-height: 26px;

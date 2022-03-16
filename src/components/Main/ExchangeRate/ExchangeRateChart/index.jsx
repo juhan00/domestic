@@ -3,6 +3,7 @@ import * as d3 from "d3";
 import { ExchangeRateChartWrapper } from "./style";
 import useResizeObserver from "@utils/useResizeObserver";
 import useDebounce from "@utils/useDebounce";
+import { ticks } from "d3";
 
 const ExchangeRateChart = ({ data }) => {
   const exchangeRateChartRef = useRef(null);
@@ -13,7 +14,7 @@ const ExchangeRateChart = ({ data }) => {
   //tick 분할 함수
   const setTickCount = useCallback((min, max, count, type) => {
     const interval = Math.round((max - min) / count);
-    console.log(interval);
+
     if (type === "center") {
       const tick = [interval];
       let tickValue = interval;
@@ -44,12 +45,16 @@ const ExchangeRateChart = ({ data }) => {
     //초기 셋팅
     const margin = { top: 30, right: 50, bottom: 30, left: 0 };
     const width = resize.width - (margin.left + margin.right);
-    const height = 150;
+    const height = 100;
     const xTickCount = 6;
     const yTickCount = 5;
-    const xTickBlankCount = 2;
-    const minStock = d3.min(data.map((d) => d.stock)) - 300;
-    const maxStock = d3.max(data.map((d) => d.stock)) + 300;
+    // const xTickBlankCount = 2;
+    const stockGap = Math.floor(
+      (d3.max(data.map((d) => d.stock)) - d3.min(data.map((d) => d.stock))) *
+        1.5,
+    );
+    const minStock = d3.min(data.map((d) => d.stock)) - stockGap;
+    const maxStock = d3.max(data.map((d) => d.stock)) + stockGap;
     const xLabel = "(회차)";
     const yLabel = "(원)";
 
@@ -62,14 +67,15 @@ const ExchangeRateChart = ({ data }) => {
     //x축
     const xScale = d3
       .scaleLinear()
-      .domain([0, data.length + xTickBlankCount])
+      .domain([0, data.length - 1])
       .range([0, width]);
     const xAxis = d3
       .axisBottom(xScale)
-      .tickValues(setTickCount(0, data.length, xTickCount, "center"))
+      .tickValues(ticks(2, data.length, 6))
+      // .tickValues(setTickCount(0, data.length, xTickCount, "center"))
       // .tickValues([0, 33])
       .tickFormat((index) => data[index]["date"])
-      .tickSize(10);
+      .tickSize(5);
 
     svg
       .selectAll(".x-axis")
@@ -77,7 +83,7 @@ const ExchangeRateChart = ({ data }) => {
         "transform",
         `translate(${margin.left}px, ${height + margin.top}px)`,
       )
-      .style("stroke-opacity", 0)
+      .style("stroke-opacity", 1)
       .call(xAxis)
       .call((g) =>
         g
@@ -93,12 +99,13 @@ const ExchangeRateChart = ({ data }) => {
     //x축 line
     const xScaleLine = d3
       .scaleLinear()
-      .domain([0, data.length + xTickBlankCount])
+      .domain([0, data.length - 1])
       .range([0, width]);
     const xAxisLine = d3
       .axisBottom(xScaleLine)
-      .tickValues(setTickCount(0, data.length, xTickCount * 2, "center"))
-      .tickSize(0)
+      .tickValues(ticks(2, data.length, 6))
+      // .tickValues(setTickCount(0, data.length, xTickCount * 2, "center"))
+      .tickSize(5)
       .tickFormat("");
     svg
       .selectAll(".x-axis-line")
@@ -123,7 +130,7 @@ const ExchangeRateChart = ({ data }) => {
       .range([height, 0]);
     const yAxis = d3
       .axisRight(yScale)
-      .tickValues(setTickCount(minStock, maxStock, yTickCount))
+      .tickValues(ticks(minStock, maxStock, 4))
       .tickSize(10);
     svg
       .selectAll(".y-axis")
@@ -173,7 +180,6 @@ const ExchangeRateChart = ({ data }) => {
     };
   }, [data, resize]);
 
-  console.log(data.length);
   return (
     <ExchangeRateChartWrapper ref={exchangeRateChartRef}>
       <svg ref={svgRef}>

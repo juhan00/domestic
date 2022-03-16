@@ -1,24 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { DomesticWrapper } from "./style";
 import StockIndex, { StockIndexLoader } from "@components/Main/StockIndex";
-// import RecentStock from "@components/Main/RecentStock";
 import TopStock, { TopStockLoader } from "@components/Main/TopStock/index";
 import ExchangeRate, {
   ExchangeRateLoader,
 } from "@components/Main/ExchangeRate";
 import MarketIndi, { MarketIndiLoader } from "@components/Main/MarketIndi";
-// import StorageInput from "@components/Main/StorageInput";
-// import FinanceNews from "@components/Main/FinanceNews";
-// import stockIndexData from "@utils/MainData/stockIndexData.json";
-// import topStockData from "@utils/MainData/topStockData.json";
-// import exchangeRateData from "@utils/MainData/exchangeRateData.json";
-// import marketIndiData from "@utils/MainData/marketIndiData.json";
-// import financeNewsData from "@utils/MainData/financeNewsData.json";
+import StockNews from "@components/Main/StockNews";
 import axios from "redaxios";
 
 const Domestic = () => {
   const [stockIndexData, setStockIndexData] = useState(null);
   const [topStockData, setTopStockData] = useState(null);
+  const [stockNewsData, setStockNewsData] = useState(null);
   const [exchangeRateData, setExchangeRateData] = useState(null);
   const [marketIndiData, setMarketIndiData] = useState(null);
 
@@ -32,7 +26,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setStockIndexData(res.data);
-        }, 2000);
+        }, 0);
       }
     };
 
@@ -50,10 +44,27 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setTopStockData(res.data);
-        }, 2000);
+        }, 0);
       }
     };
     topStockFetch();
+    return () => (isApiSubscribed = false);
+  }, []);
+
+  //stockNewsData
+  useEffect(() => {
+    let isApiSubscribed = true;
+    const stockNewsFetch = async () => {
+      const res = await axios.get(
+        "https://gyoheonlee.github.io/mobile-bank/data/api/MajorStockNewsData.json",
+      );
+      if (isApiSubscribed) {
+        setTimeout(() => {
+          setStockNewsData(res.data);
+        }, 0);
+      }
+    };
+    stockNewsFetch();
     return () => (isApiSubscribed = false);
   }, []);
 
@@ -67,7 +78,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setExchangeRateData(res.data);
-        }, 2000);
+        }, 0);
       }
     };
     exchangeRateFetch();
@@ -84,7 +95,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setMarketIndiData(res.data);
-        }, 2000);
+        }, 0);
       }
     };
     marketIndiFetch();
@@ -112,7 +123,11 @@ const Domestic = () => {
         ) : (
           stockIndexData.items.map((item) => (
             <div className="col" key={item.id}>
-              <StockIndex type="domestic" data={item} />
+              <StockIndex
+                type="domestic"
+                data={item}
+                date={stockIndexData.date}
+              />
             </div>
           ))
         )}
@@ -126,17 +141,22 @@ const Domestic = () => {
           )}
         </div>
         <div className="col">
+          {stockNewsData && <StockNews type="domestic" data={stockNewsData} />}
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
           {!exchangeRateData ? (
             <ExchangeRateLoader />
           ) : (
-            <ExchangeRate data={exchangeRateData} />
+            <ExchangeRate type="domestic" data={exchangeRateData} />
           )}
         </div>
         <div className="col">
           {!marketIndiData ? (
             <MarketIndiLoader />
           ) : (
-            <MarketIndi data={marketIndiData} />
+            <MarketIndi type="domestic" data={marketIndiData} />
           )}
         </div>
       </div>
