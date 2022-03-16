@@ -38,7 +38,7 @@ const Router = () => {
           element={<DomesticStock />}
         />
         <Route path="/domestic/cominfo/:stockId" element={<DoComInfo />} />
-        <Route path="/domestic/Statistics/" element={<DoStatistics />}>
+        <Route path="/domestic/Statistics/:stockId" element={<DoStatistics />}>
           <Route path="ratio/:stockId" />
           <Route path="balance/:stockId" element={<DoBalance />} />
           <Route path="income/:stockId" element={<DoIncome />} />
@@ -56,7 +56,7 @@ const Router = () => {
         <Route path="/global" element={<Global />} />
         <Route path="/global/financial/:stockId" element={<DomesticStock />} />
         <Route path="/global/cominfo/:stockId" element={<GoComInfo />} />
-        <Route path="/global/Statistics/" element={<GoStatistics />}>
+        <Route path="/global/Statistics/:stockId" element={<GoStatistics />}>
           <Route path="ratio/:stockId" />
           <Route path="balance/:stockId" element={<GoBalance />} />
           <Route path="income/:stockId" element={<GoIncome />} />

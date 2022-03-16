@@ -6,7 +6,6 @@ export const TableWrapper = styled.div`
   width: 100%;
   height: 381px;
   border-radius: 12px;
-  margin: 0 20px 0 0;
   padding: 28px;
   h1 {
     color: #111111;
