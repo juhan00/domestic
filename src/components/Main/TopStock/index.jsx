@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react";
 import { TopStockWrapper } from "./style";
 import question_mark_icon from "@images/question_mark_icon.svg";
 import { TableList } from "@components/ContentLoader";
+import numberWithCommas from "@utils/numberWithComma";
 
 export const TopStockLoader = () => {
   return (
@@ -56,7 +57,7 @@ const TopStock = ({ data }) => {
 
   return (
     <TopStockWrapper>
-      <div className="top" style={{ display: "flex" }}>
+      <div className="top">
         <h2>
           Top종목
           <span>
@@ -120,33 +121,33 @@ const TopStock = ({ data }) => {
         </thead>
         {/* <TopStockList topData={topData} /> */}
         <tbody>
-          {topData.map((data, index) =>
-            Math.sign(data.compare) === 1 ? (
-              <tr key={data.id}>
-                <td className="primary">{index + 1}</td>
-                <td>{data.name}</td>
-                <td>{data.currentPrice}</td>
-                <td className="up">{data.compare}</td>
-                <td className="up">{data.rate.toFixed(2)}%</td>
-                <td>{data.trading}</td>
-              </tr>
-            ) : Math.sign(data.compare) === -1 ? (
+          {topData.map((item, index) =>
+            Math.sign(item.rate) === 1 ? (
               <tr key={index}>
                 <td className="primary">{index + 1}</td>
-                <td>{data.name}</td>
-                <td>{data.currentPrice}</td>
-                <td className="down">{data.compare}</td>
-                <td className="down">{data.rate.toFixed(2)}%</td>
-                <td>{data.trading}</td>
+                <td>{item.name}</td>
+                <td>{numberWithCommas(item.currentPrice)}</td>
+                <td className="up">{numberWithCommas(item.compare)}</td>
+                <td className="up">+{item.rate.toFixed(2)}%</td>
+                <td>{numberWithCommas(item.trading)}</td>
+              </tr>
+            ) : Math.sign(item.rate) === -1 ? (
+              <tr key={index}>
+                <td className="primary">{index + 1}</td>
+                <td>{item.name}</td>
+                <td>{numberWithCommas(item.currentPrice)}</td>
+                <td className="down">{numberWithCommas(item.compare)}</td>
+                <td className="down">{item.rate.toFixed(2)}%</td>
+                <td>{numberWithCommas(item.trading)}</td>
               </tr>
             ) : (
               <tr key={index}>
                 <td className="primary">{index + 1}</td>
-                <td>{data.name}</td>
-                <td>{data.currentPrice}</td>
-                <td>{data.compare}</td>
-                <td>{data.rate.toFixed(2)}%</td>
-                <td>{data.trading}</td>
+                <td>{item.name}</td>
+                <td>{numberWithCommas(item.currentPrice)}</td>
+                <td>{numberWithCommas(item.compare)}</td>
+                <td>{item.rate.toFixed(2)}%</td>
+                <td>{numberWithCommas(item.trading)}</td>
               </tr>
             ),
           )}

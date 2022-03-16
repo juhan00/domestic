@@ -8,6 +8,7 @@ import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
 import { BarChart } from "@components/ContentLoader";
 import { ticks } from "d3";
+import numberWithCommas from "@utils/numberWithComma";
 
 export const StockIndexLoader = () => {
   return (
@@ -30,11 +31,10 @@ const StockIndex = ({ type, data, date }) => {
     }
 
     //초기 셋팅
-    const margin = { top: 40, right: 40, bottom: 50, left: 0 };
+    const margin = { top: 40, right: 45, bottom: 50, left: 0 };
     const width = resize.width - (margin.left + margin.right);
     const height = 80;
-    const eveStock = 2700;
-    const stockGap = 300;
+    const stockGap = d3.max(chartData.map((d) => d.stock)) * 0.12;
     const minStock = d3.min(chartData.map((d) => d.stock)) - stockGap;
     const maxStock = d3.max(chartData.map((d) => d.stock)) + stockGap;
 
@@ -115,24 +115,6 @@ const StockIndex = ({ type, data, date }) => {
           .style("stroke-opacity", 1),
       );
 
-    //x축 today line
-    const xScaleToday = d3
-      .scaleLinear()
-      .domain([0, chartData.length - 1])
-      .range([0, width]);
-    const todayLine = d3
-      .line()
-      .x((value, index) => xScaleToday(index))
-      .y((value) => yScale(value));
-    svg
-      .selectAll(".todayLine")
-      .data([chartData.map((value) => eveStock)])
-      .join("path")
-      .style("transform", `translate(${margin.left}px, ${margin.top}px)`)
-      .attr("class", "todayLine")
-      .attr("d", todayLine)
-      .style("stroke-opacity", 1);
-
     //data line
     const dataLine = d3
       .line()
@@ -183,10 +165,10 @@ const StockIndex = ({ type, data, date }) => {
           </h2>
           <div className="date">{date} 기준</div>
         </div>
-        {Math.sign(data.index) === 1 ? (
+        {Math.sign(data.rate) === 1 ? (
           <div className="info up">
             <div className="index">
-              {data.index}
+              {numberWithCommas(data.index)}
               <span className="vs">
                 <img src={stock_up} alt="stock up" />
                 {data.vs.toFixed(2)}
@@ -194,21 +176,21 @@ const StockIndex = ({ type, data, date }) => {
               <span className="rate">+{data.rate.toFixed(2)}%</span>
             </div>
           </div>
-        ) : Math.sign(data.index) === -1 ? (
+        ) : Math.sign(data.rate) === -1 ? (
           <div className="info down">
             <div className="index">
-              {data.index}
+              {numberWithCommas(data.index)}
               <span className="vs">
                 <img src={stock_down} alt="stock down" />
-                {data.vs.toFixed(2)}
+                {Math.abs(data.vs.toFixed(2))}
               </span>
-              <span className="rate">-{data.rate.toFixed(2)}%</span>
+              <span className="rate">{data.rate.toFixed(2)}%</span>
             </div>
           </div>
         ) : (
           <div className="info">
             <div className="index">
-              {data.index}
+              {numberWithCommas(data.index)}
               <span className="vs">
                 <img src={stock_none} alt="stock none" />
                 {data.vs.toFixed(2)}

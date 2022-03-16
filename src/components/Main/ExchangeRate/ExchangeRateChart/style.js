@@ -4,9 +4,9 @@ export const ExchangeRateChartWrapper = styled.div`
   /* border: 1px solid black; */
   width: 100%;
   height: 100%;
-  padding: 10px;
   & > svg {
     width: 100%;
+
     .tick {
       line {
         stroke: #f0f0f6;
@@ -18,6 +18,14 @@ export const ExchangeRateChartWrapper = styled.div`
         color: #999;
       }
     }
+    .domain {
+      stroke: #aaaaaa;
+    }
+    .x-axis {
+      line {
+        stroke: #aaaaaa;
+      }
+    }
 
     .x-label,
     .y-label {
@@ -27,7 +35,7 @@ export const ExchangeRateChartWrapper = styled.div`
       line-height: 1.2;
     }
     .dataLine {
-      stroke: #dd8354;
+      stroke: #fdc055;
       stroke-width: 2px;
     }
   }

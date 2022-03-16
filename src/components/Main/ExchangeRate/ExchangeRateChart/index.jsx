@@ -14,7 +14,7 @@ const ExchangeRateChart = ({ data }) => {
   //tick 분할 함수
   const setTickCount = useCallback((min, max, count, type) => {
     const interval = Math.round((max - min) / count);
-    console.log(interval);
+
     if (type === "center") {
       const tick = [interval];
       let tickValue = interval;
@@ -45,7 +45,7 @@ const ExchangeRateChart = ({ data }) => {
     //초기 셋팅
     const margin = { top: 30, right: 50, bottom: 30, left: 0 };
     const width = resize.width - (margin.left + margin.right);
-    const height = 150;
+    const height = 100;
     const xTickCount = 6;
     const yTickCount = 5;
     // const xTickBlankCount = 2;
@@ -72,7 +72,7 @@ const ExchangeRateChart = ({ data }) => {
       // .tickValues(setTickCount(0, data.length, xTickCount, "center"))
       // .tickValues([0, 33])
       .tickFormat((index) => data[index]["date"])
-      .tickSize(10);
+      .tickSize(5);
 
     svg
       .selectAll(".x-axis")
@@ -80,7 +80,7 @@ const ExchangeRateChart = ({ data }) => {
         "transform",
         `translate(${margin.left}px, ${height + margin.top}px)`,
       )
-      .style("stroke-opacity", 0)
+      .style("stroke-opacity", 1)
       .call(xAxis)
       .call((g) =>
         g
@@ -102,7 +102,7 @@ const ExchangeRateChart = ({ data }) => {
       .axisBottom(xScaleLine)
       .tickValues(ticks(2, data.length, 6))
       // .tickValues(setTickCount(0, data.length, xTickCount * 2, "center"))
-      .tickSize(0)
+      .tickSize(5)
       .tickFormat("");
     svg
       .selectAll(".x-axis-line")
@@ -177,7 +177,6 @@ const ExchangeRateChart = ({ data }) => {
     };
   }, [data, resize]);
 
-  console.log(data.length);
   return (
     <ExchangeRateChartWrapper ref={exchangeRateChartRef}>
       <svg ref={svgRef}>
