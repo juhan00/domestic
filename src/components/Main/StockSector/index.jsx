@@ -75,12 +75,24 @@ const StockSector = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {sectorData.map((item, index) => (
-            <tr key={index}>
-              <td className="alignL">{item.id}</td>
-              <td className="alignR">{item.rate}</td>
-            </tr>
-          ))}
+          {sectorData.map((item, index) =>
+            Math.sign(item.rate) === 1 ? (
+              <tr key={item.id}>
+                <td className="alignL">{item.id}</td>
+                <td className="alignR up">+{item.rate.toFixed(2)}</td>
+              </tr>
+            ) : Math.sign(item.rate) === -1 ? (
+              <tr key={item.id}>
+                <td className="alignL">{item.id}</td>
+                <td className="alignR down">{item.rate.toFixed(2)}</td>
+              </tr>
+            ) : (
+              <tr key={item.id}>
+                <td className="alignL">{item.id}</td>
+                <td className="alignR">{item.rate.toFixed(2)}</td>
+              </tr>
+            ),
+          )}
         </tbody>
       </table>
     </StockSectorWrapper>
