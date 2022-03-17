@@ -15,8 +15,6 @@ function Pagination({ total, limit, page, setPage }) {
   }
 
   useMemo(() => Math.floor(page / 10), [page])
-  console.log(page)
-  console.log(tenDigit)
   if (tenDigit === -1) {
     ArrayWrapper.__emotion_styles[0] += `  transform: translateX(0px);`
   } else if(page > tenDigit) {
