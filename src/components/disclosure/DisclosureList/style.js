@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export const DisclosureListWrapper = styled.div`
   .disclosure {
     &__list {
-      padding-bottom: 70px;
+      padding-bottom: 22px;
       width: 100%;
       border-collapse: separate;
       border-spacing: 0 9px;
