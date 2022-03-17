@@ -25,7 +25,7 @@ const ExchangeRate = ({ type, data }) => {
   const isActiveHandler = (country) => {
     setIsActive(country);
   };
-
+  console.log(data);
   return (
     <ExchangeRateWrapper className={type}>
       <div className="top">
@@ -51,7 +51,9 @@ const ExchangeRate = ({ type, data }) => {
                 {Math.sign(item.vs) === 1 ? (
                   <div className="info up">
                     <div className="index">
-                      {numberWithCommas(item.stockIndex)}
+                      {numberWithCommas(
+                        item.chartData[item.chartData.length - 1].stock,
+                      )}
                     </div>
                     <div className="vs">
                       <img src={stock_up} alt="stock up" />
@@ -62,7 +64,9 @@ const ExchangeRate = ({ type, data }) => {
                 ) : Math.sign(item.vs) === -1 ? (
                   <div className="info down">
                     <div className="index">
-                      {numberWithCommas(item.stockIndex)}
+                      {numberWithCommas(
+                        item.chartData[item.chartData.length - 1].stock,
+                      )}
                     </div>
                     <div className="vs">
                       <img src={stock_down} alt="stock down" />
@@ -73,7 +77,9 @@ const ExchangeRate = ({ type, data }) => {
                 ) : (
                   <div className="info">
                     <div className="index">
-                      {numberWithCommas(item.stockIndex)}
+                      {numberWithCommas(
+                        item.chartData[item.chartData.length - 1].stock,
+                      )}
                     </div>
                     <div className="vs">
                       <img src={stock_none} alt="stock none" />
@@ -93,7 +99,9 @@ const ExchangeRate = ({ type, data }) => {
                   {Math.sign(item.vs) === 1 ? (
                     <div className="indexWrapper up">
                       <div className="index">
-                        {numberWithCommas(item.stockIndex)}
+                        {numberWithCommas(
+                          item.chartData[item.chartData.length - 1].stock,
+                        )}
                       </div>
                       <div className="vs">
                         <img src={stock_up} alt="stock up" />
@@ -104,7 +112,9 @@ const ExchangeRate = ({ type, data }) => {
                   ) : Math.sign(item.vs) === -1 ? (
                     <div className="indexWrapper down">
                       <div className="index">
-                        {numberWithCommas(item.stockIndex)}
+                        {numberWithCommas(
+                          item.chartData[item.chartData.length - 1].stock,
+                        )}
                       </div>
                       <div className="vs">
                         <img src={stock_down} alt="stock down" />
@@ -115,7 +125,9 @@ const ExchangeRate = ({ type, data }) => {
                   ) : (
                     <div className="indexWrapper">
                       <div className="index">
-                        {numberWithCommas(item.stockIndex)}
+                        {numberWithCommas(
+                          item.chartData[item.chartData.length - 1].stock,
+                        )}
                       </div>
                       <div className="vs">
                         <img src={stock_none} alt="stock none" />
