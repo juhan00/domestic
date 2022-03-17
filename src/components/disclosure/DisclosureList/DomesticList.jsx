@@ -1,5 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { DisclosureListWrapper } from "./style";
+import HashLoader from "react-spinners/HashLoader";
+
+
+export const DisclosureLoader = () => {
+  return (
+    <DisclosureListWrapper>
+      <div className="loaderWrapper">
+          <table className="disclosure__list">
+            <tbody className="disclosure__list__body">
+              <tr><td></td></tr>
+              <tr><td></td></tr>
+              <tr><td><HashLoader color={"#48a185"} size={50} /></td></tr>
+              <tr><td></td></tr>
+              <tr><td></td></tr>
+            </tbody>
+          </table>
+      </div>
+    </DisclosureListWrapper>
+  );
+};
 
 const DomesticList = ({ page, data, offset, limit }) => {
   const handleButtonClick = (rcept_no) => {

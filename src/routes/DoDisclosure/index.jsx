@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import DomesticFilter from "@components/Disclosure/DisclosureFilter/DomesticFilter"
-import DomesticList from "@components/Disclosure/DisclosureList/DomesticList"
+import DomesticList, { DisclosureLoader } from "@components/Disclosure/DisclosureList/DomesticList"
 import Pagination from "@components/Disclosure/Pagination";
 import axios from "redaxios";
 
@@ -57,7 +57,7 @@ const DoDisclosure = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setDisclosureList(res.data);
-        }, 0);
+        }, 1000);
       }
     };
     disclosureFetch();
@@ -73,7 +73,7 @@ const DoDisclosure = () => {
         urlParams={urlParams} 
       />
       {!disclosureList ? (
-        <div>로딩중</div>
+        <DisclosureLoader />
       ) : (
         <>
           <DomesticList 
