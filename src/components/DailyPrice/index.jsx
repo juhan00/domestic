@@ -1,7 +1,23 @@
 import React from "react";
 import { TableWrapper, Table, Row, Cell } from "./style";
+import Pagination from "@components/Disclosure/Pagination";
 
-const DoComInfoDailyPrice = ({ data }) => {
+const DoComInfoDailyPrice = ({ 
+  data, 
+  offset, 
+  limit, 
+  page, 
+  setPage 
+}) => {
+  const total = data.items.length;
+
+  const renderRow = (num) => {
+    const rows = [];
+    for(let i = 0; i < num; i ++) {
+      rows.push(i)
+    }
+    return rows
+  }
   return (
     <TableWrapper>
       <h1>일별시세</h1>
@@ -18,17 +34,23 @@ const DoComInfoDailyPrice = ({ data }) => {
           </Row>
         </thead>
         <tbody>
-          {data.items.map((item, idx) => (
-            <Row>
-              {Object.keys(item).map((key, i) => (
-                <Cell className={key === "basDt" ? "date" : ""}>
-                  {item[key]}
-                </Cell>
-              ))}
-              <Cell>12</Cell>
-            </Row>
-          ))}
-          <Row>
+          {data.items.slice(offset, offset + limit).map((item, idx) => {
+            return (
+              <Row className="contents" key={idx} >
+                {Object.keys(item).map((key, i) => (
+                  <Cell key={i} className={key === "basDt" ? "date" : ""}>
+                    {item[key]}
+                  </Cell>
+                ))}
+                <Cell>12000</Cell>
+              </Row>
+            )
+          })}
+          {total / limit !== 0 
+            && Math.ceil(total / limit) === page
+            && renderRow(limit - (total % limit)).map(i => <Row key={i}></Row>)
+          }
+          {/* <Row>
             <Cell className="date">2022.02.21</Cell>
             <Cell>74200</Cell>
             <Cell>+200</Cell>
@@ -72,9 +94,16 @@ const DoComInfoDailyPrice = ({ data }) => {
             <Cell>74200</Cell>
             <Cell>74200</Cell>
             <Cell>10449584</Cell>
-          </Row>
+          </Row> */}
         </tbody>
       </Table>
+      <Pagination
+        className="pagination"
+        total={data.items.length}
+        limit={limit}
+        page={page}
+        setPage={setPage}
+      />
     </TableWrapper>
   );
 };

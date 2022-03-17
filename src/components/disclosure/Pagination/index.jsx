@@ -1,29 +1,25 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useMemo} from "react";
 import { Page, Button, ArrayWrapper } from "./style";
 
 
 function Pagination({ total, limit, page, setPage }) {
-  const [location, setLocation] = useState(0);
   const numPages = Math.ceil(total / limit);
+  const tenDigit = Math.floor(page / 10) * 10 - 1
 
   const handleDeClick = () => {
     setPage(page - 1)
-    if(page <= 11) {
-      ArrayWrapper.__emotion_styles[0] += `  transform: translateX(${location}px);`
-      setLocation(location + 34)
-    }
   }
+
   const handleInClick = () => {
     setPage(page + 1)
-    if(page >= 8) {
-      ArrayWrapper.__emotion_styles[0] += `  transform: translateX(${location}px);`
-      setLocation(location - 34)
-    }
   }
 
-  useEffect(() => {
-  }, [])
-
+  useMemo(() => Math.floor(page / 10), [page])
+  if (tenDigit === -1) {
+    ArrayWrapper.__emotion_styles[0] += `  transform: translateX(0px);`
+  } else if(page > tenDigit) {
+    ArrayWrapper.__emotion_styles[0] += `  transform: translateX(${-34 * tenDigit}px);`
+  } 
 
   return (
     <Page>

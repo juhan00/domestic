@@ -73,4 +73,29 @@ export const DisclosureListWrapper = styled.div`
       }
     }
   }
+  .loaderWrapper {
+    width: 100%;
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    transition-timing-function: ease;
+    table {
+      width: 100%;
+      tbody {    
+        border-collapse: separate;
+        width: 100%;
+        tr {
+          background-color: rgba(255, 255, 255, 0.3);
+          td {            
+            padding-bottom: 44px;
+          }
+        }
+      }
+    }
+
+  }
+
+
 `
