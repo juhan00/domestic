@@ -57,11 +57,6 @@ const Nav = ({ scrolled }) => {
               to={`${firstTarget}/statistics/income/${stockId}`}>
               손익계산서
             </NavLink>
-            <NavLink
-              className="submenu"
-              to={`${firstTarget}/statistics/cashflow/${stockId}`}>
-              현금흐름표
-            </NavLink>
           </div>
         </MenuItem>
         <MenuItem>

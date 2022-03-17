@@ -6,18 +6,6 @@ export const RouteWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
-export const SemiHeader = styled.div`
-  width: 100%;
-  height: 45px;
-  display: flex;
-  justify-content: space-between;
-  align-items: top;
-  h1 {
-    color: #111111;
-    font-size: 18px;
-    font-weight: 500;
-  }
-`;
 export const ContentWrapper = styled.div`
   display: flex;
 `;

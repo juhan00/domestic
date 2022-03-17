@@ -102,10 +102,10 @@ const Search = () => {
     setDomesticStorage(stockItem);
   };
 
-  const handleClickGlobal = (id) => {
+  const handleClickGlobal = (name) => {
     setIsOpen(false);
     const stockItem = {
-      id: id,
+      name: name,
       price: Math.floor(Math.random() * 1001) * 100,
       rate: (Math.random() - Math.random()).toFixed(2),
     };

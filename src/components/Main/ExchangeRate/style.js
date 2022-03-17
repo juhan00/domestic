@@ -112,8 +112,7 @@ export const ExchangeRateWrapper = styled.div`
       }
       .content {
         overflow: hidden;
-        transition: all ease 0.5s;
-        animation-timing-function: ease-in-out;
+        transition: all ease-in-out 0.5s;
         display: flex;
         height: 0px;
         .info {

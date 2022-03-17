@@ -5,6 +5,23 @@ import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
 import recent_close_icon from "@images/recent_close_icon.svg";
 import { useLocation, useNavigate } from "react-router-dom";
+import numberWithCommas from "@utils/numberWithComma";
+//react swiper
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import HashLoader from "react-spinners/HashLoader";
+
+export const RecentStockLoader = () => {
+  return (
+    <RecentStockWrapper>
+      <div className="loaderWrapper">
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
+    </RecentStockWrapper>
+  );
+};
 
 const RecentStock = () => {
   const [domesticStocks, setDomesticStocks] = useState(null);
@@ -45,16 +62,6 @@ const RecentStock = () => {
     return target;
   }, [domesticStocks, globalStocks, location]);
 
-  const targetUrl = useMemo(() => {
-    let target = "";
-    if (location.includes("domestic")) {
-      target = "domestic";
-    } else if (location.includes("global")) {
-      target = "global";
-    }
-    return target;
-  });
-
   return (
     <RecentStockWrapper>
       <h2>
@@ -66,42 +73,52 @@ const RecentStock = () => {
         {!targetStock || targetStock.length === 0 ? (
           <div className="default">최근 조회종목이 없습니다.</div>
         ) : (
-          targetStock.map((stock, index) => (
-            <div
-              className="item"
-              key={index}
-              onClick={
-                isActive
-                  ? null
-                  : () => navigate(`${targetUrl}/financial/${stock.id}`)
-              }>
-              <img
-                src={recent_close_icon}
-                alt="삭제"
-                className="del"
-                onClick={() => deleteStock(index)}
-                onMouseEnter={() => setIsActive(true)}
-                onMouseLeave={() => setIsActive(false)}
-              />
-              <div className="inner">
-                {stock.name ? <h3>{stock.name}</h3> : <h3>{stock.id}</h3>}
-                <div className="index">
-                  {stock.price}
-                  {stock.rate > 0 ? (
-                    <div className="rate red">
-                      <img src={stock_up} alt="stock up" />
-                      {stock.rate}%
+          <Swiper
+            navigation={true}
+            modules={[Navigation]}
+            allowTouchMove={false}
+            slidesPerView={"auto"}>
+            {targetStock.map((stock, index) => (
+              <SwiperSlide key={index}>
+                <div
+                  className="item"
+                  onClick={
+                    isActive ? null : () => navigate(`financial/${stock.id}`)
+                  }>
+                  <img
+                    src={recent_close_icon}
+                    alt="삭제"
+                    className="del"
+                    onClick={() => deleteStock(index)}
+                    onMouseEnter={() => setIsActive(true)}
+                    onMouseLeave={() => setIsActive(false)}
+                  />
+                  <div className="inner">
+                    {<h3>{stock.name}</h3>}
+                    <div className="index">
+                      {numberWithCommas(stock.price)}
+                      {Math.sign(stock.rate) === 1 ? (
+                        <div className="rate up">
+                          <img src={stock_up} alt="stock up" />
+                          {stock.rate}%
+                        </div>
+                      ) : Math.sign(stock.rate) === -1 ? (
+                        <div className="rate down">
+                          <img src={stock_down} alt="stock down" />
+                          {stock.rate}%
+                        </div>
+                      ) : (
+                        <div className="rate">
+                          <img src={stock_none} alt="stock none" />
+                          {stock.rate}%
+                        </div>
+                      )}
                     </div>
-                  ) : (
-                    <div className="rate blue">
-                      <img src={stock_down} alt="stock up" />
-                      {stock.rate}%
-                    </div>
-                  )}
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))
+              </SwiperSlide>
+            ))}
+          </Swiper>
         )}
       </div>
     </RecentStockWrapper>
