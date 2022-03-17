@@ -224,7 +224,6 @@ const Search = () => {
           onChangeKeyword={handleChangeKeyworld}
           keyword={keyword}
           onSubmit={handleSubmit}
-          inputRef={inputRef}
         />
         <div
           className={
