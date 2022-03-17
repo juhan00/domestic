@@ -4,7 +4,17 @@ import numberWithCommas from "@utils/numberWithComma";
 import stock_up from "@images/stock_up.svg";
 import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
+import HashLoader from "react-spinners/HashLoader";
 
+export const MajorStockLoader = () => {
+  return (
+    <MajorStockWrapper>
+      <div className="loaderWrapper">
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
+    </MajorStockWrapper>
+  );
+};
 const MajorStock = ({ data }) => {
   const [majorData, setMajorData] = useState(data.items);
 

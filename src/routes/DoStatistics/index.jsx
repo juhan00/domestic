@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "redaxios";
-import { RouteWrapper, TopWrapper, GraphWrapper } from "../DoStatistics/style";
+import { RouteWrapper, TopWrapper, GraphWrapper } from "./style";
 import StatisticsTable from "@components/StatisticsTable";
 import StatisticsBarPathGraph from "@components/StatisticsBarPathGraph";
 import StatisticsPathGraph from "@components/StatisticsPathGraph";
@@ -98,38 +98,6 @@ const testBarData = [
     ROIC: 15,
   },
 ];
-const testPathData = [
-  {
-    basDt: new Date("2022-03-31"),
-    부채비율: 25,
-    유동부채비율: 5,
-    비유동부채비율: 15,
-  },
-  {
-    basDt: new Date("2021.03.31"),
-    부채비율: 25,
-    유동부채비율: 15,
-    비유동부채비율: 10,
-  },
-  {
-    basDt: new Date("2020.03.31"),
-    부채비율: 30,
-    유동부채비율: 5,
-    비유동부채비율: 25,
-  },
-  {
-    basDt: new Date("2019.03.31"),
-    부채비율: 30,
-    유동부채비율: 15,
-    비유동부채비율: 15,
-  },
-  {
-    basDt: new Date("2018.03.31"),
-    부채비율: 40,
-    유동부채비율: 35,
-    비유동부채비율: 5,
-  },
-];
 
 const DoStatistics = () => {
   const [data, setData] = useState();
@@ -166,12 +134,11 @@ const DoStatistics = () => {
             data={testBarData}
             barData={barData}
             pathData={pathData}
-            yearly={statisticsData.yearly}
-            quarters={statisticsData.quarters}
+            newData={statisticsData}
           />
           <div className="divide" />
           {Object.keys(statisticsData).length ? (
-            <StatisticsPathGraph data={testPathData} newData={statisticsData} />
+            <StatisticsPathGraph data={statisticsData} />
           ) : null}
         </GraphWrapper>
       </TopWrapper>

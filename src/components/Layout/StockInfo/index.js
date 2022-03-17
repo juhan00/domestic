@@ -20,13 +20,19 @@ const StockInfo = () => {
   const stockId = useParams().stockId;
 
   useEffect(() => {
+    let isComponentMounted = true;
     const fetch = async () => {
       const res = await axios.get(
         "https://gyoheonlee.github.io/mobile-bank/data/api/domesticRecap.json",
       );
-      setData(res.data.domestic);
+      if (isComponentMounted) {
+        setData(res.data.domestic);
+      }
     };
     fetch();
+    return () => {
+      isComponentMounted = false;
+    };
   }, [stockId]);
 
   clickOutside(ref, isOpen, setIsOpen);
@@ -40,7 +46,7 @@ const StockInfo = () => {
           }
         })
         .map((item) => (
-          <>
+          <div key={item.crno}>
             <div className="stockInfoWrapper">
               <ul>
                 <li>
@@ -152,7 +158,7 @@ const StockInfo = () => {
                 </li>
               </ul>
             </MoreInfoContainer>
-          </>
+          </div>
         ))}
     </StockInfoContainer>
   );

@@ -6,14 +6,16 @@ import useDebounce from "@utils/useDebounce";
 import stock_up from "@images/stock_up.svg";
 import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
-import { BarChart } from "@components/ContentLoader";
 import { ticks } from "d3";
 import numberWithCommas from "@utils/numberWithComma";
+import HashLoader from "react-spinners/HashLoader";
 
 export const StockIndexLoader = () => {
   return (
     <StockIndexWrapper>
-      <BarChart />
+      <div className="loaderWrapper">
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
     </StockIndexWrapper>
   );
 };

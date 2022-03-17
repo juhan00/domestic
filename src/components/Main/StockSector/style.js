@@ -2,6 +2,13 @@ import styled from "@emotion/styled";
 import { all } from "redux-saga/effects";
 
 export const StockSectorWrapper = styled.div`
+  & > .loaderWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   width: 100%;
   height: 682px;
   background: #fff;

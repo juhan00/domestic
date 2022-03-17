@@ -8,19 +8,19 @@ import Layout from "@components/Layout";
 import Domestic from "@routes/Domestic/Domestic";
 import DomesticStock from "@routes/DomesticFinance";
 
-import DoComInfo from "@routes/DoComInfo/DoComInfo";
-import DoStatistics from "@routes/DoStatistics/DoStatistics";
-import DoBalance from "@routes/DoBalance/DoBalance";
-import DoIncome from "@routes/DoIncome/DoIncome";
+import DoComInfo from "@routes/DoComInfo";
+import DoStatistics from "@routes/DoStatistics";
+import DoBalance from "@routes/DoBalance";
+import DoIncome from "@routes/DoIncome";
 import DoDisclosure from "@routes/DoDisclosure";
 import DoBeta from "@routes/DoBeta";
 import DoCorrelation from "@routes/DoCorrelation";
 
 import Global from "@routes/Global/Global";
-import GoStatistics from "@routes/Global/GoStatistics";
+import GoStatistics from "@routes/GoStatistics";
 import GoBalance from "@routes/Global/GoBalance";
 import GoIncome from "@routes/Global/GoIncome";
-import GoComInfo from "@routes/GoComInfo/GoComInfo";
+import GoComInfo from "@routes/GoComInfo";
 import GoDisclosure from "@routes/Global/GoDisclosure";
 import GoBeta from "@routes/Global/GoBeta";
 import GoCorrelation from "@routes/global/GoCorrelation";

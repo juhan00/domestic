@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { DomesticWrapper } from "./style";
 import StockIndex, { StockIndexLoader } from "@components/Main/StockIndex";
-import TopStock, { TopStockLoader } from "@components/Main/TopStock/index";
+import TopStock, { TopStockLoader } from "@components/Main/TopStock";
 import ExchangeRate, {
   ExchangeRateLoader,
 } from "@components/Main/ExchangeRate";
 import MarketIndi, { MarketIndiLoader } from "@components/Main/MarketIndi";
-import StockNews from "@components/Main/StockNews";
+import StockNews, { StockNewsLoader } from "@components/Main/StockNews";
 import axios from "redaxios";
 
 const Domestic = () => {
@@ -26,7 +26,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setStockIndexData(res.data);
-        }, 0);
+        }, 1000);
       }
     };
 
@@ -44,7 +44,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setTopStockData(res.data);
-        }, 0);
+        }, 1000);
       }
     };
     topStockFetch();
@@ -61,7 +61,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setStockNewsData(res.data);
-        }, 0);
+        }, 1000);
       }
     };
     stockNewsFetch();
@@ -78,7 +78,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setExchangeRateData(res.data);
-        }, 0);
+        }, 1000);
       }
     };
     exchangeRateFetch();
@@ -95,7 +95,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setMarketIndiData(res.data);
-        }, 0);
+        }, 1000);
       }
     };
     marketIndiFetch();
@@ -141,13 +141,17 @@ const Domestic = () => {
           )}
         </div>
         <div className="col">
-          {stockNewsData && <StockNews type="domestic" data={stockNewsData} />}
+          {!stockNewsData ? (
+            <StockNewsLoader />
+          ) : (
+            <StockNews type="domestic" data={stockNewsData} />
+          )}
         </div>
       </div>
       <div className="row">
         <div className="col">
           {!exchangeRateData ? (
-            <ExchangeRateLoader />
+            <ExchangeRateLoader type="domestic" />
           ) : (
             <ExchangeRate type="domestic" data={exchangeRateData} />
           )}
@@ -160,8 +164,6 @@ const Domestic = () => {
           )}
         </div>
       </div>
-      {/* <StorageInput type="recent" /> */}
-
       {/* <FinanceNews type="domestic" data={financeNewsData} /> */}
     </DomesticWrapper>
   );

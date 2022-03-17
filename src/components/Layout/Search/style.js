@@ -77,8 +77,9 @@ export const SearchContainer = styled.div`
     border: 0;
     font-size: 14px;
     color: #999;
-    :focus {
+    &:focus {
       outline: none;
+      color: #000;
     }
   }
   .searchResultWrapper {
@@ -122,5 +123,10 @@ export const SearchContainer = styled.div`
       background-color: #047b6c;
       border-radius: 6px;
     }
+  }
+  mark {
+    background-color: transparent;
+    color: #047b6c;
+    font-weight: 700;
   }
 `;
