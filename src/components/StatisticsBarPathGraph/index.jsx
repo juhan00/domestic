@@ -16,13 +16,24 @@ import {
 } from "d3";
 import useResizeObserver from "@utils/useResizeObserver";
 
-const StatisticsGraph = ({ data }) => {
+const StatisticsGraph = ({ data, type }) => {
   const graphRef = useRef();
   const svgRef = useRef(null);
   const resizeWidth = useResizeObserver(graphRef);
 
   const barColor = ["#FECF5B", "#35A67D"];
   const pathColor = ["#065398", "#F5746B", "#35A67D"];
+
+  const barKeys = {
+    statistics: ["netInc", "opInc"],
+    balance: ["marketCap", "liabilitiesCap"],
+    income: ["salesNet", "investsNet", "devNet"],
+  };
+  const pathKeys = {
+    statistics: ["roe", "roa"],
+    balance: [],
+    income: [],
+  };
 
   function topRounded(x, y, w, h, r, f) {
     if (f == undefined) f = 1;
@@ -70,20 +81,16 @@ const StatisticsGraph = ({ data }) => {
     const yearly = data.yearly;
 
     const yLeftMax = Math.max(
-      max(yearly, (year) => year.netInc),
-      max(yearly, (year) => year.opInc),
+      ...barKeys[type].map((key) => max(yearly, (year) => year[key])),
     );
     const yRightMax = Math.max(
-      max(yearly, (year) => year.roe),
-      max(yearly, (year) => year.roa),
+      ...pathKeys[type].map((key) => max(yearly, (year) => year[key])),
     );
-
-    const barKeys = ["netInc", "opInc"];
-    const pathKeys = ["roe", "roa"];
 
     svg.selectAll(".dots").remove();
     svg.selectAll(".lines").remove();
     svg.selectAll(".bars").remove();
+    svg.selectAll(".tick line").remove();
 
     if (!resizeWidth || !data) {
       return;
@@ -107,9 +114,7 @@ const StatisticsGraph = ({ data }) => {
         margin.left + innerPadding + xBandScale.bandwidth() / 2,
         width - margin.right - innerPadding - xBandScale.bandwidth() / 2,
       ]);
-    const xAxis = axisBottom(xScale)
-      .ticks(yearly.length)
-      .tickFormat(timeFormat("%Y.%m"));
+    const xAxis = axisBottom(xScale).ticks(6).tickFormat(timeFormat("%Y.%m"));
     const xBandAxis = axisBottom(xScale).tickFormat((node, i) => yearly[node]);
 
     svg
@@ -168,7 +173,7 @@ const StatisticsGraph = ({ data }) => {
         const bars = enter.append("g").classed("bars", true);
 
         Object.keys(yearly[0]).map((keys, idx) => {
-          barKeys.includes(keys)
+          barKeys[type].includes(keys)
             ? bars
                 .append("path")
                 .attr("d", (node, index) =>
@@ -196,7 +201,7 @@ const StatisticsGraph = ({ data }) => {
         const lines = enter.append("g").classed("lines", true);
 
         Object.keys(yearly[0]).map((keys, idx) => {
-          pathKeys.includes(keys)
+          pathKeys[type].includes(keys)
             ? lines
                 .append("path")
                 .attr("fill", "none")
@@ -221,7 +226,7 @@ const StatisticsGraph = ({ data }) => {
         const dots = enter.append("g").classed("dots", true);
 
         Object.keys(yearly[0]).map((keys, idx) => {
-          pathKeys.includes(keys)
+          pathKeys[type].includes(keys)
             ? dots
                 .append("circle")
                 .attr("cx", (d) => xScale(new Date(d["basDt"])))
@@ -233,7 +238,7 @@ const StatisticsGraph = ({ data }) => {
             : null;
         });
       });
-  }, [data, resizeWidth]);
+  }, [data, type, resizeWidth]);
 
   return (
     <GraphWrapper ref={graphRef}>

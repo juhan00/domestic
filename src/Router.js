@@ -38,11 +38,13 @@ const Router = () => {
           element={<DomesticStock />}
         />
         <Route path="/domestic/cominfo/:stockId" element={<DoComInfo />} />
-        <Route path="/domestic/statistics/:stockId" element={<DoStatistics />}>
-          <Route path="ratio/:stockId" />
-          <Route path="balance/:stockId" element={<DoBalance />} />
-          <Route path="income/:stockId" element={<DoIncome />} />
-        </Route>
+        <Route
+          path="/domestic/statistics/:stockId"
+          element={<DoStatistics />}
+        />
+        <Route path="/domestic/balance/:stockId" element={<DoStatistics />} />
+        <Route path="/domestic/income/:stockId" element={<DoStatistics />} />
+
         <Route
           path="/domestic/disclosure/:stockId"
           element={<DoDisclosure />}
@@ -56,11 +58,10 @@ const Router = () => {
         <Route path="/global" element={<Global />} />
         <Route path="/global/financial/:stockId" element={<DomesticStock />} />
         <Route path="/global/cominfo/:stockId" element={<GoComInfo />} />
-        <Route path="/global/Statistics/:stockId" element={<GoStatistics />}>
-          <Route path="ratio/:stockId" />
-          <Route path="balance/:stockId" element={<GoBalance />} />
-          <Route path="income/:stockId" element={<GoIncome />} />
-        </Route>
+        <Route path="/global/Statistics/:stockId" element={<GoStatistics />} />
+        <Route path="/global/balance/:stockId" element={<GoStatistics />} />
+        <Route path="/global/income/:stockId" element={<GoStatistics />} />
+
         <Route path="/global/disclosure/:stockId" element={<GoDisclosure />} />
         <Route path="/global/Beta/:stockId" element={<GoBeta />} />
         <Route
