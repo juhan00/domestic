@@ -1,7 +1,7 @@
 import React from "react";
 import { useCountUp } from "react-countup";
 
-export const CountUpNumber = ({ to, size, color }) => {
+export const animatedCountUp = (to) => {
   const { number } = useCountUp({
     ref: "counter",
     start: 0,
@@ -10,17 +10,7 @@ export const CountUpNumber = ({ to, size, color }) => {
     separator: ",",
   });
 
-  return (
-    <span
-      id="counter"
-      style={{
-        fontWeight: 700,
-        fontSize: size,
-        color: color,
-      }}>
-      {number}
-    </span>
-  );
+  return <span id="counter">{number}</span>;
 };
 
-export default CountUpNumber;
+export default animatedCountUp;

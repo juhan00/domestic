@@ -67,6 +67,7 @@ export const SearchContainer = styled.div`
     background-color: #047b6c;
     border: 0;
     border-radius: 4px;
+    cursor: pointer;
     svg {
     }
   }
