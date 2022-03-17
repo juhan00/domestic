@@ -138,7 +138,7 @@ const Search = () => {
     setKeyworld(e.target.value);
   };
 
-  //검색 결과 클릭하면 isOpen false로 바꾸어서 리스트 창 닫고 검색 내역에 추가 함수
+  //검색 결과 클릭하면 isOpen false로 바꾸어서 리스트 창 닫고, 최근 조회로 props 전달하는 함수
   const handleClickDomestic = (name, id) => {
     setIsOpen(false);
     const stockItem = {
@@ -149,7 +149,6 @@ const Search = () => {
     };
     setDomesticStorage(stockItem);
   };
-
   const handleClickGlobal = (id) => {
     setIsOpen(false);
     const stockItem = {
@@ -161,17 +160,25 @@ const Search = () => {
     setGlobalStorage(stockItem);
   };
 
+  // 엔터 또는 검색아이콘 클릭시 url위치와 검색 키워드에 따라 필터링된 첫번째 리스트로 이동하는 함수
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (domesticFiltered[0]) {
-      navigate(`domestic/${targetUrl}/${domesticFiltered[0].crno}`);
-    } else if (globalFiltered[0]) {
-      navigate(`global/${targetUrl}/${globalFiltered[0].symbol}`);
-    } else if (
-      (domesticFiltered[0] = undefined) ||
-      (globalFiltered[0] = undefined)
-    ) {
-      null;
+    if (location.includes("domestic")) {
+      if (domesticFiltered.length >= 1) {
+        navigate(`domestic/${targetUrl}/${domesticFiltered[0].crno}`);
+      }
+    } else if (location.includes("global")) {
+      if (globalFiltered.length >= 1) {
+        navigate(`global/${targetUrl}/${globalFiltered[0].symbol}`);
+      }
+    } else {
+      if (domesticFiltered.length >= 1) {
+        navigate(`domestic/${targetUrl}/${domesticFiltered[0].crno}`);
+      } else if (globalFiltered.length >= 1) {
+        navigate(`global/${targetUrl}/${globalFiltered[0].symbol}`);
+      } else if (globalFiltered.length === 0 && domesticFiltered.length === 0) {
+        null;
+      }
     }
     inputRef.current.blur();
     setIsOpen(false);
