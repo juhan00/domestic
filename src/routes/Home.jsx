@@ -2,6 +2,7 @@ import React from "react";
 import MoyaLogo from "@images/moyaLogo.png";
 import Search from "@components/Layout/Search";
 import { HomeStyle } from "@routes/style";
+import CountUpNumber from "../utils/animatedCountUp";
 
 const Home = () => {
   return (
@@ -11,7 +12,7 @@ const Home = () => {
         <button className="login">로그인</button>
       </header>
       <div className="slogan">
-        당신을 위한 뉴스<span>n개</span>가 준비되어 있습니다
+        당신을 위한 뉴스 <CountUpNumber to={3241} size={40} color="#5fb6ad" /><span>개</span>가 준비되어 있습니다
         <div>지금 바로 검색해 보세요!</div>
       </div>
       <div className="searchAtHome">
