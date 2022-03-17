@@ -11,7 +11,7 @@ import StockNews, { StockNewsLoader } from "@components/Main/StockNews";
 import axios from "redaxios";
 
 const Domestic = () => {
-  //box animation
+  //box loader animation state
   const [isBoxLoader, setIsBoxLoader] = useState(false);
   const [recentStockData, setRecentStockData] = useState(null);
   const [stockIndexData, setStockIndexData] = useState(null);
@@ -20,12 +20,13 @@ const Domestic = () => {
   const [exchangeRateData, setExchangeRateData] = useState(null);
   const [marketIndiData, setMarketIndiData] = useState(null);
 
+  //box loader aninmation useEffect
   useEffect(() => {
     setIsBoxLoader(true);
     return () => setIsBoxLoader(false);
   }, []);
 
-  //recentStockData
+  //recent stock data
   useEffect(() => {
     setTimeout(() => {
       setRecentStockData(true);
@@ -33,7 +34,7 @@ const Domestic = () => {
     return () => setRecentStockData(false);
   }, []);
 
-  //stockIndexData
+  //stock index data
   useEffect(() => {
     let isApiSubscribed = true;
     const stockIndexFetch = async () => {
@@ -51,7 +52,7 @@ const Domestic = () => {
     return () => (isApiSubscribed = false);
   }, []);
 
-  //topStockData
+  //top stock data
   useEffect(() => {
     let isApiSubscribed = true;
     const topStockFetch = async () => {
@@ -68,7 +69,7 @@ const Domestic = () => {
     return () => (isApiSubscribed = false);
   }, []);
 
-  //stockNewsData
+  //stock news data
   useEffect(() => {
     let isApiSubscribed = true;
     const stockNewsFetch = async () => {
@@ -85,7 +86,7 @@ const Domestic = () => {
     return () => (isApiSubscribed = false);
   }, []);
 
-  //exchangeRateData
+  //exchange rate data
   useEffect(() => {
     let isApiSubscribed = true;
     const exchangeRateFetch = async () => {
@@ -102,7 +103,7 @@ const Domestic = () => {
     return () => (isApiSubscribed = false);
   }, []);
 
-  //marketIndiData
+  //market indi data
   useEffect(() => {
     let isApiSubscribed = true;
     const marketIndiFetch = async () => {
@@ -121,8 +122,10 @@ const Domestic = () => {
 
   return (
     <DomesticWrapper>
-      <div className={`row box_ani turn1 ${isBoxLoader && "ani_on"}`}>
-        {!recentStockData ? <RecentStockLoader /> : <RecentStock />}
+      <div className="row">
+        <div className={`col box_ani turn1 ${isBoxLoader && "ani_on"}`}>
+          {!recentStockData ? <RecentStockLoader /> : <RecentStock />}
+        </div>
       </div>
       <div className="row">
         {!stockIndexData ? (
