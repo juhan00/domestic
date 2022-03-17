@@ -10,6 +10,12 @@ import { HashLoader } from "react-spinners";
 const DoComInfo = () => {
   const [comInfoData, setComInfoData] = useState({});
   const [dailyPrice, setDailyPrice] = useState({});
+
+  const [limit, setLimit] = useState(6);
+  const [page, setPage] = useState(1);
+
+  const offset = (page - 1) * limit;
+
   const crno = useParams();
 
   useEffect(() => {
@@ -18,14 +24,28 @@ const DoComInfo = () => {
         .then((res) => res.data)
         .then((data) => setComInfoData(data));
     })();
+
+    return () => {
+      setComInfoData({})
+      console.log("effect cleaning up");
+    }
+
   }, [crno]);
 
   useEffect(() => {
     (async () => {
       sampleJson(crno.stockId, "price")
         .then((res) => res.data)
-        .then((data) => setDailyPrice(data));
+        .then((data) => {
+          setDailyPrice(data)
+        });
     })();
+
+    return () => {
+      setDailyPrice({})
+      console.log("effect cleaning up");
+    }
+
   }, [crno]);
 
   return (
@@ -33,7 +53,13 @@ const DoComInfo = () => {
       <PriceWrapper>
         <ComInfoGraph />
         {Object.keys(dailyPrice).length ? (
-          <ComInfoDailyPrice data={dailyPrice} />
+          <ComInfoDailyPrice 
+            data={dailyPrice}
+            offset={offset} 
+            limit={limit}
+            page={page}
+            setPage={setPage}
+          />
         ) : (
           <HashLoader color={"#48a185"} size={50} />
         )}

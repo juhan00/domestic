@@ -56,6 +56,8 @@ const DoDisclosure = () => {
       );
       if (isApiSubscribed) {
         setTimeout(() => {
+          console.log(res.data)
+
           setDisclosureList(res.data);
         }, 1000);
       }
