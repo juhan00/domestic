@@ -141,6 +141,7 @@ const Search = () => {
   //검색 결과 클릭하면 isOpen false로 바꾸어서 리스트 창 닫고, 최근 조회로 props 전달하는 함수
   const handleClickDomestic = (name, id) => {
     setIsOpen(false);
+    setKeyworld("");
     const stockItem = {
       name: name,
       id: id,
@@ -151,6 +152,7 @@ const Search = () => {
   };
   const handleClickGlobal = (id) => {
     setIsOpen(false);
+    setKeyworld("");
     const stockItem = {
       name: id,
       id: id,
@@ -166,23 +168,31 @@ const Search = () => {
     if (location.includes("domestic")) {
       if (domesticFiltered.length >= 1) {
         navigate(`domestic/${targetUrl}/${domesticFiltered[0].crno}`);
+        handleClickDomestic(
+          domesticFiltered[0].itmsNm,
+          domesticFiltered[0].crno,
+        );
       }
     } else if (location.includes("global")) {
       if (globalFiltered.length >= 1) {
         navigate(`global/${targetUrl}/${globalFiltered[0].symbol}`);
+        handleClickGlobal(globalFiltered[0].symbol);
       }
     } else {
       if (domesticFiltered.length >= 1) {
         navigate(`domestic/${targetUrl}/${domesticFiltered[0].crno}`);
+        handleClickDomestic(
+          domesticFiltered[0].itmsNm,
+          domesticFiltered[0].crno,
+        );
       } else if (globalFiltered.length >= 1) {
         navigate(`global/${targetUrl}/${globalFiltered[0].symbol}`);
+        handleClickGlobal(globalFiltered[0].symbol);
       } else if (globalFiltered.length === 0 && domesticFiltered.length === 0) {
         null;
       }
     }
     inputRef.current.blur();
-    setIsOpen(false);
-    setKeyworld("");
   };
 
   clickOutside(ref, isOpen, setIsOpen);
@@ -214,7 +224,6 @@ const Search = () => {
           onChangeKeyword={handleChangeKeyworld}
           keyword={keyword}
           onSubmit={handleSubmit}
-          inputRef={inputRef}
         />
         <div
           className={
