@@ -2,22 +2,16 @@ import React from "react";
 import { TableWrapper, Table, Row, Cell } from "./style";
 import Pagination from "@components/Disclosure/Pagination";
 
-const DoComInfoDailyPrice = ({ 
-  data, 
-  offset, 
-  limit, 
-  page, 
-  setPage 
-}) => {
+const DoComInfoDailyPrice = ({ data, offset, limit, page, setPage }) => {
   const total = data.items.length;
 
   const renderRow = (num) => {
     const rows = [];
-    for(let i = 0; i < num; i ++) {
-      rows.push(i)
+    for (let i = 0; i < num; i++) {
+      rows.push(i);
     }
-    return rows
-  }
+    return rows;
+  };
   return (
     <TableWrapper>
       <h1>일별시세</h1>
@@ -36,65 +30,26 @@ const DoComInfoDailyPrice = ({
         <tbody>
           {data.items.slice(offset, offset + limit).map((item, idx) => {
             return (
-              <Row className="contents" key={idx} >
-                {Object.keys(item).map((key, i) => (
-                  <Cell key={i} className={key === "basDt" ? "date" : ""}>
-                    {item[key]}
-                  </Cell>
-                ))}
-                <Cell>12000</Cell>
+              <Row className="contents" key={idx}>
+                {Object.keys(item).map((key, i) =>
+                  i === 2 ? (
+                    <Cell
+                      key={i}
+                      className={item[key] >= 0 ? "increase" : "decrease"}>
+                      {item[key]}
+                    </Cell>
+                  ) : (
+                    <Cell key={i} className={key === "basDt" ? "date" : ""}>
+                      {item[key]}
+                    </Cell>
+                  ),
+                )}
               </Row>
-            )
+            );
           })}
-          {total / limit !== 0 
-            && Math.ceil(total / limit) === page
-            && renderRow(limit - (total % limit)).map(i => <Row key={i}></Row>)
-          }
-          {/* <Row>
-            <Cell className="date">2022.02.21</Cell>
-            <Cell>74200</Cell>
-            <Cell>+200</Cell>
-            <Cell>74200</Cell>
-            <Cell>74200</Cell>
-            <Cell>74200</Cell>
-            <Cell>10449584</Cell>
-          </Row>
-          <Row>
-            <Cell className="date">2022.02.21</Cell>
-            <Cell>74200</Cell>
-            <Cell>+200</Cell>
-            <Cell>74200</Cell>
-            <Cell>74200</Cell>
-            <Cell>74200</Cell>
-            <Cell>10449584</Cell>
-          </Row>
-          <Row>
-            <Cell className="date">2022.02.21</Cell>
-            <Cell>74200</Cell>
-            <Cell>+200</Cell>
-            <Cell>74200</Cell>
-            <Cell>74200</Cell>
-            <Cell>74200</Cell>
-            <Cell>10449584</Cell>
-          </Row>
-          <Row>
-            <Cell className="date">2022.02.21</Cell>
-            <Cell>74200</Cell>
-            <Cell>+200</Cell>
-            <Cell>74200</Cell>
-            <Cell>74200</Cell>
-            <Cell>74200</Cell>
-            <Cell>10449584</Cell>
-          </Row>
-          <Row>
-            <Cell className="date">2022.02.21</Cell>
-            <Cell>74200</Cell>
-            <Cell>+200</Cell>
-            <Cell>74200</Cell>
-            <Cell>74200</Cell>
-            <Cell>74200</Cell>
-            <Cell>10449584</Cell>
-          </Row> */}
+          {total / limit !== 0 &&
+            Math.ceil(total / limit) === page &&
+            renderRow(limit - (total % limit)).map((i) => <Row key={i}></Row>)}
         </tbody>
       </Table>
       <Pagination
