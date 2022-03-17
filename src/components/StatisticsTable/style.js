@@ -54,4 +54,9 @@ export const Cell = styled.td`
     color: #767676;
     padding-left: 60px;
   }
+  span {
+    color: #767676;
+    font-size: 12px;
+    line-height: 22px;
+  }
 `;
