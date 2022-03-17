@@ -10,14 +10,6 @@ export function sampleJson(crno, item) {
   return json;
 }
 
-// export function sampleJson(crno) {
-//   const json = axios.get(`${BASE_URL}/api/${crno}.json`).catch((error) => {
-//     console.log("error");
-//   });
-
-//   return json;
-// }
-
 export function sampleComInfoJson() {
   const json = axios.get(`${BASE_URL}/${field}.json`).catch((error) => {
     console.log("error");

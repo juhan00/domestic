@@ -1,22 +1,40 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { DomesticWrapper } from "./style";
+import RecentStock, { RecentStockLoader } from "@components/Main/RecentStock";
 import StockIndex, { StockIndexLoader } from "@components/Main/StockIndex";
-import TopStock, { TopStockLoader } from "@components/Main/TopStock/index";
+import TopStock, { TopStockLoader } from "@components/Main/TopStock";
 import ExchangeRate, {
   ExchangeRateLoader,
 } from "@components/Main/ExchangeRate";
 import MarketIndi, { MarketIndiLoader } from "@components/Main/MarketIndi";
-import StockNews from "@components/Main/StockNews";
+import StockNews, { StockNewsLoader } from "@components/Main/StockNews";
 import axios from "redaxios";
 
 const Domestic = () => {
+  //box loader animation state
+  const [isBoxLoader, setIsBoxLoader] = useState(false);
+  const [recentStockData, setRecentStockData] = useState(null);
   const [stockIndexData, setStockIndexData] = useState(null);
   const [topStockData, setTopStockData] = useState(null);
   const [stockNewsData, setStockNewsData] = useState(null);
   const [exchangeRateData, setExchangeRateData] = useState(null);
   const [marketIndiData, setMarketIndiData] = useState(null);
 
-  //stockIndexData
+  //box loader aninmation useEffect
+  useEffect(() => {
+    setIsBoxLoader(true);
+    return () => setIsBoxLoader(false);
+  }, []);
+
+  //recent stock data
+  useEffect(() => {
+    setTimeout(() => {
+      setRecentStockData(true);
+    }, 1500);
+    return () => setRecentStockData(false);
+  }, []);
+
+  //stock index data
   useEffect(() => {
     let isApiSubscribed = true;
     const stockIndexFetch = async () => {
@@ -26,7 +44,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setStockIndexData(res.data);
-        }, 0);
+        }, 1500);
       }
     };
 
@@ -34,7 +52,7 @@ const Domestic = () => {
     return () => (isApiSubscribed = false);
   }, []);
 
-  //topStockData
+  //top stock data
   useEffect(() => {
     let isApiSubscribed = true;
     const topStockFetch = async () => {
@@ -44,14 +62,14 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setTopStockData(res.data);
-        }, 0);
+        }, 1500);
       }
     };
     topStockFetch();
     return () => (isApiSubscribed = false);
   }, []);
 
-  //stockNewsData
+  //stock news data
   useEffect(() => {
     let isApiSubscribed = true;
     const stockNewsFetch = async () => {
@@ -61,14 +79,14 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setStockNewsData(res.data);
-        }, 0);
+        }, 1500);
       }
     };
     stockNewsFetch();
     return () => (isApiSubscribed = false);
   }, []);
 
-  //exchangeRateData
+  //exchange rate data
   useEffect(() => {
     let isApiSubscribed = true;
     const exchangeRateFetch = async () => {
@@ -78,14 +96,14 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setExchangeRateData(res.data);
-        }, 0);
+        }, 1500);
       }
     };
     exchangeRateFetch();
     return () => (isApiSubscribed = false);
   }, []);
 
-  //marketIndiData
+  //market indi data
   useEffect(() => {
     let isApiSubscribed = true;
     const marketIndiFetch = async () => {
@@ -95,7 +113,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setMarketIndiData(res.data);
-        }, 0);
+        }, 1500);
       }
     };
     marketIndiFetch();
@@ -104,19 +122,24 @@ const Domestic = () => {
 
   return (
     <DomesticWrapper>
-      {/* <div className="row">
-        <RecentStock />
-      </div> */}
+      <div className="row">
+        <div className={`col box_ani turn1 ${isBoxLoader && "ani_on"}`}>
+          {!recentStockData ? <RecentStockLoader /> : <RecentStock />}
+        </div>
+      </div>
       <div className="row">
         {!stockIndexData ? (
           <>
-            <div className="col">
+            <div
+              className={`col box_ani delay1 turn1 ${isBoxLoader && "ani_on"}`}>
               <StockIndexLoader />
             </div>
-            <div className="col">
+            <div
+              className={`col box_ani delay1 turn2 ${isBoxLoader && "ani_on"}`}>
               <StockIndexLoader />
             </div>
-            <div className="col">
+            <div
+              className={`col box_ani delay1 turn3 ${isBoxLoader && "ani_on"}`}>
               <StockIndexLoader />
             </div>
           </>
@@ -133,26 +156,33 @@ const Domestic = () => {
         )}
       </div>
       <div className="row">
-        <div className="col col2">
+        <div
+          className={`col col2 box_ani delay2 turn1 ${
+            isBoxLoader && "ani_on"
+          }`}>
           {!topStockData ? (
             <TopStockLoader />
           ) : (
             <TopStock data={topStockData} />
           )}
         </div>
-        <div className="col">
-          {stockNewsData && <StockNews type="domestic" data={stockNewsData} />}
+        <div className={`col box_ani delay2 turn2 ${isBoxLoader && "ani_on"}`}>
+          {!stockNewsData ? (
+            <StockNewsLoader />
+          ) : (
+            <StockNews type="domestic" data={stockNewsData} />
+          )}
         </div>
       </div>
       <div className="row">
-        <div className="col">
+        <div className={`col box_ani delay3 turn1 ${isBoxLoader && "ani_on"}`}>
           {!exchangeRateData ? (
-            <ExchangeRateLoader />
+            <ExchangeRateLoader type="domestic" />
           ) : (
             <ExchangeRate type="domestic" data={exchangeRateData} />
           )}
         </div>
-        <div className="col">
+        <div className={`col box_ani delay3 turn2 ${isBoxLoader && "ani_on"}`}>
           {!marketIndiData ? (
             <MarketIndiLoader />
           ) : (
@@ -160,8 +190,6 @@ const Domestic = () => {
           )}
         </div>
       </div>
-      {/* <StorageInput type="recent" /> */}
-
       {/* <FinanceNews type="domestic" data={financeNewsData} /> */}
     </DomesticWrapper>
   );

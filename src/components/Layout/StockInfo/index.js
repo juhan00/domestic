@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import {
   StockInfoContainer,
   MoreInfoContainer,
@@ -19,14 +19,32 @@ const StockInfo = () => {
   const location = useLocation().pathname;
   const stockId = useParams().stockId;
 
+  const targetUrl = useMemo(() => {
+    let target = "";
+    if (location.includes("domestic")) {
+      target = "domestic";
+    } else if (location.includes("global")) {
+      target = "global";
+    }
+    return target;
+  });
+
   useEffect(() => {
+    let isComponentMounted = true;
     const fetch = async () => {
       const res = await axios.get(
-        "https://gyoheonlee.github.io/mobile-bank/data/api/domesticRecap.json",
+        `https://gyoheonlee.github.io/mobile-bank/data/api/${targetUrl}Recap.json`,
       );
-      setData(res.data.domestic);
+      if (isComponentMounted) {
+        location.includes("domestic")
+          ? setData(res.data.domestic)
+          : setData(res.data.global);
+      }
     };
     fetch();
+    return () => {
+      isComponentMounted = false;
+    };
   }, [stockId]);
 
   clickOutside(ref, isOpen, setIsOpen);
@@ -35,125 +53,131 @@ const StockInfo = () => {
     <StockInfoContainer ref={ref}>
       {data
         .filter((item) => {
-          if (item.crno === `${stockId}`) {
+          if (item.id === `${stockId}`) {
             return item;
           }
         })
-        .map((item) => (
-          <>
-            <div className="stockInfoWrapper">
-              <ul>
-                <li>
-                  <div className="stockName">
-                    <h3>{item.itmsNm}</h3>
-                    <span>{item.crno}</span>
-                  </div>
-                  <div className="stockPrice">
-                    전일가
-                    <span className="price">
-                      {numberWithCommas(item.price)}
-                    </span>
-                    <div className="marketType">{item.type}</div>
-                    <span className="date">{item.date}기준</span>
-                  </div>
-                </li>
-                <li>
-                  <div className="provider"></div>
-                </li>
-                <li>
-                  <div className="infoTitle">상장주식수</div>
-                  <div className="infoValue">
-                    {numberWithCommas(item.exStock)}
-                  </div>
-                </li>
-                <li>
-                  <div className="infoTitle">시가총액</div>
-                  <div className="infoValue">
-                    {numberWithCommas(item.marketCap)}
-                    <span>억원</span>
-                  </div>
-                </li>
-                <li>
-                  <div className="provider"></div>
-                </li>
-                <li>
-                  <div className="infoTitle">52주 최저</div>
-                  <div className="infoValue">{numberWithCommas(68300)}</div>
-                </li>
-                <li>
-                  <div className="infoTitle">52주 최고</div>
-                  <div className="infoValue">{numberWithCommas(86200)}</div>
-                </li>
-              </ul>
-              <div className="toggle" onClick={handleToggle}>
-                더보기 <img src={Toggle} alt="토글버튼" />
+        .map((item) => {
+          return (
+            <div key={item.id}>
+              <div className="stockInfoWrapper">
+                <ul>
+                  <li>
+                    <div className="stockName">
+                      <h3>{item.name}</h3>
+                      <span>{item.id}</span>
+                    </div>
+                    <div className="stockPrice">
+                      전일가
+                      <span className="price">
+                        {numberWithCommas(item.price)}
+                      </span>
+                      <div className="marketType">{item.type}</div>
+                      <span className="date">{item.date}기준</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="provider"></div>
+                  </li>
+                  <li>
+                    <div className="infoTitle">상장주식수</div>
+                    <div className="infoValue">
+                      {numberWithCommas(item.exStock)}
+                    </div>
+                  </li>
+                  <li>
+                    <div className="infoTitle">시가총액</div>
+                    <div className="infoValue">
+                      {numberWithCommas(item.marketCap)}
+                      <span>억원</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="provider"></div>
+                  </li>
+                  <li>
+                    <div className="infoTitle">52주 최저</div>
+                    <div className="infoValue">
+                      {numberWithCommas(item.low52weeks)}
+                    </div>
+                  </li>
+                  <li>
+                    <div className="infoTitle">52주 최고</div>
+                    <div className="infoValue">
+                      {numberWithCommas(item.high52weeks)}
+                    </div>
+                  </li>
+                </ul>
+                <div className="toggle" onClick={handleToggle}>
+                  더보기 <img src={Toggle} alt="토글버튼" />
+                </div>
               </div>
+              <MoreInfoContainer
+                className={isOpen ? "moreInfo" : "moreInfo hide"}>
+                <div>
+                  <span className="title">기업정보</span>
+                  <span className="source">출처 : 에프앤가이드</span>
+                </div>
+                <div className="recap">{item.recap}</div>
+                <ul>
+                  <li>
+                    <div className="infoTitle">EPS</div>
+                    <div className="infoValue">
+                      {numberWithCommas(item.EPS)}
+                      <span>원</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="infoTitle">BPS</div>
+                    <div className="infoValue">
+                      {numberWithCommas(item.BPS)}
+                      <span>원</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="infoTitle">PER</div>
+                    <div className="infoValue">
+                      {item.PER}
+                      <span>배</span>
+                    </div>
+                  </li>
+                  {location.includes("domestic") ? (
+                    <>
+                      <li>
+                        <div className="infoTitle">동일업종 PER</div>
+                        <div className="infoValue">
+                          {item.categoryPER}
+                          <span>배</span>
+                        </div>
+                      </li>
+                      <li>
+                        <div className="infoTitle">동일업종 등락률</div>
+                        <div className="infoValue">
+                          {item.categoryRate}
+                          <span>%</span>
+                        </div>
+                      </li>
+                    </>
+                  ) : null}
+                  <li>
+                    <div className="infoTitle">배당수익률</div>
+                    <div className="infoValue">
+                      {item.divYield}
+                      <span>{item.divYield === "N/A" ? "" : "%"}</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="infoTitle">ROE</div>
+                    <div className="infoValue">
+                      {item.ROE}
+                      <span>%</span>
+                    </div>
+                  </li>
+                </ul>
+              </MoreInfoContainer>
             </div>
-            <MoreInfoContainer
-              className={isOpen ? "moreInfo" : "moreInfo hide"}>
-              <div>
-                <span className="title">기업정보</span>
-                <span className="source">출처 : 에프앤가이드</span>
-              </div>
-              <div className="recap">{item.recap}</div>
-              <ul>
-                <li>
-                  <div className="infoTitle">EPS</div>
-                  <div className="infoValue">
-                    {numberWithCommas(item.EPS)}
-                    <span>원</span>
-                  </div>
-                </li>
-                <li>
-                  <div className="infoTitle">BPS</div>
-                  <div className="infoValue">
-                    {numberWithCommas(item.BPS)}
-                    <span>원</span>
-                  </div>
-                </li>
-                <li>
-                  <div className="infoTitle">PER</div>
-                  <div className="infoValue">
-                    {item.PER}
-                    <span>배</span>
-                  </div>
-                </li>
-                {location.includes("domestic") ? (
-                  <>
-                    <li>
-                      <div className="infoTitle">동일업종 PER</div>
-                      <div className="infoValue">
-                        {item.categoryPER}
-                        <span>배</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="infoTitle">배당수익률</div>
-                      <div className="infoValue">
-                        {item.dividendYield}
-                        <span>%</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="infoTitle">동일업종 등락률</div>
-                      <div className="infoValue">
-                        {item.categoryRate}
-                        <span>%</span>
-                      </div>
-                    </li>
-                  </>
-                ) : null}
-                <li>
-                  <div className="infoTitle">ROE</div>
-                  <div className="infoValue">
-                    20.3
-                    <span>%</span>
-                  </div>
-                </li>
-              </ul>
-            </MoreInfoContainer>
-          </>
-        ))}
+          );
+        })}
     </StockInfoContainer>
   );
 };

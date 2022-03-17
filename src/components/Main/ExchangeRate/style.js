@@ -1,6 +1,13 @@
 import styled from "@emotion/styled";
 
 export const ExchangeRateWrapper = styled.div`
+  & > .loaderWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   width: 100%;
   height: 498px;
   background: #fff;
@@ -105,8 +112,7 @@ export const ExchangeRateWrapper = styled.div`
       }
       .content {
         overflow: hidden;
-        transition: all ease 0.5s;
-        animation-timing-function: ease-in-out;
+        transition: all ease-in-out 0.5s;
         display: flex;
         height: 0px;
         .info {
@@ -148,8 +154,11 @@ export const ExchangeRateWrapper = styled.div`
           .upDownWrapper {
             white-space: nowrap;
             display: flex;
+            .upDown {
+              margin-right: 20px;
+            }
             .week {
-              margin-left: 20px;
+              margin-left: auto;
             }
             .item {
               margin-top: 20px;
@@ -165,6 +174,7 @@ export const ExchangeRateWrapper = styled.div`
                 font-weight: 400;
                 line-height: 1.5;
                 margin-left: 14px;
+                text-align: right;
                 &.up {
                   color: #e00400;
                 }
@@ -180,11 +190,12 @@ export const ExchangeRateWrapper = styled.div`
           .date {
             margin-top: 15px;
             width: 100%;
-            text-align: right;
+            text-align: left;
             font-size: 12px;
             font-weight: 400;
             line-height: 1.5;
             color: #999;
+            white-space: nowrap;
           }
         }
         .chart {

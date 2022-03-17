@@ -5,13 +5,15 @@ import stock_up from "@images/stock_up.svg";
 import stock_down from "@images/stock_down.svg";
 import stock_none from "@images/stock_none.svg";
 import exch_rate_arrow_icon from "@images/exch_rate_arrow_icon.svg";
-import { FromList } from "@components/ContentLoader";
 import numberWithCommas from "@utils/numberWithComma";
+import HashLoader from "react-spinners/HashLoader";
 
-export const ExchangeRateLoader = () => {
+export const ExchangeRateLoader = ({ type }) => {
   return (
-    <ExchangeRateWrapper>
-      <FromList />
+    <ExchangeRateWrapper className={type}>
+      <div className="loaderWrapper">
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
     </ExchangeRateWrapper>
   );
 };
@@ -128,24 +130,56 @@ const ExchangeRate = ({ type, data }) => {
                       <div className="item">
                         <h4>고가</h4>
                         <p className="up">
-                          {numberWithCommas(item.high.toFixed(2))}
+                          {numberWithCommas(
+                            Math.max
+                              .apply(
+                                null,
+                                item.chartData.map((item) => item.stock),
+                              )
+                              .toFixed(2),
+                          )}
                         </p>
                       </div>
                       <div className="item">
                         <h4>저가</h4>
                         <p className="down">
-                          {numberWithCommas(item.low.toFixed(2))}
+                          {numberWithCommas(
+                            Math.min
+                              .apply(
+                                null,
+                                item.chartData.map((item) => item.stock),
+                              )
+                              .toFixed(2),
+                          )}
                         </p>
                       </div>
                     </div>
                     <div className="week">
                       <div className="item">
                         <h4>52주 최고</h4>
-                        <p>{numberWithCommas(item.weekHigh.toFixed(2))}</p>
+                        <p>
+                          {numberWithCommas(
+                            Math.max
+                              .apply(
+                                null,
+                                item.chartData.map((item) => item.stock),
+                              )
+                              .toFixed(2),
+                          )}
+                        </p>
                       </div>
                       <div className="item">
                         <h4>52주 최저</h4>
-                        <p>{numberWithCommas(item.weekLow.toFixed(2))}</p>
+                        <p>
+                          {numberWithCommas(
+                            Math.min
+                              .apply(
+                                null,
+                                item.chartData.map((item) => item.stock),
+                              )
+                              .toFixed(2),
+                          )}
+                        </p>
                       </div>
                     </div>
                   </div>

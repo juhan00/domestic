@@ -2,6 +2,13 @@ import styled from "@emotion/styled";
 import { axisBottom } from "d3";
 
 export const StockNewsWrapper = styled.div`
+  & > .loaderWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   width: 100%;
   background: #fff;
   border-radius: 12px;
@@ -56,6 +63,9 @@ export const StockNewsWrapper = styled.div`
           border-radius: 4px;
           background-color: #c4c4c4;
           margin-right: 8px;
+        }
+        &:hover {
+          text-decoration: underline;
         }
       }
       .date {

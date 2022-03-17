@@ -11,32 +11,6 @@ const ExchangeRateChart = ({ data }) => {
   const size = useResizeObserver(exchangeRateChartRef);
   const resize = useDebounce(size, 200);
 
-  //tick 분할 함수
-  const setTickCount = useCallback((min, max, count, type) => {
-    const interval = Math.round((max - min) / count);
-
-    if (type === "center") {
-      const tick = [interval];
-      let tickValue = interval;
-
-      for (let i = 2; i < count; i++) {
-        tick.push(tickValue + interval);
-        tickValue += interval;
-      }
-      return tick;
-    } else {
-      const tick = [min];
-      let tickValue = min;
-
-      for (let i = 0; i < count; i++) {
-        tick.push(tickValue + interval);
-        tickValue += interval;
-      }
-
-      return tick;
-    }
-  }, []);
-
   useEffect(() => {
     if (!resize || !data) {
       return;

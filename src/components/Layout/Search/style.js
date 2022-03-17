@@ -67,6 +67,7 @@ export const SearchContainer = styled.div`
     background-color: #047b6c;
     border: 0;
     border-radius: 4px;
+    cursor: pointer;
     svg {
     }
   }
@@ -77,8 +78,9 @@ export const SearchContainer = styled.div`
     border: 0;
     font-size: 14px;
     color: #999;
-    :focus {
+    &:focus {
       outline: none;
+      color: #000;
     }
   }
   .searchResultWrapper {
@@ -87,7 +89,7 @@ export const SearchContainer = styled.div`
     top: 48px;
     background-color: #fff;
     width: 444px;
-    border-radius: 10px;
+    border-radius: 8px;
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
     max-height: 300px;
     overflow-y: auto;
@@ -122,5 +124,10 @@ export const SearchContainer = styled.div`
       background-color: #047b6c;
       border-radius: 6px;
     }
+  }
+  mark {
+    background-color: transparent;
+    color: #047b6c;
+    font-weight: 700;
   }
 `;

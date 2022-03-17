@@ -3,6 +3,7 @@ import TableHeader from "@components/Table/TableHeader";
 import CorrelationTable from "@components/Table/CorrelationTable";
 import CorrelationChart from "@components/CorrelationChart";
 import { domesticSample } from "@utils/statisticsData";
+import StatisticsHeader from "@components/Table/StatisticsHeader";
 import {
   RouteWrapper,
   SemiHeader,
@@ -12,30 +13,32 @@ import {
   ChartWrapper,
 } from "../DoBeta/style";
 import { sampleJson } from "@utils/api";
-import betaCoeff from "@utils/corrCoeff";
+import { corrCoeff } from "@utils/corrCoeff";
+import { useParams } from "react-router-dom";
 
 const DoCorrelation = () => {
   const [dataX, setDataX] = useState({});
   const [dataY, setDataY] = useState({});
-  const [beta, setBeta] = useState(0);
+  const [corr, setCorr] = useState(0);
   const [data, setData] = useState([]);
   const [names, setNames] = useState([]);
   const [loading, setLoading] = useState(true);
+  const crno = useParams();
 
   useEffect(() => {
     (async () => {
-      sampleJson("xData")
+      sampleJson(crno.stockId, "percentage")
         .then((res) => res.data)
         .then((data) => setDataX(data));
-      sampleJson("yData")
+      sampleJson("035420", "percentage")
         .then((res) => res.data)
         .then((data) => setDataY(data));
     })();
     return () => {
-      setDataX({})
-      setDataY({})
-    }
-  }, []);
+      setDataX({});
+      setDataY({});
+    };
+  }, [crno]);
 
   useEffect(() => {
     if (Object.keys(dataX).length && Object.keys(dataY).length) {
@@ -53,30 +56,26 @@ const DoCorrelation = () => {
         [],
       );
       setData(mergedArray);
-      setBeta(betaCoeff(xData, yData));
+      setCorr(
+        xData.map((_, idx) => ({
+          basDt: xData[idx]["basDt"],
+          corr:
+            idx > 1 ? corrCoeff(xData.slice(0, idx), yData.slice(0, idx)) : 1,
+        })),
+      );
       setLoading(false);
     }
-  }, [dataX, dataY]);
+  }, [dataX, dataY, crno]);
 
   return (
     <RouteWrapper>
-      <SemiHeader>
-        <h1>상관 그래프(Correlation Graph)</h1>
-        <InputWrapper>
-          <input type="date" name="date" />
-          ~
-          <input type="date" name="date" />
-        </InputWrapper>
-      </SemiHeader>
+      <StatisticsHeader />
       <ContentWrapper>
         <ChartWrapper>
-          {!loading && <CorrelationChart data={data} names={names} beta={beta} />}
+          {!loading && <CorrelationChart corr={corr} names={names} />}
         </ChartWrapper>
         <TableWrapper>
-          <TableHeader
-            data={domesticSample.corr}
-            title={domesticSample.title[1]}
-          />
+          <TableHeader data={domesticSample.corr} title={"CORRELATION"} />
           <CorrelationTable data={domesticSample} />
         </TableWrapper>
       </ContentWrapper>

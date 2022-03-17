@@ -1,27 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { TableWrapper, Table, Row, Cell } from "./style";
+import numberWithCommas from "@utils/numberWithComma";
 
 const tableCategories = {
   statistics: [
-    { basDt: "기준일자" },
-    { bizYear: "사업연도" },
-    { crno: "법인등록번호" },
-    { enpBzopPft: "기업영업이익" },
-    { enpSaleAmt: "기업매출금액" },
-    { enpCrtmNpf: "기업당기순이익" },
-    { enpTastAmt: "기업총자산금액" },
-    { enpTdbtAmt: "기업총부채금액" },
-    { enpTcptAmt: "기업총자본금액" },
-    { enpCptlAmt: "기업자본금액" },
-    { fnclDcd: "재무제표구분코드" },
-    { fnclDcdNm: "재무제표구분코드명" },
-    { fnclDebtRto: "재무제표부채비율" },
-    { iclsPalClcAmt: "포광손익계산금액" },
+    { revenue: "매출액" },
+    { opInc: "영업이익" },
+    { netInc: "순이익" },
+    { opMargin: "영업이익률" },
+    { netMargin: "순이익률" },
+    { deptEquity: "부채비율" },
+    { reserve: "유보율" },
+    { roe: "ROE" },
+    { roa: "ROA" },
+    { eps: "EPS" },
+    { per: "PER" },
+    { bps: "BPS" },
+    { pbr: "PBR" },
+    { devidend: "배당금" },
+    { devidendPer: "배당수익률" },
   ],
-  balance: [],
+  balance: [
+    { marketCap: "자산총계" },
+    { curAsset: "유동자산" },
+    { inventory: "재고자산" },
+    { tangible: "유형자산" },
+    { intangible: "무형자산" },
+    { invests: "투자자산" },
+    { liabilitiesCap: "부채총계" },
+    { curLiab: "유동부채" },
+  ],
   income: [],
-  cashflow: [],
 };
+const percentage = ["ROE", "ROA", "EPS", "PER", "BPS", "PBR"];
 
 const StatisticsTable = ({ data, type }) => {
   const [categories, setCategories] = useState([]);
@@ -29,7 +40,6 @@ const StatisticsTable = ({ data, type }) => {
 
   useEffect(() => {
     setCategories(tableCategories[type]);
-    console.log(data);
   }, [type]);
 
   return (
@@ -51,32 +61,33 @@ const StatisticsTable = ({ data, type }) => {
             <Cell className="table__category">
               <h1>카테고리</h1>
             </Cell>
-            <Cell>2304009억원</Cell>
-            <Cell>2304009억원</Cell>
-            <Cell>2304009억원</Cell>
-            <Cell>2304009억원</Cell>
-          </Row>
-          <Row>
-            <Cell className="table__category">
-              <h2>카테고리</h2>
-            </Cell>
-            <Cell>2304009억원</Cell>
-            <Cell>2304009억원</Cell>
-            <Cell>2304009억원</Cell>
-            <Cell>2304009억원</Cell>
           </Row>
           {data &&
-            categories.slice(3).map((item, index) => (
+            categories.map((item, index) => (
               <Row>
                 <Cell key={index} className="table__category">
                   <h3>{Object.values(item)}</h3>
                 </Cell>
                 {isYearly
-                  ? data.yearly.map((d, i) => (
-                      <Cell>{data.yearly[i][Object.keys(item)]}</Cell>
+                  ? data.yearly.map((data, i) => (
+                      <Cell>
+                        {numberWithCommas(data[Object.keys(item)])}
+                        <span>
+                          {percentage.includes(Object.values(item)[0])
+                            ? " %"
+                            : " 억원"}
+                        </span>
+                      </Cell>
                     ))
-                  : data.quarter.map((d, i) => (
-                      <Cell>{data.yearly[i][Object.keys(item)]}</Cell>
+                  : data.quarters.map((data, i) => (
+                      <Cell>
+                        {numberWithCommas(data[Object.keys(item)])}
+                        <span>
+                          {percentage.includes(Object.values(item)[0])
+                            ? " %"
+                            : " 억원"}
+                        </span>
+                      </Cell>
                     ))}
               </Row>
             ))}

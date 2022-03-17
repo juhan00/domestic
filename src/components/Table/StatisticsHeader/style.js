@@ -1,14 +1,25 @@
 import styled from "@emotion/styled";
 
 export const HeaderWrapper = styled.div`
-  line-height: 26px;
-  margin-bottom: 15px;
-  overflow: hidden;
-  h3 {
-    color: #111111;
-    font-size: 18px;
-    font-weight: 500;
-    float: left;
+  line-height: 36px;
+  width: 100%;
+  margin-bottom: 18px;
+  a {
+    background-color: #f5f6f8;
+    color: #999999;
+    width: 97px;
+    height: 36px;
+    display: inline-block;
+    border: 1px solid #f0f0f6;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    &.selected {
+      color: #111111;
+      background-color: #e8f1ee;
+      border: 1px solid #35a67d;
+      font-weight: 700;
+    }
   }
 `;
 

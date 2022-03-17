@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useLocation, useParams } from "react-router-dom";
 import Search from "@components/Layout/Search";
 import MoyaLogoWh from "@images/moyaLogo_Wh.png";
 import StockInfo from "@components/Layout/StockInfo";
 import Nav from "@components/Layout/Nav";
+import ArrowToTop from "@images/icon_totop.png";
 import {
   HeaderContainer,
   HeaderInnerTemplate,
@@ -14,7 +15,7 @@ import {
 export const Header = () => {
   const stockId = useParams().stockId;
   const [scrolled, setScrolled] = useState(false);
-
+  const location = useLocation().pathname;
   const handleToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -38,7 +39,7 @@ export const Header = () => {
     <HeaderContainer>
       <HeaderInnerTemplate>
         <HaederWrapper>
-          <NavLink to="/">
+          <NavLink to={location.includes("domestic") ? "/domestic" : "/global"}>
             <img className="logo" src={MoyaLogoWh} alt="MoYa" />
           </NavLink>
           <Search />
@@ -48,7 +49,7 @@ export const Header = () => {
       </HeaderInnerTemplate>
       <Nav scrolled={scrolled} />
       <ToTop className={scrolled ? "totop" : ""} onClick={handleToTop}>
-        ↑
+        <img src={ArrowToTop} alt="상단이동버튼" />
       </ToTop>
     </HeaderContainer>
   );

@@ -3,53 +3,40 @@ import { NavLink } from "react-router-dom";
 
 const SearchResult = ({
   keyword,
-  domesticList,
-  globalList,
+  domesticFiltered,
+  globalFiltered,
   onClickDomestic,
   onClickGlobal,
+  targetUrl,
   location,
 }) => {
-  const secondTarget = useMemo(() => {
-    let target = "";
-    if (location.includes("cominfo")) {
-      target = "cominfo";
-    } else if (location.includes("disclosure")) {
-      target = "disclosure";
-    } else if (location.includes("beta")) {
-      target = "beta";
-    } else if (location.includes("correlation")) {
-      target = "correlation";
-    } else if (location.includes("statistics")) {
-      target = "statistics";
-    } else {
-      target = "financial";
-    }
-    return target;
-  }, [location]);
+  const hilighting = (text) => {
+    const parts = text.split(new RegExp(`(${keyword})`, "gi"));
+    return (
+      <>
+        {parts.map((part, index) =>
+          part.toLowerCase() === keyword.toLowerCase() ? (
+            <mark key={index}>{part}</mark>
+          ) : (
+            part
+          ),
+        )}
+      </>
+    );
+  };
 
   const DomesticResultList = () => {
     return (
       <ul className="searchResultList">
-        {domesticList
-          .filter((list) => {
-            if (keyword == "") {
-              return list;
-            } else if (
-              list.crno.toLowerCase().includes(keyword.toLowerCase()) ||
-              list.itmsNm.toLowerCase().includes(keyword.toLowerCase())
-            ) {
-              return list;
-            }
-          })
-          .map((list) => (
-            <li className="searchResultItem" key={list.crno}>
-              <NavLink
-                to={`domestic/${secondTarget}/${list.crno}`}
-                onClick={() => onClickDomestic(list.itmsNm, list.crno)}>
-                <span>{list.itmsNm}</span> | {list.crno}
-              </NavLink>
-            </li>
-          ))}
+        {domesticFiltered.map((list) => (
+          <li className="searchResultItem" key={list.crno}>
+            <NavLink
+              to={`domestic/${targetUrl}/${list.crno}`}
+              onClick={() => onClickDomestic(list.itmsNm, list.crno)}>
+              <span>{hilighting(list.itmsNm)}</span> | {hilighting(list.crno)}
+            </NavLink>
+          </li>
+        ))}
       </ul>
     );
   };
@@ -57,27 +44,16 @@ const SearchResult = ({
   const GlobalResultList = () => {
     return (
       <ul className="searchResultList">
-        {globalList
-          .filter((list) => {
-            if (keyword == "") {
-              return list;
-            } else if (
-              list.symbol.toLowerCase().includes(keyword.toLowerCase()) ||
-              list.companyName.toLowerCase().includes(keyword.toLowerCase())
-            ) {
-              return list;
-            }
-          })
-          .map((list) => (
-            <li className="searchResultItem" key={list.symbol}>
-              <NavLink
-                to={`global/${secondTarget}/${list.symbol}`}
-                onClick={() => onClickGlobal(list.symbol)}>
-                <span>{list.symbol}</span> | {list.companyName} |{" "}
-                {list.HQnation}
-              </NavLink>
-            </li>
-          ))}
+        {globalFiltered.map((list) => (
+          <li className="searchResultItem" key={list.symbol}>
+            <NavLink
+              to={`global/${targetUrl}/${list.symbol}`}
+              onClick={() => onClickGlobal(list.symbol)}>
+              <span>{hilighting(list.symbol)}</span> |
+              {hilighting(list.companyName)} | {list.HQnation}
+            </NavLink>
+          </li>
+        ))}
       </ul>
     );
   };

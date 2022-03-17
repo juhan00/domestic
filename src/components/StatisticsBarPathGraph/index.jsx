@@ -12,16 +12,28 @@ import {
   line,
   axisRight,
   axisLeft,
+  timeFormat,
 } from "d3";
 import useResizeObserver from "@utils/useResizeObserver";
 
-const StatisticsGraph = ({ data, barData, pathData }) => {
+const StatisticsGraph = ({ data, type }) => {
   const graphRef = useRef();
   const svgRef = useRef(null);
   const resizeWidth = useResizeObserver(graphRef);
 
   const barColor = ["#FECF5B", "#35A67D"];
   const pathColor = ["#065398", "#F5746B", "#35A67D"];
+
+  const barKeys = {
+    statistics: ["netInc", "opInc"],
+    balance: ["marketCap", "liabilitiesCap"],
+    income: ["salesNet", "investsNet", "devNet"],
+  };
+  const pathKeys = {
+    statistics: ["roe", "roa"],
+    balance: [],
+    income: [],
+  };
 
   function topRounded(x, y, w, h, r, f) {
     if (f == undefined) f = 1;
@@ -66,11 +78,19 @@ const StatisticsGraph = ({ data, barData, pathData }) => {
     const graphWrapper = select(graphRef.current);
     const svg = select(svgRef.current);
 
-    const entireValue = max(data, (data) => data.당기순이익);
+    const yearly = data.yearly;
+
+    const yLeftMax = Math.max(
+      ...barKeys[type].map((key) => max(yearly, (year) => year[key])),
+    );
+    const yRightMax = Math.max(
+      ...pathKeys[type].map((key) => max(yearly, (year) => year[key])),
+    );
 
     svg.selectAll(".dots").remove();
     svg.selectAll(".lines").remove();
     svg.selectAll(".bars").remove();
+    svg.selectAll(".tick line").remove();
 
     if (!resizeWidth || !data) {
       return;
@@ -84,20 +104,18 @@ const StatisticsGraph = ({ data, barData, pathData }) => {
     svg.attr("width", resizeWidth).attr("height", 300);
 
     const xBandScale = scaleBand()
-      .domain(barData.map((value, idx) => idx))
+      .domain(yearly.map((value, idx) => idx))
       .range([margin.left + innerPadding, width - margin.right - innerPadding])
       .paddingInner(0.5);
 
     const xScale = scaleTime()
-      .domain(extent(barData, (data) => data.date))
+      .domain(extent(yearly, (data) => new Date(data.basDt)))
       .range([
         margin.left + innerPadding + xBandScale.bandwidth() / 2,
         width - margin.right - innerPadding - xBandScale.bandwidth() / 2,
       ]);
-    const xAxis = axisBottom(xScale).ticks(barData.length);
-    const xBandAxis = axisBottom(xScale).tickFormat((node, i) => {
-      return barData[node];
-    });
+    const xAxis = axisBottom(xScale).ticks(6).tickFormat(timeFormat("%Y.%m"));
+    const xBandAxis = axisBottom(xScale).tickFormat((node, i) => yearly[node]);
 
     svg
       .select(".x-axis")
@@ -116,17 +134,21 @@ const StatisticsGraph = ({ data, barData, pathData }) => {
       .style("transform", `translate(30px, ${height - margin.bottom}px)`);
 
     const yRightScale = scaleLinear()
-      .domain([0, max(pathData, (data) => data.ROE) * 1.2])
+      .domain([0, yRightMax])
       .range([height - margin.bottom, margin.top]);
 
     const yLeftScale = scaleLinear()
-      .domain([0, max(barData, (data) => data.당기순이익) * 1.2])
+      .domain([0, yLeftMax])
       .range([height - margin.bottom, margin.top])
       .nice();
 
     svg
       .select(".y-axis")
-      .call(axisRight(yRightScale).ticks(5))
+      .call(
+        axisRight(yRightScale)
+          .ticks(5)
+          .tickFormat((x) => parseInt(x)),
+      )
       .style("transform", `translateX(${width - margin.right}px)`)
       .call((g) => g.selectAll(".domain").remove())
       .call((g) => g.selectAll(".tick line").remove());
@@ -146,74 +168,77 @@ const StatisticsGraph = ({ data, barData, pathData }) => {
 
     svg
       .selectAll(".bar")
-      .data(barData)
+      .data(yearly)
       .join((enter) => {
         const bars = enter.append("g").classed("bars", true);
 
-        Object.keys(barData[0]).map((keys, idx) => {
-          keys === "date"
-            ? null
-            : bars
+        Object.keys(yearly[0]).map((keys, idx) => {
+          barKeys[type].includes(keys)
+            ? bars
                 .append("path")
-                .attr("fill", "none")
                 .attr("d", (node, index) =>
                   topRounded(
                     xBandScale(index),
                     yLeftScale(0),
-                    xBandScale.bandwidth(),
-                    yLeftScale(0) - yLeftScale(node.당기순이익),
+                    xBandScale.bandwidth() / 2,
+                    yLeftScale(0) - yLeftScale(node[keys]),
                     2,
                   ),
                 )
-                .attr("fill", barColor[idx - 1]);
+                .attr("fill", barColor[idx % 2])
+                .style(
+                  "transform",
+                  `translateX(${(xBandScale.bandwidth() / 2) * (idx % 2)}px)`,
+                )
+            : null;
         });
       });
 
     svg
       .selectAll(".line")
-      .data([pathData])
+      .data([yearly])
       .join((enter) => {
         const lines = enter.append("g").classed("lines", true);
 
-        Object.keys(pathData[0]).map((keys, idx) => {
-          keys === "date"
-            ? null
-            : lines
+        Object.keys(yearly[0]).map((keys, idx) => {
+          pathKeys[type].includes(keys)
+            ? lines
                 .append("path")
                 .attr("fill", "none")
-                .attr("stroke", pathColor[idx - 1])
+                .attr("stroke", pathColor[idx % 2])
                 .attr("stroke-width", 2)
                 .attr("stroke-linejoin", "round")
                 .attr("stroke-linecap", "round")
                 .attr(
                   "d",
                   line()
-                    .x((d) => xScale(d["date"]))
+                    .x((d) => xScale(new Date(d["basDt"])))
                     .y((d) => yRightScale(d[keys])),
-                );
+                )
+            : null;
         });
       });
 
     svg
       .selectAll(".dots")
-      .data(pathData)
+      .data(yearly)
       .join((enter) => {
         const dots = enter.append("g").classed("dots", true);
 
-        Object.keys(pathData[0]).map((keys, idx) => {
-          keys === "date"
-            ? null
-            : dots
+        Object.keys(yearly[0]).map((keys, idx) => {
+          pathKeys[type].includes(keys)
+            ? dots
                 .append("circle")
-                .attr("cx", (d) => xScale(d["date"]))
+                .attr("cx", (d) => xScale(new Date(d["basDt"])))
                 .attr("cy", (d) => yRightScale(d[keys]))
                 .attr("r", 3)
                 .attr("fill", "#ffffff")
-                .attr("stroke", pathColor[idx - 1])
-                .attr("stroke-width", 2);
+                .attr("stroke", pathColor[idx % 2])
+                .attr("stroke-width", 2)
+            : null;
         });
       });
-  }, [data, resizeWidth]);
+  }, [data, type, resizeWidth]);
 
   return (
     <GraphWrapper ref={graphRef}>

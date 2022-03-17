@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useMemo } from "react";
 import axios from "redaxios";
 import SearchBar from "@components/Layout/Search/SearchBar";
 import SearchResult from "@components/Layout/Search/SearchResult";
@@ -46,6 +46,7 @@ const useLocalStorage = (key) => {
 
 const Search = () => {
   const ref = useRef();
+  const inputRef = useRef();
   const navigate = useNavigate();
   const location = useLocation().pathname;
 
@@ -79,6 +80,53 @@ const Search = () => {
     };
   }, []);
 
+  // 키워드로 필터된 검색 리스트(국내주식)
+  const domesticFiltered = useMemo(() => {
+    let filtered = [];
+    domesticList.filter((list) => {
+      if (
+        list.crno.toLowerCase().includes(keyword.toLowerCase()) ||
+        list.itmsNm.toLowerCase().includes(keyword.toLowerCase())
+      ) {
+        filtered.push(list);
+      }
+    });
+    return filtered;
+  }, [keyword, domesticList]);
+
+  // 키워드로 필터된 검색 리스트(해외주식)
+  const globalFiltered = useMemo(() => {
+    let filtered = [];
+    globalList.filter((list) => {
+      if (
+        list.symbol.toLowerCase().includes(keyword.toLowerCase()) ||
+        list.companyName.toLowerCase().includes(keyword.toLowerCase())
+      ) {
+        filtered.push(list);
+      }
+    });
+    return filtered;
+  }, [keyword, globalList]);
+
+  // 현재 url 주소에 따라 2차 url 주소 변경
+  const targetUrl = useMemo(() => {
+    let target = "";
+    if (location.includes("cominfo")) {
+      target = "cominfo";
+    } else if (location.includes("disclosure")) {
+      target = "disclosure";
+    } else if (location.includes("beta")) {
+      target = "beta";
+    } else if (location.includes("correlation")) {
+      target = "correlation";
+    } else if (location.includes("statistics")) {
+      target = "statistics";
+    } else {
+      target = "financial";
+    }
+    return target;
+  }, [location]);
+
   // 인풋이 포커스되면 기존의 검색어를 지우고, isOpen 스테이트를 변경하는 함수
   const handleFocused = () => {
     setKeyworld("");
@@ -90,7 +138,7 @@ const Search = () => {
     setKeyworld(e.target.value);
   };
 
-  //검색 결과 클릭하면 isOpen false로 바꾸어서 리스트 창 닫고 검색 내역에 추가 함수
+  //검색 결과 클릭하면 isOpen false로 바꾸어서 리스트 창 닫고, 최근 조회로 props 전달하는 함수
   const handleClickDomestic = (name, id) => {
     setIsOpen(false);
     const stockItem = {
@@ -101,15 +149,40 @@ const Search = () => {
     };
     setDomesticStorage(stockItem);
   };
-
   const handleClickGlobal = (id) => {
     setIsOpen(false);
     const stockItem = {
+      name: id,
       id: id,
       price: Math.floor(Math.random() * 1001) * 100,
       rate: (Math.random() - Math.random()).toFixed(2),
     };
     setGlobalStorage(stockItem);
+  };
+
+  // 엔터 또는 검색아이콘 클릭시 url위치와 검색 키워드에 따라 필터링된 첫번째 리스트로 이동하는 함수
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (location.includes("domestic")) {
+      if (domesticFiltered.length >= 1) {
+        navigate(`domestic/${targetUrl}/${domesticFiltered[0].crno}`);
+      }
+    } else if (location.includes("global")) {
+      if (globalFiltered.length >= 1) {
+        navigate(`global/${targetUrl}/${globalFiltered[0].symbol}`);
+      }
+    } else {
+      if (domesticFiltered.length >= 1) {
+        navigate(`domestic/${targetUrl}/${domesticFiltered[0].crno}`);
+      } else if (globalFiltered.length >= 1) {
+        navigate(`global/${targetUrl}/${globalFiltered[0].symbol}`);
+      } else if (globalFiltered.length === 0 && domesticFiltered.length === 0) {
+        null;
+      }
+    }
+    inputRef.current.blur();
+    setIsOpen(false);
+    setKeyworld("");
   };
 
   clickOutside(ref, isOpen, setIsOpen);
@@ -132,7 +205,7 @@ const Search = () => {
           해외주식
         </div>
       </div>
-      <button className="searchBtn">
+      <button className="searchBtn" onClick={handleSubmit}>
         <img src={SearchIcon} alt="검색" />
       </button>
       <div ref={ref}>
@@ -140,6 +213,8 @@ const Search = () => {
           onFocus={handleFocused}
           onChangeKeyword={handleChangeKeyworld}
           keyword={keyword}
+          onSubmit={handleSubmit}
+          inputRef={inputRef}
         />
         <div
           className={
@@ -147,10 +222,11 @@ const Search = () => {
           }>
           <SearchResult
             keyword={keyword}
-            domesticList={domesticList}
-            globalList={globalList}
+            domesticFiltered={domesticFiltered}
+            globalFiltered={globalFiltered}
             onClickDomestic={handleClickDomestic}
             onClickGlobal={handleClickGlobal}
+            targetUrl={targetUrl}
             location={location}
           />
         </div>

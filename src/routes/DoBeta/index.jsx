@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import TableHeader from "@components/Table/TableHeader";
 import BetaTable from "@components/Table/BetaTable";
 import BetaChart from "@components/BetaChart";
+import StatisticsHeader from "@components/Table/StatisticsHeader";
 import {
   RouteWrapper,
   SemiHeader,
@@ -13,6 +14,7 @@ import {
 } from "./style";
 import { sampleJson } from "@utils/api";
 import betaCoeff, { corrCoeff } from "@utils/corrCoeff";
+import { HashLoader } from "react-spinners";
 
 const DoBeta = () => {
   const [dataX, setDataX] = useState({});
@@ -61,21 +63,26 @@ const DoBeta = () => {
 
   return (
     <RouteWrapper>
-      <SemiHeader>
-        <h1>회귀 그래프(Regression Graph)</h1>
-        <InputWrapper>
-          <input type="date" name="date" />
-          ~
-          <input type="date" name="date" />
-        </InputWrapper>
-      </SemiHeader>
+      <StatisticsHeader />
       <ContentWrapper>
         <ChartWrapper>
-          {!loading && <BetaChart data={data} names={names} beta={beta} />}
+          {loading ? (
+            <HashLoader color={"#48a185"} size={50} />
+          ) : (
+            <BetaChart data={data} names={names} beta={beta} />
+          )}
         </ChartWrapper>
         <TableWrapper>
-          <TableHeader data={beta} title={"BETA"} />
-          <BetaTable data={data} names={names} />
+          {loading ? (
+            <HashLoader color={"#48a185"} size={50} />
+          ) : (
+            <TableHeader data={beta} title={"BETA"} />
+          )}
+          {loading ? (
+            <HashLoader color={"#48a185"} size={50} />
+          ) : (
+            <BetaTable data={data} names={names} />
+          )}
         </TableWrapper>
       </ContentWrapper>
     </RouteWrapper>
