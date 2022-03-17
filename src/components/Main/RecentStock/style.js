@@ -10,7 +10,6 @@ export const RecentStockWrapper = styled.div`
   border-radius: 12px;
   padding: 25px;
   overflow: hidden;
-  margin-bottom: 20px;
 
   & > h2 {
     display: flex;
