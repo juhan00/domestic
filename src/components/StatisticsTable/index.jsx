@@ -20,7 +20,16 @@ const tableCategories = {
     { devidend: "배당금" },
     { devidendPer: "배당수익률" },
   ],
-  balance: [],
+  balance: [
+    { marketCap: "자산총계" },
+    { curAsset: "유동자산" },
+    { inventory: "재고자산" },
+    { tangible: "유형자산" },
+    { intangible: "무형자산" },
+    { invests: "투자자산" },
+    { liabilitiesCap: "부채총계" },
+    { curLiab: "유동부채" },
+  ],
   income: [],
 };
 const percentage = ["ROE", "ROA", "EPS", "PER", "BPS", "PBR"];
