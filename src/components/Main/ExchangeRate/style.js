@@ -154,8 +154,11 @@ export const ExchangeRateWrapper = styled.div`
           .upDownWrapper {
             white-space: nowrap;
             display: flex;
+            .upDown {
+              margin-right: 20px;
+            }
             .week {
-              margin-left: 20px;
+              margin-left: auto;
             }
             .item {
               margin-top: 20px;
@@ -171,6 +174,7 @@ export const ExchangeRateWrapper = styled.div`
                 font-weight: 400;
                 line-height: 1.5;
                 margin-left: 14px;
+                text-align: right;
                 &.up {
                   color: #e00400;
                 }
@@ -186,11 +190,12 @@ export const ExchangeRateWrapper = styled.div`
           .date {
             margin-top: 15px;
             width: 100%;
-            text-align: right;
+            text-align: left;
             font-size: 12px;
             font-weight: 400;
             line-height: 1.5;
             color: #999;
+            white-space: nowrap;
           }
         }
         .chart {
