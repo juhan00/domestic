@@ -4,13 +4,14 @@ import resent_slide_arrow_prev from "@images/resent_slide_arrow_prev.svg";
 import resent_slide_arrow_next from "@images/resent_slide_arrow_next.svg";
 
 export const RecentStockWrapper = styled.div`
+  position: relative;
   height: 110px;
   display: flex;
   flex: 1 1 0;
   align-items: center;
   background: #ffffff;
   border-radius: 12px;
-  padding: 28px;
+  padding: 28px 0;
   overflow: hidden;
   & > .loaderWrapper {
     width: 100%;
@@ -21,13 +22,16 @@ export const RecentStockWrapper = styled.div`
   }
 
   & > h2 {
-    display: flex;
+    position: absolute;
+    left: 28px;
+    top: 50%;
+    transform: translateY(-50%);
     align-items: center;
     font-size: 18px;
     line-height: 1.4;
     font-weight: 700;
     color: #111111;
-    min-width: 34px;
+    z-index: 2;
   }
 
   .itemWrapper {
@@ -78,6 +82,7 @@ export const RecentStockWrapper = styled.div`
         }
         & > .index {
           display: flex;
+          align-items: center;
           font-size: 16px;
           font-weight: 700;
           line-height: 1.5;
@@ -86,6 +91,7 @@ export const RecentStockWrapper = styled.div`
             font-size: 16px;
             font-weight: 400;
             display: flex;
+            align-items: center;
             margin-left: 12px;
             &.up {
               color: #e82b2b;
@@ -96,7 +102,7 @@ export const RecentStockWrapper = styled.div`
             & > img {
               width: 10px;
               margin-right: 4px;
-              transform: translateY(-2px);
+              transform: translateY(-1px);
             }
           }
         }
@@ -125,7 +131,8 @@ export const RecentStockWrapper = styled.div`
       }
     }
     .swiper {
-      margin-left: 0;
+      width: calc(100% - 58px);
+      margin-left: 58px;
       padding: 0 40px 0 40px;
       &::before {
         position: absolute;
@@ -158,7 +165,7 @@ export const RecentStockWrapper = styled.div`
         z-index: 2;
       }
       .swiper-button-prev {
-        left: 0px;
+        left: 10px;
         width: 44px;
         height: 44px;
         border-radius: 44px;
@@ -169,7 +176,7 @@ export const RecentStockWrapper = styled.div`
         }
       }
       .swiper-button-next {
-        right: 10px;
+        right: 20px;
         width: 44px;
         height: 44px;
         border-radius: 44px;
