@@ -14,6 +14,7 @@ import {
 } from "./style";
 import { sampleJson } from "@utils/api";
 import betaCoeff, { corrCoeff } from "@utils/corrCoeff";
+import { HashLoader } from "react-spinners";
 
 const DoBeta = () => {
   const [dataX, setDataX] = useState({});
@@ -62,16 +63,26 @@ const DoBeta = () => {
 
   return (
     <RouteWrapper>
-      <SemiHeader>
-        <StatisticsHeader />
-      </SemiHeader>
+      <StatisticsHeader />
       <ContentWrapper>
         <ChartWrapper>
-          {!loading && <BetaChart data={data} names={names} beta={beta} />}
+          {loading ? (
+            <HashLoader color={"#48a185"} size={50} />
+          ) : (
+            <BetaChart data={data} names={names} beta={beta} />
+          )}
         </ChartWrapper>
         <TableWrapper>
-          <TableHeader data={beta} title={"BETA"} />
-          <BetaTable data={data} names={names} />
+          {loading ? (
+            <HashLoader color={"#48a185"} size={50} />
+          ) : (
+            <TableHeader data={beta} title={"BETA"} />
+          )}
+          {loading ? (
+            <HashLoader color={"#48a185"} size={50} />
+          ) : (
+            <BetaTable data={data} names={names} />
+          )}
         </TableWrapper>
       </ContentWrapper>
     </RouteWrapper>

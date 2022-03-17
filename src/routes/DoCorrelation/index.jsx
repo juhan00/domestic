@@ -3,6 +3,7 @@ import TableHeader from "@components/Table/TableHeader";
 import CorrelationTable from "@components/Table/CorrelationTable";
 import CorrelationChart from "@components/CorrelationChart";
 import { domesticSample } from "@utils/statisticsData";
+import StatisticsHeader from "@components/Table/StatisticsHeader";
 import {
   RouteWrapper,
   SemiHeader,
@@ -63,29 +64,18 @@ const DoCorrelation = () => {
         })),
       );
       setLoading(false);
-      console.log(corr);
     }
   }, [dataX, dataY, crno]);
 
   return (
     <RouteWrapper>
-      <SemiHeader>
-        <h1>상관 그래프(Correlation Graph)</h1>
-        <InputWrapper>
-          <input type="date" name="date" />
-          ~
-          <input type="date" name="date" />
-        </InputWrapper>
-      </SemiHeader>
+      <StatisticsHeader />
       <ContentWrapper>
         <ChartWrapper>
           {!loading && <CorrelationChart corr={corr} names={names} />}
         </ChartWrapper>
         <TableWrapper>
-          <TableHeader
-            data={domesticSample.corr}
-            title={domesticSample.title[1]}
-          />
+          <TableHeader data={domesticSample.corr} title={"CORRELATION"} />
           <CorrelationTable data={domesticSample} />
         </TableWrapper>
       </ContentWrapper>
