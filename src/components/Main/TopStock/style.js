@@ -81,7 +81,7 @@ export const TopStockWrapper = styled.div`
         font-weight: 500;
         line-height: 1.5;
         color: #999;
-        padding: 14px 20px;
+        padding: 14px 15px;
         text-align: right;
       }
       th:nth-of-type(1),
@@ -103,7 +103,7 @@ export const TopStockWrapper = styled.div`
           line-height: 1.5;
           color: #111;
           vertical-align: middle;
-          padding: 0 20px;
+          padding: 0 15px;
           text-align: right;
           &.up {
             color: #e82b2b;
@@ -131,14 +131,10 @@ export const TopStockWrapper = styled.div`
       }
       tr td:first-of-type {
         border-top-left-radius: 10px;
-      }
-      tr td:first-of-type {
         border-bottom-left-radius: 10px;
       }
       tr td:last-of-type {
         border-top-right-radius: 10px;
-      }
-      tr td:last-of-type {
         border-bottom-right-radius: 10px;
       }
     }
