@@ -9,6 +9,7 @@ import HashLoader from "react-spinners/HashLoader";
 
 const DoStatistics = () => {
   const [statisticsData, setStatisticsData] = useState({});
+  const [type, setType] = useState("statistics");
   const crno = useParams();
 
   useEffect(() => {
@@ -17,8 +18,7 @@ const DoStatistics = () => {
         .then((res) => res.data)
         .then((data) => setStatisticsData(data));
     })();
-    console.log(statisticsData);
-  }, [crno]);
+  }, [crno, type]);
 
   return (
     <RouteWrapper>
@@ -26,13 +26,13 @@ const DoStatistics = () => {
         <h1>재무비율 요약</h1>
         <GraphWrapper>
           {Object.keys(statisticsData).length ? (
-            <StatisticsBarPathGraph data={statisticsData} />
+            <StatisticsBarPathGraph data={statisticsData} type={"statistics"} />
           ) : (
             <HashLoader color={"#48a185"} size={50} />
           )}
           <div className="divide" />
           {Object.keys(statisticsData).length ? (
-            <StatisticsPathGraph data={statisticsData} />
+            <StatisticsPathGraph data={statisticsData} type={"statistics"} />
           ) : (
             <HashLoader color={"#48a185"} size={50} />
           )}
