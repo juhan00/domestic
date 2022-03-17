@@ -30,7 +30,14 @@ const tableCategories = {
     { liabilitiesCap: "부채총계" },
     { curLiab: "유동부채" },
   ],
-  income: [],
+  income: [
+    { netInc: "순이익" },
+    { depre: "감가상각" },
+    { sales: "영업활동으로 인한 자산 변동" },
+    { salesNet: "영업에서 창출된 현금흐름" },
+    { investsNet: "투자활동으로 인한 현금 흐름" },
+    { devNet: "배당금수입" },
+  ],
 };
 const percentage = ["ROE", "ROA", "EPS", "PER", "BPS", "PBR"];
 
@@ -64,14 +71,14 @@ const StatisticsTable = ({ data, type }) => {
           </Row>
           {data &&
             categories.map((item, index) => (
-              <Row>
+              <Row key={index}>
                 <Cell key={index} className="table__category">
                   <h3>{Object.values(item)}</h3>
                 </Cell>
                 {isYearly
                   ? data.yearly.map((data, i) => (
-                      <Cell>
-                        {numberWithCommas(data[Object.keys(item)])}
+                      <Cell key={i}>
+                        {data[Object.keys(item)]}
                         <span>
                           {percentage.includes(Object.values(item)[0])
                             ? " %"
@@ -80,8 +87,8 @@ const StatisticsTable = ({ data, type }) => {
                       </Cell>
                     ))
                   : data.quarters.map((data, i) => (
-                      <Cell>
-                        {numberWithCommas(data[Object.keys(item)])}
+                      <Cell key={i}>
+                        {data[Object.keys(item)]}
                         <span>
                           {percentage.includes(Object.values(item)[0])
                             ? " %"
