@@ -41,7 +41,7 @@ const CardsList = ({
       />
       <EmojiCard
         icon={emotionRate.type === "positive" ? icon_positive : icon_negative}
-        title={`${title}`}
+        title={`${title}의 대표 긍부정`}
         description={`${periodStart}-${periodEnd} 기준`}
         number={`${emotionRate.value}%`}
         numberDes={emotionRate.type === "positive" ? "긍정" : "부정"}

@@ -3,21 +3,31 @@ import { RouteWrapper, TopWrapper, GraphWrapper } from "./style";
 import StatisticsTable from "@components/StatisticsTable";
 import StatisticsBarPathGraph from "@components/StatisticsBarPathGraph";
 import StatisticsPathGraph from "@components/StatisticsPathGraph";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { sampleJson } from "@utils/api";
 import HashLoader from "react-spinners/HashLoader";
 
 const DoStatistics = () => {
   const [statisticsData, setStatisticsData] = useState({});
-  const [type, setType] = useState("statistics");
+  const [type, setType] = useState("");
+  const [loading, setLoading] = useState(true);
   const crno = useParams();
+  const path = useLocation().pathname;
+  const types = ["statistics", "balance", "income"];
 
   useEffect(() => {
-    (async () => {
-      sampleJson(crno.stockId, "balance")
-        .then((res) => res.data)
-        .then((data) => setStatisticsData(data));
-    })();
+    types.map((item) => (path.includes(item) ? setType(item) : null));
+    setLoading(false);
+  }, [crno]);
+
+  useEffect(() => {
+    loading
+      ? null
+      : (async () => {
+          sampleJson(crno.stockId, type)
+            .then((res) => res.data)
+            .then((data) => setStatisticsData(data));
+        })();
   }, [crno, type]);
 
   return (
@@ -26,20 +36,20 @@ const DoStatistics = () => {
         <h1>재무비율 요약</h1>
         <GraphWrapper>
           {Object.keys(statisticsData).length ? (
-            <StatisticsBarPathGraph data={statisticsData} type={"statistics"} />
+            <StatisticsBarPathGraph data={statisticsData} type={type} />
           ) : (
             <HashLoader color={"#48a185"} size={50} />
           )}
           <div className="divide" />
           {Object.keys(statisticsData).length ? (
-            <StatisticsPathGraph data={statisticsData} type={"statistics"} />
+            <StatisticsPathGraph data={statisticsData} type={type} />
           ) : (
             <HashLoader color={"#48a185"} size={50} />
           )}
         </GraphWrapper>
       </TopWrapper>
       {Object.keys(statisticsData).length ? (
-        <StatisticsTable data={statisticsData} type={"statistics"} />
+        <StatisticsTable data={statisticsData} type={type} />
       ) : (
         <HashLoader color={"#48a185"} size={50} />
       )}
