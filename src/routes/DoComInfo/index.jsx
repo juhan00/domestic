@@ -5,6 +5,7 @@ import ComInfoDailyPrice from "@components/DailyPrice";
 import { RouteWrapper, PriceWrapper } from "./style";
 import { sampleJson } from "@utils/api";
 import { useParams } from "react-router-dom";
+import { HashLoader } from "react-spinners";
 
 const DoComInfo = () => {
   const [comInfoData, setComInfoData] = useState({});
@@ -29,7 +30,9 @@ const DoComInfo = () => {
           yearly={comInfoData.yearly}
           quarters={comInfoData.quarters}
         />
-      ) : null}
+      ) : (
+        <HashLoader color={"#48a185"} size={50} />
+      )}
     </RouteWrapper>
   );
 };

@@ -6,7 +6,6 @@ const ScrollToTop = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
-    console.log(location);
   }, [location]);
 
   return null;
