@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { DomesticWrapper } from "./style";
-import RecentStock from "@components/Main/RecentStock";
+import RecentStock, { RecentStockLoader } from "@components/Main/RecentStock";
 import StockIndex, { StockIndexLoader } from "@components/Main/StockIndex";
 import TopStock, { TopStockLoader } from "@components/Main/TopStock";
 import ExchangeRate, {
@@ -11,11 +11,27 @@ import StockNews, { StockNewsLoader } from "@components/Main/StockNews";
 import axios from "redaxios";
 
 const Domestic = () => {
+  //box animation
+  const [isBoxLoader, setIsBoxLoader] = useState(false);
+  const [recentStockData, setRecentStockData] = useState(null);
   const [stockIndexData, setStockIndexData] = useState(null);
   const [topStockData, setTopStockData] = useState(null);
   const [stockNewsData, setStockNewsData] = useState(null);
   const [exchangeRateData, setExchangeRateData] = useState(null);
   const [marketIndiData, setMarketIndiData] = useState(null);
+
+  useEffect(() => {
+    setIsBoxLoader(true);
+    return () => setIsBoxLoader(false);
+  }, []);
+
+  //recentStockData
+  useEffect(() => {
+    setTimeout(() => {
+      setRecentStockData(true);
+    }, 1500);
+    return () => setRecentStockData(false);
+  }, []);
 
   //stockIndexData
   useEffect(() => {
@@ -27,7 +43,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setStockIndexData(res.data);
-        }, 1000);
+        }, 1500);
       }
     };
 
@@ -45,7 +61,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setTopStockData(res.data);
-        }, 1000);
+        }, 1500);
       }
     };
     topStockFetch();
@@ -62,7 +78,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setStockNewsData(res.data);
-        }, 1000);
+        }, 1500);
       }
     };
     stockNewsFetch();
@@ -79,7 +95,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setExchangeRateData(res.data);
-        }, 1000);
+        }, 1500);
       }
     };
     exchangeRateFetch();
@@ -96,7 +112,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setMarketIndiData(res.data);
-        }, 1000);
+        }, 1500);
       }
     };
     marketIndiFetch();
@@ -105,19 +121,22 @@ const Domestic = () => {
 
   return (
     <DomesticWrapper>
-      <div className="row">
-        <RecentStock />
+      <div className={`row box_ani turn1 ${isBoxLoader && "ani_on"}`}>
+        {!recentStockData ? <RecentStockLoader /> : <RecentStock />}
       </div>
       <div className="row">
         {!stockIndexData ? (
           <>
-            <div className="col">
+            <div
+              className={`col box_ani delay1 turn1 ${isBoxLoader && "ani_on"}`}>
               <StockIndexLoader />
             </div>
-            <div className="col">
+            <div
+              className={`col box_ani delay1 turn2 ${isBoxLoader && "ani_on"}`}>
               <StockIndexLoader />
             </div>
-            <div className="col">
+            <div
+              className={`col box_ani delay1 turn3 ${isBoxLoader && "ani_on"}`}>
               <StockIndexLoader />
             </div>
           </>
@@ -134,14 +153,17 @@ const Domestic = () => {
         )}
       </div>
       <div className="row">
-        <div className="col col2">
+        <div
+          className={`col col2 box_ani delay2 turn1 ${
+            isBoxLoader && "ani_on"
+          }`}>
           {!topStockData ? (
             <TopStockLoader />
           ) : (
             <TopStock data={topStockData} />
           )}
         </div>
-        <div className="col">
+        <div className={`col box_ani delay2 turn2 ${isBoxLoader && "ani_on"}`}>
           {!stockNewsData ? (
             <StockNewsLoader />
           ) : (
@@ -150,14 +172,14 @@ const Domestic = () => {
         </div>
       </div>
       <div className="row">
-        <div className="col">
+        <div className={`col box_ani delay3 turn1 ${isBoxLoader && "ani_on"}`}>
           {!exchangeRateData ? (
             <ExchangeRateLoader type="domestic" />
           ) : (
             <ExchangeRate type="domestic" data={exchangeRateData} />
           )}
         </div>
-        <div className="col">
+        <div className={`col box_ani delay3 turn2 ${isBoxLoader && "ani_on"}`}>
           {!marketIndiData ? (
             <MarketIndiLoader />
           ) : (

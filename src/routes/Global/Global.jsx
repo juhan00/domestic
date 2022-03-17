@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { GlobalWrapper } from "./style";
+import RecentStock from "@components/Main/RecentStock";
 import StockIndex, { StockIndexLoader } from "@components/Main/StockIndex";
 import MajorStock, { MajorStockLoader } from "@components/Main/MajorStock";
 import ExchangeRate, {
@@ -105,6 +106,9 @@ const Global = () => {
 
   return (
     <GlobalWrapper>
+      <div className="row">
+        <RecentStock />
+      </div>
       <div className="row">
         {!stockIndexData ? (
           <>
