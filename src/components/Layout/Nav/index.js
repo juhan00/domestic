@@ -44,17 +44,17 @@ const Nav = ({ scrolled }) => {
           <div className="submenuWrapper">
             <NavLink
               className="submenu"
-              to={`${firstTarget}/statistics/ratio/${stockId}`}>
-              재무비율
-            </NavLink>
-            <NavLink
-              className="submenu"
-              to={`${firstTarget}/statistics/balance/${stockId}`}>
+              to={`${firstTarget}/statistics/${stockId}`}>
               재무상태표
             </NavLink>
             <NavLink
               className="submenu"
-              to={`${firstTarget}/statistics/income/${stockId}`}>
+              to={`${firstTarget}/balance/${stockId}`}>
+              대차대조표
+            </NavLink>
+            <NavLink
+              className="submenu"
+              to={`${firstTarget}/income/${stockId}`}>
               손익계산서
             </NavLink>
           </div>

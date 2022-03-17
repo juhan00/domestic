@@ -35,6 +35,7 @@ export const ArrayWrapper = styled.div`
   display: flex;
   gap: 16px;
   width: 326px;
+  margin-right: 34px;
 `
 export const Button = styled.button`
   flex-shrink:0;
