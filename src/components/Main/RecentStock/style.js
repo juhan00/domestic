@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import MenuIconToggle from "@images/notice_icon.svg";
+import resent_slide_arrow_prev from "@images/resent_slide_arrow_prev.svg";
+import resent_slide_arrow_next from "@images/resent_slide_arrow_next.svg";
 
 export const RecentStockWrapper = styled.div`
   height: 110px;
@@ -8,25 +10,33 @@ export const RecentStockWrapper = styled.div`
   align-items: center;
   background: #ffffff;
   border-radius: 12px;
-  padding: 25px;
+  padding: 28px;
   overflow: hidden;
+  & > .loaderWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   & > h2 {
     display: flex;
     align-items: center;
-    width: 60px;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.4;
+    font-weight: 700;
     color: #111111;
-    margin-right: 20px;
     min-width: 34px;
   }
 
-  & > .itemWrapper {
+  .itemWrapper {
+    position: relative;
+    width: calc(100% - 30px);
     display: flex;
     flex: 1 1 100%;
 
-    & > .default {
+    .default {
       display: flex;
       flex: 1 1 100%;
       justify-content: center;
@@ -39,13 +49,14 @@ export const RecentStockWrapper = styled.div`
         background: url(${MenuIconToggle});
         background-size: 20px 20px;
         margin-right: 7px;
+        transform: translateY(-2px);
       }
       font-size: 16px;
       font-weight: 500;
       line-height: 1.5;
       color: #505050;
     }
-    & > .item {
+    .item {
       display: flex;
       align-items: center;
       position: relative;
@@ -76,15 +87,16 @@ export const RecentStockWrapper = styled.div`
             font-weight: 400;
             display: flex;
             margin-left: 12px;
-            &.red {
+            &.up {
               color: #e82b2b;
             }
-            &.blue {
+            &.down {
               color: #065398;
             }
             & > img {
               width: 10px;
               margin-right: 4px;
+              transform: translateY(-2px);
             }
           }
         }
@@ -110,6 +122,69 @@ export const RecentStockWrapper = styled.div`
           cursor: pointer;
           z-index: 1;
         }
+      }
+    }
+    .swiper {
+      margin-left: 0;
+      padding: 0 40px 0 40px;
+      &::before {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        content: "";
+        display: inline-block;
+        width: 50px;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0) 0%,
+          #ffffff 50.78%
+        );
+        z-index: 2;
+      }
+      &::after {
+        position: absolute;
+        top: 0px;
+        left: -10px;
+        content: "";
+        display: inline-block;
+        width: 50px;
+        height: 100%;
+        background: linear-gradient(
+          -90deg,
+          rgba(255, 255, 255, 0) 0%,
+          #ffffff 50.78%
+        );
+        z-index: 2;
+      }
+      .swiper-button-prev {
+        left: 0px;
+        width: 44px;
+        height: 44px;
+        border-radius: 44px;
+        background: url(${resent_slide_arrow_prev});
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.16);
+        &::after {
+          display: none;
+        }
+      }
+      .swiper-button-next {
+        right: 10px;
+        width: 44px;
+        height: 44px;
+        border-radius: 44px;
+        background: url(${resent_slide_arrow_next});
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.16);
+        &::after {
+          display: none;
+        }
+      }
+      .swiper-button-next.swiper-button-disabled,
+      .swiper-button-prev.swiper-button-disabled {
+        opacity: 0;
+      }
+      .swiper-slide {
+        width: 186px;
       }
     }
   }

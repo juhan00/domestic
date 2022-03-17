@@ -1,7 +1,7 @@
 import React from "react";
 import { TableWrapper, Table, Row, Cell } from "./style";
 
-const DoComInfoDailyPrice = () => {
+const DoComInfoDailyPrice = ({ data }) => {
   return (
     <TableWrapper>
       <h1>일별시세</h1>
@@ -18,6 +18,16 @@ const DoComInfoDailyPrice = () => {
           </Row>
         </thead>
         <tbody>
+          {data.items.map((item, idx) => (
+            <Row>
+              {Object.keys(item).map((key, i) => (
+                <Cell className={key === "basDt" ? "date" : ""}>
+                  {item[key]}
+                </Cell>
+              ))}
+              <Cell>12</Cell>
+            </Row>
+          ))}
           <Row>
             <Cell className="date">2022.02.21</Cell>
             <Cell>74200</Cell>

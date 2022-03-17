@@ -68,13 +68,13 @@ const TopStock = ({ data }) => {
       <table>
         <thead>
           <tr>
-            <th style={{ width: "10%" }}>순위</th>
-            <th style={{ width: "18%" }}>종목명</th>
-            <th style={{ width: "12%" }}>버즈량(건)</th>
+            <th style={{ width: "8%" }}>순위</th>
+            <th style={{ width: "23%" }}>종목명</th>
+            <th style={{ width: "13%" }}>버즈량(건)</th>
             <th style={{ width: "12%" }}>긍정지수</th>
             <th style={{ width: "12%" }}>부정지수</th>
             <th style={{ width: "12%" }}>현재가</th>
-            <th style={{ width: "12%" }}>등락률</th>
+            <th style={{ width: "8%" }}>등락률</th>
             <th style={{ width: "12%" }}>거래량</th>
           </tr>
         </thead>
