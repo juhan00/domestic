@@ -112,7 +112,11 @@ export const ModalInner = styled.div`
         position: absolute;
         top: 22px;
         right: 32px;
-        button {
+        input[type=checkbox] {
+          display: none;
+        }
+
+        label, button {
           border: 1px solid #999999;
           box-sizing: border-box;
           border-radius: 4px;
@@ -121,6 +125,13 @@ export const ModalInner = styled.div`
           margin-left: 10px;
           line-height: 24px;
           height: 36px;
+        }
+        label {
+          cursor: pointer;
+          display: inline-block;
+          margin-bottom: 22px;
+          vertical-align: top;
+          line-height: 32px;
         }
       }
     }

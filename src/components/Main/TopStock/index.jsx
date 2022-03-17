@@ -85,8 +85,8 @@ const TopStock = ({ data }) => {
                 <td className="primary">{index + 1}</td>
                 <td>{item.name}</td>
                 <td>{item.buzz}</td>
-                <td>{item.positive}</td>
-                <td>{item.negative}</td>
+                <td>{item.positive}%</td>
+                <td>{item.negative}%</td>
                 <td>{numberWithCommas(item.currentPrice)}</td>
                 <td className="up">+{item.rate.toFixed(2)}%</td>
                 <td>{numberWithCommas(item.trading)}</td>
@@ -96,8 +96,8 @@ const TopStock = ({ data }) => {
                 <td className="primary">{index + 1}</td>
                 <td>{item.name}</td>
                 <td>{item.buzz}</td>
-                <td>{item.positive}</td>
-                <td>{item.negative}</td>
+                <td>{item.positive}%</td>
+                <td>{item.negative}%</td>
                 <td>{numberWithCommas(item.currentPrice)}</td>
                 <td className="down">{item.rate.toFixed(2)}%</td>
                 <td>{numberWithCommas(item.trading)}</td>
@@ -107,8 +107,8 @@ const TopStock = ({ data }) => {
                 <td className="primary">{index + 1}</td>
                 <td>{item.name}</td>
                 <td>{item.buzz}</td>
-                <td>{item.positive}</td>
-                <td>{item.negative}</td>
+                <td>{item.positive}%</td>
+                <td>{item.negative}%</td>
                 <td>{numberWithCommas(item.currentPrice)}</td>
                 <td>{item.rate.toFixed(2)}%</td>
                 <td>{numberWithCommas(item.trading)}</td>

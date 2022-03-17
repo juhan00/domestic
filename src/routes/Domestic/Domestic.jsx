@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { DomesticWrapper } from "./style";
+import RecentStock from "@components/Main/RecentStock";
 import StockIndex, { StockIndexLoader } from "@components/Main/StockIndex";
 import TopStock, { TopStockLoader } from "@components/Main/TopStock";
 import ExchangeRate, {
@@ -104,9 +105,9 @@ const Domestic = () => {
 
   return (
     <DomesticWrapper>
-      {/* <div className="row">
+      <div className="row">
         <RecentStock />
-      </div> */}
+      </div>
       <div className="row">
         {!stockIndexData ? (
           <>
