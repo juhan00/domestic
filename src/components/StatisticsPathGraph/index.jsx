@@ -13,12 +13,16 @@ import {
 } from "d3";
 import useResizeObserver from "@utils/useResizeObserver";
 
-const StatisticsGraph = ({ data }) => {
+const StatisticsGraph = ({ data, type }) => {
   const graphRef = useRef();
   const svgRef = useRef(null);
   const resizeWidth = useResizeObserver(graphRef);
 
-  const pathKeys = ["opMargin", "netMargin", "deptEquity"];
+  const pathKeys = {
+    statistics: ["opMargin", "netMargin", "deptEquity"],
+    balance: ["reveInc", "marInc", "netInc"],
+    income: [],
+  };
 
   const yearly = data.yearly;
 
@@ -29,9 +33,7 @@ const StatisticsGraph = ({ data }) => {
     const svg = select(svgRef.current);
 
     const yMax = Math.max(
-      max(yearly, (year) => year.opMargin),
-      max(yearly, (year) => year.netMargin),
-      max(yearly, (year) => year.deptEquity),
+      ...pathKeys[type].map((key) => max(yearly, (year) => year[key])),
     );
 
     svg.selectAll(".lines").remove();
@@ -91,7 +93,7 @@ const StatisticsGraph = ({ data }) => {
         const lines = enter.append("g").classed("lines", true);
 
         Object.keys(yearly[0]).map((keys, idx) => {
-          pathKeys.includes(keys)
+          pathKeys[type].includes(keys)
             ? lines
                 .append("path")
                 .attr("fill", "none")
@@ -116,7 +118,7 @@ const StatisticsGraph = ({ data }) => {
         const dots = enter.append("g").classed("dots", true);
 
         Object.keys(yearly[0]).map((keys, idx) => {
-          pathKeys.includes(keys)
+          pathKeys[type].includes(keys)
             ? dots
                 .append("circle")
                 .attr("cx", (d) => xScale(new Date(d["basDt"])))
