@@ -14,7 +14,7 @@ const DoComInfo = () => {
 
   useEffect(() => {
     (async () => {
-      sampleJson(crno.stockId, "balance")
+      sampleJson(crno.stockId, "statistics")
         .then((res) => res.data)
         .then((data) => setComInfoData(data));
     })();
