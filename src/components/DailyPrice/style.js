@@ -33,26 +33,10 @@ export const Row = styled.tr`
     font-size: 13px;
     height: 42px;
     &:nth-of-type(odd) {
-      background: #FAFAFE;
+      background: #fafafe;
     }
     td:nth-of-type(1) {
       color: #286f6c;
-    }
-    td:nth-of-type(3) {
-      color: #E82B2B;
-      position: relative;
-      &::after {
-        content: "";
-        display: block;
-        width: 0;
-        height: 0;
-        border-bottom: 8px solid #E82B2B;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        position: absolute;
-        top: 18px;
-        left: 28px;
-      }
     }
   }
 `;
@@ -68,5 +52,36 @@ export const Cell = styled.td`
   &:last-of-type {
     padding-right: 15px;
   }
-
+  &.increase {
+    color: #e82b2b;
+    position: relative;
+    &::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+      border-bottom: 8px solid #e82b2b;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      position: absolute;
+      top: 17px;
+      left: 28px;
+    }
+  }
+  &.decrease {
+    color: #065398;
+    position: relative;
+    &::after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+      border-top: 8px solid #065398;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      position: absolute;
+      top: 17px;
+      left: 28px;
+    }
+  }
 `;
