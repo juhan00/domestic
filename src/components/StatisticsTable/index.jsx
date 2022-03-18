@@ -41,7 +41,7 @@ const tableCategories = {
 };
 const percentage = ["ROE", "ROA", "EPS", "PER", "BPS", "PBR"];
 
-const StatisticsTable = ({ data, type }) => {
+const StatisticsTable = ({ data, type, unit }) => {
   const [categories, setCategories] = useState([]);
   const [isYearly, setIsYearly] = useState(true);
 
@@ -82,7 +82,7 @@ const StatisticsTable = ({ data, type }) => {
                         <span>
                           {percentage.includes(Object.values(item)[0])
                             ? " %"
-                            : " 억원"}
+                            : ` ${unit}`}
                         </span>
                       </Cell>
                     ))
@@ -92,7 +92,7 @@ const StatisticsTable = ({ data, type }) => {
                         <span>
                           {percentage.includes(Object.values(item)[0])
                             ? " %"
-                            : " 억원"}
+                            : ` ${unit}`}
                         </span>
                       </Cell>
                     ))}

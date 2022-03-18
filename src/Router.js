@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import Home from "@routes/Home";
 import UseTerms from "@routes/UseTerms";
 import PrivacyTerms from "@routes/PrivacyTerms";
