@@ -81,16 +81,30 @@ const StockInfo = () => {
                   </li>
                   <li>
                     <div className="infoTitle">상장주식수</div>
-                    <div className="infoValue">
-                      {numberWithCommas(item.exStock)}
-                    </div>
+                    {location.includes("domestic") ? (
+                      <div className="infoValue">
+                        {numberWithCommas(item.exStock)}
+                      </div>
+                    ) : (
+                      <div className="infoValue">
+                        {numberWithCommas(item.exStock)}
+                        <span>M</span>
+                      </div>
+                    )}
                   </li>
                   <li>
                     <div className="infoTitle">시가총액</div>
-                    <div className="infoValue">
-                      {numberWithCommas(item.marketCap)}
-                      <span>억원</span>
-                    </div>
+                    {location.includes("domestic") ? (
+                      <div className="infoValue">
+                        {numberWithCommas(item.marketCap)}
+                        <span>억원</span>
+                      </div>
+                    ) : (
+                      <div className="infoValue">
+                        {numberWithCommas(item.marketCap)}
+                        <span>B</span>
+                      </div>
+                    )}
                   </li>
                   <li>
                     <div className="provider"></div>
@@ -116,23 +130,41 @@ const StockInfo = () => {
                 className={isOpen ? "moreInfo" : "moreInfo hide"}>
                 <div>
                   <span className="title">기업정보</span>
-                  <span className="source">출처 : 에프앤가이드</span>
+                  <span className="source">
+                    {location.includes("domestic")
+                      ? "출처 : 에프앤가이드"
+                      : "출처 : tiingo"}
+                  </span>
                 </div>
                 <div className="recap">{item.recap}</div>
                 <ul>
                   <li>
                     <div className="infoTitle">EPS</div>
-                    <div className="infoValue">
-                      {numberWithCommas(item.EPS)}
-                      <span>원</span>
-                    </div>
+                    {location.includes("domestic") ? (
+                      <div className="infoValue">
+                        {numberWithCommas(item.EPS)}
+                        <span>원</span>
+                      </div>
+                    ) : (
+                      <div className="infoValue">
+                        <span>$ </span>
+                        {numberWithCommas(item.EPS)}
+                      </div>
+                    )}
                   </li>
                   <li>
                     <div className="infoTitle">BPS</div>
-                    <div className="infoValue">
-                      {numberWithCommas(item.BPS)}
-                      <span>원</span>
-                    </div>
+                    {location.includes("domestic") ? (
+                      <div className="infoValue">
+                        {numberWithCommas(item.BPS)}
+                        <span>원</span>
+                      </div>
+                    ) : (
+                      <div className="infoValue">
+                        <span>$ </span>
+                        {numberWithCommas(item.BPS)}
+                      </div>
+                    )}
                   </li>
                   <li>
                     <div className="infoTitle">PER</div>
