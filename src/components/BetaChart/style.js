@@ -46,6 +46,46 @@ export const Header = styled.div`
   padding: 0 32px;
   display: flex;
   justify-content: space-between;
+  .legend {
+    display: flex;
+    .circle {
+      .icon {
+        &::before {
+          float: left;
+          margin-right: 5px;
+          display: block;
+          content: "";
+          width: 12px;
+          height: 12px;
+          border: 1px solid #fdc055;
+          border-radius: 50%;
+          background-color: #fdc055;
+        }
+      }
+    }
+    .rhombus {
+      margin-left: 12px;
+      .icon {
+        position: relative;
+        width: 0;
+        height: 0;
+        border: 7px solid transparent;
+        border-bottom-color: #286f6c;
+        position: relative;
+        top: -16px;
+        &::after {
+          content: "";
+          position: absolute;
+          left: -7px;
+          top: 24px;
+          width: 0;
+          height: 0;
+          border: 7px solid transparent;
+          border-top-color: #286f6c;
+        }
+      }
+    }
+  }
 `;
 export const YLabel = styled.div`
   color: #505050;

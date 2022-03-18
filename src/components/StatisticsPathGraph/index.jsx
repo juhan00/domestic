@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { GraphWrapper } from "../StatisticsBarPathGraph/style";
+import { GraphWrapper, Header } from "../StatisticsBarPathGraph/style";
 import {
   axisBottom,
   extent,
@@ -139,6 +139,23 @@ const StatisticsGraph = ({ data, type }) => {
 
   return (
     <GraphWrapper ref={graphRef}>
+      <Header>
+        <div className="legend">
+          <div className="unit">[%]</div>
+          <div className="circle blue">
+            <span className="icon"></span>
+            유동부채비율
+          </div>
+          <div className="circle red">
+            <span className="icon"></span>
+            비유동부채비율
+          </div>
+          <div className="circle yellow">
+            <span className="icon"></span>
+            비유동부채비율
+          </div>
+        </div>
+      </Header>
       <svg ref={svgRef}>
         <g className="x-axis" />
         <g className="x-axis-date" />
