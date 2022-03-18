@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 
 export const SearchMenuStyleOnHeader = styled.div`
-  list-style:none;
+  list-style: none;
   margin-left: auto;
   margin-right: 20px;
   width: 40%;
   max-width: 332px;
-  .searchContainer {    
+  .searchContainer {
     width: 100%;
     box-shadow: 0 50px 30px -30px rgba(0, 0, 0, 0.5);
     position: relative;
@@ -27,7 +27,7 @@ export const SearchMenuStyleOnHeader = styled.div`
           border: none;
           border-radius: 6px;
           padding-left: 140px;
-          background-color: #FAFAFE;
+          background-color: #fafafe;
           /* border: 1px solid #5fb6ad; */
           :focus {
             border: 1px solid #5fb6ad;
@@ -90,6 +90,13 @@ export const SearchMenuStyleOnHeader = styled.div`
             }
           }
         }
+      }
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #047b6c;
+        border-radius: 6px;
       }
     }
   }
