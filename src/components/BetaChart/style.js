@@ -73,6 +73,7 @@ export const Header = styled.div`
         border-bottom-color: #286f6c;
         position: relative;
         top: -16px;
+        margin-right: 5px;
         &::after {
           content: "";
           position: absolute;
