@@ -16,6 +16,7 @@ export const TopWrapper = styled.div`
   h1 {
     color: #111111;
     width: 100%;
+    height: 26px;
     margin-left: 30px;
     font-size: 18px;
     font-weight: 500;

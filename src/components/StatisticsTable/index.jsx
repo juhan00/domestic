@@ -1,6 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { TableWrapper, Table, Row, Cell } from "./style";
+import {
+  TableWrapper,
+  Table,
+  Row,
+  Cell,
+  StatisticsTableLoaderWrapper,
+} from "./style";
 import numberWithCommas from "@utils/numberWithComma";
+import HashLoader from "react-spinners/HashLoader";
+
+export const StatisticsTableLoader = () => {
+  return (
+    <StatisticsTableLoaderWrapper>
+      <div className="hash_loader_wrapper" style={{ height: "742px" }}>
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
+    </StatisticsTableLoaderWrapper>
+  );
+};
 
 const tableCategories = {
   statistics: [

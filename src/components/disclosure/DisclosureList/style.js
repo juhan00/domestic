@@ -1,5 +1,11 @@
 import styled from "@emotion/styled";
 
+export const DisclosureListLoaderWrapper = styled.div`
+  height: 81px;
+  background-color: #ffffff;
+  margin-bottom: 12px;
+`;
+
 export const DisclosureListWrapper = styled.div`
   .disclosure {
     &__list {
@@ -27,32 +33,32 @@ export const DisclosureListWrapper = styled.div`
           }
         }
       }
-      &__body {    
+      &__body {
         tr {
-          background-color: #FFFFFF;
+          background-color: #ffffff;
           cursor: pointer;
-          td {            
+          td {
             padding: 33px 0;
             line-height: 14px;
-            border-bottom: 1px solid #CCCCCC;
+            border-bottom: 1px solid #cccccc;
             color: #505050;
             font-weight: 400;
             &:first-of-type {
-              border-top-left-radius: 6px; 
+              border-top-left-radius: 6px;
               border-bottom-left-radius: 6px;
               padding-left: 90px;
-              color: #047B6C;
+              color: #047b6c;
               font-style: italic;
             }
             &:last-of-type {
-              border-top-right-radius: 6px; 
+              border-top-right-radius: 6px;
               border-bottom-right-radius: 6px;
-              border-right: 1px solid #CCCCCC;
+              border-right: 1px solid #cccccc;
               padding-right: 50px;
               text-align: center;
               span {
                 border-radius: 4px;
-                padding:3px 12px;
+                padding: 3px 12px;
               }
             }
             .link {
@@ -68,7 +74,6 @@ export const DisclosureListWrapper = styled.div`
               font-weight: 500;
             }
           }
-
         }
       }
     }
@@ -83,19 +88,16 @@ export const DisclosureListWrapper = styled.div`
     transition-timing-function: ease;
     table {
       width: 100%;
-      tbody {    
+      tbody {
         border-collapse: separate;
         width: 100%;
         tr {
           background-color: rgba(255, 255, 255, 0.3);
-          td {            
+          td {
             padding-bottom: 44px;
           }
         }
       }
     }
-
   }
-
-
-`
+`;

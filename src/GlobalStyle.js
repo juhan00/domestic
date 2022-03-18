@@ -18,6 +18,14 @@ const GlobalStyle = () => {
           background-color: #f7f7fb;
         }
 
+        .hash_loader_wrapper {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
         .box_ani {
           transform: translateY(100%);
           opacity: 0;

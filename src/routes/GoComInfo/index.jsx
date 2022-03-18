@@ -5,6 +5,7 @@ import ComInfoDailyPrice from "@components/DailyPrice";
 import { RouteWrapper, PriceWrapper } from "../DoComInfo/style";
 import { sampleJson } from "@utils/api";
 import { useParams } from "react-router-dom";
+import HashLoader from "react-spinners/HashLoader";
 
 const GoComInfo = () => {
   const [comInfoData, setComInfoData] = useState({});
