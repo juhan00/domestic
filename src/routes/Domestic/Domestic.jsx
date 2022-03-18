@@ -11,14 +11,15 @@ import StockNews, { StockNewsLoader } from "@components/Main/StockNews";
 import axios from "redaxios";
 
 const Domestic = () => {
-  //box loader animation state
-  const [isBoxLoader, setIsBoxLoader] = useState(false);
   const [recentStockData, setRecentStockData] = useState(null);
   const [stockIndexData, setStockIndexData] = useState(null);
   const [topStockData, setTopStockData] = useState(null);
   const [stockNewsData, setStockNewsData] = useState(null);
   const [exchangeRateData, setExchangeRateData] = useState(null);
   const [marketIndiData, setMarketIndiData] = useState(null);
+
+  //box loader animation state
+  const [isBoxLoader, setIsBoxLoader] = useState(false);
 
   //box loader aninmation useEffect
   useEffect(() => {
@@ -30,7 +31,7 @@ const Domestic = () => {
   useEffect(() => {
     setTimeout(() => {
       setRecentStockData(true);
-    }, 1500);
+    }, 1000);
     return () => setRecentStockData(false);
   }, []);
 
@@ -44,7 +45,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setStockIndexData(res.data);
-        }, 1500);
+        }, 1000);
       }
     };
 
@@ -62,7 +63,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setTopStockData(res.data);
-        }, 1500);
+        }, 1000);
       }
     };
     topStockFetch();
@@ -79,7 +80,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setStockNewsData(res.data);
-        }, 1500);
+        }, 1000);
       }
     };
     stockNewsFetch();
@@ -96,7 +97,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setExchangeRateData(res.data);
-        }, 1500);
+        }, 1000);
       }
     };
     exchangeRateFetch();
@@ -113,7 +114,7 @@ const Domestic = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setMarketIndiData(res.data);
-        }, 1500);
+        }, 1000);
       }
     };
     marketIndiFetch();

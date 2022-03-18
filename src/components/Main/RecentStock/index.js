@@ -16,7 +16,7 @@ import HashLoader from "react-spinners/HashLoader";
 export const RecentStockLoader = () => {
   return (
     <RecentStockWrapper>
-      <div className="loaderWrapper">
+      <div className="hash_loader_wrapper">
         <HashLoader color={"#48a185"} size={50} />
       </div>
     </RecentStockWrapper>

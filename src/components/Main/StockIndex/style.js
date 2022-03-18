@@ -3,13 +3,6 @@ import { all } from "redux-saga/effects";
 import { Link } from "react-router-dom";
 
 export const StockIndexWrapper = styled.div`
-  & > .loaderWrapper {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
   height: 250px;
   display: flex;
   align-items: center;
