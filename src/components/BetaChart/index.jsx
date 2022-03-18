@@ -54,7 +54,7 @@ const BetaChart = ({ data, names, beta }) => {
       { length: 100 },
       (_, i) => adjMinX + ((adjMaxX - adjMinX) / 100) * i,
     );
-    console.log(tempArray);
+
     const betaArray = tempArray.reduce(
       (a, b) => [
         ...a,

@@ -27,10 +27,10 @@ const DoCorrelation = () => {
 
   useEffect(() => {
     (async () => {
-      sampleJson("035420", "price")
+      sampleJson("aapl", "price")
         .then((res) => res.data)
         .then((data) => setDataX(data));
-      sampleJson(crno.stockId, "price")
+      sampleJson(crno.stockId.toLowerCase(), "price")
         .then((res) => res.data)
         .then((data) => setDataY(data));
     })();
@@ -46,7 +46,7 @@ const DoCorrelation = () => {
       const { itmsNm: yName, items: yData } = dataY;
       setNames([xName, yName]);
 
-      const mergedArray = xData.reduce(
+      const mergedArray = xData.slice(0, 200).reduce(
         (a, b, i) =>
           a.concat({
             basDt: xData[i]["basDt"],
@@ -64,6 +64,7 @@ const DoCorrelation = () => {
         })),
       );
       setLoading(false);
+      console.log(corr);
     }
   }, [dataX, dataY, crno]);
 
@@ -76,7 +77,7 @@ const DoCorrelation = () => {
         </ChartWrapper>
         <TableWrapper>
           {!loading && (
-            <TableHeader data={corr[3]["corr"]} title={"CORRELATION"} />
+            <TableHeader data={corr[4]["corr"]} title={"CORRELATION"} />
           )}
           {!loading && <CorrelationTable data={corr} />}
         </TableWrapper>

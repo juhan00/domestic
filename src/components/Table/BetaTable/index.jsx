@@ -1,6 +1,6 @@
 import React from "react";
 import { TableWrapper, Table, Row, Cell } from "./style";
-import TableHeader from "@components/Table/TableHeader";
+import numberWithCommas from "@utils/numberWithComma";
 
 const BetaTable = ({ data, names }) => {
   return (
@@ -17,8 +17,8 @@ const BetaTable = ({ data, names }) => {
           {data.map((item, index) => (
             <Row key={index}>
               <Cell>{item.basDt}</Cell>
-              <Cell className="item">{item.xPrice}%</Cell>
-              <Cell className="item">{item.yPrice}%</Cell>
+              <Cell className="item">{numberWithCommas(item.xPrice)}</Cell>
+              <Cell className="item">{numberWithCommas(item.xPrice)}</Cell>
             </Row>
           ))}
         </tbody>
