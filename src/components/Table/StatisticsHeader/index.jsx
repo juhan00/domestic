@@ -19,12 +19,12 @@ const StatisticsHeader = () => {
   return (
     <HeaderWrapper>
       <NavLink
-        to={`/${firstTarget}/beta/${stockId}`}
+        to={`/${firstTarget}/beta/${stockId}?005930`}
         className={({ isActive }) => (isActive ? "selected" : "")}>
         회귀 그래프(Regression Graph)
       </NavLink>
       <NavLink
-        to={`/${firstTarget}/correlation/${stockId}`}
+        to={`/${firstTarget}/correlation/${stockId}?005930`}
         className={({ isActive }) => (isActive ? "selected" : "")}>
         상관 그래프(Correlation Graph)
       </NavLink>
