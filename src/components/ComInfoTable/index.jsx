@@ -2,6 +2,19 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { TableWrapper, Table, Row, Cell } from "./style";
 import numberWithCommas from "@utils/numberWithComma";
+import HashLoader from "react-spinners/HashLoader";
+
+export const ComInfoTableLoader = () => {
+  return (
+    <TableWrapper>
+      <div
+        className="hash_loader_wrapper"
+        style={{ width: "100%", height: "990px" }}>
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
+    </TableWrapper>
+  );
+};
 
 const ComInfoTable = ({ yearly, quarters, unit }) => {
   const category = [

@@ -1,5 +1,22 @@
 import React from "react";
-import { TableWrapper, Table, Row, Cell } from "../BetaTable/style";
+import {
+  TableWrapper,
+  Table,
+  Row,
+  Cell,
+  TableLoaderWrapper,
+} from "../BetaTable/style";
+import HashLoader from "react-spinners/HashLoader";
+
+export const CorrelationTableLoader = () => {
+  return (
+    <TableLoaderWrapper>
+      <div className="hash_loader_wrapper">
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
+    </TableLoaderWrapper>
+  );
+};
 
 const CorrelationTable = ({ data }) => {
   return (

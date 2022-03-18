@@ -7,6 +7,17 @@ import {
 } from "@reducers/domesticfinance/domesticfinance";
 import MainAreaChart from "@components/MainAreaChart";
 import MainChart from "@components/MainChart";
+import HashLoader from "react-spinners/HashLoader";
+
+export const DoFinancialGraphLoader = () => {
+  return (
+    <GraphWrapper>
+      <div className="hash_loader_wrapper" style={{ height: "400px" }}>
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
+    </GraphWrapper>
+  );
+};
 
 const publicDate = new Date("2021-08-01");
 

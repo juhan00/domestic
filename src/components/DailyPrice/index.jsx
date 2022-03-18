@@ -1,6 +1,17 @@
 import React from "react";
 import { TableWrapper, Table, Row, Cell } from "./style";
 import Pagination from "@components/Disclosure/Pagination";
+import HashLoader from "react-spinners/HashLoader";
+
+export const DoComInfoDailyPriceLoader = () => {
+  return (
+    <TableWrapper>
+      <div className="hash_loader_wrapper" style={{ height: "400px" }}>
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
+    </TableWrapper>
+  );
+};
 
 const DoComInfoDailyPrice = ({ data, offset, limit, page, setPage }) => {
   const total = data.items.length;

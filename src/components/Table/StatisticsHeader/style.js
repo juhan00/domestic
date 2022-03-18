@@ -1,5 +1,15 @@
 import styled from "@emotion/styled";
 
+export const TableHeaderLoaderWrapper = styled.div`
+  max-width: 400px;
+  width: 100%;
+  height: 95px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+`;
+
 export const HeaderWrapper = styled.div`
   line-height: 36px;
   width: 100%;

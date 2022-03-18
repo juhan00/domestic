@@ -1,6 +1,17 @@
 import React, { useMemo } from "react";
 import { NavLink, useLocation, useParams } from "react-router-dom";
-import { HeaderWrapper, InputWrapper } from "./style";
+import { HeaderWrapper, InputWrapper, TableHeaderLoaderWrapper } from "./style";
+import { HashLoader } from "react-spinners";
+
+export const StatisticsHeaderLoader = () => {
+  return (
+    <TableHeaderLoaderWrapper>
+      <div className="hash_loader_wrapper">
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
+    </TableHeaderLoaderWrapper>
+  );
+};
 
 const StatisticsHeader = () => {
   const location = useLocation().pathname;

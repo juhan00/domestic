@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import TableHeader from "@components/Table/TableHeader";
-import CorrelationTable from "@components/Table/CorrelationTable";
+import CorrelationTable, {
+  CorrelationTableLoader,
+} from "@components/Table/CorrelationTable";
 import CorrelationChart from "@components/CorrelationChart";
-import StatisticsHeader from "@components/Table/StatisticsHeader";
+import StatisticsHeader, {
+  StatisticsHeaderLoader,
+} from "@components/Table/StatisticsHeader";
 import {
   RouteWrapper,
   SemiHeader,
@@ -14,6 +18,7 @@ import {
 import { sampleJson } from "@utils/api";
 import { corrCoeff } from "@utils/corrCoeff";
 import { useParams, useLocation } from "react-router-dom";
+import { HashLoader } from "react-spinners";
 
 const DoCorrelation = () => {
   const [dataX, setDataX] = useState({});
@@ -25,14 +30,31 @@ const DoCorrelation = () => {
   const crno = useParams();
   const xTick = useLocation().search.slice(1);
 
+  //box loader animation state
+  const [isBoxLoader, setIsBoxLoader] = useState(false);
+
+  //box loader aninmation useEffect
+  useEffect(() => {
+    setIsBoxLoader(true);
+    return () => setIsBoxLoader(false);
+  }, []);
+
   useEffect(() => {
     (async () => {
       sampleJson(xTick.toLowerCase(), "price")
         .then((res) => res.data)
-        .then((data) => setDataX(data));
+        .then((data) =>
+          setTimeout(() => {
+            setDataX(data);
+          }, 1000),
+        );
       sampleJson(crno.stockId.toLowerCase(), "price")
         .then((res) => res.data)
-        .then((data) => setDataY(data));
+        .then((data) =>
+          setTimeout(() => {
+            setDataY(data);
+          }, 1000),
+        );
     })();
     return () => {
       setDataX({});
@@ -73,14 +95,30 @@ const DoCorrelation = () => {
     <RouteWrapper>
       <StatisticsHeader />
       <ContentWrapper>
-        <ChartWrapper>
-          {!loading && <CorrelationChart corr={corr} names={names} />}
+        <ChartWrapper className={`box_ani turn1 ${isBoxLoader && "ani_on"}`}>
+          {loading ? (
+            <div className="hash_loader_wrapper">
+              <HashLoader color={"#48a185"} size={50} />
+            </div>
+          ) : (
+            <CorrelationChart corr={corr} names={names} />
+          )}
         </ChartWrapper>
         <TableWrapper>
-          {!loading && (
+          {loading ? (
+            <div className={`box_ani delay1 turn1 ${isBoxLoader && "ani_on"}`}>
+              <StatisticsHeaderLoader />
+            </div>
+          ) : (
             <TableHeader data={corr[0]["corr"]} title={"CORRELATION"} />
           )}
-          {!loading && <CorrelationTable data={corr} />}
+          {loading ? (
+            <div className={`box_ani delay1 turn2 ${isBoxLoader && "ani_on"}`}>
+              <CorrelationTableLoader />
+            </div>
+          ) : (
+            <CorrelationTable data={corr} />
+          )}
         </TableWrapper>
       </ContentWrapper>
     </RouteWrapper>
