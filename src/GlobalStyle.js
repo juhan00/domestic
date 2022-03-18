@@ -12,6 +12,11 @@ const GlobalStyle = () => {
           -moz-osx-font-smoothing: grayscale;
           -webkit-font-smoothing: antialiased;
           font-smoothing: antialiased;
+          @font-face {
+            font-family: "Roboto";
+            src: url(../public/font/Roboto-Black.ttf);
+          }
+          font-family: "Roboto";
         }
         body {
           font-size: 14px;
