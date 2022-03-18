@@ -55,17 +55,22 @@ const StatisticsGraph = ({ data, type }) => {
       .range([margin.left + innerPadding, width - margin.right - innerPadding])
       .nice();
 
+    const xScaleDate = scaleTime()
+      .domain([0, yearly.length - 1])
+      .range([
+        margin.left + margin.left + innerPadding,
+        width - margin.left - innerPadding,
+      ]);
+    const xAxisDate = axisBottom(xScaleDate).tickFormat(
+      (value, index) => yearly[index].basDt,
+    );
+
     svg
       .select(".x-axis")
-      .call(
-        axisBottom(xScale).ticks(yearly.length).tickFormat(timeFormat("%Y.%m")),
-      )
+      .call(xAxisDate)
       .call((g) => g.select(".domain").remove())
       .call((g) => g.selectAll(".tick line").remove())
-      .style(
-        "transform",
-        `translate(${margin.right}px, ${height - margin.bottom}px)`,
-      );
+      .style("transform", `translate(-10px, ${height - margin.bottom}px)`);
 
     const yScale = scaleLinear()
       .domain([0, yMax * 1.2])
@@ -136,6 +141,7 @@ const StatisticsGraph = ({ data, type }) => {
     <GraphWrapper ref={graphRef}>
       <svg ref={svgRef}>
         <g className="x-axis" />
+        <g className="x-axis-date" />
         <g className="y-axis" />
       </svg>
     </GraphWrapper>
