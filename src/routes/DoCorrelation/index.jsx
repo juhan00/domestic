@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import TableHeader from "@components/Table/TableHeader";
 import CorrelationTable from "@components/Table/CorrelationTable";
 import CorrelationChart from "@components/CorrelationChart";
-import { domesticSample } from "@utils/statisticsData";
 import StatisticsHeader from "@components/Table/StatisticsHeader";
 import {
   RouteWrapper,
@@ -14,7 +13,7 @@ import {
 } from "../DoBeta/style";
 import { sampleJson } from "@utils/api";
 import { corrCoeff } from "@utils/corrCoeff";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 const DoCorrelation = () => {
   const [dataX, setDataX] = useState({});
@@ -24,10 +23,11 @@ const DoCorrelation = () => {
   const [names, setNames] = useState([]);
   const [loading, setLoading] = useState(true);
   const crno = useParams();
+  const xTick = useLocation().search.slice(1);
 
   useEffect(() => {
     (async () => {
-      sampleJson("aapl", "price")
+      sampleJson(xTick.toLowerCase(), "price")
         .then((res) => res.data)
         .then((data) => setDataX(data));
       sampleJson(crno.stockId.toLowerCase(), "price")
@@ -38,7 +38,7 @@ const DoCorrelation = () => {
       setDataX({});
       setDataY({});
     };
-  }, [crno]);
+  }, [crno, xTick]);
 
   useEffect(() => {
     if (Object.keys(dataX).length && Object.keys(dataY).length) {
