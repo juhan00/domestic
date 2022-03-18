@@ -40,10 +40,11 @@ const DomesticList = ({ page, data, offset, limit }) => {
           </thead>
           <tbody className="disclosure__list__body">
             {data.list.slice(offset, offset + limit).map((li, index) => {
+              console.log(data)
               return (
                 <tr key={index} onClick={(e) => handleButtonClick(li.rcept_no)}>
                   <td>{(index + 1) + limit * (page - 1)}</td>
-                  <td>{data.corp_name}</td>
+                  <td>{ data.corp_name ? data.corp_name : li.corp_name }</td>
                   <td><a className="link" target='_blank' href={`https://dart.fss.or.kr/dsaf001/main.do?rcpNo=${li.rcept_no}`}>{li.report_nm}</a></td>
                   <td>{li.flr_nm}</td>
                   <td className="date">{li.rcept_dt}</td>
