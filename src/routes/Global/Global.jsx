@@ -31,7 +31,7 @@ const Global = () => {
   useEffect(() => {
     setTimeout(() => {
       setRecentStockData(true);
-    }, 1500);
+    }, 1000);
     return () => setRecentStockData(false);
   }, []);
 
@@ -45,7 +45,7 @@ const Global = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setStockIndexData(res.data);
-        }, 1500);
+        }, 1000);
       }
     };
 
@@ -63,7 +63,7 @@ const Global = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setMajorStockData(res.data);
-        }, 1500);
+        }, 1000);
       }
     };
     majorStockFetch();
@@ -80,7 +80,7 @@ const Global = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setStockNewsData(res.data);
-        }, 1500);
+        }, 1000);
       }
     };
     stockNewsFetch();
@@ -97,7 +97,7 @@ const Global = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setExchangeRateData(res.data);
-        }, 1500);
+        }, 1000);
       }
     };
     exchangeRateFetch();
@@ -114,7 +114,7 @@ const Global = () => {
       if (isApiSubscribed) {
         setTimeout(() => {
           setStockSectorData(res.data);
-        }, 1500);
+        }, 1000);
       }
     };
     stockSectorFetch();
