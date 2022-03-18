@@ -57,14 +57,15 @@ const DoCorrelation = () => {
       );
       setData(mergedArray);
       setCorr(
-        xData.map((_, idx) => ({
-          basDt: xData[idx]["basDt"],
-          corr:
-            idx > 1 ? corrCoeff(xData.slice(0, idx), yData.slice(0, idx)) : 1,
-        })),
+        xData
+          .map((_, idx) => ({
+            basDt: xData[idx]["basDt"],
+            corr:
+              idx > 1 ? corrCoeff(xData.slice(0, idx), yData.slice(0, idx)) : 1,
+          }))
+          .slice(3),
       );
       setLoading(false);
-      console.log(corr);
     }
   }, [dataX, dataY, crno]);
 
@@ -77,7 +78,7 @@ const DoCorrelation = () => {
         </ChartWrapper>
         <TableWrapper>
           {!loading && (
-            <TableHeader data={corr[4]["corr"]} title={"CORRELATION"} />
+            <TableHeader data={corr[0]["corr"]} title={"CORRELATION"} />
           )}
           {!loading && <CorrelationTable data={corr} />}
         </TableWrapper>
