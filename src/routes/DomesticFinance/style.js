@@ -220,9 +220,10 @@ export const ContentsWrapper = styled.div`
   }
 
   & .level1-news-list-wrapper {
+    position: relative;
     flex: 1 1 0;
     box-shadow: 4px 0px 16px rgba(0, 14, 72, 0.04);
-    max-height: 846px;
+    min-height: 846px;
     margin-left: 10px;
     box-sizing: boder-box;
     background: #ffffff;

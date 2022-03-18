@@ -82,15 +82,23 @@ function stockDatasGenerator() {
 function newsDatasGenerator() {
   let data = [];
   let date = new Date("2021-08-01");
+
+  function emotionGenerator() {
+    let emotion = Math.floor(Math.random() * 6);
+    return Math.random() < 0.5 ? emotion * -1 : emotion;
+  }
   function dataGenerator(i) {
     return {
+      press: "조선일보",
       title: "삼성전자, 8일 '갤럭시 탭 S7·S7+' 미스틱 네이비 색상 출시",
       summarized:
         "가격은 LTE 모델이 114만9500원, Wi-Fi 모델이 104만9400원이다. 가격은 5G 모델이 149만9300원, LTE 모델이139만9200원, Wi-Fi 모델이 129만9100원이다. '갤럭시 탭 S7+' 미스틱 네이비 모델은 5G LTE Wi-Fi 모델로 출시된다.",
       title: "삼성전자, 8일 '갤럭시 탭 S7·S7+' 미스틱 네이비 색상 출시",
       img: "http://www.paxetv.com/news/thumbnail/202104/114203_86612_1148_v150.jpg",
       url: "http://www.paxetv.com/news/articleView.html?idxno=114203",
+      keyword: ["삼성", "갤럭시", "반도체"],
       id: 4296132659 + i,
+      emotion: emotionGenerator(),
     };
   }
   for (let i = 0; i < 360; i++) {
