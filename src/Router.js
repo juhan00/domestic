@@ -55,7 +55,7 @@ const Router = () => {
         <Route path="/global/balance/:stockId" element={<DoStatistics />} />
         <Route path="/global/income/:stockId" element={<DoStatistics />} />
 
-        <Route path="/global/disclosure/:stockId" element={<GoDisclosure />} />
+        {/* <Route path="/global/disclosure/:stockId" element={<GoDisclosure />} /> */}
         <Route path="/global/Beta/:stockId" element={<DoBeta />} />
         <Route
           path="/global/Correlation/:stockId"
