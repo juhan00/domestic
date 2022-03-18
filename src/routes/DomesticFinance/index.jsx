@@ -34,13 +34,17 @@ import { timeFormat } from "d3";
 import chart_description from "@images/chart_description.svg";
 import Modal from "@components/Modal";
 import NewsList from "@components/NewsList";
+import { useParams } from "react-router-dom";
 
 const DomesticStock = () => {
   const publicDate = useMemo(() => new Date("2021-08-01"), []);
+  const stockId = useParams().stockId;
   const [domesticState, dispatch] = useReducer(
     reducer,
-    initialState(publicDate),
+    initialState(publicDate, stockId === "AAPL" ? "AAPL" : "삼성전자"),
   );
+
+  console.log(stockId);
 
   const {
     period,

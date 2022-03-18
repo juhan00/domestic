@@ -234,12 +234,12 @@ const pressDatas = [
   },
 ];
 
-export const initialState = (publicDate) => ({
+export const initialState = (publicDate, name) => ({
   period: getInitialPeriodDate(publicDate),
   publicDate: publicDate,
   today: new Date(),
   curDate: null,
-  title: "삼성전자",
+  title: name,
   periodError: false,
   stockData: stockDatasGenerator(),
   financialDatas: financeDatas,
