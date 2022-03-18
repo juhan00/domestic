@@ -31,7 +31,11 @@ const SearchResult = ({
         {domesticFiltered.map((list) => (
           <li className="searchResultItem" key={list.crno}>
             <NavLink
-              to={`domestic/${targetUrl}/${list.crno}`}
+              to={
+                location.includes("beta") || location.includes("correlation")
+                  ? `domestic/${targetUrl}/${list.crno}?005930`
+                  : `domestic/${targetUrl}/${list.crno}`
+              }
               onClick={() => onClickDomestic(list.itmsNm, list.crno)}>
               <span>{hilighting(list.itmsNm)}</span> | {hilighting(list.crno)}
             </NavLink>
@@ -47,7 +51,11 @@ const SearchResult = ({
         {globalFiltered.map((list) => (
           <li className="searchResultItem" key={list.symbol}>
             <NavLink
-              to={`global/${targetUrl}/${list.symbol}`}
+              to={
+                location.includes("beta") || location.includes("correlation")
+                  ? `global/${targetUrl}/${list.symbol}?aapl`
+                  : `global/${targetUrl}/${list.symbol}`
+              }
               onClick={() => onClickGlobal(list.symbol)}>
               <span>{hilighting(list.symbol)}</span> |
               {hilighting(list.companyName)} | {list.HQnation}
