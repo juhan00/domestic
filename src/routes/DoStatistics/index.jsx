@@ -17,6 +17,8 @@ const DoStatistics = () => {
   const crno = useParams();
   const path = useLocation().pathname;
   const types = ["statistics", "balance", "income"];
+  const isGlobal = useLocation().pathname.includes("global");
+  const unit = isGlobal ? "B" : "억원";
 
   //box loader animation state
   const [isBoxLoader, setIsBoxLoader] = useState(false);
@@ -36,7 +38,7 @@ const DoStatistics = () => {
     loading
       ? null
       : (async () => {
-          sampleJson(crno.stockId, type)
+          sampleJson(crno.stockId.toLowerCase(), type)
             .then((res) => res.data)
             .then((data) =>
               setTimeout(() => {
@@ -74,7 +76,7 @@ const DoStatistics = () => {
         </GraphWrapper>
       </TopWrapper>
       {Object.keys(statisticsData).length ? (
-        <StatisticsTable data={statisticsData} type={type} />
+        <StatisticsTable data={statisticsData} type={type} unit={unit} />
       ) : (
         <div className={`box_ani delay1 turn1 ${isBoxLoader && "ani_on"}`}>
           <StatisticsTableLoader />
