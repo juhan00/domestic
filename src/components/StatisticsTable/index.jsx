@@ -1,6 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { TableWrapper, Table, Row, Cell } from "./style";
+import {
+  TableWrapper,
+  Table,
+  Row,
+  Cell,
+  StatisticsTableLoaderWrapper,
+} from "./style";
 import numberWithCommas from "@utils/numberWithComma";
+import HashLoader from "react-spinners/HashLoader";
+
+export const StatisticsTableLoader = () => {
+  return (
+    <StatisticsTableLoaderWrapper>
+      <div className="hash_loader_wrapper" style={{ height: "742px" }}>
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
+    </StatisticsTableLoaderWrapper>
+  );
+};
 
 const tableCategories = {
   statistics: [
@@ -41,7 +58,7 @@ const tableCategories = {
 };
 const percentage = ["ROE", "ROA", "EPS", "PER", "BPS", "PBR"];
 
-const StatisticsTable = ({ data, type }) => {
+const StatisticsTable = ({ data, type, unit }) => {
   const [categories, setCategories] = useState([]);
   const [isYearly, setIsYearly] = useState(true);
 
@@ -82,7 +99,7 @@ const StatisticsTable = ({ data, type }) => {
                         <span>
                           {percentage.includes(Object.values(item)[0])
                             ? " %"
-                            : " 억원"}
+                            : ` ${unit}`}
                         </span>
                       </Cell>
                     ))
@@ -92,7 +109,7 @@ const StatisticsTable = ({ data, type }) => {
                         <span>
                           {percentage.includes(Object.values(item)[0])
                             ? " %"
-                            : " 억원"}
+                            : ` ${unit}`}
                         </span>
                       </Cell>
                     ))}

@@ -1,49 +1,88 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect, useMemo } from "react";
 import { clickOutside } from "@utils/clickOutside";
 import { SearchMenuStyleOnHeader } from "./style";
-
-const stockListSample = [
-  { symbol: "A", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "AA", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "AB", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "ABC", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "A2", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "B", companyName: "BBB INC", HQnation: "US" },
-  { symbol: "BA", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "BCSRAW", companyName: "AAA INC", HQnation: "US" },
-  { symbol: "C", companyName: "CCC INC", HQnation: "US" },
-  { symbol: "D", companyName: "DDD INC", HQnation: "US" },
-  { symbol: "E", companyName: "EEE INC", HQnation: "US" },
-  { symbol: "F", companyName: "FFF INC", HQnation: "US" },
-  { symbol: "G", companyName: "GGG INC", HQnation: "US" },
-  { symbol: "H", companyName: "HHH INC", HQnation: "US" },
-  { symbol: "I", companyName: "III INC", HQnation: "US" },
-  { symbol: "J", companyName: "JJJ INC", HQnation: "US" },
-  { symbol: "K", companyName: "KKK INC", HQnation: "US" },
-  { symbol: "L", companyName: "LLL INC", HQnation: "US" },
-  { symbol: "M", companyName: "MMM INC", HQnation: "US" },
-  { symbol: "N", companyName: "NNN INC", HQnation: "US" },
-  { symbol: "O", companyName: "OOO INC", HQnation: "US" },
-  { symbol: "P", companyName: "PPP INC", HQnation: "US" },
-  { symbol: "Q", companyName: "QAQ INC", HQnation: "US" },
-  { symbol: "R", companyName: "RRR INC", HQnation: "US" },
-  { symbol: "S", companyName: "SSS INC", HQnation: "US" },
-  { symbol: "T", companyName: "TAT INC", HQnation: "US" },
-  { symbol: "U", companyName: "UUU INC", HQnation: "US" },
-  { symbol: "V", companyName: "VVV INC", HQnation: "US" },
-  { symbol: "W", companyName: "WWW INC", HQnation: "US" },
-  { symbol: "X", companyName: "XXX INC", HQnation: "US" },
-  { symbol: "Y", companyName: "YYY INC", HQnation: "US" },
-  { symbol: "Z", companyName: "ZAZ INC", HQnation: "US" },
-];
+import axios from "redaxios"
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 
 export const Search = () => {
   const ref = useRef();
+  const location = useLocation().pathname
+  const navigate = useNavigate()
   const [searchItem, setSearchItem] = useState("");
+  const [domesticList, setDomesticList] = useState([]);
+  const [globalList, setGlobalList] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const handleItem = (e) => {
     setSearchItem(e.target.value);
   };
+
+  useEffect(() => {
+    let isComponentMounted = true;
+    const fetchData = async () => {
+      const domesticData = await axios.get(
+        "https://gyoheonlee.github.io/mobile-bank/data/api/doList.json",
+      );
+      const globalData = await axios.get(
+        "https://gyoheonlee.github.io/mobile-bank/data/api/goList.json",
+      );
+      if (isComponentMounted) {
+        setDomesticList(domesticData.data.domestic);
+        setGlobalList(globalData.data.global);
+      }
+    };
+    fetchData();
+    return () => {
+      isComponentMounted = false;
+    };
+  }, []);
+
+  const domesticFiltered = useMemo(() => {
+    let filtered = [];
+    domesticList.filter((list) => {
+      if (
+        list.crno.toLowerCase().includes(searchItem.toLowerCase()) ||
+        list.itmsNm.toLowerCase().includes(searchItem.toLowerCase())
+      ) {
+        filtered.push(list);
+      }
+    });
+    return filtered;
+  }, [searchItem, domesticList]);
+  const globalFiltered = useMemo(() => {
+    let filtered = [];
+    globalList.filter((list) => {
+      if (
+        list.symbol.toLowerCase().includes(searchItem.toLowerCase()) ||
+        list.companyName.toLowerCase().includes(searchItem.toLowerCase())
+      ) {
+        filtered.push(list);
+      }
+    });
+    return filtered;
+  }, [searchItem, globalList]);
+
+  const handleClick = (id) => {
+    setIsOpen(false);
+    setSearchItem("")
+    navigate(`${location}?${id}`)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (location.includes("domestic")) {
+      if (domesticFiltered.length >= 1) {
+      console.log(domesticFiltered[0].crno);       
+      } else if(domesticFiltered.length===0) {
+        null
+      }
+    } else if (location.includes("global")) {
+      if (globalFiltered.length >= 1) {
+      console.log(globalFiltered[0].crno);       
+    } else if(globalFiltered.length===0) {
+      null
+      }
+    }
+  }
 
   clickOutside(ref, isOpen, setIsOpen);
 
@@ -51,7 +90,7 @@ export const Search = () => {
     <SearchMenuStyleOnHeader>
       <div className="searchContainer" ref={ref}>
         <div className="searchFormWrapper">
-          <form>
+          <form onSubmit={handleSubmit}>
             <span>TICKER X-AXIS</span>
             <input
               placeholder="Enter a TICKER"
@@ -63,29 +102,20 @@ export const Search = () => {
         </div>
         <div
           className={isOpen ? "seachResultWrapper" : "seachResultWrapper hide"}>
-          <ul className="searchResultList">
-            {stockListSample
-              .filter((list) => {
-                if (searchItem == "") {
-                  return list;
-                } else if (
-                  list.symbol
-                    .toLowerCase()
-                    .includes(searchItem.toLowerCase()) ||
-                  list.companyName
-                    .toLowerCase()
-                    .includes(searchItem.toLowerCase())
-                ) {
-                  return list;
-                }
-              })
-              .map((list) => (
-                <li className="serachResultItem" key={list.symbol}>
-                  <span>{list.symbol}</span> | {list.companyName} |{" "}
-                  {list.HQnation}{" "}
+            {location.includes('domestic') ? <ul className="searchResultList">
+            {domesticFiltered.map((list, index) => (
+                <li className="serachResultItem" key={index} onClick={()=>handleClick(list.crno)}>
+                  <span>{list.itmsNm}</span> | {list.crno}
                 </li>
               ))}
-          </ul>
+          </ul>: <ul className="searchResultList">
+            {globalFiltered.map((list, index) => (
+                <li className="serachResultItem" key={index} onClick={()=>handleClick(list.symbol)}>
+                  <span>{list.symbol}</span> | {list.companyName}
+                </li>
+              ))}
+          </ul>}
+          
         </div>
       </div>
     </SearchMenuStyleOnHeader>

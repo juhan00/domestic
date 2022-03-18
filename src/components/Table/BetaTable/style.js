@@ -1,5 +1,23 @@
 import styled from "@emotion/styled";
 
+export const TableHeaderLoaderWrapper = styled.div`
+  max-width: 400px;
+  width: 100%;
+  height: 95px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+`;
+export const TableLoaderWrapper = styled.div`
+  max-width: 400px;
+  width: 100%;
+  height: 585px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #ffffff;
+`;
+
 export const TableWrapper = styled.div`
   max-width: 400px;
   width: 100%;
@@ -10,7 +28,7 @@ export const TableWrapper = styled.div`
 export const Table = styled.table`
   height: 100%;
   width: 100%;
-  
+
   tbody {
     display: block;
     width: 100%;
@@ -31,7 +49,7 @@ export const Row = styled.tr`
     background-color: #fafafe;
   }
   &.table__header {
-    border-bottom: 3px solid #E5EEEE;
+    border-bottom: 3px solid #e5eeee;
     color: #767676;
     justify-content: center;
     font-size: 18px;
@@ -39,7 +57,6 @@ export const Row = styled.tr`
     font-weight: 700;
     height: 43px;
     text-align: center;
-    
   }
   &.category {
     font-size: 14px;

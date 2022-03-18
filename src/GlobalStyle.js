@@ -12,10 +12,23 @@ const GlobalStyle = () => {
           -moz-osx-font-smoothing: grayscale;
           -webkit-font-smoothing: antialiased;
           font-smoothing: antialiased;
+          @font-face {
+            font-family: "Roboto";
+            src: url(../public/font/Roboto-Black.ttf);
+          }
+          font-family: "Roboto";
         }
         body {
           font-size: 14px;
           background-color: #f7f7fb;
+        }
+
+        .hash_loader_wrapper {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .box_ani {

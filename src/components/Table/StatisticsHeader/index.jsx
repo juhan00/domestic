@@ -1,6 +1,17 @@
 import React, { useMemo } from "react";
 import { NavLink, useLocation, useParams } from "react-router-dom";
-import { HeaderWrapper, InputWrapper } from "./style";
+import { HeaderWrapper, InputWrapper, TableHeaderLoaderWrapper } from "./style";
+import { HashLoader } from "react-spinners";
+
+export const StatisticsHeaderLoader = () => {
+  return (
+    <TableHeaderLoaderWrapper>
+      <div className="hash_loader_wrapper">
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
+    </TableHeaderLoaderWrapper>
+  );
+};
 
 const StatisticsHeader = () => {
   const location = useLocation().pathname;
@@ -19,12 +30,12 @@ const StatisticsHeader = () => {
   return (
     <HeaderWrapper>
       <NavLink
-        to={`/${firstTarget}/beta/${stockId}`}
+        to={`/${firstTarget}/beta/${stockId}?005930`}
         className={({ isActive }) => (isActive ? "selected" : "")}>
         회귀 그래프(Regression Graph)
       </NavLink>
       <NavLink
-        to={`/${firstTarget}/correlation/${stockId}`}
+        to={`/${firstTarget}/correlation/${stockId}?005930`}
         className={({ isActive }) => (isActive ? "selected" : "")}>
         상관 그래프(Correlation Graph)
       </NavLink>

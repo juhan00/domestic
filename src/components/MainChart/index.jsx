@@ -176,6 +176,9 @@ const MainChart = ({
 
     function generateCrosshair(e) {
       const focus = select(".focus");
+      
+      if(!data) return ;
+      
       const bisectDate = bisector((data) => data.date).left;
       // 마우스 위치(width 기반)으로 날짜를 얻음
       const curPositionDate = xScale.invert(pointer(e, e.target)[0]);

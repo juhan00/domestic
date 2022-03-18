@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import Home from "@routes/Home";
 import UseTerms from "@routes/UseTerms";
 import PrivacyTerms from "@routes/PrivacyTerms";
@@ -15,6 +16,7 @@ import DoCorrelation from "@routes/DoCorrelation";
 
 import Global from "@routes/Global/Global";
 import GoDisclosure from "@routes/Global/GoDisclosure";
+import NotFound from "@routes/NonFound";
 
 const Router = () => {
   return (
@@ -53,21 +55,14 @@ const Router = () => {
         <Route path="/global/balance/:stockId" element={<DoStatistics />} />
         <Route path="/global/income/:stockId" element={<DoStatistics />} />
 
-        <Route path="/global/disclosure/:stockId" element={<GoDisclosure />} />
+        {/* <Route path="/global/disclosure/:stockId" element={<GoDisclosure />} /> */}
         <Route path="/global/Beta/:stockId" element={<DoBeta />} />
         <Route
           path="/global/Correlation/:stockId"
           element={<DoCorrelation />}
         />
 
-        <Route
-          path="*"
-          element={
-            <main>
-              <p>There's nothing here!</p>
-            </main>
-          }
-        />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

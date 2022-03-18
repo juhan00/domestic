@@ -2,8 +2,40 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { TableWrapper, Table, Row, Cell } from "./style";
 import numberWithCommas from "@utils/numberWithComma";
+import HashLoader from "react-spinners/HashLoader";
 
-const ComInfoTable = ({ yearly, quarters }) => {
+export const ComInfoTableLoader = () => {
+  return (
+    <TableWrapper>
+      <div
+        className="hash_loader_wrapper"
+        style={{ width: "100%", height: "990px" }}>
+        <HashLoader color={"#48a185"} size={50} />
+      </div>
+    </TableWrapper>
+  );
+};
+
+const ComInfoTable = ({ yearly, quarters, unit }) => {
+  const category = [
+    { revenue: "매출액" },
+    { opInc: "영업이익" },
+    { netInc: "순이익" },
+    { opMargin: "영업이익률" },
+    { netMargin: "순이익률" },
+    { deptEquity: "부채비율" },
+    { reserve: "유보율" },
+    { roe: "ROE" },
+    { roa: "ROA" },
+    { eps: "EPS" },
+    { per: "PER" },
+    { bps: "BPS" },
+    { pbr: "PBR" },
+    { devidend: "배당금" },
+    { devidendPer: "배당수익률" },
+  ];
+  const percentage = ["ROE", "ROA", "EPS", "PER", "BPS", "PBR"];
+
   return (
     <TableWrapper>
       <h1>기업실적분석</h1>
@@ -43,154 +75,31 @@ const ComInfoTable = ({ yearly, quarters }) => {
           <Row />
         </thead>
         <tbody>
-          <Row>
-            <Cell className="type">
-              매출액 <span>(억원)</span>
-            </Cell>
-            {yearly.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.revenue)}</Cell>
-            ))}
-            {quarters.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.revenue)}</Cell>
-            ))}
-          </Row>
-          <Row>
-            <Cell className="type">
-              영업이익 <span>(억원)</span>
-            </Cell>
-            {yearly.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.opInc)}</Cell>
-            ))}
-            {quarters.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.opInc)}</Cell>
-            ))}
-          </Row>
-          <Row>
-            <Cell className="type">
-              당기순이익 <span>(억원)</span>
-            </Cell>
-            {yearly.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.netInc)}</Cell>
-            ))}
-            {quarters.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.netInc)}</Cell>
-            ))}
-          </Row>
-          <Row className="sector">
-            <Cell className="type">
-              영업이익률 <span>(%)</span>
-            </Cell>
-            {yearly.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.opMargin)}</Cell>
-            ))}
-            {quarters.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.opMargin)}</Cell>
-            ))}
-          </Row>
-          <Row>
-            <Cell className="type">
-              순이익률 <span>(%)</span>
-            </Cell>
-            {yearly.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.netMargin)}</Cell>
-            ))}
-            {quarters.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.netMargin)}</Cell>
-            ))}
-          </Row>
-          <Row className="sector">
-            <Cell className="type">
-              부채비율 <span>(%)</span>
-            </Cell>
-            {yearly.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.deptEquity)}</Cell>
-            ))}
-            {quarters.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.deptEquity)}</Cell>
-            ))}
-          </Row>
-          <Row className="sector">
-            <Cell className="type">
-              ROE <span>(원)</span>
-            </Cell>
-            {yearly.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.roe)}</Cell>
-            ))}
-            {quarters.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.roe)}</Cell>
-            ))}
-          </Row>
-          <Row>
-            <Cell className="type">
-              ROA <span>(배)</span>
-            </Cell>
-            {yearly.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.roa)}</Cell>
-            ))}
-            {quarters.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.roa)}</Cell>
-            ))}
-          </Row>
-          <Row>
-            <Cell className="type">
-              EPS <span>(원)</span>
-            </Cell>
-            {yearly.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.eps)}</Cell>
-            ))}
-            {quarters.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.eps)}</Cell>
-            ))}
-          </Row>
-          <Row>
-            <Cell className="type">
-              PER <span>(배)</span>
-            </Cell>
-            {yearly.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.per)}</Cell>
-            ))}
-            {quarters.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.per)}</Cell>
-            ))}
-          </Row>
-          <Row>
-            <Cell className="type">
-              BPS <span>(배)</span>
-            </Cell>
-            {yearly.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.bps)}</Cell>
-            ))}
-            {quarters.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.bps)}</Cell>
-            ))}
-          </Row>
-          <Row>
-            <Cell className="type">
-              PBR <span>(배)</span>
-            </Cell>
-            {yearly.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.pbr)}</Cell>
-            ))}
-            {quarters.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.pbr)}</Cell>
-            ))}
-          </Row>
-          <Row className="sector">
-            <Cell className="type">
-              주당배당금 <span>(원)</span>
-            </Cell>
-            {yearly.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.devidend)}</Cell>
-            ))}
-          </Row>
-          <Row>
-            <Cell className="type">
-              시가배당률 <span>(%)</span>
-            </Cell>
-            {yearly.map((item, idx) => (
-              <Cell key={idx}>{numberWithCommas(item.devidendPer)}</Cell>
-            ))}
-          </Row>
+          {category.map((key, index) => (
+            <Row key={index}>
+              <Cell className="type">{Object.values(key)}</Cell>
+              {yearly.map((data, i) => (
+                <Cell key={i}>
+                  {data[Object.keys(key)]}
+                  <span>
+                    {percentage.includes(Object.values(key)[0])
+                      ? " %"
+                      : ` ${unit}`}
+                  </span>
+                </Cell>
+              ))}
+              {quarters.map((data, i) => (
+                <Cell key={i}>
+                  {data[Object.keys(key)]}
+                  <span>
+                    {percentage.includes(Object.values(key)[0])
+                      ? " %"
+                      : ` ${unit}`}
+                  </span>
+                </Cell>
+              ))}
+            </Row>
+          ))}
         </tbody>
       </Table>
     </TableWrapper>

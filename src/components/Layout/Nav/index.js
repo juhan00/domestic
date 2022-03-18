@@ -59,24 +59,28 @@ const Nav = ({ scrolled }) => {
             </NavLink>
           </div>
         </MenuItem>
+        {location.includes("domestic") ? (
+          <MenuItem>
+            <NavLink className="mainmenu" to={`domestic/disclosure/${stockId}`}>
+              기업공시
+            </NavLink>
+          </MenuItem>
+        ) : null}
         <MenuItem>
           <NavLink
             className="mainmenu"
-            to={`${firstTarget}/disclosure/${stockId}`}>
-            기업공시
-          </NavLink>
-        </MenuItem>
-        <MenuItem>
-          <NavLink className="mainmenu" to={`${firstTarget}/beta/${stockId}`}>
+            to={`${firstTarget}/beta/${stockId}?005930`}>
             Statistics
           </NavLink>
           <div className="submenuWrapper">
-            <NavLink className="submenu" to={`${firstTarget}/beta/${stockId}`}>
+            <NavLink
+              className="submenu"
+              to={`${firstTarget}/beta/${stockId}?005930`}>
               Bata
             </NavLink>
             <NavLink
               className="submenu"
-              to={`${firstTarget}/Correlation/${stockId}`}>
+              to={`${firstTarget}/Correlation/${stockId}?005930`}>
               Correlation
             </NavLink>
           </div>
