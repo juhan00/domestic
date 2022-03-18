@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 
 export const GraphWrapper = styled.div`
+  flex: 1 1 0;
   background-color: #ffffff;
   max-width: 790px;
   width: 100%;

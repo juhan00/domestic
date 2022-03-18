@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 
 export const TableWrapper = styled.div`
+  flex: 1 1 0;
   background-color: #ffffff;
-  max-width: 790px;
+  max-width: 754px;
   width: 100%;
   height: 400px;
   border-radius: 12px;
