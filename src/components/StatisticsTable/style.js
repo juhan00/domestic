@@ -1,5 +1,13 @@
 import styled from "@emotion/styled";
 
+export const StatisticsTableLoaderWrapper = styled.div`
+  background-color: #ffffff;
+  max-width: 1600px;
+  width: 100%;
+  padding: 25px 32px 35px;
+  border-radius: 12px;
+`;
+
 export const TableWrapper = styled.div`
   background-color: #ffffff;
   max-width: 1600px;

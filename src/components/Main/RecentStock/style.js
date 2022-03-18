@@ -13,13 +13,6 @@ export const RecentStockWrapper = styled.div`
   border-radius: 12px;
   padding: 28px 0;
   overflow: hidden;
-  & > .loaderWrapper {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 
   & > h2 {
     position: absolute;
