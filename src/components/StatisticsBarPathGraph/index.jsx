@@ -15,6 +15,7 @@ import {
   timeFormat,
 } from "d3";
 import useResizeObserver from "@utils/useResizeObserver";
+import { ticks } from "d3";
 
 const StatisticsGraph = ({ data, type }) => {
   const graphRef = useRef();
@@ -114,18 +115,25 @@ const StatisticsGraph = ({ data, type }) => {
         margin.left + innerPadding + xBandScale.bandwidth() / 2,
         width - margin.right - innerPadding - xBandScale.bandwidth() / 2,
       ]);
-    const xAxis = axisBottom(xScale).ticks(6).tickFormat(timeFormat("%Y.%m"));
+
+    const xScaleDate = scaleTime()
+      .domain([0, yearly.length - 1])
+      .range([
+        margin.left + innerPadding + xBandScale.bandwidth() / 2,
+        width - margin.right - innerPadding - xBandScale.bandwidth() / 2,
+      ]);
+    const xAxisDate = axisBottom(xScaleDate).tickFormat(
+      (value, index) => yearly[index].basDt,
+    );
+
     const xBandAxis = axisBottom(xScale).tickFormat((node, i) => yearly[node]);
 
     svg
       .select(".x-axis")
-      .call(xAxis)
+      .call(xAxisDate)
       .call((g) => g.select(".domain").remove())
       .call((g) => g.selectAll(".tick line").remove())
-      .style(
-        "transform",
-        `translate(${margin.left}px, ${height - margin.bottom}px)`,
-      );
+      .style("transform", `translate(0px, ${height - margin.bottom}px)`);
     svg
       .append("g")
       .call(xBandAxis)
@@ -146,7 +154,7 @@ const StatisticsGraph = ({ data, type }) => {
       .select(".y-axis")
       .call(
         axisRight(yRightScale)
-          .ticks(5)
+          .ticks(6)
           .tickFormat((x) => parseInt(x)),
       )
       .style("transform", `translateX(${width - margin.right}px)`)
