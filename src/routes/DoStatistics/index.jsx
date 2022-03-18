@@ -15,6 +15,8 @@ const DoStatistics = () => {
   const crno = useParams();
   const path = useLocation().pathname;
   const types = ["statistics", "balance", "income"];
+  const isGlobal = useLocation().pathname.includes("global");
+  const unit = isGlobal ? "B" : "억원";
 
   useEffect(() => {
     types.map((item) => (path.includes(item) ? setType(item) : null));
@@ -25,7 +27,7 @@ const DoStatistics = () => {
     loading
       ? null
       : (async () => {
-          sampleJson(crno.stockId, type)
+          sampleJson(crno.stockId.toLowerCase(), type)
             .then((res) => res.data)
             .then((data) => setStatisticsData(data));
         })();
@@ -51,7 +53,7 @@ const DoStatistics = () => {
         </GraphWrapper>
       </TopWrapper>
       {Object.keys(statisticsData).length ? (
-        <StatisticsTable data={statisticsData} type={type} />
+        <StatisticsTable data={statisticsData} type={type} unit={unit} />
       ) : (
         <HashLoader color={"#48a185"} size={50} />
       )}

@@ -36,7 +36,7 @@ const DoComInfoDailyPrice = ({ data, offset, limit, page, setPage }) => {
                     <Cell
                       key={i}
                       className={item[key] >= 0 ? "increase" : "decrease"}>
-                      {item[key]}
+                      {item[key].toFixed()}
                     </Cell>
                   ) : (
                     <Cell key={i} className={key === "basDt" ? "date" : ""}>
