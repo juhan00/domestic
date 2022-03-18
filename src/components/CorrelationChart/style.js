@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export const ChartWrapper = styled.div`
   width: 100%;
   height: 700px;
-    h5 {
+  h5 {
     color: #505050;
     margin-top: 30px;
     font-weight: 500;
@@ -60,8 +60,8 @@ export const Header = styled.div`
       margin-right: 5px;
       display: block;
       content: "";
-      width: 15px;
-      height: 15px;
+      width: 12px;
+      height: 12px;
       border: 1px solid #fdc055;
       border-radius: 50%;
       background-color: #fdc055;

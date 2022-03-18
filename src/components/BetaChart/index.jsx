@@ -54,7 +54,7 @@ const BetaChart = ({ data, names, beta }) => {
       { length: 100 },
       (_, i) => adjMinX + ((adjMaxX - adjMinX) / 100) * i,
     );
-    console.log(tempArray);
+
     const betaArray = tempArray.reduce(
       (a, b) => [
         ...a,
@@ -195,7 +195,15 @@ const BetaChart = ({ data, names, beta }) => {
   return (
     <ChartWrapper>
       <Header>
-        <span>legend</span>
+        <div className="legend">
+          <div className="circle">
+            <span className="icon"></span>
+            {names[0]} (X) vs {names[1]} (Y)
+          </div>
+          <div className="rhombus">
+            <span className="icon"></span>Regression
+          </div>
+        </div>
         <Search />
         <YLabel>
           TICKER Y-AXIS<span>{names[1]}</span>

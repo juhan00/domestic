@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { GraphWrapper } from "./style";
+import { GraphWrapper, Header } from "./style";
 import {
   axisBottom,
   extent,
@@ -252,6 +252,31 @@ const StatisticsGraph = ({ data, type }) => {
 
   return (
     <GraphWrapper ref={graphRef}>
+      <Header>
+        <div className="legend">
+          <div className="unit">[억원]</div>
+          <div className="square yellow">
+            <span className="icon"></span>
+            당기순이익(좌)
+          </div>
+          <div className="square mint">
+            <span className="icon"></span>
+            당기순이익(좌)
+          </div>
+          <div className="circle green">
+            <span className="icon"></span>
+            ROE
+          </div>
+          <div className="circle blue">
+            <span className="icon"></span>
+            ROA
+          </div>
+          <div className="circle red">
+            <span className="icon"></span>
+            ROC
+          </div>
+        </div>
+      </Header>
       <svg ref={svgRef}>
         <g className="x-axis" />
         <g className="y-axis" />
