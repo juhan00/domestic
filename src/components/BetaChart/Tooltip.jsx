@@ -14,14 +14,22 @@ const Tooltip = ({ hoveredValue, mousePosition, names }) => {
         <div>
           <div id="tooltip">
             <h3>{hoveredValue.basDt}</h3>
-            <span>
-              <div>{names[0]}</div>
-              <div className="per">{hoveredValue.xPrice}%</div>
-            </span>
-            <span>
-              <div>{names[1]}</div>
-              <div className="per">{hoveredValue.yPrice}%</div>
-            </span>
+            {hoveredValue.corr ? (
+              <span>
+                <div>Correlation</div>
+                <div className="per">{hoveredValue.corr.toFixed(4)}%</div>
+              </span>
+            ) : ( <> 
+              <span>
+                <div>{names[0]}</div>
+                <div className="per">{hoveredValue.xPrice}%</div>
+              </span>
+              <span>
+                <div>{names[1]}</div>
+                <div className="per">{hoveredValue.yPrice}%</div>
+              </span>
+              </>
+            )}
           </div>
         </div>
       </TooltipContainer>
