@@ -1,11 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import Home from "@routes/Home";
 import UseTerms from "@routes/UseTerms";
 import PrivacyTerms from "@routes/PrivacyTerms";
 import Layout from "@components/Layout";
-
 import Domestic from "@routes/Domestic/Domestic";
 import DomesticStock from "@routes/DomesticFinance";
 import DoComInfo from "@routes/DoComInfo";
@@ -13,9 +11,7 @@ import DoStatistics from "@routes/DoStatistics";
 import DoDisclosure from "@routes/DoDisclosure";
 import DoBeta from "@routes/DoBeta";
 import DoCorrelation from "@routes/DoCorrelation";
-
 import Global from "@routes/Global/Global";
-import GoDisclosure from "@routes/Global/GoDisclosure";
 import NotFound from "@routes/NonFound";
 
 const Router = () => {
