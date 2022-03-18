@@ -11,7 +11,7 @@ export const Base = styled.div`
 `;
 
 export const MainSection = styled.div`
-  min-height: calc(100vh - 488px);
+  min-height: calc(100vh - 300px);
   max-width: 1600px;
   padding: 20px 36px 150px;
   margin: 0 auto;
