@@ -67,11 +67,15 @@ const Nav = ({ scrolled }) => {
           </NavLink>
         </MenuItem>
         <MenuItem>
-          <NavLink className="mainmenu" to={`${firstTarget}/beta/${stockId}`}>
+          <NavLink
+            className="mainmenu"
+            to={`${firstTarget}/beta/${stockId}?005930`}>
             Statistics
           </NavLink>
           <div className="submenuWrapper">
-            <NavLink className="submenu" to={`${firstTarget}/beta/${stockId}`}>
+            <NavLink
+              className="submenu"
+              to={`${firstTarget}/beta/${stockId}?005930`}>
               Bata
             </NavLink>
             <NavLink
