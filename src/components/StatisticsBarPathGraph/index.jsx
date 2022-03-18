@@ -17,7 +17,7 @@ import {
 import useResizeObserver from "@utils/useResizeObserver";
 import { ticks } from "d3";
 
-const StatisticsGraph = ({ data, type }) => {
+const StatisticsGraph = ({ data, unit, type }) => {
   const graphRef = useRef();
   const svgRef = useRef(null);
   const resizeWidth = useResizeObserver(graphRef);
@@ -28,7 +28,7 @@ const StatisticsGraph = ({ data, type }) => {
   const barKeys = {
     statistics: ["netInc", "opInc"],
     balance: ["marketCap", "liabilitiesCap"],
-    income: ["salesNet", "investsNet", "devNet"],
+    income: ["salesNet", "investsNet"],
   };
   const pathKeys = {
     statistics: ["roe", "roa"],
@@ -254,27 +254,51 @@ const StatisticsGraph = ({ data, type }) => {
     <GraphWrapper ref={graphRef}>
       <Header>
         <div className="legend">
-          <div className="unit">[억원]</div>
-          <div className="square yellow">
-            <span className="icon"></span>
-            당기순이익(좌)
-          </div>
-          <div className="square mint">
-            <span className="icon"></span>
-            당기순이익(좌)
-          </div>
-          <div className="circle green">
-            <span className="icon"></span>
-            ROE
-          </div>
-          <div className="circle blue">
-            <span className="icon"></span>
-            ROA
-          </div>
-          <div className="circle red">
-            <span className="icon"></span>
-            ROC
-          </div>
+          {type === "statistics" ? (
+            <>
+              <div className="unit">[{unit}]</div>
+              <div className="square yellow">
+                <span className="icon"></span>
+                영업이익
+              </div>
+              <div className="square green">
+                <span className="icon"></span>
+                순이익
+              </div>
+              <div className="circle blue">
+                <span className="icon"></span>
+                ROE
+              </div>
+              <div className="circle red">
+                <span className="icon"></span>
+                ROA
+              </div>
+            </>
+          ) : type === "balance" ? (
+            <>
+              <div className="unit">[{unit}]</div>
+              <div className="square yellow">
+                <span className="icon"></span>
+                부채총계
+              </div>
+              <div className="square green">
+                <span className="icon"></span>
+                자산총계
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="unit">[{unit}]</div>
+              <div className="square yellow">
+                <span className="icon"></span>
+                영업손익
+              </div>
+              <div className="square green">
+                <span className="icon"></span>
+                투자손익
+              </div>
+            </>
+          )}
         </div>
       </Header>
       <svg ref={svgRef}>

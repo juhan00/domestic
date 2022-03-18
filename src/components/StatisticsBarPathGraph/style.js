@@ -60,12 +60,7 @@ export const Header = styled.div`
         background-color: #fdc055;
       }
     }
-    & > div.mint {
-      .icon::before {
-        background-color: #cbebdb;
-      }
-    }
-    & > div.grean {
+    & > div.green {
       .icon::before {
         background-color: #35a67d;
       }

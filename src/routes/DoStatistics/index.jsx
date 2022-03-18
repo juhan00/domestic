@@ -59,7 +59,11 @@ const DoStatistics = () => {
         )}
         <GraphWrapper>
           {Object.keys(statisticsData).length ? (
-            <StatisticsBarPathGraph data={statisticsData} type={type} />
+            <StatisticsBarPathGraph
+              data={statisticsData}
+              unit={unit}
+              type={type}
+            />
           ) : (
             <div className="hash_loader_wrapper" style={{ height: "250px" }}>
               <HashLoader color={"#48a185"} size={50} />
