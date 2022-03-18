@@ -3,6 +3,7 @@ import DomesticFilter from "@components/Disclosure/DisclosureFilter/DomesticFilt
 import DomesticList, { DisclosureLoader } from "@components/Disclosure/DisclosureList/DomesticList"
 import Pagination from "@components/Disclosure/Pagination";
 import axios from "redaxios";
+import { useParams } from "react-router-dom";
 
 const DoDisclosure = () => {
   const [disclosureList, setDisclosureList] = useState(null); // 공시 리스트
@@ -22,7 +23,7 @@ const DoDisclosure = () => {
     page_no: '1',
     page_count: '15'
   })
-
+  const crno = useParams();
   const offset = (page - 1) * limit;
 
   let paramString = ``
@@ -52,7 +53,7 @@ const DoDisclosure = () => {
     let isApiSubscribed = true;
     const disclosureFetch = async () => {
       const res = await axios.get(
-        "https://gyoheonlee.github.io/mobile-bank/data/005930/disclosure.json",
+        `https://gyoheonlee.github.io/mobile-bank/data/${crno.stockId}/disclosure.json`,
       );
       if (isApiSubscribed) {
         setTimeout(() => {
@@ -63,8 +64,11 @@ const DoDisclosure = () => {
       }
     };
     disclosureFetch();
-    return () => (isApiSubscribed = false);
-  }, [])
+    return () => {
+      isApiSubscribed = false;
+      setDisclosureList(null)
+    };
+  }, [crno])
 
   return (
     <div className="disclosure">

@@ -24,7 +24,12 @@ export const DisclosureFilterWrapper = styled.div`
           border-radius: 2px;
           box-sizing: border-box;
           background-color: #FFFFFF;
+          background-image: url('/images/filter.svg');
+          /* background-position: center; */
+          background-repeat: no-repeat;
+          background-position: 25px center;
           color: #111111;
+          padding-left: 25px;
         }
       }
     }
