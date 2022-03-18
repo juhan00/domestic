@@ -29,17 +29,32 @@ export const MenuItem = styled.li`
     text-decoration: none;
   }
   .mainmenu {
+    position: relative;
     height: 46px;
     padding: 0 2px;
     font-size: 16px;
     line-height: 46px;
     margin-left: 40px;
-    color: #fff;
+    color: #dfdfdf;
     transition: height 0.3s ease;
-
     &:hover {
+      color: #fff;
       font-weight: 700;
-      border-bottom: 4px solid #fff;
+    }
+    &.active {
+      color: #fff;
+      font-weight: 700;
+      &::after {
+        display: inline-block;
+        content: "";
+        position: absolute;
+        width: 100%;
+        background: #fff;
+        height: 4px;
+        left: 0;
+        bottom: 0;
+        border-radius: 4px 4px 0 0;
+      }
     }
   }
   &:first-of-type {
