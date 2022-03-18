@@ -1,4 +1,4 @@
-import React, { useReducer, useMemo, useState } from "react";
+import React, { useReducer, useMemo, useState, useCallback } from "react";
 import KeywordChart from "@components/KeywordChart";
 import CategoryChart from "@components/CategoryChart";
 import PressChart from "@components/pressChart";
@@ -111,11 +111,44 @@ const DomesticStock = () => {
     [startDate, endDate, stockData],
   );
 
-  const filteredNewsData = useMemo(
-    () =>
-      newsDatas.filter((ele) => ele.date <= endDate && ele.date >= startDate),
-    [startDate, endDate, newsDatas],
-  );
+  const [positive, setPositive] = useState(true);
+  const [negative, setNegative] = useState(true);
+  const [neutral, setNeutral] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [newsPerPage, setNewsPerPage] = useState(6);
+
+  const filteredNewsData = useMemo(() => {
+    setCurrentPage(1);
+    let tempData = newsDatas.slice();
+    tempData = tempData.filter(
+      (ele) => ele.date <= endDate && ele.date >= startDate,
+    );
+    if (!positive) tempData = tempData.filter((ele) => ele.emotion <= 0);
+    if (!negative) tempData = tempData.filter((ele) => ele.emotion >= 0);
+    if (!neutral) tempData = tempData.filter((ele) => ele.emotion !== 0);
+
+    return tempData;
+  }, [startDate, endDate, newsDatas, positive, negative, neutral]);
+
+  const onClickPrev = useCallback(() => {
+    setCurrentPage((prev) => prev - 1);
+  }, []);
+
+  const onClickNext = useCallback(() => {
+    setCurrentPage((prev) => prev + 1);
+  }, []);
+
+  const onTogglePositive = useCallback(() => {
+    setPositive((prev) => !prev);
+  }, [positive]);
+
+  const onToggleNegative = useCallback(() => {
+    setNegative((prev) => !prev);
+  }, [negative]);
+
+  const onToggleNeutral = useCallback(() => {
+    setNeutral((prev) => !prev);
+  }, [neutral]);
 
   const filteredEmotionData = useMemo(
     () =>
@@ -356,7 +389,20 @@ const DomesticStock = () => {
               </div>
             </div>
           </div>
-          <NewsList data={filteredNewsData} />
+          <NewsList
+            data={filteredNewsData}
+            positive={positive}
+            onTogglePositive={onTogglePositive}
+            onToggleNegative={onToggleNegative}
+            onToggleNeutral={onToggleNeutral}
+            onClickNext={onClickNext}
+            onClickPrev={onClickPrev}
+            negative={negative}
+            neutral={neutral}
+            currentPage={currentPage}
+            newsPerPage={newsPerPage}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
         <div className="level2-chart-wrapper">
           <div className="chart-wrapper">
