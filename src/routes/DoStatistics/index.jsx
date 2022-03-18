@@ -3,6 +3,7 @@ import { RouteWrapper, TopWrapper, GraphWrapper } from "./style";
 import StatisticsTable from "@components/StatisticsTable";
 import StatisticsBarPathGraph from "@components/StatisticsBarPathGraph";
 import StatisticsPathGraph from "@components/StatisticsPathGraph";
+import StatisticsHeader from "@components/StatisticsHeader";
 import { useLocation, useParams } from "react-router-dom";
 import { sampleJson } from "@utils/api";
 import HashLoader from "react-spinners/HashLoader";
@@ -32,6 +33,7 @@ const DoStatistics = () => {
 
   return (
     <RouteWrapper>
+      <StatisticsHeader />
       <TopWrapper>
         <h1>재무비율 요약</h1>
         <GraphWrapper>
