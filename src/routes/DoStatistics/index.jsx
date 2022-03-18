@@ -40,7 +40,11 @@ const DoStatistics = () => {
         <h1>재무비율 요약</h1>
         <GraphWrapper>
           {Object.keys(statisticsData).length ? (
-            <StatisticsBarPathGraph data={statisticsData} type={type} />
+            <StatisticsBarPathGraph
+              data={statisticsData}
+              unit={unit}
+              type={type}
+            />
           ) : (
             <HashLoader color={"#48a185"} size={50} />
           )}
