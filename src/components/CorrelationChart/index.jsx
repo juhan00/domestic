@@ -104,11 +104,11 @@ const CorrelationChart = ({ corr, names }) => {
         <span className="title">Corrlation</span>
         <Search />
         <YLabel>
-          TICKER Y-AXIS<span>{names[0]}</span>
+          TICKER Y-AXIS<span>{names[1]}</span>
         </YLabel>
       </Header>
       <h5>
-        {names[1]} (X) vs {names[0]} (Y)
+        {names[0]} (X) vs {names[1]} (Y)
       </h5>
       <div className="corrChartRef" ref={corrChartRef}>
         <Tooltip

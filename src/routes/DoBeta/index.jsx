@@ -27,18 +27,14 @@ const DoBeta = () => {
 
   useEffect(() => {
     (async () => {
-      sampleJson("035420", "price")
+      sampleJson("aapl", "price")
         .then((res) => res.data)
         .then((data) => setDataX(data));
-      sampleJson(crno.stockId, "price")
+      sampleJson(crno.stockId.toLowerCase(), "price")
         .then((res) => res.data)
         .then((data) => setDataY(data));
     })();
-    return () => {
-      setDataX({});
-      setDataY({});
-    };
-  }, []);
+  }, [crno]);
 
   useEffect(() => {
     if (Object.keys(dataX).length && Object.keys(dataY).length) {
@@ -46,7 +42,9 @@ const DoBeta = () => {
       const { itmsNm: yName, items: yData } = dataY;
       setNames([xName, yName]);
 
-      const mergedArray = xData.reduce(
+      console.log(xData);
+
+      const mergedArray = xData.slice(0, 200).reduce(
         (a, b, i) =>
           a.concat({
             basDt: xData[i]["basDt"],
