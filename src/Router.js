@@ -15,6 +15,7 @@ import DoCorrelation from "@routes/DoCorrelation";
 
 import Global from "@routes/Global/Global";
 import GoDisclosure from "@routes/Global/GoDisclosure";
+import NotFound from "@routes/NonFound";
 
 const Router = () => {
   return (
@@ -60,14 +61,7 @@ const Router = () => {
           element={<DoCorrelation />}
         />
 
-        <Route
-          path="*"
-          element={
-            <main>
-              <p>There's nothing here!</p>
-            </main>
-          }
-        />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
