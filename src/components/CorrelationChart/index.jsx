@@ -55,7 +55,7 @@ const CorrelationChart = ({ corr, names }) => {
       .append("g")
       .attr("transform", `translate(0,${height})`)
       .call(
-        d3.axisBottom(xScale).tickFormat(d3.timeFormat("%Y-%m-%d")).ticks(5),
+        d3.axisBottom(xScale).tickFormat(d3.timeFormat("%Y-%m-%d")).ticks(7),
       )
       .call((g) => g.select(".domain").remove());
 
@@ -86,8 +86,8 @@ const CorrelationChart = ({ corr, names }) => {
         line
           .append("path")
           .style("fill", "none")
-          .style("stroke-width", 4)
-          .attr("stroke", "#5FB6AD")
+          .style("stroke-width", 5)
+          .attr("stroke", "#047B6C")
           .attr(
             "d",
             d3
@@ -96,6 +96,56 @@ const CorrelationChart = ({ corr, names }) => {
               .y((d) => yScale(d["corr"])),
           );
       });
+
+      svg
+        .selectAll(".rect")
+        .data(corr)
+        .join((enter) => {
+          const rect = enter.append("g").classed("rect", true);
+
+          rect
+            .append("rect")
+            .attr("width", 2)
+            .attr("height", 2)
+            .style("fill", "#FDC055")
+            .style("fill-opacity", 0)
+            .style("stroke", "#FDC055")
+            .style("stroke-opacity", 0)
+            .style("stroke-width", 5)
+            .attr("transform", (d, i) => `translate(
+              ${xScale(new Date(d["basDt"])) - 4}, 
+              ${yScale(d.corr) - 3})`
+            )
+            .on("mouseover", (e, d) => {
+              setHoveredValue(d);
+              d3.select(e.target)
+                .attr("width", 10)
+                .attr("height", 10)
+                .style("stroke", "#FDC055")
+                .style("fill-opacity", 1)
+                .style("stroke-opacity", 0.5)
+                .style("stroke-width", 8)
+                .style("z-index", -1)
+                .transition('corners')
+                .duration(0)
+                .attr("rx", 5)
+                .attr("ry", 5)
+                
+            })
+            .on("mousemove", handleMouseMove)
+            .on("mouseleave", (e) => {
+              setHoveredValue(null);
+              d3.select(e.target)
+                .attr("width", 2)
+                .attr("height", 2)
+                .style("stroke-opacity", 0)
+                .style("stroke-width", 5)
+                .style("fill-opacity", 0)
+                .style("stroke-opacity", 0)
+                .style("stroke-width", 5)
+    
+            });
+        });
   }, [corr, resize]);
 
   return (
