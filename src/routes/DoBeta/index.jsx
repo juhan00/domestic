@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import TableHeader from "@components/Table/TableHeader";
-import BetaTable from "@components/Table/BetaTable";
+import TableHeader, { TableHeaderLoader } from "@components/Table/TableHeader";
+import BetaTable, { BetaTableLoader } from "@components/Table/BetaTable";
 import BetaChart from "@components/BetaChart";
 import StatisticsHeader from "@components/Table/StatisticsHeader";
 import {
@@ -24,14 +24,31 @@ const DoBeta = () => {
   const crno = useParams();
   const xTick = useLocation().search.slice(1);
 
+  //box loader animation state
+  const [isBoxLoader, setIsBoxLoader] = useState(false);
+
+  //box loader aninmation useEffect
+  useEffect(() => {
+    setIsBoxLoader(true);
+    return () => setIsBoxLoader(false);
+  }, []);
+
   useEffect(() => {
     (async () => {
       sampleJson(xTick.toLowerCase(), "price")
         .then((res) => res.data)
-        .then((data) => setDataX(data));
+        .then((data) =>
+          setTimeout(() => {
+            setDataX(data);
+          }, 1000),
+        );
       sampleJson(crno.stockId.toLowerCase(), "price")
         .then((res) => res.data)
-        .then((data) => setDataY(data));
+        .then((data) =>
+          setTimeout(() => {
+            setDataY(data);
+          }, 1000),
+        );
     })();
     return () => {
       setDataX({});
@@ -63,22 +80,28 @@ const DoBeta = () => {
   return (
     <RouteWrapper>
       <StatisticsHeader />
-      <ContentWrapper>
+      <ContentWrapper className={`box_ani turn1 ${isBoxLoader && "ani_on"}`}>
         <ChartWrapper>
           {loading ? (
-            <HashLoader color={"#48a185"} size={50} />
+            <div className="hash_loader_wrapper">
+              <HashLoader color={"#48a185"} size={50} />
+            </div>
           ) : (
             <BetaChart data={data} names={names} beta={beta} />
           )}
         </ChartWrapper>
         <TableWrapper>
           {loading ? (
-            <HashLoader color={"#48a185"} size={50} />
+            <div className={`box_ani delay1 turn1 ${isBoxLoader && "ani_on"}`}>
+              <TableHeaderLoader />
+            </div>
           ) : (
             <TableHeader data={beta} title={"BETA"} />
           )}
           {loading ? (
-            <HashLoader color={"#48a185"} size={50} />
+            <div className={`box_ani delay1 turn2 ${isBoxLoader && "ani_on"}`}>
+              <BetaTableLoader />
+            </div>
           ) : (
             <BetaTable data={data} names={names} />
           )}
