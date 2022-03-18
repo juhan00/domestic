@@ -80,7 +80,7 @@ const Nav = ({ scrolled }) => {
             </NavLink>
             <NavLink
               className="submenu"
-              to={`${firstTarget}/Correlation/${stockId}`}>
+              to={`${firstTarget}/Correlation/${stockId}?005930`}>
               Correlation
             </NavLink>
           </div>
