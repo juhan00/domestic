@@ -21,7 +21,7 @@ const StatisticsGraph = ({ data, type }) => {
   const pathKeys = {
     statistics: ["opMargin", "netMargin", "deptEquity"],
     balance: ["reveInc", "marInc", "netInc"],
-    income: [],
+    income: ["salesPer"],
   };
 
   const yearly = data.yearly;
@@ -142,18 +142,52 @@ const StatisticsGraph = ({ data, type }) => {
       <Header>
         <div className="legend">
           <div className="unit">[%]</div>
-          <div className="circle blue">
-            <span className="icon"></span>
-            유동부채비율
-          </div>
-          <div className="circle red">
-            <span className="icon"></span>
-            비유동부채비율
-          </div>
-          <div className="circle yellow">
-            <span className="icon"></span>
-            비유동부채비율
-          </div>
+          {type === "statistics" ? (
+            <>
+              <div className="circle blue">
+                <span className="icon"></span>
+                엽업이익률
+              </div>
+              <div className="circle red">
+                <span className="icon"></span>
+                순이익률
+              </div>
+              <div className="circle yellow">
+                <span className="icon"></span>
+                부채비율
+              </div>
+            </>
+          ) : type === "balance" ? (
+            <>
+              <div className="circle red">
+                <span className="icon"></span>
+                매출액증가율
+              </div>
+              <div className="circle yellow">
+                <span className="icon"></span>
+                영업이익증가융
+              </div>
+              <div className="circle green">
+                <span className="icon"></span>
+                순이익증가율
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="circle red">
+                <span className="icon"></span>
+                매출액증가율
+              </div>
+              <div className="circle yellow">
+                <span className="icon"></span>
+                영업이익증가융
+              </div>
+              <div className="circle green">
+                <span className="icon"></span>
+                순이익증가율
+              </div>
+            </>
+          )}
         </div>
       </Header>
       <svg ref={svgRef}>
