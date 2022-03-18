@@ -2,11 +2,12 @@ import React, { useRef, useState, useEffect, useMemo } from "react";
 import { clickOutside } from "@utils/clickOutside";
 import { SearchMenuStyleOnHeader } from "./style";
 import axios from "redaxios"
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 
 export const Search = () => {
   const ref = useRef();
   const location = useLocation().pathname
+  const navigate = useNavigate()
   const [searchItem, setSearchItem] = useState("");
   const [domesticList, setDomesticList] = useState([]);
   const [globalList, setGlobalList] = useState([]);
@@ -63,7 +64,7 @@ export const Search = () => {
   const handleClick = (id) => {
     setIsOpen(false);
     setSearchItem("")
-    console.log(id)
+    navigate(`${location}?${id}`)
   }
 
   const handleSubmit = (e) => {
