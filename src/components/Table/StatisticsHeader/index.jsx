@@ -21,12 +21,12 @@ const StatisticsHeader = () => {
       <NavLink
         to={`/${firstTarget}/beta/${stockId}`}
         className={({ isActive }) => (isActive ? "selected" : "")}>
-        회귀 그래프
+        회귀 그래프(Regression Graph)
       </NavLink>
       <NavLink
         to={`/${firstTarget}/correlation/${stockId}`}
         className={({ isActive }) => (isActive ? "selected" : "")}>
-        상관 그래프
+        상관 그래프(Correlation Graph)
       </NavLink>
       <InputWrapper>
         <input type="date" name="date" />
