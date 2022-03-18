@@ -92,6 +92,7 @@ const StatisticsGraph = ({ data, type }) => {
     svg.selectAll(".lines").remove();
     svg.selectAll(".bars").remove();
     svg.selectAll(".tick line").remove();
+    svg.selectAll(".y-left-axis").remove();
 
     if (!resizeWidth || !data) {
       return;
@@ -163,6 +164,7 @@ const StatisticsGraph = ({ data, type }) => {
 
     svg
       .append("g")
+      .attr("class", "y-left-axis")
       .call(axisRight(yLeftScale).ticks(5))
       .call((g) => g.selectAll(".domain").remove())
       .call((g) =>

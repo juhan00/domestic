@@ -14,19 +14,24 @@ const StatisticsHeader = () => {
       target = "global";
     }
     return target;
-  }, [location]);
+  }, [location, stockId]);
 
   return (
     <HeaderWrapper>
       <NavLink
-        to={`/${firstTarget}/beta/${stockId}`}
+        to={`/${firstTarget}/statistics/${stockId}`}
         className={({ isActive }) => (isActive ? "selected" : "")}>
-        회귀 그래프(Regression Graph)
+        재무상태표
       </NavLink>
       <NavLink
-        to={`/${firstTarget}/correlation/${stockId}`}
+        to={`/${firstTarget}/balance/${stockId}`}
         className={({ isActive }) => (isActive ? "selected" : "")}>
-        상관 그래프(Correlation Graph)
+        대차대조표
+      </NavLink>
+      <NavLink
+        to={`/${firstTarget}/income/${stockId}`}
+        className={({ isActive }) => (isActive ? "selected" : "")}>
+        손익계산서
       </NavLink>
       <InputWrapper>
         <input type="date" name="date" />

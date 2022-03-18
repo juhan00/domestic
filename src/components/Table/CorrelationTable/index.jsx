@@ -12,11 +12,11 @@ const CorrelationTable = ({ data }) => {
           </Row>
         </thead>
         <tbody>
-          {data.date.map((item, index) => {
+          {data.map((item, index) => {
             return (
               <Row key={index}>
-                <Cell>{item}</Cell>
-                <Cell className="item">{data.listX[item]}</Cell>
+                <Cell>{item["basDt"]}</Cell>
+                <Cell className="item">{item["corr"].toFixed(5)}</Cell>
               </Row>
             );
           })}
