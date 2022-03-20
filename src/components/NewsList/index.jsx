@@ -145,6 +145,7 @@ const News = ({ data }) => {
                     }}>
                     {ele.keyword.map((ele) => (
                       <div
+                        key={ele}
                         style={{
                           padding: "2px 12px 3px",
                           background: "#F7F7FB",
@@ -211,22 +212,24 @@ const Pagination = ({
 
   const newsNumbers = useMemo(() => {
     const temp = [];
-    let start =
-      currentPage + 10 > pageLimit
-        ? Math.floor(pageLimit) - 10 > 0
-          ? Math.floor(pageLimit) - 10
-          : 1
-        : currentPage;
     let end =
       currentPage > pageLimit
         ? pageLimit
-        : currentPage + 10 > pageLimit
+        : Math.floor(currentPage / 10) * 10 + 10 > pageLimit
         ? pageLimit
-        : currentPage + 10;
+        : Math.floor(currentPage / 10) * 10 + 10;
 
+    let start =
+      end === pageLimit
+        ? pageLimit - 10
+        : Math.floor(end / 10) * 10 - 10 > 0
+        ? Math.floor(end / 10) * 10 - 10
+        : 1;
     for (let i = start; i <= end; i++) {
       temp.push(i);
     }
+
+    console.log(start, end, temp);
 
     return temp;
   }, [pageLimit, currentPage]);
