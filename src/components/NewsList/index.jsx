@@ -130,8 +130,13 @@ const News = ({ data }) => {
                       display: "flex",
                       justifyContent: "space-between",
                     }}>
-                    <div>{ele.title}</div>
-                    <img src={modal_open_icon} />
+                    <a
+                      href={ele.url}
+                      target="_blank"
+                      style={{ all: "unset", cursor: "pointer" }}>
+                      {ele.title}
+                    </a>
+                    {/* <img src={modal_open_icon} /> */}
                   </div>
                   <div
                     style={{
