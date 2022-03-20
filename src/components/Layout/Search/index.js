@@ -167,7 +167,11 @@ const Search = () => {
     e.preventDefault();
     if (location.includes("domestic")) {
       if (domesticFiltered.length >= 1) {
-        navigate(`domestic/${targetUrl}/${domesticFiltered[0].crno}`);
+        navigate(
+          location.includes("beta") || location.includes("correlation")
+            ? `domestic/${targetUrl}/${domesticFiltered[0].crno}?005930`
+            : `domestic/${targetUrl}/${domesticFiltered[0].crno}`,
+        );
         handleClickDomestic(
           domesticFiltered[0].itmsNm,
           domesticFiltered[0].crno,
@@ -175,7 +179,11 @@ const Search = () => {
       }
     } else if (location.includes("global")) {
       if (globalFiltered.length >= 1) {
-        navigate(`global/${targetUrl}/${globalFiltered[0].symbol}`);
+        navigate(
+          location.includes("beta") || location.includes("correlation")
+            ? `global/${targetUrl}/${globalFiltered[0].symbol}?aapl`
+            : `global/${targetUrl}/${globalFiltered[0].symbol}`,
+        );
         handleClickGlobal(globalFiltered[0].symbol);
       }
     } else {
