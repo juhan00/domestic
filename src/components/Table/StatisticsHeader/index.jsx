@@ -30,12 +30,12 @@ const StatisticsHeader = () => {
   return (
     <HeaderWrapper>
       <NavLink
-        to={`/${firstTarget}/beta/${stockId}?005930`}
+        to={location.includes("domestic") ? `/${firstTarget}/beta/${stockId}?005930` : `/${firstTarget}/beta/${stockId}?aapl` }
         className={({ isActive }) => (isActive ? "selected" : "")}>
         회귀 그래프(Regression Graph)
       </NavLink>
       <NavLink
-        to={`/${firstTarget}/correlation/${stockId}?005930`}
+        to={location.includes("domestic") ? `/${firstTarget}/correlation/${stockId}?005930` : `/${firstTarget}/correlation/${stockId}?aapl`}
         className={({ isActive }) => (isActive ? "selected" : "")}>
         상관 그래프(Correlation Graph)
       </NavLink>
