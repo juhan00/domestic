@@ -229,8 +229,6 @@ const Pagination = ({
       temp.push(i);
     }
 
-    console.log(start, end, temp);
-
     return temp;
   }, [pageLimit, currentPage]);
 
