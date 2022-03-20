@@ -38,13 +38,13 @@ import { useParams } from "react-router-dom";
 
 const DomesticStock = () => {
   const publicDate = useMemo(() => new Date("2021-08-01"), []);
+
   const stockId = useParams().stockId;
+
   const [domesticState, dispatch] = useReducer(
     reducer,
-    initialState(publicDate, stockId === "AAPL" ? "AAPL" : "삼성전자"),
+    initialState(publicDate, stockId === "APPL" ? "APPL" : "삼성전자"),
   );
-
-  console.log(stockId);
 
   const {
     period,
@@ -69,39 +69,44 @@ const DomesticStock = () => {
   const [quarterState, setQuarterState] = useState(true);
   const [openMainChartModal, setOpenMainChartModal] = useState(false);
 
-  const onClickPeriodButton = (numOfDates) => {
-    const newStartDate = getPreviousDate(endDate, numOfDates);
-    const startError = newStartDate >= publicDate ? false : true;
-    const targetStartDate =
-      newStartDate >= publicDate ? newStartDate : publicDate;
+  const onClickPeriodButton = useCallback(
+    (numOfDates) => {
+      const newStartDate = getPreviousDate(endDate, numOfDates);
+      const startError = newStartDate >= publicDate ? false : true;
+      const targetStartDate =
+        newStartDate >= publicDate ? newStartDate : publicDate;
 
-    const curDate = new Date();
-    const endError = curDate < endDate ? true : false;
-    const targetEndDate = curDate < endDate ? curDate : endDate;
+      const curDate = new Date();
+      const endError = curDate < endDate ? true : false;
+      const targetEndDate = curDate < endDate ? curDate : endDate;
 
-    setCurStartDate(targetStartDate);
-    setCurEndDate(targetEndDate);
+      setCurStartDate(targetStartDate);
+      setCurEndDate(targetEndDate);
 
-    dispatch(setPeriod(targetStartDate, targetEndDate, startError || endError));
-  };
+      dispatch(
+        setPeriod(targetStartDate, targetEndDate, startError || endError),
+      );
+    },
+    [endDate],
+  );
 
-  const onClickPeriodApplyButton = () => {
+  const onClickPeriodApplyButton = useCallback(() => {
     dispatch(setPeriod(curStartDate, curEndDate));
-  };
+  }, [curStartDate, curEndDate]);
 
-  const onToggleQuarterButton = () => {
+  const onToggleQuarterButton = useCallback(() => {
     setQuarterState((prev) => !prev);
-  };
+  }, []);
 
-  const onOpenModal = (e) => {
+  const onOpenModal = useCallback((e) => {
     e.preventDefault();
     setOpenMainChartModal(true);
-  };
+  }, []);
 
-  const onCloseModal = (e) => {
+  const onCloseModal = useCallback((e) => {
     e.stopPropagation();
     setOpenMainChartModal(false);
-  };
+  }, []);
 
   const filteredStockData = useMemo(
     () =>
@@ -135,12 +140,15 @@ const DomesticStock = () => {
   }, [startDate, endDate, newsDatas, positive, negative, neutral]);
 
   const onClickPrev = useCallback(() => {
+    if (currentPage === 1) return;
     setCurrentPage((prev) => prev - 1);
-  }, []);
+  }, [currentPage]);
 
   const onClickNext = useCallback(() => {
+    if (currentPage === Math.floor(filteredNewsData.length / newsPerPage))
+      return;
     setCurrentPage((prev) => prev + 1);
-  }, []);
+  }, [currentPage]);
 
   const onTogglePositive = useCallback(() => {
     setPositive((prev) => !prev);

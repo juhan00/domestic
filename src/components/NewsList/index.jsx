@@ -170,7 +170,7 @@ const PageUl = styled.ul`
   text-align: center;
   border-radius: 3px;
   color: black;
-  padding: 1px;
+  padding: 0 30px;
 `;
 
 const PageLi = styled.li`
@@ -199,22 +199,46 @@ const Pagination = ({
   onClickPrev,
   onClickNext,
 }) => {
-  const newsNumbers = [];
-  let z = totalNews / newsPerPage;
-  for (let i = 1; i <= z; i++) {
-    if (z > 10) z = 10;
-    newsNumbers.push(i);
-  }
+  const pageLimit = useMemo(
+    () => Math.floor(totalNews / newsPerPage),
+    [newsPerPage, totalNews],
+  );
+
+  const newsNumbers = useMemo(() => {
+    const temp = [];
+    let start =
+      currentPage + 10 > pageLimit
+        ? Math.floor(pageLimit) - 10 > 0
+          ? Math.floor(pageLimit) - 10
+          : 1
+        : currentPage;
+    let end =
+      currentPage > pageLimit
+        ? pageLimit
+        : currentPage + 10 > pageLimit
+        ? pageLimit
+        : currentPage + 10;
+
+    for (let i = start; i <= end; i++) {
+      temp.push(i);
+    }
+
+    return temp;
+  }, [pageLimit, currentPage]);
 
   return (
     <div style={{ position: "absolute", bottom: 10 }}>
       <nav>
         <PageUl className="pagination">
-          <PageLi
-            onClick={onClickPrev}
-            style={{
-              background: `url(${resent_slide_arrow_prev}) 50% 50% no-repeat`,
-            }}></PageLi>
+          {currentPage !== 1 && (
+            <PageLi
+              onClick={onClickPrev}
+              style={{
+                position: "absolute",
+                left: 0,
+                background: `url(${resent_slide_arrow_prev}) 50% 50% no-repeat`,
+              }}></PageLi>
+          )}
           {newsNumbers.map((number) => (
             <PageLi
               key={number}
@@ -226,11 +250,15 @@ const Pagination = ({
               </PageSpan>
             </PageLi>
           ))}
-          <PageLi
-            onClick={onClickNext}
-            style={{
-              background: `url(${resent_slide_arrow_next}) 50% 50% no-repeat`,
-            }}></PageLi>
+          {currentPage !== pageLimit && (
+            <PageLi
+              onClick={onClickNext}
+              style={{
+                position: "absolute",
+                right: 0,
+                background: `url(${resent_slide_arrow_next}) 50% 50% no-repeat`,
+              }}></PageLi>
+          )}
         </PageUl>
       </nav>
     </div>
