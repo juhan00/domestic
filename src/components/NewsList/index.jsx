@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from "react";
-import styled from "@emotion/styled";
+import React, { useMemo } from "react";
+
 import { timeFormat } from "d3";
 import icon_positive from "@images/icon_positive.svg";
 import icon_negative from "@images/icon_negative.svg";
@@ -8,11 +8,8 @@ import toggle_off from "@images/toggle_off.svg";
 import toggle_on_negative from "@images/toggle_on_negative.svg";
 import toggle_on_positive from "@images/toggle_on_positive.svg";
 import toggle_on_neutral from "@images/toggle_on_neutral.svg";
-import modal_open_icon from "@images/modal_open_icon.svg";
-import modal_close_icon from "@images/modal_close_icon.svg";
-import resent_slide_arrow_next from "@images/resent_slide_arrow_next.svg";
-import resent_slide_arrow_prev from "@images/resent_slide_arrow_prev.svg";
-import { NewsListContentWrapper } from "./style";
+
+import { NewsListContentWrapper, PageLi, PageUl, NewsWrapper } from "./style";
 
 const NewsList = ({
   data,
@@ -44,8 +41,8 @@ const NewsList = ({
   return (
     <div className="level1-news-list-wrapper">
       <NewsListContentWrapper>
-        <div className="title-wrapper">
-          <div className="title">
+        <div className="menu-title-wrapper">
+          <div className="menu-title">
             <div className="curtab">실시간뉴스</div>
             <div>뉴스리스트</div>
           </div>
@@ -76,12 +73,7 @@ const NewsList = ({
             </li>
           </ul>
         </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}>
+        <div className="content-wrapper">
           <News data={currentNews} />
           <Pagination
             currentPage={currentPage}
@@ -103,11 +95,11 @@ const News = ({ data }) => {
   const time = timeFormat("%Y.%m.%d");
   return (
     <>
-      <ul style={{ display: "flex", width: "100%", flexDirection: "column" }}>
+      <NewsWrapper>
         {data.length > 0 ? (
           data.map((ele) => (
-            <li key={ele.id}>
-              <div style={{ display: "flex" }}>
+            <li className="news-element" key={ele.id}>
+              <div className="content-wrapper">
                 <img
                   src={
                     ele.emotion === 0
@@ -116,46 +108,31 @@ const News = ({ data }) => {
                       ? icon_positive
                       : icon_negative
                   }
-                  alt="emotion_icon"
-                  style={{ margin: "28px 20px 28px 0" }}
+                  alt={
+                    ele.emotion === 0
+                      ? "icon_nuetral"
+                      : ele.emotion > 0
+                      ? "icon_positive"
+                      : "icon_negative"
+                  }
                 />
-                <div
-                  style={{ width: "100%", borderBottom: "1px solid #F0F0F6" }}>
-                  <div style={{ display: "flex", margin: "2px 0 12px 0" }}>
-                    <div>{ele.press}</div>
+                <div className="info-wrapper">
+                  <div className="info">
+                    <div>{ele.press}&nbsp;</div>
                     <div>{time(ele.date)}</div>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}>
-                    <a
-                      href={ele.url}
-                      target="_blank"
-                      style={{ all: "unset", cursor: "pointer" }}>
+                  <div className="news-title-wrapper">
+                    <a className="news-title" href={ele.url} target="_blank">
                       {ele.title}
                     </a>
-                    {/* <img src={modal_open_icon} /> */}
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      margin: "12px 0 15px",
-                    }}>
+                  <div className="keyword-wrapper">
                     {ele.keyword.map((ele) => (
-                      <div
-                        key={ele}
-                        style={{
-                          padding: "2px 12px 3px",
-                          background: "#F7F7FB",
-                          borderRadius: "31px",
-                        }}>
+                      <div className="keyword" key={ele}>
                         {ele}
                       </div>
                     ))}
                   </div>
-                  {/* <div>{ele.summarized}</div> */}
                 </div>
               </div>
             </li>
@@ -163,39 +140,10 @@ const News = ({ data }) => {
         ) : (
           <div>뉴스가 존재하지 않습니다.</div>
         )}
-      </ul>
+      </NewsWrapper>
     </>
   );
 };
-
-const PageUl = styled.ul`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  list-style: none;
-  text-align: center;
-  border-radius: 3px;
-  color: black;
-  padding: 0 30px;
-`;
-
-const PageLi = styled.li`
-  display: inline-block;
-  font-size: 17px;
-  font-weight: 600;
-  text-align: center;
-  padding: 5px;
-  border-radius: 5px;
-  width: 25px;
-  cursor: pointer;
-
-  & .active {
-    background: #286f6c;
-    border-radius: 50%;
-  }
-`;
-
-const PageSpan = styled.span``;
 
 const Pagination = ({
   newsPerPage,
@@ -237,13 +185,7 @@ const Pagination = ({
       <nav>
         <PageUl className="pagination">
           {currentPage !== 1 && (
-            <PageLi
-              onClick={onClickPrev}
-              style={{
-                position: "absolute",
-                left: 0,
-                background: `url(${resent_slide_arrow_prev}) 50% 50% no-repeat`,
-              }}></PageLi>
+            <PageLi onClick={onClickPrev} className="prev"></PageLi>
           )}
           {newsNumbers.map((number) => (
             <PageLi
@@ -251,19 +193,13 @@ const Pagination = ({
               className={
                 currentPage === number ? "page-item active" : "page-item"
               }>
-              <PageSpan onClick={() => paginate(number)} className="page-link">
+              <span onClick={() => paginate(number)} className="page-link">
                 {number}
-              </PageSpan>
+              </span>
             </PageLi>
           ))}
           {currentPage !== pageLimit && (
-            <PageLi
-              onClick={onClickNext}
-              style={{
-                position: "absolute",
-                right: 0,
-                background: `url(${resent_slide_arrow_next}) 50% 50% no-repeat`,
-              }}></PageLi>
+            <PageLi onClick={onClickNext} className="next"></PageLi>
           )}
         </PageUl>
       </nav>

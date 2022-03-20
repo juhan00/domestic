@@ -56,7 +56,6 @@ module.exports = {
       // https://yamoo9.gitbook.io/webpack/webpack/webpack-plugins/manage-env-variables
     }),
   ],
-  devtool: "eval-cheap-module-source-map",
   // 소스를 매핑하는 방법
   // 개발모드냐 프로덕션 모드냐에 따라 다르게함
   // https://webpack.kr/configuration/devtool/
