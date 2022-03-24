@@ -169,10 +169,14 @@ const Pagination = ({
 
     let start =
       end === pageLimit
-        ? pageLimit - 10
-        : Math.floor(end / 10) * 10 - 10 > 0
-        ? Math.floor(end / 10) * 10 - 10
+        ? pageLimit - 10 > 0
+          ? pageLimit - 10
+          : 1
+        : end - 10 > 0
+        ? end - 10
         : 1;
+
+    console.log(end === pageLimit, pageLimit, start, end);
     for (let i = start; i <= end; i++) {
       temp.push(i);
     }
