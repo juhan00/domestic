@@ -175,8 +175,6 @@ const Pagination = ({
         : end - 10 > 0
         ? end - 10
         : 1;
-
-    console.log(end === pageLimit, pageLimit, start, end);
     for (let i = start; i <= end; i++) {
       temp.push(i);
     }
