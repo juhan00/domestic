@@ -48,19 +48,6 @@ const CategoryChart = ({
       .attr("transform", `translate(${marginLeft / 2},${marginBottom / 2})`);
 
     const entireValue = sum(data, (data) => data.value);
-    if (!data[0].color) {
-      const colorArray = randomColor({
-        hue: "green",
-        luminosity: "light",
-        alpha: 0.1,
-        count: data.length,
-      });
-
-      data.map((ele, idx) => {
-        ele.percentage = ((ele.value * 100) / entireValue).toFixed(2);
-        ele.color = colorArray[idx];
-      });
-    }
 
     const createTree = treemap().size([
       width - marginLeft,

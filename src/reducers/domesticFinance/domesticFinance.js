@@ -211,6 +211,18 @@ const categoryDatas = [
   { title: "금융", value: 86 },
 ];
 
+const colorArray = randomColor({
+  hue: "green",
+  luminosity: "light",
+  alpha: 0.1,
+  count: categoryDatas.length,
+});
+
+categoryDatas.map((ele, idx) => {
+  ele.percentage = ((ele.value * 100) / entireValue).toFixed(2);
+  ele.color = colorArray[idx];
+});
+
 const pressDatas = [
   {
     title: "팍스넷",
