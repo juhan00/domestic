@@ -1,7 +1,8 @@
 const path = require("path");
 // 절대경로를 위한 모듈을 import
-const RefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-// 핫리로딩을 위한 플러그인
+
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 const webpack = require("webpack");
 // require("@babel/polyfill");
 
@@ -12,8 +13,6 @@ module.exports = {
     path: path.join(__dirname, "dist"),
     //경로
     filename: "bundle.js",
-    //결과물의 이름
-    publicPath: "/",
   },
   resolve: {
     extensions: [".js", ".jsx", "json"],
@@ -47,21 +46,9 @@ module.exports = {
       },
     ],
   },
-  plugins: [new RefreshWebpackPlugin()],
-  devServer: {
-    static: {
-      directory: path.join(__dirname, "public"),
-      //   서버에 정적파일의 위치를 알려줌
-    },
-    port: 3000,
-    hot: true,
-    historyApiFallback: true,
-    proxy: {
-      "/api": {
-        target: "",
-        changeOrigin: true,
-      },
-    },
-  },
-  //   https://webpack.js.org/configuration/dev-server/
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
+    }),
+  ],
 };
