@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from "react";
 import { select, sum, treemap, hierarchy, pointer } from "d3";
-import randomColor from "randomcolor";
 import isBright from "@utils/isBright";
 import { ChartWrapper } from "./style";
 import getTextWidth from "@utils/getTextWidth";

@@ -1,6 +1,7 @@
 import { getPreviousDate } from "@utils/getPreviousDate";
 import { getDateDiff } from "@utils/getDateDiff";
 import calculateMovingAverageLine from "@utils/calculateMovingAverageLine";
+import randomColor from "randomcolor";
 
 const getInitialPeriodDate = (publicDate) => {
   const endDate = new Date();
