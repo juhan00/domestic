@@ -6,12 +6,10 @@ const webpack = require("webpack");
 // require("@babel/polyfill");
 
 module.exports = {
-  mode: "development",
-  // 모드
   entry: "./src/index.js",
   //진입점이 될 파일
   output: {
-    path: path.join(__dirname, "public"),
+    path: path.join(__dirname, "dist"),
     //경로
     filename: "bundle.js",
     //결과물의 이름
@@ -49,16 +47,7 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new RefreshWebpackPlugin(),
-    new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify("development"),
-      // https://yamoo9.gitbook.io/webpack/webpack/webpack-plugins/manage-env-variables
-    }),
-  ],
-  // 소스를 매핑하는 방법
-  // 개발모드냐 프로덕션 모드냐에 따라 다르게함
-  // https://webpack.kr/configuration/devtool/
+  plugins: [new RefreshWebpackPlugin()],
   devServer: {
     static: {
       directory: path.join(__dirname, "public"),
