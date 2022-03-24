@@ -46,7 +46,6 @@ const CategoryChart = ({
       .attr("height", height - marginBottom)
       .attr("transform", `translate(${marginLeft / 2},${marginBottom / 2})`);
 
-    const entireValue = sum(data, (data) => data.value);
 
     const createTree = treemap().size([
       width - marginLeft,

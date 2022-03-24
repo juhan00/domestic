@@ -2,6 +2,7 @@ import { getPreviousDate } from "@utils/getPreviousDate";
 import { getDateDiff } from "@utils/getDateDiff";
 import calculateMovingAverageLine from "@utils/calculateMovingAverageLine";
 import randomColor from "randomcolor";
+import { sum } from "d3";
 
 const getInitialPeriodDate = (publicDate) => {
   const endDate = new Date();
@@ -211,6 +212,8 @@ const categoryDatas = [
   { title: "생활", value: 91 },
   { title: "금융", value: 86 },
 ];
+
+const entireValue = sum(categoryDatas, (data) => data.value);
 
 const colorArray = randomColor({
   hue: "green",
