@@ -4,7 +4,7 @@
   "description": "내 책상 위의 애널리스트, MoYa for Desktop📈",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --mode=development",
+    "start": "webpack --mode development",
     "build": "webpack",
     "dev": "webpack-dev-server --hot",
     "predeploy": "npm run build",
@@ -13,7 +13,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "homepage": "https://pshdev1030.github.io/domestic",
+  "homepage": "https://juhan00.github.io/domestic/",
   "devDependencies": {
     "@babel/core": "^7.17.2",
     "@babel/preset-env": "^7.16.11",
