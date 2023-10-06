@@ -33,7 +33,7 @@ const StockInfo = () => {
     let isComponentMounted = true;
     const fetch = async () => {
       const res = await axios.get(
-        `https://gyoheonlee.github.io/mobile-bank/data/api/${targetUrl}Recap.json`,
+        `https://juhan00.github.io/domestic_api/${targetUrl}Recap.json`,
       );
       if (isComponentMounted) {
         location.includes("domestic")

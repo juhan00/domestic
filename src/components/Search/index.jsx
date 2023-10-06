@@ -1,13 +1,13 @@
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import { clickOutside } from "@utils/clickOutside";
 import { SearchMenuStyleOnHeader } from "./style";
-import axios from "redaxios"
+import axios from "redaxios";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 
 export const Search = () => {
   const ref = useRef();
-  const location = useLocation().pathname
-  const navigate = useNavigate()
+  const location = useLocation().pathname;
+  const navigate = useNavigate();
   const [searchItem, setSearchItem] = useState("");
   const [domesticList, setDomesticList] = useState([]);
   const [globalList, setGlobalList] = useState([]);
@@ -20,10 +20,10 @@ export const Search = () => {
     let isComponentMounted = true;
     const fetchData = async () => {
       const domesticData = await axios.get(
-        "https://gyoheonlee.github.io/mobile-bank/data/api/doList.json",
+        "https://juhan00.github.io/domestic_api/doList.json",
       );
       const globalData = await axios.get(
-        "https://gyoheonlee.github.io/mobile-bank/data/api/goList.json",
+        "https://juhan00.github.io/domestic_api/goList.json",
       );
       if (isComponentMounted) {
         setDomesticList(domesticData.data.domestic);
@@ -63,26 +63,26 @@ export const Search = () => {
 
   const handleClick = (id) => {
     setIsOpen(false);
-    setSearchItem("")
-    navigate(`${location}?${id}`)
-  }
+    setSearchItem("");
+    navigate(`${location}?${id}`);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (location.includes("domestic")) {
       if (domesticFiltered.length >= 1) {
-      console.log(domesticFiltered[0].crno);       
-      } else if(domesticFiltered.length===0) {
-        null
+        console.log(domesticFiltered[0].crno);
+      } else if (domesticFiltered.length === 0) {
+        null;
       }
     } else if (location.includes("global")) {
       if (globalFiltered.length >= 1) {
-      console.log(globalFiltered[0].crno);       
-    } else if(globalFiltered.length===0) {
-      null
+        console.log(globalFiltered[0].crno);
+      } else if (globalFiltered.length === 0) {
+        null;
       }
     }
-  }
+  };
 
   clickOutside(ref, isOpen, setIsOpen);
 
@@ -102,20 +102,29 @@ export const Search = () => {
         </div>
         <div
           className={isOpen ? "seachResultWrapper" : "seachResultWrapper hide"}>
-            {location.includes('domestic') ? <ul className="searchResultList">
-            {domesticFiltered.map((list, index) => (
-                <li className="serachResultItem" key={index} onClick={()=>handleClick(list.crno)}>
+          {location.includes("domestic") ? (
+            <ul className="searchResultList">
+              {domesticFiltered.map((list, index) => (
+                <li
+                  className="serachResultItem"
+                  key={index}
+                  onClick={() => handleClick(list.crno)}>
                   <span>{list.itmsNm}</span> | {list.crno}
                 </li>
               ))}
-          </ul>: <ul className="searchResultList">
-            {globalFiltered.map((list, index) => (
-                <li className="serachResultItem" key={index} onClick={()=>handleClick(list.symbol)}>
+            </ul>
+          ) : (
+            <ul className="searchResultList">
+              {globalFiltered.map((list, index) => (
+                <li
+                  className="serachResultItem"
+                  key={index}
+                  onClick={() => handleClick(list.symbol)}>
                   <span>{list.symbol}</span> | {list.companyName}
                 </li>
               ))}
-          </ul>}
-          
+            </ul>
+          )}
         </div>
       </div>
     </SearchMenuStyleOnHeader>

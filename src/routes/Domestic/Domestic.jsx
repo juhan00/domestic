@@ -40,7 +40,7 @@ const Domestic = () => {
     let isApiSubscribed = true;
     const stockIndexFetch = async () => {
       const res = await axios.get(
-        "https://gyoheonlee.github.io/mobile-bank/data/api/stockIndexData.json",
+        "https://juhan00.github.io/domestic_api/stockIndexData.json",
       );
       if (isApiSubscribed) {
         setTimeout(() => {
@@ -58,7 +58,7 @@ const Domestic = () => {
     let isApiSubscribed = true;
     const topStockFetch = async () => {
       const res = await axios.get(
-        "https://gyoheonlee.github.io/mobile-bank/data/api/topStockData.json",
+        "https://juhan00.github.io/domestic_api/topStockData.json",
       );
       if (isApiSubscribed) {
         setTimeout(() => {
@@ -75,7 +75,7 @@ const Domestic = () => {
     let isApiSubscribed = true;
     const stockNewsFetch = async () => {
       const res = await axios.get(
-        "https://gyoheonlee.github.io/mobile-bank/data/api/MajorStockNewsData.json",
+        "https://juhan00.github.io/domestic_api/MajorStockNewsData.json",
       );
       if (isApiSubscribed) {
         setTimeout(() => {
@@ -92,7 +92,7 @@ const Domestic = () => {
     let isApiSubscribed = true;
     const exchangeRateFetch = async () => {
       const res = await axios.get(
-        "https://gyoheonlee.github.io/mobile-bank/data/api/exchangeRateData.json",
+        "https://juhan00.github.io/domestic_api/exchangeRateData.json",
       );
       if (isApiSubscribed) {
         setTimeout(() => {
@@ -109,7 +109,7 @@ const Domestic = () => {
     let isApiSubscribed = true;
     const marketIndiFetch = async () => {
       const res = await axios.get(
-        "https://gyoheonlee.github.io/mobile-bank/data/api/marketIndiData.json",
+        "https://juhan00.github.io/domestic_api/marketIndiData.json",
       );
       if (isApiSubscribed) {
         setTimeout(() => {

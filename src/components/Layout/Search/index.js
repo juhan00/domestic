@@ -64,10 +64,10 @@ const Search = () => {
     let isComponentMounted = true;
     const fetchData = async () => {
       const domesticData = await axios.get(
-        "https://gyoheonlee.github.io/mobile-bank/data/api/doList.json",
+        "https://juhan00.github.io/domestic_api/doList.json",
       );
       const globalData = await axios.get(
-        "https://gyoheonlee.github.io/mobile-bank/data/api/goList.json",
+        "https://juhan00.github.io/domestic_api/goList.json",
       );
       if (isComponentMounted) {
         setDomesticList(domesticData.data.domestic);
